@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Vue 插槽 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="插槽 是Vue实现的一套内容分发的API，将元素作为承载分发内容的出口。这句话的意思就是，没有插槽的情况下在组件标签内些一些内容是不起任何作用的，当我在组件中声明了slot元素后，在组件元素内写的内容就会跑到它（插槽）这里了！ 单个插槽除非子组件模板至少包含一个 &amp;lt;slot&amp;gt; 插口，否则父组件的内容将会被丢弃。当子组件只有一个没有属性的插槽时，父组件传入 的整个内容片段将插入到插槽所在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 插槽">
+<meta property="og:url" content="http://yoursite.com/2018/08/22/Vue/Vue_插槽/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="插槽 是Vue实现的一套内容分发的API，将元素作为承载分发内容的出口。这句话的意思就是，没有插槽的情况下在组件标签内些一些内容是不起任何作用的，当我在组件中声明了slot元素后，在组件元素内写的内容就会跑到它（插槽）这里了！ 单个插槽除非子组件模板至少包含一个 &amp;lt;slot&amp;gt; 插口，否则父组件的内容将会被丢弃。当子组件只有一个没有属性的插槽时，父组件传入 的整个内容片段将插入到插槽所在">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-13T06:14:12.372Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue 插槽">
+<meta name="twitter:description" content="插槽 是Vue实现的一套内容分发的API，将元素作为承载分发内容的出口。这句话的意思就是，没有插槽的情况下在组件标签内些一些内容是不起任何作用的，当我在组件中声明了slot元素后，在组件元素内写的内容就会跑到它（插槽）这里了！ 单个插槽除非子组件模板至少包含一个 &amp;lt;slot&amp;gt; 插口，否则父组件的内容将会被丢弃。当子组件只有一个没有属性的插槽时，父组件传入 的整个内容片段将插入到插槽所在">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Vue/Vue_插槽" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/22/Vue/Vue_插槽/" class="article-date">
+  <time datetime="2018-08-22T03:28:37.839Z" itemprop="datePublished">2018-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue 插槽
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>插槽</code> 是Vue实现的一套内容分发的API，将<slot></slot>元素作为承载分发内容的出口。<br>这句话的意思就是，没有插槽的情况下在组件标签内些一些内容是不起任何作用的，当我在组件中声明了slot元素后，在组件元素内写的内容就会跑到它（插槽）这里了！</p>
+<h3 id="单个插槽"><a href="#单个插槽" class="headerlink" title="单个插槽"></a>单个插槽</h3><p>除非子组件模板至少包含一个 <code>&lt;slot&gt;</code> 插口，否则父组件的内容将会被丢弃。<br><code>当子组件只有一个没有属性的插槽时，父组件传入 的整个内容片段将插入到插槽所在的 DOM 位置，并替换掉插槽标签本身。</code></p>
+<h4 id="备用内容"><a href="#备用内容" class="headerlink" title="备用内容"></a>备用内容</h4><p>最初在 <slot> 标签中的任何内容都被视为备用内容。备用内容在子组件的作用域内编译，并且只有在宿主元素为空，且没有要插入的内容时才显示备用内容。</slot></p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>子组件 <my-component> 模板：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h2&gt;我是子组件的标题&lt;/h2&gt;</span><br><span class="line">  &lt;slot&gt;</span><br><span class="line">    只有在没有要分发的内容时才会显示。</span><br><span class="line">  &lt;/slot&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></my-component></p>
+<p>父组件模板：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h1&gt;我是父组件的标题&lt;/h1&gt;</span><br><span class="line">  &lt;my-component&gt;</span><br><span class="line">    &lt;p&gt;这是一些初始内容&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;这是更多的初始内容&lt;/p&gt;</span><br><span class="line">  &lt;/my-component&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>渲染结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h1&gt;我是父组件的标题&lt;/h1&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;我是子组件的标题&lt;/h2&gt;</span><br><span class="line">    &lt;p&gt;这是一些初始内容&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;这是更多的初始内容&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="具名插槽"><a href="#具名插槽" class="headerlink" title="具名插槽"></a>具名插槽</h3><p>场景：设计组合使用的组件时，<code>内容分发</code> 时非常有用的机制；</p>
+<p><code>&lt;slot&gt;</code> 元素可以用一个特殊的特性 <code>name</code> 来进一步配置如何分发内容。多个插槽可以有不同的名字。具名插槽将匹配内容片段中有对应 slot 特性的元素。</p>
+<h4 id="匿名插槽"><a href="#匿名插槽" class="headerlink" title="匿名插槽"></a>匿名插槽</h4><p>有具名插槽的情况下，还是可以有一个匿名插槽（没有name的插槽），它是默认插槽，作为找不到匹配的内容片段的备用插槽。如果没有默认插槽，这些找不到匹配内容片段将被抛弃。</p>
+<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h4><p>子组件 <app-layout> 模板：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"container"</span>&gt;</span><br><span class="line">  &lt;header&gt;</span><br><span class="line">    &lt;slot name=<span class="string">"header"</span>&gt;&lt;/slot&gt;</span><br><span class="line">  &lt;/header&gt;</span><br><span class="line">  &lt;main&gt;</span><br><span class="line">    &lt;slot&gt;&lt;/slot&gt;</span><br><span class="line">  &lt;/main&gt;</span><br><span class="line">  &lt;footer&gt;</span><br><span class="line">    &lt;slot name=<span class="string">"footer"</span>&gt;&lt;/slot&gt;</span><br><span class="line">  &lt;/footer&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></app-layout></p>
+<p>父组件模板：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-layout&gt;</span><br><span class="line">  &lt;h1 slot=<span class="string">"header"</span>&gt;这里可能是一个页面标题&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">  &lt;p&gt;主要内容的一个段落。&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;另一个主要段落。&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">  &lt;p slot=<span class="string">"footer"</span>&gt;这里有一些联系信息&lt;/p&gt;</span><br><span class="line">&lt;/app-layout&gt;</span><br></pre></td></tr></table></figure></p>
+<p>渲染结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"container"</span>&gt;</span><br><span class="line">  &lt;header&gt;</span><br><span class="line">    &lt;h1&gt;这里可能是一个页面标题&lt;/h1&gt;</span><br><span class="line">  &lt;/header&gt;</span><br><span class="line">  &lt;main&gt;</span><br><span class="line">    &lt;p&gt;主要内容的一个段落。&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;另一个主要段落。&lt;/p&gt;</span><br><span class="line">  &lt;/main&gt;</span><br><span class="line">  &lt;footer&gt;</span><br><span class="line">    &lt;p&gt;这里有一些联系信息&lt;/p&gt;</span><br><span class="line">  &lt;/footer&gt;</span><br><span class="line"> &lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="作用域插槽"><a href="#作用域插槽" class="headerlink" title="作用域插槽"></a>作用域插槽</h3><blockquote>
+<p>作用域插槽：用作一个（能被传递数据的）可重用模板，来代替已经渲染好的元素。</p>
+</blockquote>
+<p>在子组件中，只需将数据传递到插槽，就像你将 prop 传递给组件一样：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"child"</span>&gt;</span><br><span class="line">   &lt;slot text=<span class="string">"hello from child"</span>&gt;&lt;/slot&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在父级中，具有特殊特性 <code>slot-scope</code> 的 <temlpate> 元素必须存在，表示它是作用域插槽的模板。slot-scope 的值将被用作一个临时变量名，此变量接收从子组件传递过来的 <code>prop</code> 对象。</temlpate></p>
+<blockquote>
+<p>子组件通过props接收来自父组件通过v-bind绑定在子组件标签上传过来的数据<br>作用域插槽的slot-scope恰恰相反，是父组件接收来自子组件的slot标签上通过v-bind绑定进而传递过来的数据</p>
+</blockquote>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>子组件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"child"</span>&gt;</span><br><span class="line">   &lt;slot text=<span class="string">"hello from child"</span>&gt;&lt;/slot&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>父级模板：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"parent"</span>&gt;</span><br><span class="line">  &lt;child&gt;</span><br><span class="line">    &lt;template slot-scope=<span class="string">"props"</span>&gt;</span><br><span class="line">      &lt;span&gt;hello from parent&lt;/span&gt;</span><br><span class="line">      &lt;span&gt;&#123;&#123; props.text &#125;&#125;&lt;/span&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">  &lt;/child&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>渲染结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"parent"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;</span><br><span class="line">    &lt;span&gt;hello from parent&lt;/span&gt;</span><br><span class="line">    &lt;span&gt;hello from child&lt;/span&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>在 2.5.0+，slot-scope 能被用在任意元素或组件中而不再局限于 <template></template></p>
+</blockquote>
+<p>作用域插槽更典型的用例是在 <code>列表组件</code> 中，允许使用者自定义如何渲染列表的每一项。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">	&lt;child :items=<span class="string">"items"</span>&gt;</span><br><span class="line">	    &lt;template slot=<span class="string">"item"</span> scope=<span class="string">"props"</span>&gt;</span><br><span class="line">	        &lt;!--必须存在的具有 scope属性的 template元素（作用域插槽的模板），</span><br><span class="line">	        props临时的变量名称，接受子组件中传递的props对象--&gt;</span><br><span class="line">	        &lt;!--slot = “item”是具名 slot的用法。--&gt;</span><br><span class="line">	        &lt;li&gt;</span><br><span class="line">	            &#123;&#123;props.tex&#125;&#125;</span><br><span class="line">	            &lt;!--引用子组件中绑定的tex属性值。--&gt;</span><br><span class="line">	        &lt;/li&gt;</span><br><span class="line">	    &lt;/template&gt;</span><br><span class="line">	&lt;/child&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>列表组件模板：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">Vue.component(<span class="string">'child'</span>, &#123;</span><br><span class="line">    props:[<span class="string">"items"</span>],</span><br><span class="line">    template: `&lt;ul&gt;</span><br><span class="line">		&lt;slot name=<span class="string">"item"</span> v-for=<span class="string">"item in items"</span> v-bind:text=<span class="string">"item.text"</span>&gt;&lt;/slot&gt;</span><br><span class="line">	&lt;/ul&gt;`</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">    el:<span class="string">'#app'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        items:[</span><br><span class="line">            &#123;text:<span class="string">'实例1'</span>&#125;,</span><br><span class="line">            &#123;text:<span class="string">'实例2'</span>&#125;,</span><br><span class="line">            &#123;text:<span class="string">'实例3'</span>&#125;,</span><br><span class="line">            &#123;text:<span class="string">'实例4'</span>&#125;,</span><br><span class="line">            &#123;text:<span class="string">'实例5'</span>&#125;,</span><br><span class="line">            &#123;text:<span class="string">'实例6'</span>&#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>渲染结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">        &lt;li&gt;实例1&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;实例2&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;实例3&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;实例4&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;实例5&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;实例6&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line"> &lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/08/22/Vue/Vue_插槽/" data-id="cjl4kwu3u000f3gnd8g50w5n3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/22/Vue/Vue_渡一笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Vue渡一笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/22/Vue/Vue_全家桶/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/22/Vue/Operating_environment/Vue_vue-cli/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/22/Vue/Vue_过渡动画/">过渡 &amp; 动画</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/22/Vue/Vue_第六章_组件/">详谈组件</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/22/Vue/Vue_渡一笔记/">Vue渡一笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/22/Vue/Vue_插槽/">Vue 插槽</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

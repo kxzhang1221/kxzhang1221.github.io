@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="title: Vue-cli 的安装与使用安装安装前所需要的环境：Node.js、npm、Gitnode、git去相应的官网下载；淘宝镜像：1npm install -g cnpm --registry=https://registry.npm.taobao.org 安装好淘宝镜像，后续就可以使用 cnpm 指令。 git配置用户名和邮箱12git config --global user.na">
+<meta name="description" content="Vue.js是什么 Vue.js：简单小巧的核心，渐进式技术栈，足以应付任何规模的应用。  Vue.js 提供了现代Web开发中常见的高级功能，比如  解耦视图与数据 可复用的组件 前端路由 状态管理 虚拟DOM  MVVM模式Vue.js同Angular、Ember一样采用 MVVM（Model-View-View-Model） 模式。 MVVM模式分为Model、View、ViewModel三">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Full Stuck">
-<meta property="og:url" content="http://yoursite.com/2018/08/22/Vue/Operating_environment/Vue_vue-cli/index.html">
+<meta property="og:title" content="初识Vue.js">
+<meta property="og:url" content="http://yoursite.com/2018/08/24/Vue/Vue.js实战/Vue实战_初识vuejs/index.html">
 <meta property="og:site_name" content="Full Stuck">
-<meta property="og:description" content="title: Vue-cli 的安装与使用安装安装前所需要的环境：Node.js、npm、Gitnode、git去相应的官网下载；淘宝镜像：1npm install -g cnpm --registry=https://registry.npm.taobao.org 安装好淘宝镜像，后续就可以使用 cnpm 指令。 git配置用户名和邮箱12git config --global user.na">
+<meta property="og:description" content="Vue.js是什么 Vue.js：简单小巧的核心，渐进式技术栈，足以应付任何规模的应用。  Vue.js 提供了现代Web开发中常见的高级功能，比如  解耦视图与数据 可复用的组件 前端路由 状态管理 虚拟DOM  MVVM模式Vue.js同Angular、Ember一样采用 MVVM（Model-View-View-Model） 模式。 MVVM模式分为Model、View、ViewModel三">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-22T06:18:21.876Z">
+<meta property="og:updated_time" content="2018-08-24T03:19:55.365Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Full Stuck">
-<meta name="twitter:description" content="title: Vue-cli 的安装与使用安装安装前所需要的环境：Node.js、npm、Gitnode、git去相应的官网下载；淘宝镜像：1npm install -g cnpm --registry=https://registry.npm.taobao.org 安装好淘宝镜像，后续就可以使用 cnpm 指令。 git配置用户名和邮箱12git config --global user.na">
+<meta name="twitter:title" content="初识Vue.js">
+<meta name="twitter:description" content="Vue.js是什么 Vue.js：简单小巧的核心，渐进式技术栈，足以应付任何规模的应用。  Vue.js 提供了现代Web开发中常见的高级功能，比如  解耦视图与数据 可复用的组件 前端路由 状态管理 虚拟DOM  MVVM模式Vue.js同Angular、Ember一样采用 MVVM（Model-View-View-Model） 模式。 MVVM模式分为Model、View、ViewModel三">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/22/Vue/Operating_environment/Vue_vue-cli/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/24/Vue/Vue.js实战/Vue实战_初识vuejs/"/>
 
 
 
 
 
-  <title> | Full Stuck</title>
+  <title>初识Vue.js | Full Stuck</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Operating_environment/Vue_vue-cli/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/24/Vue/Vue.js实战/Vue实战_初识vuejs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kexinzhang">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">初识Vue.js</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
-                2018-08-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T11:06:03+08:00">
+                2018-08-24
               </time>
             
 
@@ -299,19 +299,20 @@
       
 
       
-        <hr>
-<h2 id="title-Vue-cli-的安装与使用"><a href="#title-Vue-cli-的安装与使用" class="headerlink" title="title: Vue-cli 的安装与使用"></a>title: Vue-cli 的安装与使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装前所需要的环境：Node.js、npm、Git<br>node、git去相应的官网下载；<br>淘宝镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
-<p>安装好淘宝镜像，后续就可以使用 <code>cnpm</code> 指令。</p>
-<p>git配置用户名和邮箱<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name xxx</span><br><span class="line">git config --global user.email xxx</span><br></pre></td></tr></table></figure></p>
-<p>打开cmd，全局安装<code>vue-cli</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g vue-cli</span><br></pre></td></tr></table></figure></p>
-<p>查看安装状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vue --version</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">vue -V</span><br></pre></td></tr></table></figure></p>
-<p>显示版本号即为安装成功。</p>
-<p>vue创建项目的方式（6种）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue list</span><br></pre></td></tr></table></figure></p>
-<p>快速生成一个vue项目，需要跳转到需要创建vue项目的文件夹中：</p>
-<h3 id="官方模板"><a href="#官方模板" class="headerlink" title="官方模板"></a>官方模板</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vue init &lt;template-name&gt;(6个) &lt;project-name&gt;</span></span><br><span class="line">vue init webpack vue-lesson</span><br></pre></td></tr></table></figure>
-<p>生成一个vue-lesson的文件夹，里面的文件同webpack。</p>
-<p>进入项目文件夹，安装依赖：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> vue-lesson</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
-<p>开启一个测试服务器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure></p>
+        <h3 id="Vue-js是什么"><a href="#Vue-js是什么" class="headerlink" title="Vue.js是什么"></a>Vue.js是什么</h3><blockquote>
+<p>Vue.js：简单小巧的核心，渐进式技术栈，足以应付任何规模的应用。</p>
+</blockquote>
+<p>Vue.js 提供了现代Web开发中常见的高级功能，比如</p>
+<ul>
+<li>解耦视图与数据</li>
+<li>可复用的组件</li>
+<li>前端路由</li>
+<li>状态管理</li>
+<li>虚拟DOM</li>
+</ul>
+<h4 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h4><p>Vue.js同Angular、Ember一样采用 <code>MVVM</code>（Model-View-View-Model） 模式。</p>
+<p>MVVM模式分为Model、View、ViewModel三块，View和ViewModel之间通过双向数据绑定（data-binding）建立联系。</p>
+<h4 id="Vue-js的不同"><a href="#Vue-js的不同" class="headerlink" title="Vue.js的不同"></a>Vue.js的不同</h4><p>jQuery，操作DOM、绑定事件等原生JavaScript能力，功能复杂不便于维护；<br>Vue.js通过MVVM模式拆分为 <code>视图</code> 与 <code>数据</code> 两部分，将其分离。我们只需要关注数据即可，DOM操作Vue会自动搞定。</p>
 
       
     </div>
@@ -336,8 +337,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/22/Vue/Vue进阶篇/Vue_过渡动画/" rel="next" title="过渡 & 动画">
-                <i class="fa fa-chevron-left"></i> 过渡 & 动画
+              <a href="/2018/08/22/Vue/Operating_environment/Vue_vue-cli/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -346,8 +347,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/24/Vue/Vue.js实战/Vue实战_初识vuejs/" rel="prev" title="初识Vue.js">
-                初识Vue.js <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/24/Vue/Vue.js实战/Vue实战_数据绑定和第一个Vue应用/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -462,7 +463,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-Vue-cli-的安装与使用"><span class="nav-number">1.</span> <span class="nav-text">title: Vue-cli 的安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方模板"><span class="nav-number">1.2.</span> <span class="nav-text">官方模板</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-js是什么"><span class="nav-number">1.</span> <span class="nav-text">Vue.js是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MVVM模式"><span class="nav-number">1.1.</span> <span class="nav-text">MVVM模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-js的不同"><span class="nav-number">1.2.</span> <span class="nav-text">Vue.js的不同</span></a></li></ol></li></ol></div>
             
 
           </div>

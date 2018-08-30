@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="环境配置及目录解释打开网址，即可看见图标字体成功显示 实现页面整体分析：头部区header、tap切换（路由）、内容区content（购物车） Tab区组件编写定义三个组件goods、ratings、sellers在 /src/router 下的index.js中引入三个组件，并定义路由规则编写组件 安装stylus、stylus-loader12cnpm install styluscnpm i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渡一外卖系统">
+<meta property="og:url" content="http://yoursite.com/2018/08/27/Vue/Vue项目篇/sell外卖系统/index.html">
+<meta property="og:site_name" content="Full Stuck">
+<meta property="og:description" content="环境配置及目录解释打开网址，即可看见图标字体成功显示 实现页面整体分析：头部区header、tap切换（路由）、内容区content（购物车） Tab区组件编写定义三个组件goods、ratings、sellers在 /src/router 下的index.js中引入三个组件，并定义路由规则编写组件 安装stylus、stylus-loader12cnpm install styluscnpm i">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-30T06:20:56.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="渡一外卖系统">
+<meta name="twitter:description" content="环境配置及目录解释打开网址，即可看见图标字体成功显示 实现页面整体分析：头部区header、tap切换（路由）、内容区content（购物车） Tab区组件编写定义三个组件goods、ratings、sellers在 /src/router 下的index.js中引入三个组件，并定义路由规则编写组件 安装stylus、stylus-loader12cnpm install styluscnpm i">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/27/Vue/Vue项目篇/sell外卖系统/"/>
+
+
+
+
+
+  <title>渡一外卖系统 | Full Stuck</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Full Stuck</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/Vue/Vue项目篇/sell外卖系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">渡一外卖系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-27T15:24:33+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="环境配置及目录解释"><a href="#环境配置及目录解释" class="headerlink" title="环境配置及目录解释"></a>环境配置及目录解释</h3><p>打开网址，即可看见图标字体成功显示</p>
+<h3 id="实现页面"><a href="#实现页面" class="headerlink" title="实现页面"></a>实现页面</h3><p>整体分析：头部区header、tap切换（路由）、内容区content（购物车）</p>
+<h4 id="Tab区"><a href="#Tab区" class="headerlink" title="Tab区"></a>Tab区</h4><h5 id="组件编写"><a href="#组件编写" class="headerlink" title="组件编写"></a>组件编写</h5><p>定义三个组件goods、ratings、sellers<br>在 /src/router 下的index.js中引入三个组件，并定义路由规则<br>编写组件</p>
+<p>安装stylus、stylus-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm install stylus</span><br><span class="line">cnpm install stylus-loader</span><br></pre></td></tr></table></figure></p>
+<p>安装postcss-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install postcss-loader</span><br></pre></td></tr></table></figure></p>
+<p>安装css-loader，解析css<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install css-loader</span><br></pre></td></tr></table></figure></p>
+<p>安装style-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install style-loader</span><br></pre></td></tr></table></figure></p>
+<h5 id="样式编写"><a href="#样式编写" class="headerlink" title="样式编写"></a>样式编写</h5><p>src/assets 引入图片、stylus文件夹（里面有stylus三个基础.styl文件）<br>/static 中引入 reset.css</p>
+<p>在根目录下的index.html中通过 link 标签引入 reset.css<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"static/reset.css"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="sell项目书写步骤、"><a href="#sell项目书写步骤、" class="headerlink" title="sell项目书写步骤、"></a>sell项目书写步骤、</h3><h4 id="1-将项目分为三块header、tab、content"><a href="#1-将项目分为三块header、tab、content" class="headerlink" title="1.将项目分为三块header、tab、content"></a>1.将项目分为三块header、tab、content</h4><h4 id="2-tab区添加路由"><a href="#2-tab区添加路由" class="headerlink" title="2.tab区添加路由"></a>2.tab区添加路由</h4><h4 id="3-书写header组件"><a href="#3-书写header组件" class="headerlink" title="3.书写header组件"></a>3.书写header组件</h4><ul>
+<li>axios导入数据</li>
+<li>app.vue传递值给header组件（父组件传子组件）</li>
+<li>然后编写样式</li>
+</ul>
+<h4 id="goods区域事件"><a href="#goods区域事件" class="headerlink" title="goods区域事件"></a>goods区域事件</h4><p>点击事件</p>
+<p>滑动事件</p>
+<h3 id="sell项目中遇到的坑"><a href="#sell项目中遇到的坑" class="headerlink" title="sell项目中遇到的坑"></a>sell项目中遇到的坑</h3><h4 id="父组件异步获取数据传递到子组件中"><a href="#父组件异步获取数据传递到子组件中" class="headerlink" title="父组件异步获取数据传递到子组件中"></a>父组件异步获取数据传递到子组件中</h4><p>父组件通过axios异步获取数据，传递给子组件，发现子组件的created先于父组件的created执行，子组件获取不到数据；<br>解决方法：父组件template标签中引入子组件的时候添加一个判断条件，判断要传的数据是否为空，不为空时就渲染子组件，注意此时要传的数据初始值要设为undefined，不能设为空对象{}。</p>
+<h3 id="sell项目遇到的知识点"><a href="#sell项目遇到的知识点" class="headerlink" title="sell项目遇到的知识点"></a>sell项目遇到的知识点</h3><h4 id="mockjs模拟数据"><a href="#mockjs模拟数据" class="headerlink" title="mockjs模拟数据"></a>mockjs模拟数据</h4><p>mock官网：<a href="http://mockjs.com/" target="_blank" rel="noopener">http://mockjs.com/</a></p>
+<p>具体步骤：<br>1、下载两个插件mockjs、axios：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm install mockjs --save-dev</span><br><span class="line"></span><br><span class="line">cnpm install axios --save</span><br></pre></td></tr></table></figure></p>
+<p>2、在根目录下新建mock文件夹，创建 index.js文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 引入 mock 和 data</span><br><span class="line">import Mock from <span class="string">'mockjs'</span></span><br><span class="line">import data from <span class="string">'../data.json'</span></span><br><span class="line"></span><br><span class="line">// Mock.mock(rurl, template) ==&gt; </span><br><span class="line">// 记录数据模板，当拦截到匹配rurl的Ajax请求时，</span><br><span class="line">// 将根据数据模板template生成模拟数据，并作为响应式数据返回 </span><br><span class="line">Mock.mock(<span class="string">'/good/seller'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.seller</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Mock.mock(<span class="string">'/good/goods'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.goods</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Mock.mock(<span class="string">'/good/ratings'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.ratings</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>3、在src目录下的的main.js引入mockjs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import <span class="string">'/mock/index'</span></span><br></pre></td></tr></table></figure></p>
+<p>4、在要用mock数据的组件中引入axios（app.vue），并且调用mock数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import axios from <span class="string">'axios'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  name: <span class="string">'HelloWorld'</span>,</span><br><span class="line">  <span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Welcome to Your Vue.js App'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span></span> () &#123;</span><br><span class="line">    // axios发送get请求，请求返回数据为 res</span><br><span class="line">    axios.get(<span class="string">'/good/seller'</span>).<span class="keyword">then</span>(</span><br><span class="line">      res =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.data.code === 0) &#123;</span><br><span class="line">          this.seller = res.data.data</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="图标字体"><a href="#图标字体" class="headerlink" title="图标字体"></a>图标字体</h4><p>官网：<a href="https://icomoon.io/#home" target="_blank" rel="noopener">https://icomoon.io/#home</a></p>
+<p>具体步骤：<br>1、进入官网，点击有上角 IcoMoon App，点击左上角的Import Icons，导入svg格式的文件；</p>
+<p>2、选中需要生成图表文字的icons，点击右下角的 Generate Font，生成图表文字，并点击右下角Download进行下载；</p>
+<p>3、下载的文件将其中的style.css、fonts文件夹复制到根目录下的static文件夹下，；</p>
+<p>4、直接在根目录下的 index.html 中通过 <link rel="stylesheet" href="./static/style.css"> 引入style.css 或者在要用到的页面通过 import 引入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import <span class="string">'../../static/style.css'</span></span><br></pre></td></tr></table></figure></p>
+<p>5、style导入需要的三个依赖、包（了解）：stylus-loader、postcss-loader、css-loader，通过终端下载即可：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm install stylus-loader --save</span><br><span class="line">cnpm install postcss-loader --save</span><br><span class="line">cnpm install css-loader --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>6、在需要图标字体的地方加上style.css中相应图表的类名</p>
+<p>注意一下style.css文件中的fonts路径，需要根据实际的路径关系修改！</p>
+<h4 id="路由管理"><a href="#路由管理" class="headerlink" title="路由管理"></a>路由管理</h4><p>vue-router使用<br>1、app.vue页面中引入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=<span class="string">"xxx"</span>&gt;</span><br><span class="line">&lt;router-view :seller=<span class="string">"seller"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2、router路由管理者<br>router文件夹中index.js中，引入需要的组件，调用Vue.use(Router)，导出创建的Router实例。</p>
+<h4 id="stylus语法"><a href="#stylus语法" class="headerlink" title="stylus语法"></a>stylus语法</h4><p>stylus是一个css预加载处理器</p>
+<h4 id="父子组件间的传值"><a href="#父子组件间的传值" class="headerlink" title="父子组件间的传值"></a>父子组件间的传值</h4><p>1、父组件<br>通过v-bind绑定数据，注意使用v-if判断数据是否存在，存在才对子组件进行渲染，此时的seller初始值不能设为空对象{}，应该设为不占位置的undfined；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;v-header v-if=<span class="string">"seller"</span> :seller=<span class="string">"seller"</span>&gt;&lt;/v-header&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">	<span class="built_in">return</span> &#123;</span><br><span class="line">  		seller: undefined</span><br><span class="line">  		// seller: &#123;&#125; ==&gt; 该情况下 seller == <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、子组件<br>子组件通过props接收来自父组件传递的数据，在子组件中可以随意使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    seller: &#123;</span><br><span class="line">      <span class="built_in">type</span>: Object</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="样式切换"><a href="#样式切换" class="headerlink" title="样式切换"></a>样式切换</h4><p>利用一个v-bind绑定class属性，遍历一个classMap数组，根据数组内的计算结果判断采用哪一个class类名：<br>HTML:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class=<span class="string">"icon bg-image"</span> :class=<span class="string">"classMap[seller.supports[0].type]"</span>&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
+<p>JavaScript：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.classMap = [<span class="string">'decrease'</span>, <span class="string">'discount'</span>, <span class="string">'special'</span>, <span class="string">'invoice_1'</span>, <span class="string">'guarantee'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>CSS：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&amp;.decrease</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'decrease_1'</span>)</span><br><span class="line">&amp;.discount</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'discount_1'</span>)</span><br><span class="line">&amp;.guarantee</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'guarantee_1'</span>)</span><br><span class="line">&amp;.invoice</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'invoice_1'</span>)</span><br><span class="line">&amp;.special</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'special_1'</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="better-scroll"><a href="#better-scroll" class="headerlink" title="better-scroll"></a>better-scroll</h4><p>better-scroll 是一款重点解决移动端（现已支持 PC 端）各种滚动场景需求的插件</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/24/Vue/Vue.js实战/Vue实战_数据绑定和第一个Vue应用/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/30/Vue/Vue目录版/" rel="prev" title="Vue">
+                Vue <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kexinzhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境配置及目录解释"><span class="nav-number">1.</span> <span class="nav-text">环境配置及目录解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现页面"><span class="nav-number">2.</span> <span class="nav-text">实现页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tab区"><span class="nav-number">2.1.</span> <span class="nav-text">Tab区</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#组件编写"><span class="nav-number">2.1.1.</span> <span class="nav-text">组件编写</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#样式编写"><span class="nav-number">2.1.2.</span> <span class="nav-text">样式编写</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sell项目书写步骤、"><span class="nav-number">3.</span> <span class="nav-text">sell项目书写步骤、</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-将项目分为三块header、tab、content"><span class="nav-number">3.1.</span> <span class="nav-text">1.将项目分为三块header、tab、content</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-tab区添加路由"><span class="nav-number">3.2.</span> <span class="nav-text">2.tab区添加路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-书写header组件"><span class="nav-number">3.3.</span> <span class="nav-text">3.书写header组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#goods区域事件"><span class="nav-number">3.4.</span> <span class="nav-text">goods区域事件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sell项目中遇到的坑"><span class="nav-number">4.</span> <span class="nav-text">sell项目中遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#父组件异步获取数据传递到子组件中"><span class="nav-number">4.1.</span> <span class="nav-text">父组件异步获取数据传递到子组件中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sell项目遇到的知识点"><span class="nav-number">5.</span> <span class="nav-text">sell项目遇到的知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mockjs模拟数据"><span class="nav-number">5.1.</span> <span class="nav-text">mockjs模拟数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图标字体"><span class="nav-number">5.2.</span> <span class="nav-text">图标字体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由管理"><span class="nav-number">5.3.</span> <span class="nav-text">路由管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stylus语法"><span class="nav-number">5.4.</span> <span class="nav-text">stylus语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#父子组件间的传值"><span class="nav-number">5.5.</span> <span class="nav-text">父子组件间的传值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#样式切换"><span class="nav-number">5.6.</span> <span class="nav-text">样式切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#better-scroll"><span class="nav-number">5.7.</span> <span class="nav-text">better-scroll</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexinzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

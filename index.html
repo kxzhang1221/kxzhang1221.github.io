@@ -229,6 +229,539 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/Vue/Vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/30/Vue/Vue/" itemprop="url">Vue面试题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T16:37:21+08:00">
+                2018-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、vue"><a href="#一、vue" class="headerlink" title="一、vue"></a>一、vue</h2><h3 id="1、scss是什么？在vue-cli中的安装使用步骤是？有哪几大特性？"><a href="#1、scss是什么？在vue-cli中的安装使用步骤是？有哪几大特性？" class="headerlink" title="1、scss是什么？在vue.cli中的安装使用步骤是？有哪几大特性？"></a>1、scss是什么？在vue.cli中的安装使用步骤是？有哪几大特性？</h3><blockquote>
+<p>css的预编译</p>
+</blockquote>
+<p>使用步骤：<br>第一步：用 npm/cnpm 下三个loader（sass-loader、css-loader、node-sass）<br>第二步：在build目录找到webpack.base.config.js，在那个extends属性中加一个拓展.scss<br>第三步：还是在同一个文件，配置一个module属性<br>第四步：然后在组件的style标签加上lang属性 ，例如：lang=”scss”</p>
+<p>有哪几大特性:<br>1、可以用变量，例如（$变量名称=值）；<br>2、可以用混合器，例如（）<br>3、可以嵌套</p>
+<h3 id="2、axios的理解"><a href="#2、axios的理解" class="headerlink" title="2、axios的理解"></a>2、axios的理解</h3><blockquote>
+<p>请求后台资源的模块</p>
+</blockquote>
+<h4 id="axios的特点"><a href="#axios的特点" class="headerlink" title="axios的特点"></a>axios的特点</h4><p>一、Axios 是一个基于 promise 的 HTTP 库，支持promise所有的API<br>二、它可以拦截请求和响应<br>三、它可以转换请求数据和响应数据，并对响应回来的内容自动转换成 JSON类型的数据<br>四、安全性更高，客户端支持防御 XSRF</p>
+<h4 id="axios常用方法"><a href="#axios常用方法" class="headerlink" title="axios常用方法"></a>axios常用方法</h4><blockquote>
+<p>一、axios.get(url[, config])   //get请求用于列表和信息查询<br>二、axios.delete(url[, config])  //删除<br>三、axios.post(url[, data[, config]])  //post请求用于信息的添加<br>四、axios.put(url[, data[, config]])  //更新操作</p>
+</blockquote>
+<h4 id="axios安装使用"><a href="#axios安装使用" class="headerlink" title="axios安装使用"></a>axios安装使用</h4><p>安装：npm install axios –save<br>然后发送的是跨域，需在配置文件中config/index.js进行设置。<br>后台如果是Tp5则定义一个资源路由。<br>js中使用import进来，然后.get或.post。<br>返回在.then函数中如果成功，失败则是在.catch函数中</p>
+<p>可以配合mock使用，详情见sell外卖项目</p>
+<h3 id="3、Vue的双向数据绑定原理"><a href="#3、Vue的双向数据绑定原理" class="headerlink" title="3、Vue的双向数据绑定原理"></a>3、Vue的双向数据绑定原理</h3><p>vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。<br>具体步骤：<br>第一步：需要observe的数据对象进行递归遍历，包括子属性对象的属性，都加上 setter和getter<br>这样的话，给这个对象的某个值赋值，就会触发setter，那么就能监听到了数据变化<br>第二步：compile解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图<br>第三步：Watcher订阅者是Observer和Compile之间通信的桥梁，主要做的事情是:<br>1、在自身实例化时往属性订阅器(dep)里面添加自己<br>2、自身必须有一个update()方法<br>3、待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调，则功成身退。<br>第四步：MVVM作为数据绑定的入口，整合Observer、Compile和Watcher三者，通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，达到数据变化 -&gt; 视图更新；视图交互变化(input) -&gt; 数据model变更的双向绑定效果。</p>
+<h3 id="4、对vue生命周期的理解"><a href="#4、对vue生命周期的理解" class="headerlink" title="4、对vue生命周期的理解"></a>4、对vue生命周期的理解</h3><h4 id="什么是Vue的声明周期"><a href="#什么是Vue的声明周期" class="headerlink" title="什么是Vue的声明周期"></a>什么是Vue的声明周期</h4><blockquote>
+<p>Vue 实例从创建到销毁的过程，就是生命周期。也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期</p>
+</blockquote>
+<h4 id="vue生命周期的作用"><a href="#vue生命周期的作用" class="headerlink" title="vue生命周期的作用"></a>vue生命周期的作用</h4><blockquote>
+<p>它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑。</p>
+</blockquote>
+<h4 id="vue生命周期的8个阶段"><a href="#vue生命周期的8个阶段" class="headerlink" title="vue生命周期的8个阶段"></a>vue生命周期的8个阶段</h4><blockquote>
+<p>总共分为8个阶段创建前/后，载入前/后，更新前/后，销毁前/后。</p>
+</blockquote>
+<p>创建前/后： 在 <code>beforeCreated</code> 阶段，vue实例的挂载元素$el和数据对象data都为undefined，还未初始化。在 <code>created</code> 阶段，vue实例的数据对象data有了，$el还没有。<br>载入前/后：在 <code>beforeMount</code> 阶段，vue实例的$el和data都初始化了，但还是挂载之前为虚拟的dom节点，data.message还未替换。在 <code>mounted</code> 阶段，vue实例挂载完成，data.message成功渲染。<br>更新前/后：当data变化时，会触发 <code>beforeUpdate</code> 和 <code>updated</code> 方法。<br>销毁前/后：在执行 <code>destroy</code> 方法后，对data的改变不会再触发周期函数，说明此时vue实例已经解除了事件监听以及和dom的绑定，但是dom结构依然存在</p>
+<p>第一次页面加载时会触发 beforeCreate, created, beforeMount, mounted 这几个钩子<br>DOM 渲染在 mounted 中就已经完成了。</p>
+<h4 id="每个周期具体使用那些场景"><a href="#每个周期具体使用那些场景" class="headerlink" title="每个周期具体使用那些场景"></a>每个周期具体使用那些场景</h4><p>生命周期钩子的一些使用方法： </p>
+<blockquote>
+<p>beforecreate : 可以在这加个loading事件，在加载实例时触发<br>created : 初始化完成时的事件写在这里，如在这结束loading事件，异步请求也适宜在这里调用<br>mounted : 挂载元素，获取到DOM节点<br>updated : 如果对数据统一处理，在这里写上相应函数<br>beforeDestroy : 可以做一个确认停止事件的确认框<br>nextTick : 更新数据后立即操作dom </p>
+</blockquote>
+<h3 id="5、具体使用vue的理解"><a href="#5、具体使用vue的理解" class="headerlink" title="5、具体使用vue的理解"></a>5、具体使用vue的理解</h3><blockquote>
+<p>1、数据驱动：使用vue不必担心布局更改和类名重复导致的js重写，因为它是靠数据驱动双向绑定，底层是通过Object.defineProperty() 定义的数据 set、get 函数原理实现。<br>2、组件化开发：让项目的可拓展性、移植性更好，代码重用性更高，就好像农民工建房子，拿起自己的工具包就可以开工。项目经理坐等收楼就好。<br>3、单页面应用好：单页应用的体验零距离接触安卓原生应用，局部组件更新界面，让用户体验更快速省时。<br>4、可读性高：js的代码无形的规范，团队合作开发代码可阅读性更高。</p>
+</blockquote>
+<p>适合vue框架的场景：</p>
+<ol>
+<li>数据信息量比较多的，反之类似企业网站就无需此框架了</li>
+<li>手机web和app应用多端共用一套界面的项目，因为使用vue.cli + webpack后的前端目录，非常有利于项目的跨平台部署</li>
+</ol>
+<h3 id="6、怎么理解MVVM模式"><a href="#6、怎么理解MVVM模式" class="headerlink" title="6、怎么理解MVVM模式"></a>6、怎么理解MVVM模式</h3><p>MVVM是Model-View-ViewModel的缩写。MVVM是一种设计思想。Model 层代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑；View 代表UI 组件，它负责将数据模型转化成UI 展现出来，ViewModel 是一个同步View 和 Model的对象。</p>
+<p>在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。</p>
+<p>ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理</p>
+<h3 id="7、vue的优点"><a href="#7、vue的优点" class="headerlink" title="7、vue的优点"></a>7、vue的优点</h3><blockquote>
+<p>低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。<br>可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。<br>独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计。<br>可测试。界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</p>
+</blockquote>
+<h3 id="8、组件间的传值"><a href="#8、组件间的传值" class="headerlink" title="8、组件间的传值"></a>8、组件间的传值</h3><p>父组件向子组件传值：</p>
+<blockquote>
+<p>1）子组件在props中创建一个属性，用来接收父组件传过来的值；<br>2）在父组件中注册子组件；<br>3）在子组件标签中添加子组件props中创建的属性；<br>4）把需要传给子组件的值赋给该属性</p>
+</blockquote>
+<p>子组件向父组件传值：</p>
+<blockquote>
+<p>子组件中需要以某种方式（如点击事件）的方法来触发一个自定义的事件；<br>2）将需要传的值作为$emit的第二个参数，该值将作为实参传给响应事件的方法；<br>3）在父组件中注册子组件并在子组件标签上绑定自定义事件的监听。</p>
+</blockquote>
+<h2 id="二、vue-cli"><a href="#二、vue-cli" class="headerlink" title="二、vue-cli"></a>二、vue-cli</h2><h3 id="1、vue-cli项目中src目录每个文件夹和文件的用法"><a href="#1、vue-cli项目中src目录每个文件夹和文件的用法" class="headerlink" title="1、vue.cli项目中src目录每个文件夹和文件的用法"></a>1、vue.cli项目中src目录每个文件夹和文件的用法</h3><blockquote>
+<p>assets文件夹是放静态资源；<br>components是放组件；<br>router是定义路由相关的配置;view视图；<br>app.vue是一个应用主组件；<br>main.js是入口文件</p>
+</blockquote>
+<h3 id="2、vue-cli中怎样使用自定义的组件"><a href="#2、vue-cli中怎样使用自定义的组件" class="headerlink" title="2、vue.cli中怎样使用自定义的组件"></a>2、vue.cli中怎样使用自定义的组件</h3><blockquote>
+<p>第一步：在components目录新建你的组件文件（smithButton.vue），script一定要export default { }<br>第二步：在需要用的页面（组件）中导入：import smithButton from ‘../components/smithButton.vue’<br>第三步：注入到vue的子组件的components属性上面,components: {smithButton}<br>第四步：在template视图view中使用，<smith-button>  </smith-button></p>
+</blockquote>
+<h2 id="三、vue-router"><a href="#三、vue-router" class="headerlink" title="三、vue-router"></a>三、vue-router</h2><h3 id="1、Vue-router中？"><a href="#1、Vue-router中？" class="headerlink" title="1、Vue-router中？"></a>1、Vue-router中<router-link>？</router-link></h3><h4 id="lt-router-link-gt"><a href="#lt-router-link-gt" class="headerlink" title="&lt;router-link&gt;"></a><code>&lt;router-link&gt;</code></h4><p>支持用户在具有路由功能的应用中 (点击) 导航;</p>
+<ul>
+<li>通过 <code>to</code> 属性指定目标地址</li>
+<li>默认渲染成带有正确链接的 <code>&lt;a&gt;</code> 标签</li>
+<li>可以通过配置 <code>tag</code> 属性生成别的标签</li>
+</ul>
+<p>router-link的好处：在HTML5 history模式和hash模式中表现一致</p>
+<h4 id="lt-router-link-gt-Props"><a href="#lt-router-link-gt-Props" class="headerlink" title="&lt;router-link&gt; Props"></a><code>&lt;router-link&gt;</code> Props</h4><p>to</p>
+<blockquote>
+<p>类型: string | Location<br>required<br>表示目标路由的链接。当被点击后，内部会立刻把 to 的值传到 router.push()，所以这个值可以是一个字符串或者是描述目标位置的对象。</p>
+</blockquote>
+<p>active-class</p>
+<blockquote>
+<p>类型：string<br>默认值：”router-link-active”<br>设置链接激活时使用的CSS类名，默认值可以通过路由的构造选项 <code>linkActiveClass</code> 来全局配置；</p>
+</blockquote>
+<h3 id="2、vue-router中定义动态路由、嵌套路由，并动态获取参数"><a href="#2、vue-router中定义动态路由、嵌套路由，并动态获取参数" class="headerlink" title="2、vue-router中定义动态路由、嵌套路由，并动态获取参数"></a>2、vue-router中定义动态路由、嵌套路由，并动态获取参数</h3><h4 id="定义路由："><a href="#定义路由：" class="headerlink" title="定义路由："></a>定义路由：</h4><p>在router/index.js中，定义路由：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import Router from <span class="string">'vue-router'</span></span><br><span class="line">import Goods from <span class="string">'@/components/goods'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/'</span>,</span><br><span class="line">      name: <span class="string">'Goods'</span>,</span><br><span class="line">      component: Goods</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h4><p>嵌套路由主要是通过 children，它同样是一个数组：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/user'</span>,</span><br><span class="line">    component: User,</span><br><span class="line">    children: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="string">'file'</span>,</span><br><span class="line">            component: File</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这时访问，/user/file 会映射到 File 组件</p>
+<h4 id="动态路由并获取动态参数"><a href="#动态路由并获取动态参数" class="headerlink" title="动态路由并获取动态参数"></a>动态路由并获取动态参数</h4><p>动态路由的创建，主要是使用 path 属性过程中，使用动态路径参数，以冒号开头，如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: /user/:id</span><br><span class="line">    component: User</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这会是访问 user 目录下的所有文件，如 /user/a 和 /user/b，都会映射到 User 组件</p>
+<p>当匹配到 /user 下的任意路由时，参数值会被设置到 <code>this.$route.params</code> 下，所以通过这个属性可以获取到动态参数，如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const User = &#123;</span><br><span class="line">    template: <span class="string">'&lt;div&gt;User &#123;&#123; $route.params.id &#125;&#125;&lt;/div&gt;'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、vue-router有哪几种导航钩子？"><a href="#3、vue-router有哪几种导航钩子？" class="headerlink" title="3、vue-router有哪几种导航钩子？"></a>3、vue-router有哪几种导航钩子？</h3><p>vue-router 提供的导航钩子主要用来拦截导航，让它完成跳转或取消。<br>主要有三种导航钩子：全局钩子、单个路由独享钩子、组件内的钩子；</p>
+<h4 id="全局钩子"><a href="#全局钩子" class="headerlink" title="全局钩子"></a>全局钩子</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//定义一个路由</span><br><span class="line">const router = new Router(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">// 点击导航前调用</span><br><span class="line">router.beforeEach((to, from, next) =&gt; &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br><span class="line">// 点击导航后调用</span><br><span class="line">router.afterEach(route =&gt; &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>当一个导航触发时，全局的 before 钩子按照创建顺序调用。钩子是异步解析执行，此时导航在所有钩子 resolve 完之前一直处于等待中.</p>
+<p>每个钩子方法接收三个参数：<br>to: Route: 即将要进入的目标 路由对象<br>from: Route: 当前导航正要离开的路由<br>next: Function: 一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。</p>
+<h4 id="单个路由独享钩子"><a href="#单个路由独享钩子" class="headerlink" title="单个路由独享钩子"></a>单个路由独享钩子</h4><p>可以在路由配置上直接定义 beforeEnter 钩子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/foo'</span>,</span><br><span class="line">      component: Foo,</span><br><span class="line">      beforeEnter: (to, from, next) =&gt; &#123;</span><br><span class="line">        // ...</span><br><span class="line">      &#125;,</span><br><span class="line">      beforeEnter: (route) =&gt; &#123;</span><br><span class="line">        // ...</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这些钩子与全局 before 钩子的方法参数是一样的。</p>
+<h4 id="组件内的钩子"><a href="#组件内的钩子" class="headerlink" title="组件内的钩子"></a>组件内的钩子</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const Foo = &#123;</span><br><span class="line">  template: `...`,</span><br><span class="line">  beforeRouteEnter (to, from, next) &#123;</span><br><span class="line">    // 在渲染该组件的对应路由被 confirm 前调用</span><br><span class="line">    // 不！能！获取组件实例 `this`</span><br><span class="line">    // 因为当钩子执行前，组件实例还没被创建</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeRouteUpdate (to, from, next) &#123;</span><br><span class="line">    // 在当前路由改变，但是该组件被复用时调用</span><br><span class="line">    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，</span><br><span class="line">    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span><br><span class="line">    // 可以访问组件实例 `this`</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeRouteLeave (to, from, next) &#123;</span><br><span class="line">    // 导航离开该组件的对应路由时调用</span><br><span class="line">    // 可以访问组件实例 `this`</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、Vuex"><a href="#四、Vuex" class="headerlink" title="四、Vuex"></a>四、Vuex</h2><h3 id="1、vuex是什么？怎么使用？哪种功能场景使用它？"><a href="#1、vuex是什么？怎么使用？哪种功能场景使用它？" class="headerlink" title="1、vuex是什么？怎么使用？哪种功能场景使用它？"></a>1、vuex是什么？怎么使用？哪种功能场景使用它？</h3><blockquote>
+<p>vue框架中状态管理</p>
+</blockquote>
+<p>在main.js引入store，注入。新建一个目录store，….. export 。</p>
+<p>场景有：单页应用中，组件之间的状态。音乐播放、登录状态、加入购物车</p>
+<h3 id="2、vuex有哪几种属性？"><a href="#2、vuex有哪几种属性？" class="headerlink" title="2、vuex有哪几种属性？"></a>2、vuex有哪几种属性？</h3><p>有五种，分别是 State、 Getter、Mutation 、Action、 Module</p>
+<h4 id="vuex的State特性"><a href="#vuex的State特性" class="headerlink" title="vuex的State特性"></a>vuex的State特性</h4><p>A、Vuex就是一个仓库，仓库里面放了很多对象。其中state就是数据源存放地，对应于一般Vue对象里面的data<br>B、state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新<br>C、它通过mapState把全局的 state 和 getters 映射到当前组件的 computed 计算属性中</p>
+<h4 id="vuex的Getter特性"><a href="#vuex的Getter特性" class="headerlink" title="vuex的Getter特性"></a>vuex的Getter特性</h4><p>A、getters 可以对State进行计算操作，它就是Store的计算属性<br>B、 虽然在组件内也可以做计算属性，但是getters 可以在多组件之间复用<br>C、 如果一个状态只在一个组件内使用，是可以不用getters</p>
+<h4 id="vuex的Mutation特性"><a href="#vuex的Mutation特性" class="headerlink" title="vuex的Mutation特性"></a>vuex的Mutation特性</h4><p>Action 类似于 mutation，不同在于：Action 提交的是 mutation，而不是直接变更状态；Action 可以包含任意异步操作。</p>
+<h3 id="3、不用Vuex会带来什么问题？"><a href="#3、不用Vuex会带来什么问题？" class="headerlink" title="3、不用Vuex会带来什么问题？"></a>3、不用Vuex会带来什么问题？</h3><blockquote>
+<p>可维护性会下降，想修改数据要维护三个地方；<br>可读性会下降，因为一个组件里的数据，根本就看不出来是从哪来的；<br>增加耦合，大量的上传派发，会让耦合性大大增加，本来Vue用Component就是为了减少耦合，现在这么用，和组件化的初衷相背。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/Vue/Vue目录版/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/30/Vue/Vue目录版/" itemprop="url">Vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T14:21:36+08:00">
+                2018-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="数据绑定和Vue应用"><a href="#数据绑定和Vue应用" class="headerlink" title="数据绑定和Vue应用"></a>数据绑定和Vue应用</h2><h3 id="Vue实例与数据绑定"><a href="#Vue实例与数据绑定" class="headerlink" title="Vue实例与数据绑定"></a>Vue实例与数据绑定</h3><h4 id="Vue实例"><a href="#Vue实例" class="headerlink" title="Vue实例"></a>Vue实例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">    // 挂载点</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    // 数据</span><br><span class="line">    data: &#123;</span><br><span class="line">        msg: <span class="string">'Hello Vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 过滤器，配合&#123;&#123;data | filter&#125;&#125;使用</span><br><span class="line">    filters: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 方法</span><br><span class="line">    methods: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 计算属性</span><br><span class="line">    // 完成复杂的逻辑，运算、函数调用，返回一个结果</span><br><span class="line">    computed: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 监听</span><br><span class="line">    watch: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 实例创建完后调用，此阶段完成了数据的观测等，</span><br><span class="line">    // 但是尚未挂载，用于初始化一些数据</span><br><span class="line">    created: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // el挂载到实例上，第一个逻辑业务逻辑会在这里开始</span><br><span class="line">    mounted: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 实例销毁之前调用，主要绑定一些使用addEventListener监听事件</span><br><span class="line">    beforeDestroy: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="插值与表达式"><a href="#插值与表达式" class="headerlink" title="插值与表达式"></a>插值与表达式</h4><p>文本插值：双大括号语法 – 绑定属性值、简单运算、三元运算</p>
+<h4 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h4><p>用于格式化文本，比如字母全大写、货币千位使用逗号分隔等；<br>过滤的规则是自定义的，通过给Vue实例添加选项 <code>filters</code> 来设置，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">	&#123;&#123; data | formatDate &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>指令的主要职责就是当其表达式的值改变时，相应地将某些行为应用到DOM 上；</p>
+<h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>基本用途是动态更新HTML 元素上的属性；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a v-bind:href＝<span class="string">"url"</span>〉链接＜/a&gt;</span><br><span class="line">// 缩写</span><br><span class="line">&lt;a :href＝<span class="string">"url"</span>〉链接＜/a&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="绑定class的几种方法"><a href="#绑定class的几种方法" class="headerlink" title="绑定class的几种方法"></a>绑定class的几种方法</h4><h5 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:class=<span class="string">"&#123;'active': isActive, 'erroe': isError&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>当 <code>:class</code> 的表达式过长或逻辑复杂时，还可以绑定一个计算属性，通过计算属性返回一个对象；</p>
+<h5 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h5><p>给 <code>:class</code> 绑定一个数组，应用一个class列表；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div :class＝<span class="string">"[activeCls, errorCls]"</span>&gt;&lt;/div&gt;</span><br><span class="line">data: &#123;</span><br><span class="line">	active: <span class="string">'active'</span>,</span><br><span class="line">	errorCls: <span class="string">'error'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同样可以使用data、computed、mothods三种方法。</p>
+<h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><p>用来绑定事件监听器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button v-on:click＝<span class="string">"handleClose"</span>＞点击隐藏＜/button&gt;</span><br><span class="line">// 缩写</span><br><span class="line">&lt;button @click＝<span class="string">"handleClose"</span>＞点击隐藏＜/button&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="v-once"><a href="#v-once" class="headerlink" title="v-once"></a>v-once</h3><p>v-once 是一个不需要表达式的指令，作用是定义它的元素或组件只渲染一次，包括元素或组件的所有子节点。首次渲染后，不再随数据的变化重新渲染，将被视为静态内容。</p>
+<h3 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h3><p>v-if、v-else-if、v-else：表达式的值为真时， 当前元素／组件及所有子节点将被渲染，为假时被移除；</p>
+<h3 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a>v-show</h3><p>v-show 是改变元素的css 属性display属性。<br>当v-show 表达式的值为false时，元素会隐藏，查看DOM结构会看到元素上加载了内联样式display: none;</p>
+<h4 id="v-if-与-v-show选择"><a href="#v-if-与-v-show选择" class="headerlink" title="v-if 与 v-show选择"></a>v-if 与 v-show选择</h4><p>v-if 才是真正的条件渲染，它会根据表达式适当地销毁或重建元素及绑定的事件或子组件。若表达式初始值为false ，则一开始元素／组件并不会渲染，只有当条件第一次变为真时才开始编译。</p>
+<p>v-show 只是简单的css属性切换，无论条件真与否，都会被编译。</p>
+<p>相比之下， v-if 更适合条件不经常改变的场景，因为它切换开销相对较大，而v-show 适用于频繁切换条件。</p>
+<h3 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h3><p>将一个数组遍历或枚举一个对象循环显示。</p>
+<blockquote>
+<p>语法：item in items</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=<span class="string">"(value, key, index) in items"</span>&gt;&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="数组更新"><a href="#数组更新" class="headerlink" title="数组更新"></a>数组更新</h4><p>Vue 包含了一组观察数组变异的方法，使用它们改变数组也会触发视图更新：</p>
+<ul>
+<li>push()</li>
+<li>pop()</li>
+<li>shift()</li>
+<li>unshift（）</li>
+<li>splice()</li>
+<li>sor（）</li>
+<li>reverse()</li>
+</ul>
+<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><blockquote>
+<p>计算属性里可以完成各种复杂的逻辑，包括运算、函数调用等，只要最终返回一个结果就可以</p>
+</blockquote>
+<p>计算属性还可以依赖多个Vue实例的数据，只要其中任一数据变化，计算属性就会重新执行，视图也会更新;</p>
+<p>计算属性两点技巧：<br>一是计算属性可以依赖其他计算属性；<br>二是计算属性不仅可以依赖当前Vue 实例的数据，还可以依赖其他实例的数据。</p>
+<p>计算属性依赖于缓存：一个计算属性所依赖的数据发生变化时，它才会重新取值，所以text只要不改变，计算属性也就不更新。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/Vue/Vue项目篇/sell外卖系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/27/Vue/Vue项目篇/sell外卖系统/" itemprop="url">渡一外卖系统</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-27T15:24:33+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="环境配置及目录解释"><a href="#环境配置及目录解释" class="headerlink" title="环境配置及目录解释"></a>环境配置及目录解释</h3><p>打开网址，即可看见图标字体成功显示</p>
+<h3 id="实现页面"><a href="#实现页面" class="headerlink" title="实现页面"></a>实现页面</h3><p>整体分析：头部区header、tap切换（路由）、内容区content（购物车）</p>
+<h4 id="Tab区"><a href="#Tab区" class="headerlink" title="Tab区"></a>Tab区</h4><h5 id="组件编写"><a href="#组件编写" class="headerlink" title="组件编写"></a>组件编写</h5><p>定义三个组件goods、ratings、sellers<br>在 /src/router 下的index.js中引入三个组件，并定义路由规则<br>编写组件</p>
+<p>安装stylus、stylus-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm install stylus</span><br><span class="line">cnpm install stylus-loader</span><br></pre></td></tr></table></figure></p>
+<p>安装postcss-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install postcss-loader</span><br></pre></td></tr></table></figure></p>
+<p>安装css-loader，解析css<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install css-loader</span><br></pre></td></tr></table></figure></p>
+<p>安装style-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install style-loader</span><br></pre></td></tr></table></figure></p>
+<h5 id="样式编写"><a href="#样式编写" class="headerlink" title="样式编写"></a>样式编写</h5><p>src/assets 引入图片、stylus文件夹（里面有stylus三个基础.styl文件）<br>/static 中引入 reset.css</p>
+<p>在根目录下的index.html中通过 link 标签引入 reset.css<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"static/reset.css"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="sell项目书写步骤、"><a href="#sell项目书写步骤、" class="headerlink" title="sell项目书写步骤、"></a>sell项目书写步骤、</h3><h4 id="1-将项目分为三块header、tab、content"><a href="#1-将项目分为三块header、tab、content" class="headerlink" title="1.将项目分为三块header、tab、content"></a>1.将项目分为三块header、tab、content</h4><h4 id="2-tab区添加路由"><a href="#2-tab区添加路由" class="headerlink" title="2.tab区添加路由"></a>2.tab区添加路由</h4><h4 id="3-书写header组件"><a href="#3-书写header组件" class="headerlink" title="3.书写header组件"></a>3.书写header组件</h4><ul>
+<li>axios导入数据</li>
+<li>app.vue传递值给header组件（父组件传子组件）</li>
+<li>然后编写样式</li>
+</ul>
+<h4 id="goods区域事件"><a href="#goods区域事件" class="headerlink" title="goods区域事件"></a>goods区域事件</h4><p>点击事件</p>
+<p>滑动事件</p>
+<h3 id="sell项目中遇到的坑"><a href="#sell项目中遇到的坑" class="headerlink" title="sell项目中遇到的坑"></a>sell项目中遇到的坑</h3><h4 id="父组件异步获取数据传递到子组件中"><a href="#父组件异步获取数据传递到子组件中" class="headerlink" title="父组件异步获取数据传递到子组件中"></a>父组件异步获取数据传递到子组件中</h4><p>父组件通过axios异步获取数据，传递给子组件，发现子组件的created先于父组件的created执行，子组件获取不到数据；<br>解决方法：父组件template标签中引入子组件的时候添加一个判断条件，判断要传的数据是否为空，不为空时就渲染子组件，注意此时要传的数据初始值要设为undefined，不能设为空对象{}。</p>
+<h3 id="sell项目遇到的知识点"><a href="#sell项目遇到的知识点" class="headerlink" title="sell项目遇到的知识点"></a>sell项目遇到的知识点</h3><h4 id="mockjs模拟数据"><a href="#mockjs模拟数据" class="headerlink" title="mockjs模拟数据"></a>mockjs模拟数据</h4><p>mock官网：<a href="http://mockjs.com/" target="_blank" rel="noopener">http://mockjs.com/</a></p>
+<p>具体步骤：<br>1、下载两个插件mockjs、axios：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm install mockjs --save-dev</span><br><span class="line"></span><br><span class="line">cnpm install axios --save</span><br></pre></td></tr></table></figure></p>
+<p>2、在根目录下新建mock文件夹，创建 index.js文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 引入 mock 和 data</span><br><span class="line">import Mock from <span class="string">'mockjs'</span></span><br><span class="line">import data from <span class="string">'../data.json'</span></span><br><span class="line"></span><br><span class="line">// Mock.mock(rurl, template) ==&gt; </span><br><span class="line">// 记录数据模板，当拦截到匹配rurl的Ajax请求时，</span><br><span class="line">// 将根据数据模板template生成模拟数据，并作为响应式数据返回 </span><br><span class="line">Mock.mock(<span class="string">'/good/seller'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.seller</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Mock.mock(<span class="string">'/good/goods'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.goods</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Mock.mock(<span class="string">'/good/ratings'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.ratings</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>3、在src目录下的的main.js引入mockjs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import <span class="string">'/mock/index'</span></span><br></pre></td></tr></table></figure></p>
+<p>4、在要用mock数据的组件中引入axios（app.vue），并且调用mock数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import axios from <span class="string">'axios'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  name: <span class="string">'HelloWorld'</span>,</span><br><span class="line">  <span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Welcome to Your Vue.js App'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span></span> () &#123;</span><br><span class="line">    // axios发送get请求，请求返回数据为 res</span><br><span class="line">    axios.get(<span class="string">'/good/seller'</span>).<span class="keyword">then</span>(</span><br><span class="line">      res =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.data.code === 0) &#123;</span><br><span class="line">          this.seller = res.data.data</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="图标字体"><a href="#图标字体" class="headerlink" title="图标字体"></a>图标字体</h4><p>官网：<a href="https://icomoon.io/#home" target="_blank" rel="noopener">https://icomoon.io/#home</a></p>
+<p>具体步骤：<br>1、进入官网，点击有上角 IcoMoon App，点击左上角的Import Icons，导入svg格式的文件；</p>
+<p>2、选中需要生成图表文字的icons，点击右下角的 Generate Font，生成图表文字，并点击右下角Download进行下载；</p>
+<p>3、下载的文件将其中的style.css、fonts文件夹复制到根目录下的static文件夹下，；</p>
+<p>4、直接在根目录下的 index.html 中通过 <link rel="stylesheet" href="./static/style.css"> 引入style.css 或者在要用到的页面通过 import 引入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import <span class="string">'../../static/style.css'</span></span><br></pre></td></tr></table></figure></p>
+<p>5、style导入需要的三个依赖、包（了解）：stylus-loader、postcss-loader、css-loader，通过终端下载即可：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm install stylus-loader --save</span><br><span class="line">cnpm install postcss-loader --save</span><br><span class="line">cnpm install css-loader --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>6、在需要图标字体的地方加上style.css中相应图表的类名</p>
+<p>注意一下style.css文件中的fonts路径，需要根据实际的路径关系修改！</p>
+<h4 id="路由管理"><a href="#路由管理" class="headerlink" title="路由管理"></a>路由管理</h4><p>vue-router使用<br>1、app.vue页面中引入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=<span class="string">"xxx"</span>&gt;</span><br><span class="line">&lt;router-view :seller=<span class="string">"seller"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2、router路由管理者<br>router文件夹中index.js中，引入需要的组件，调用Vue.use(Router)，导出创建的Router实例。</p>
+<h4 id="stylus语法"><a href="#stylus语法" class="headerlink" title="stylus语法"></a>stylus语法</h4><p>stylus是一个css预加载处理器</p>
+<h4 id="父子组件间的传值"><a href="#父子组件间的传值" class="headerlink" title="父子组件间的传值"></a>父子组件间的传值</h4><p>1、父组件<br>通过v-bind绑定数据，注意使用v-if判断数据是否存在，存在才对子组件进行渲染，此时的seller初始值不能设为空对象{}，应该设为不占位置的undfined；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;v-header v-if=<span class="string">"seller"</span> :seller=<span class="string">"seller"</span>&gt;&lt;/v-header&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">	<span class="built_in">return</span> &#123;</span><br><span class="line">  		seller: undefined</span><br><span class="line">  		// seller: &#123;&#125; ==&gt; 该情况下 seller == <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、子组件<br>子组件通过props接收来自父组件传递的数据，在子组件中可以随意使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    seller: &#123;</span><br><span class="line">      <span class="built_in">type</span>: Object</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="样式切换"><a href="#样式切换" class="headerlink" title="样式切换"></a>样式切换</h4><p>利用一个v-bind绑定class属性，遍历一个classMap数组，根据数组内的计算结果判断采用哪一个class类名：<br>HTML:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class=<span class="string">"icon bg-image"</span> :class=<span class="string">"classMap[seller.supports[0].type]"</span>&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
+<p>JavaScript：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.classMap = [<span class="string">'decrease'</span>, <span class="string">'discount'</span>, <span class="string">'special'</span>, <span class="string">'invoice_1'</span>, <span class="string">'guarantee'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>CSS：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&amp;.decrease</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'decrease_1'</span>)</span><br><span class="line">&amp;.discount</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'discount_1'</span>)</span><br><span class="line">&amp;.guarantee</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'guarantee_1'</span>)</span><br><span class="line">&amp;.invoice</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'invoice_1'</span>)</span><br><span class="line">&amp;.special</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'special_1'</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="better-scroll"><a href="#better-scroll" class="headerlink" title="better-scroll"></a>better-scroll</h4><p>better-scroll 是一款重点解决移动端（现已支持 PC 端）各种滚动场景需求的插件</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/24/Vue/Vue.js实战/Vue实战_数据绑定和第一个Vue应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1223,487 +1756,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue进阶篇/Vue_vue-router/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/Vue/Vue进阶篇/Vue_vue-router/" itemprop="url">Vue-router</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h3><p>用 Vue.js + <code>Vue Router</code> 创建单页应用，是非常简单的。<br>使用 Vue.js ，我们已经可以通过组合组件来组成应用程序，当你要把 Vue Router 添加进来，我们需要做的是，将 <code>组件 (components) 映射到路由 (routes)</code>，然后告诉 Vue Router 在哪里渲染它们。</p>
-<h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://unpkg.com/vue/dist/vue.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">"https://unpkg.com/vue-router/dist/vue-router.js"</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;h1&gt;Hello App!&lt;/h1&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    &lt;!-- 使用 router-link 组件来导航. --&gt;</span><br><span class="line">    &lt;!-- 通过传入 `to` 属性指定链接. --&gt;</span><br><span class="line">    &lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;</span><br><span class="line">    &lt;router-link to=<span class="string">"/foo"</span>&gt;Go to Foo&lt;/router-link&gt;</span><br><span class="line">    &lt;router-link to=<span class="string">"/bar"</span>&gt;Go to Bar&lt;/router-link&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;!-- 路由出口 --&gt;</span><br><span class="line">  &lt;!-- 路由匹配到的组件将渲染在这里 --&gt;</span><br><span class="line">  &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line">// 1. 定义 (路由) 组件。</span><br><span class="line">// 可以从其他文件 import 进来</span><br><span class="line">const Foo = &#123; template: <span class="string">'&lt;div&gt;foo&lt;/div&gt;'</span> &#125;</span><br><span class="line">const Bar = &#123; template: <span class="string">'&lt;div&gt;bar&lt;/div&gt;'</span> &#125;</span><br><span class="line"></span><br><span class="line">// 2. 定义路由</span><br><span class="line">// 每个路由应该映射一个组件。 其中<span class="string">"component"</span> 可以是</span><br><span class="line">// 通过 Vue.extend() 创建的组件构造器，</span><br><span class="line">// 或者，只是一个组件配置对象。</span><br><span class="line">// 我们晚点再讨论嵌套路由。</span><br><span class="line">const routes = [</span><br><span class="line">  &#123; path: <span class="string">'/foo'</span>, component: Foo &#125;,</span><br><span class="line">  &#123; path: <span class="string">'/bar'</span>, component: Bar &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">// 3. 创建 router 实例，然后传 `routes` 配置</span><br><span class="line">// 你还可以传别的配置参数, 不过先这么简单着吧。</span><br><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes // (缩写) 相当于 routes: routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 4. 创建和挂载根实例。</span><br><span class="line">// 记得要通过 router 配置参数注入路由，</span><br><span class="line">// 从而让整个应用都有路由功能</span><br><span class="line">const app = new Vue(&#123;</span><br><span class="line">  router</span><br><span class="line">&#125;).<span class="variable">$mount</span>(<span class="string">'#app'</span>)</span><br><span class="line"></span><br><span class="line">// 现在，应用已经启动了！</span><br></pre></td></tr></table></figure>
-<p>通过注入路由器，我们可以在任何组件内通过 this.$router 访问路由器，也可以通过 this.$route 访问当前路由：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// Home.vue</span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  computed: &#123;</span><br><span class="line">    <span class="function"><span class="title">username</span></span> () &#123;</span><br><span class="line">      // 我们很快就会看到 `params` 是什么</span><br><span class="line">      <span class="built_in">return</span> this.<span class="variable">$route</span>.params.username</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="function"><span class="title">goBack</span></span> () &#123;</span><br><span class="line">      window.history.length &gt; 1</span><br><span class="line">        ? this.<span class="variable">$router</span>.go(-1)</span><br><span class="line">        : this.<span class="variable">$router</span>.push(<span class="string">'/'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>该文档通篇都常使用 router 实例。留意一下 this.$router 和 router 使用起来完全一样。我们使用 this.$router 的原因是我们并不想在每个独立需要封装路由的组件中都导入路由。</p>
-<p>要注意，当 <router-link> 对应的路由匹配成功，将自动设置 class 属性值 .router-link-active。</router-link></p>
-<h3 id="动态路由匹配"><a href="#动态路由匹配" class="headerlink" title="动态路由匹配"></a>动态路由匹配</h3><p>经常需要把某种模式匹配到的所有路由，全都映射到同个组件；<br>例如，我们有一个 User 组件，对于所有 ID 各不相同的用户，都要使用这个组件来渲染。那么，我们可以在 vue-router 的路由路径中使用“动态路径参数”(dynamic segment) 来达到这个效果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const User = &#123;</span><br><span class="line">  template: <span class="string">'&lt;div&gt;User&lt;/div&gt;'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    // 动态路径参数 以冒号开头</span><br><span class="line">    &#123; path: <span class="string">'/user/:id'</span>, component: User &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>现在呢，像 /user/foo 和 /user/bar 都将映射到相同的路由。</p>
-<p>一个“路径参数”使用冒号 <code>:</code> 标记。当匹配到一个路由时，参数值会被设置到 <code>this.$route.params</code>，可以在每个组件内使用。于是，我们可以更新 User 的模板，输出当前用户的 ID：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const User = &#123;</span><br><span class="line">  template: <span class="string">'&lt;div&gt;User &#123;&#123; $route.params.id &#125;&#125;&lt;/div&gt;'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以在一个路由中设置多段“路径参数”，对应的值都会设置到 $route.params 中<br>模式    | 匹配路径 |    $route.params<br>—-|———|————–<br>/user/:username |    /user/evan |    { username: ‘evan’ }<br>/user/:username/post/:post_id    | /user/evan/post/123 |    { username: ‘evan’, post_id: 123 }</p>
-<p>除了 $route.params 外，$route 对象还提供了其它有用的信息，例如，$route.query (如果 URL 中有查询参数)、$route.hash 等等</p>
-<h3 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h3><p>实际生活中的应用界面，通常由 <code>多层嵌套</code> 的组件组合而成。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const User = &#123;</span><br><span class="line">  template: <span class="string">'&lt;div&gt;User &#123;&#123; $route.params.id &#125;&#125;&lt;/div&gt;'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; path: <span class="string">'/user/:id'</span>, component: User &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>这里的 <code>&lt;router-view&gt;</code> 是最顶层的出口，渲染最高级路由匹配到的组件。同样地，一个被渲染组件同样可以包含自己的嵌套 <router-view>。例如，在 User 组件的模板添加一个 <router-view>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const User = &#123;</span><br><span class="line">  template: `</span><br><span class="line">    &lt;div class=<span class="string">"user"</span>&gt;</span><br><span class="line">      &lt;h2&gt;User &#123;&#123; <span class="variable">$route</span>.params.id &#125;&#125;&lt;/h2&gt;</span><br><span class="line">      &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  `</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></router-view></router-view></p>
-<p>要在嵌套的出口中渲染组件，需要在 VueRouter 的参数中使用 <code>children</code> 配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; path: <span class="string">'/user/:id'</span>, component: User,</span><br><span class="line">      children: [</span><br><span class="line">        &#123;</span><br><span class="line">          // 当 /user/:id/profile 匹配成功，</span><br><span class="line">          // UserProfile 会被渲染在 User 的 &lt;router-view&gt; 中</span><br><span class="line">          path: <span class="string">'profile'</span>,</span><br><span class="line">          component: UserProfile</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          // 当 /user/:id/posts 匹配成功</span><br><span class="line">          // UserPosts 会被渲染在 User 的 &lt;router-view&gt; 中</span><br><span class="line">          path: <span class="string">'posts'</span>,</span><br><span class="line">          component: UserPosts</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p><strong>要注意，以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue进阶篇/Vue_vue-cli自动构建vue项目/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/Vue/Vue进阶篇/Vue_vue-cli自动构建vue项目/" itemprop="url">vue-cli自动构建vue项目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装前所需要的环境：Node.js、npm、Git<br>node、git去相应的官网下载；<br>淘宝镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
-<p>安装好淘宝镜像，后续就可以使用 <code>cnpm</code> 指令。</p>
-<p>git配置用户名和邮箱<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name xxx</span><br><span class="line">git config --global user.email xxx</span><br></pre></td></tr></table></figure></p>
-<p>打开cmd，全局安装<code>vue-cli</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g vue-cli</span><br></pre></td></tr></table></figure></p>
-<p>查看安装状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vue --version</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">vue -V</span><br></pre></td></tr></table></figure></p>
-<p>显示版本号即为安装成功。</p>
-<p>vue创建项目的方式（6种）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue list</span><br></pre></td></tr></table></figure></p>
-<p>快速生成一个vue项目，需要跳转到需要创建vue项目的文件夹中：</p>
-<h3 id="官方模板"><a href="#官方模板" class="headerlink" title="官方模板"></a>官方模板</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vue init &lt;template-name&gt;(6个) &lt;project-name&gt;</span></span><br><span class="line">vue init webpack vue-lesson</span><br></pre></td></tr></table></figure>
-<p>生成一个vue-lesson的文件夹，里面的文件同webpack。</p>
-<p>进入项目文件夹，安装依赖：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> vue-lesson</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
-<p>开启一个测试服务器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue基础篇/Vue_runoob/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/Vue/Vue基础篇/Vue_runoob/" itemprop="url">Vue.js</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vue.js：一套构建用户界面的渐进式框架；<br>Vue关注点：视图层，采用自底向上增量开发的设计；<br>Vue的目标：通过尽可能简单的API实现响应的数据绑定和组合的视图组件；</p>
-<h2 id="Vue-js-安装"><a href="#Vue-js-安装" class="headerlink" title="Vue.js 安装"></a>Vue.js 安装</h2><h4 id="独立版本"><a href="#独立版本" class="headerlink" title="独立版本"></a>独立版本</h4><p><a href="https://vuejs.org/js/vue.min.js" title="vue.min.js" target="_blank" rel="noopener">https://vuejs.org/js/vue.min.js</a></p>
-<h4 id="使用CDN方法"><a href="#使用CDN方法" class="headerlink" title="使用CDN方法"></a>使用CDN方法</h4><p><a href="https://unpkg.com/vue/dist/vue.js" title="unpkg" target="_blank" rel="noopener">https://unpkg.com/vue/dist/vue.js</a></p>
-<h4 id="NPM方法"><a href="#NPM方法" class="headerlink" title="NPM方法"></a>NPM方法</h4><p>安装cnpm淘宝镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line">$ cnpm install [name]</span><br></pre></td></tr></table></figure></p>
-<p>npm版本检查：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">$ npm -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 升级 npm</span></span><br><span class="line">cnpm install npm -g</span><br></pre></td></tr></table></figure></p>
-<p>用Vue.js构建大型应用推荐使用npm安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 最新稳定版</span></span><br><span class="line">$ cnpm install vue</span><br></pre></td></tr></table></figure></p>
-<p>查看Vue_vue-cli笔记安装大型应用开发环境。</p>
-<h2 id="Vue-js-目录结构"><a href="#Vue-js-目录结构" class="headerlink" title="Vue.js 目录结构"></a>Vue.js 目录结构</h2><p><img src="images/Vuexianmumulu.png" alt="Vue项目目录"></p>
-<p>目录解析：<br>build：项目构建（webpack）相关代码<br>config：配置目录，包括端口号等，初学使用默认的<br>node_modules：npm 加载的项目依赖模块<br>src    ：要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：</p>
-<ul>
-<li>assets: 放置一些图片，如logo等。</li>
-<li>components: 目录里面放了一个组件文件，可以不用。</li>
-<li>App.vue: 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录。</li>
-<li>main.js: 项目的核心文件。<br>static：静态资源目录，如图片、字体等。<br>test：初始测试目录，可删除<br>.xxxx文件：这些是一些配置文件，包括语法配置，git配置等。<br>index.html：首页入口文件，你可以添加一些 meta 信息或统计代码啥的。<br>package.json：项目配置文件。<br>README.md：项目的说明文档，markdown 格式</li>
-</ul>
-<h2 id="Vue-js-起步"><a href="#Vue-js-起步" class="headerlink" title="Vue.js 起步"></a>Vue.js 起步</h2><p>每个 Vue 应用都需要通过 <code>实例化 Vue</code> 来实现。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &#123;&#123; message &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">var app = new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'Hello Vue!'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p><code>el</code>：Vue实例挂载点，后跟一个CSS选择器<br><code>data</code>：用以定义Vue实例属性<br><code>methods</code>：定义Vue实例方法，常用 return返回结果</p>
-<ul>
-<li>data、methods都被挂载到Vue实例（vm）的最顶端；<br>双大括号：用于输出对象属性和函数返回值，里面填写<code>简单的JavaScript表达式</code></li>
-</ul>
-<p>当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。当这些属性的值发生改变时，html 视图将也会产生相应的变化。<br>Vue 实例还提供了一些有用的实例属性与方法(都有前缀 $):<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">document.write(vm.<span class="variable">$data</span> === data) // <span class="literal">true</span></span><br><span class="line">document.write(<span class="string">"&lt;br&gt;"</span>) // <span class="literal">true</span></span><br><span class="line">document.write(vm.<span class="variable">$el</span> === document.getElementById(<span class="string">'vue_det'</span>)) // <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="Vue-js-模板语法"><a href="#Vue-js-模板语法" class="headerlink" title="Vue.js 模板语法"></a>Vue.js 模板语法</h2><p>Vue.js 使用了<code>基于 HTML 的模版</code>语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。<br>Vue.js 的核心是一个允许采用简洁的模板语法来声明式的<code>将数据渲染进 DOM 的系统</code>。<br>结合响应系统，在应用状态改变时， Vue 能够智能地计算出重新渲染组件的最小代价并应用到 DOM 操作上。</p>
-<h3 id="插值"><a href="#插值" class="headerlink" title="插值"></a>插值</h3><h4 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h4><p>数据绑定最常见的形式就是使用 <code>双大括号</code> 的文本插值：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="Html"><a href="#Html" class="headerlink" title="Html"></a>Html</h4><p>使用 <code>v-html</code> 指令用于输出 html 代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;div v-html=<span class="string">"message"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'&lt;h1&gt;菜鸟教程&lt;/h1&gt;'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><p> <code>v-bind</code> 指令绑定HTMl中的属性：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;label <span class="keyword">for</span>=<span class="string">"r1"</span>&gt;修改颜色&lt;/label&gt;&lt;input <span class="built_in">type</span>=<span class="string">"checkbox"</span> v-model=<span class="string">"class1"</span> id=<span class="string">"r1"</span>&gt;</span><br><span class="line">  &lt;br&gt;&lt;br&gt;</span><br><span class="line">  &lt;div v-bind:class=<span class="string">"&#123;'class1': class1&#125;"</span>&gt;</span><br><span class="line">    directiva v-bind:class</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">  data:&#123;</span><br><span class="line">      class1: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h4><p>Vue.js 都提供了完全的 JavaScript 表达式支持。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &#123;&#123;5+5&#125;&#125;&lt;br&gt;</span><br><span class="line">    &#123;&#123; ok ? <span class="string">'YES'</span> : <span class="string">'NO'</span> &#125;&#125;&lt;br&gt;</span><br><span class="line">    &#123;&#123; message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>) &#125;&#125;</span><br><span class="line">    &lt;div v-bind:id=<span class="string">"'list-' + id"</span>&gt;菜鸟教程&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    ok: <span class="literal">true</span>,</span><br><span class="line">    message: <span class="string">'RUNOOB'</span>,</span><br><span class="line">    id : 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h4><p>指令是带有 <code>v- 前缀</code> 的特殊属性。包括：<br>v-bind： 绑定属性<br>v-on：用于监听DOM事件<br>v-html：绑定Html代码<br>v-model：双向绑定数据 v-model = v-on + v-bind<br>v-if：条件渲染<br>v-for：列表渲染</p>
-<h4 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h4><p>以 <code>.</code> 指明的特殊后缀，用于指出一个指定应该以特殊方式绑定；<br>包含：事件修饰符、键盘修饰符、系统修饰符</p>
-<h3 id="用户输入"><a href="#用户输入" class="headerlink" title="用户输入"></a>用户输入</h3><h4 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h4><p>在input输入框中使用<code>v-model</code>指令实现双向数据绑定：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;input v-model=<span class="string">"message"</span>&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'Runoob!'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h4><p>按钮事件使用<code>v-on</code>监听事件，并对用户的输入进行响应：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;button v-on:click=<span class="string">"reverseMessage"</span>&gt;反转字符串&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'Runoob!'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    reverseMessage: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">      this.message = this.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>Vue.js 允许你自定义过滤器，被用作一些常见的文本格式化，格式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 在两个大括号中 --&gt;</span><br><span class="line">&#123;&#123; message | capitalize &#125;&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 在 v-bind 指令中 --&gt;</span><br><span class="line">&lt;div v-bind:id=<span class="string">"rawId | formatId"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>过滤器函数接受表达式的值作为第一个参数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &#123;&#123; message | capitalize &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'runoob'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  filters: &#123;</span><br><span class="line">    capitalize: <span class="keyword">function</span> (value) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!value) <span class="built_in">return</span> <span class="string">''</span></span><br><span class="line">      value = value.toString()</span><br><span class="line">      <span class="built_in">return</span> value.charAt(0).toUpperCase() + value.slice(1)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>过滤器可以串联：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; message | filterA | filterB &#125;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>过滤器是 JavaScript 函数，因此可以接受参数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; message | filterA(<span class="string">'arg1'</span>, arg2) &#125;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里，message 是第一个参数，字符串 ‘arg1’ 将传给过滤器作为第二个参数， arg2 表达式的值将被求值然后传给过滤器作为第三个参数。</p>
-<h3 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h3><h4 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 完整语法 --&gt;</span><br><span class="line">&lt;a v-bind:href=<span class="string">"url"</span>&gt;&lt;/a&gt;</span><br><span class="line">&lt;!-- 缩写 --&gt;</span><br><span class="line">&lt;a :href=<span class="string">"url"</span>&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="v-on-1"><a href="#v-on-1" class="headerlink" title="v-on"></a>v-on</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 完整语法 --&gt;</span><br><span class="line">&lt;a v-on:click=<span class="string">"doSomething"</span>&gt;&lt;/a&gt;</span><br><span class="line">&lt;!-- 缩写 --&gt;</span><br><span class="line">&lt;a @click=<span class="string">"doSomething"</span>&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="Vue-js-条件与循环"><a href="#Vue-js-条件与循环" class="headerlink" title="Vue.js 条件与循环"></a>Vue.js 条件与循环</h2><h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><h4 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h4><p>条件判断：在元素 和 template 中使用 <code>v-if</code> 指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;p v-if=<span class="string">"seen"</span>&gt;现在你看到我了&lt;/p&gt;</span><br><span class="line">    &lt;template v-if=<span class="string">"ok"</span>&gt;</span><br><span class="line">      &lt;h1&gt;菜鸟教程&lt;/h1&gt;</span><br><span class="line">      &lt;p&gt;学的不仅是技术，更是梦想！&lt;/p&gt;</span><br><span class="line">      &lt;p&gt;哈哈哈，打字辛苦啊！！！&lt;/p&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    seen: <span class="literal">true</span>,</span><br><span class="line">    ok: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="v-else"><a href="#v-else" class="headerlink" title="v-else"></a>v-else</h4><p>可以用 <code>v-else</code> 指令给 v-if 添加一个 “else” 块:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;div v-if=<span class="string">"Math.random() &gt; 0.5"</span>&gt;</span><br><span class="line">      Sorry</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div v-else&gt;</span><br><span class="line">      Not sorry</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span></span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="v-else-if"><a href="#v-else-if" class="headerlink" title="v-else-if"></a>v-else-if</h4><p><code>v-else-if</code> 在 2.1.0 新增，用作 v-if 的 else-if 块。可以链式的多次使用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;div v-if=<span class="string">"type === 'A'"</span>&gt;</span><br><span class="line">      A</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div v-else-if=<span class="string">"type === 'B'"</span>&gt;</span><br><span class="line">      B</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div v-else-if=<span class="string">"type === 'C'"</span>&gt;</span><br><span class="line">      C</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div v-else&gt;</span><br><span class="line">      Not A/B/C</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">    </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    <span class="built_in">type</span>: <span class="string">'C'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a>v-show</h4><p>使用 v-show 指令来根据条件展示元素：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 v-show=<span class="string">"ok"</span>&gt;Hello!&lt;/h1&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="v-if-VS-v-show"><a href="#v-if-VS-v-show" class="headerlink" title="v-if VS v-show"></a>v-if VS v-show</h4><p>v-if 和 v-show 都是隐藏DOM节点，隐藏方式不同：<br><code>v-if</code>：直接删除（不渲染）该DOM节点；<br><code>v-show</code>：渲染该DOM节点，再用<code>display: none;</code>隐藏节点。</p>
-<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><h4 id="v-for-循环"><a href="#v-for-循环" class="headerlink" title="v-for 循环"></a>v-for 循环</h4><p><code>v-for</code>：循环使用，需要以 <code>item in items</code> 的特殊语法，items是元数据数组并且item是数组元素迭代的别名；<br><code>v-for</code>：绑定数据到数组来渲染一个列表：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;ol&gt;</span><br><span class="line">    &lt;li v-for=<span class="string">"site in sites"</span>&gt;</span><br><span class="line">      &#123;&#123; site.name &#125;&#125;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">  &lt;/ol&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    sites: [</span><br><span class="line">      &#123; name: <span class="string">'Runoob'</span> &#125;,</span><br><span class="line">      &#123; name: <span class="string">'Google'</span> &#125;,</span><br><span class="line">      &#123; name: <span class="string">'Taobao'</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="v-for-迭代对象"><a href="#v-for-迭代对象" class="headerlink" title="v-for 迭代对象"></a>v-for 迭代对象</h4><p><code>v-for</code> 可以通过一个对象的属性来迭代数据，其中(value, key, index)分别代表<code>键值value</code>、<code>键名key</code>、<code>索引index</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for=<span class="string">"(value, key, index) in object"</span>&gt;</span><br><span class="line">    &#123;&#123; index &#125;&#125;. &#123;&#123; key &#125;&#125; : &#123;&#123; value &#125;&#125;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    object: &#123;</span><br><span class="line">      name: <span class="string">'菜鸟教程'</span>,</span><br><span class="line">      url: <span class="string">'http://www.runoob.com'</span>,</span><br><span class="line">      slogan: <span class="string">'学的不仅是技术，更是梦想！'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="v-for-迭代整数"><a href="#v-for-迭代整数" class="headerlink" title="v-for 迭代整数"></a>v-for 迭代整数</h4><p>v-for 也可以循环整数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for=<span class="string">"n in 10"</span>&gt;</span><br><span class="line">     &#123;&#123; n &#125;&#125;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="v-for注意点"><a href="#v-for注意点" class="headerlink" title="v-for注意点"></a><code>v-for</code>注意点</h4><p>1）v-for循环数组、对象（引用值）绑定的是地址，元素变了，地址没有改变，不会重新渲染</p>
-<p>2）列表循环中有一个bug（模板复用），三个input框一般加一个<code>key</code>，且key的值只能为<code>数字</code>或<code>字符串</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>计算属性关键词：<code>computed</code><br>计算属性主要用于处理一些负载逻辑时是很用的。<br>例子：字符串反转<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &#123;&#123; message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>) &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>改为计算属性：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;p&gt;原始字符串: &#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;计算后反转字符串: &#123;&#123; reversedMessage &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'Runoob!'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    // 计算属性的 getter</span><br><span class="line">    reversedMessage: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">      // `this` 指向 vm 实例</span><br><span class="line">      <span class="built_in">return</span> this.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>提供的函数将用作属性 vm.reversedMessage 的 getter 。<br>vm.reversedMessage 依赖于 vm.message，在 vm.message 发生改变时，vm.reversedMessage 也会更新。</p>
-<h3 id="computed-VS-methods"><a href="#computed-VS-methods" class="headerlink" title="computed VS methods"></a>computed VS methods</h3><p>可以用methods代替computed，两者效果一样；但是：<br><code>computed</code> 基于它的依赖缓存，只有相关依赖发生变化采用重新取值；<br><code>methods</code> 在重新渲染的时候，函数总会重新调用执行。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  reversedMessage2: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> this.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以说使用 computed 性能会更好，但是如果你不希望缓存，你可以使用 methods 属性。</p>
-<h3 id="computed-setter"><a href="#computed-setter" class="headerlink" title="computed setter"></a>computed setter</h3><p>computed 属性默认只有 getter ，不过在需要时你也可以提供一个 setter<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    name: <span class="string">'Google'</span>,</span><br><span class="line">    url: <span class="string">'http://www.google.com'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    site: &#123;</span><br><span class="line">      // getter</span><br><span class="line">      get: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">        <span class="built_in">return</span> this.name + <span class="string">' '</span> + this.url</span><br><span class="line">      &#125;,</span><br><span class="line">      // setter</span><br><span class="line">      <span class="built_in">set</span>: <span class="keyword">function</span> (newValue) &#123;</span><br><span class="line">        var names = newValue.split(<span class="string">' '</span>)</span><br><span class="line">        this.name = names[0]</span><br><span class="line">        this.url = names[names.length - 1]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// 调用 setter， vm.name 和 vm.url 也会被对应更新</span><br><span class="line">vm.site = <span class="string">'菜鸟教程 http://www.runoob.com'</span>;</span><br><span class="line">document.write(<span class="string">'name: '</span> + vm.name);</span><br><span class="line">document.write(<span class="string">'&lt;br&gt;'</span>);</span><br><span class="line">document.write(<span class="string">'url: '</span> + vm.url);</span><br></pre></td></tr></table></figure></p>
-<h2 id="Vue-js-监听属性"><a href="#Vue-js-监听属性" class="headerlink" title="Vue.js 监听属性"></a>Vue.js 监听属性</h2><p>Vue.js 监听属性 <code>watch</code>，可以通过 watch 来响应数据的变化:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = <span class="string">"computed_props"</span>&gt;</span><br><span class="line">    千米 : &lt;input <span class="built_in">type</span> = <span class="string">"text"</span> v-model = <span class="string">"kilometers"</span>&gt;</span><br><span class="line">    米 : &lt;input <span class="built_in">type</span> = <span class="string">"text"</span> v-model = <span class="string">"meters"</span>&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;p id=<span class="string">"info"</span>&gt;&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">type</span> = <span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    var vm = new Vue(&#123;</span><br><span class="line">    el: <span class="string">'#computed_props'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        kilometers : 0,</span><br><span class="line">        meters:0</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    computed :&#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    watch : &#123;</span><br><span class="line">        kilometers:<span class="keyword">function</span>(val) &#123;</span><br><span class="line">            this.kilometers = val;</span><br><span class="line">            this.meters = val * 1000;</span><br><span class="line">        &#125;,</span><br><span class="line">        meters : <span class="keyword">function</span> (val) &#123;</span><br><span class="line">            this.kilometers = val/ 1000;</span><br><span class="line">            this.meters = val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    // <span class="variable">$watch</span> 是一个实例方法</span><br><span class="line">    vm.<span class="variable">$watch</span>(<span class="string">'kilometers'</span>, <span class="keyword">function</span> (newValue, oldValue) &#123;</span><br><span class="line">    // 这个回调将在 vm.kilometers 改变后调用</span><br><span class="line">    document.getElementById (<span class="string">"info"</span>).innerHTML = <span class="string">"修改前值为: "</span> + oldValue + <span class="string">"，修改后值为: "</span> + newValue;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>以上代码中我们创建了两个输入框，data 属性中， kilometers 和 meters 初始值都为 0。watch 对象创建了两个方法 kilometers 和 meters。<br>当我们再输入框输入数据时，watch 会实时监听数据变化并改变自身的值。</p>
-<h2 id="Vue-js-样式绑定"><a href="#Vue-js-样式绑定" class="headerlink" title="Vue.js 样式绑定"></a>Vue.js 样式绑定</h2><p><code>class</code> 与 <code>style</code> 是 HTML 元素的属性，用于设置元素的样式，我们可以用 <code>v-bind</code> 来设置样式属性。<br>Vue.js v-bind 在处理 class 和 style 时， 专门增强了它。表达式的结果类型：<code>字符串</code>、<code>对象</code>或<code>数组</code>。</p>
-<h3 id="class属性绑定"><a href="#class属性绑定" class="headerlink" title="class属性绑定"></a>class属性绑定</h3><h4 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h4><p>为 <code>v-bind:class</code> 设置一个对象，从而动态的切换 class:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:class=<span class="string">"&#123; active: isActive &#125;"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>渲染结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"active"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在对象中传入多个属性来动态切换多个class：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"static"</span></span><br><span class="line">     v-bind:class=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>渲染结果为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"static active text-danger"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>绑定返回对象的计算属性：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">  isActive: <span class="literal">true</span>,</span><br><span class="line">  error: null</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    classObject: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">      <span class="built_in">return</span> &#123;</span><br><span class="line">        active: this.isActive &amp;&amp; !this.error,</span><br><span class="line">        <span class="string">'text-danger'</span>: this.error &amp;&amp; this.error.type === <span class="string">'fatal'</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h4 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h4><p>把一个数组传给 <code>v-bind:class</code> ，实例如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:class=<span class="string">"[activeClass, errorClass]"</span>&gt;&lt;/div&gt;</span><br><span class="line"><span class="comment"># 渲染为：</span></span><br><span class="line">&lt;div class=<span class="string">"active text-danger"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>三元表达式来切换列表中的class：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:class=<span class="string">"[errorClass ,isActive ? activeClass : '']"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="Vue-js-style-内联样式"><a href="#Vue-js-style-内联样式" class="headerlink" title="Vue.js style(内联样式)"></a>Vue.js style(内联样式)</h3><p>在 <code>v-bind:style</code> 直接设置样式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;div v-bind:style=<span class="string">"&#123; color: activeColor, fontSize: fontSize + 'px' &#125;"</span>&gt;菜鸟教程&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="comment"># 渲染为：</span></span><br><span class="line">&lt;div style=<span class="string">"color: green; font-size: 30px;"</span>&gt;菜鸟教程&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>也可以直接绑定到一个<code>样式对象</code>，让模板更清晰：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;div v-bind:style=<span class="string">"styleObject"</span>&gt;菜鸟教程&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>v-bind:style 可以使用<code>数组</code>将多个样式对象应用到一个元素上：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;div v-bind:style=<span class="string">"[baseStyles, overridingStyles]"</span>&gt;菜鸟教程&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Vue-js-事件处理器"><a href="#Vue-js-事件处理器" class="headerlink" title="Vue.js 事件处理器"></a>Vue.js 事件处理器</h2><p>事件监听可以使用 <code>v-on</code> 指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;button v-on:click=<span class="string">"counter += 1"</span>&gt;增加 1&lt;/button&gt;</span><br><span class="line">  &lt;p&gt;这个按钮被点击了 &#123;&#123; counter &#125;&#125; 次。&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    counter: 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p><code>v-on</code> 可以接收一个定义的方法（methods）来调用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">   &lt;!-- `greet` 是在下面定义的方法名 --&gt;</span><br><span class="line">  &lt;button v-on:click=<span class="string">"greet"</span>&gt;Greet&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">var app = new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    name: <span class="string">'Vue.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  // 在 `methods` 对象中定义方法</span><br><span class="line">  methods: &#123;</span><br><span class="line">    greet: <span class="keyword">function</span> (event) &#123;</span><br><span class="line">      // `this` 在方法里指当前 Vue 实例</span><br><span class="line">      alert(<span class="string">'Hello '</span> + this.name + <span class="string">'!'</span>)</span><br><span class="line">      // `event` 是原生 DOM 事件</span><br><span class="line">      <span class="keyword">if</span> (event) &#123;</span><br><span class="line">          alert(event.target.tagName)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// 也可以用 JavaScript 直接调用方法</span><br><span class="line">app.greet() // -&gt; <span class="string">'Hello Vue.js!'</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h3><p>Vue.js 为 <code>v-on</code> 提供了事件修饰符来处理 DOM 事件细节，如：event.preventDefault() 或 event.stopPropagation()。<br>Vue.js通过由点(<code>.</code>)表示的指令后缀来调用修饰符。</p>
-<ul>
-<li>stop</li>
-<li>prevent</li>
-<li>capture</li>
-<li>self</li>
-<li>once<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 阻止单击事件冒泡 --&gt;</span><br><span class="line">&lt;a v-on:click.stop=<span class="string">"doThis"</span>&gt;&lt;/a&gt;</span><br><span class="line">&lt;!-- 提交事件不再重载页面 --&gt;</span><br><span class="line">&lt;form v-on:submit.prevent=<span class="string">"onSubmit"</span>&gt;&lt;/form&gt;</span><br><span class="line">&lt;!-- 修饰符可以串联  --&gt;</span><br><span class="line">&lt;a v-on:click.stop.prevent=<span class="string">"doThat"</span>&gt;&lt;/a&gt;</span><br><span class="line">&lt;!-- 只有修饰符 --&gt;</span><br><span class="line">&lt;form v-on:submit.prevent&gt;&lt;/form&gt;</span><br><span class="line">&lt;!-- 添加事件侦听器时使用事件捕获模式 --&gt;</span><br><span class="line">&lt;div v-on:click.capture=<span class="string">"doThis"</span>&gt;...&lt;/div&gt;</span><br><span class="line">&lt;!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 --&gt;</span><br><span class="line">&lt;div v-on:click.self=<span class="string">"doThat"</span>&gt;...&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- click 事件只能点击一次，2.1.4版本新增 --&gt;</span><br><span class="line">&lt;a v-on:click.once=<span class="string">"doThis"</span>&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="按键修饰符"><a href="#按键修饰符" class="headerlink" title="按键修饰符"></a>按键修饰符</h3><p>Vue 允许为 v-on 在监听键盘事件时添加按键修饰符：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 只有在 keyCode 是 13 时调用 vm.submit() --&gt;</span><br><span class="line">&lt;input v-on:keyup.13=<span class="string">"submit"</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Vue 为最常用的按键提供了别名：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 同上 --&gt;</span><br><span class="line">&lt;input v-on:keyup.enter=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;!-- 缩写语法 --&gt;</span><br><span class="line">&lt;input @keyup.enter=<span class="string">"submit"</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>全部的按键别名：</p>
-<ul>
-<li>enter</li>
-<li>tab</li>
-<li>delete (捕获 “删除” 和 “退格” 键)</li>
-<li>esc</li>
-<li>space</li>
-<li>up</li>
-<li>down</li>
-<li>left</li>
-<li>right</li>
-<li>ctrl</li>
-<li>alt</li>
-<li>shift</li>
-<li>meta</li>
-</ul>
-<h2 id="Vue-js-表单"><a href="#Vue-js-表单" class="headerlink" title="Vue.js 表单"></a>Vue.js 表单</h2><p>用 <code>v-model</code> 指令在表单控件元素上创建<code>双向数据绑定</code>。<br><img src="images/MVVM.png" alt="MVVM模型"><br>v-model 会根据控件类型自动选取正确的方法来更新元素。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;p&gt;input 元素：&lt;/p&gt;</span><br><span class="line">  &lt;input v-model=<span class="string">"message"</span> placeholder=<span class="string">"编辑我……"</span>&gt;</span><br><span class="line">  &lt;p&gt;消息是: &#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;p&gt;textarea 元素：&lt;/p&gt;</span><br><span class="line">  &lt;p style=<span class="string">"white-space: pre"</span>&gt;&#123;&#123; message2 &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;textarea v-model=<span class="string">"message2"</span> placeholder=<span class="string">"多行文本输入……"</span>&gt;&lt;/textarea&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'Runoob'</span>,</span><br><span class="line">    message2: <span class="string">'菜鸟教程\r\nhttp://www.runoob.com'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1754,7 +1806,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

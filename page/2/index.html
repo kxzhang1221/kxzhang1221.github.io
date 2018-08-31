@@ -229,6 +229,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue进阶篇/Vue_vuex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/Vue/Vue进阶篇/Vue_vuex/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="title-Vuex"><a href="#title-Vuex" class="headerlink" title="title: Vuex"></a>title: Vuex</h2><blockquote>
+<p>vuex是一个专门为vue.js设计的集中式状态管理架构。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。</p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Vuex是状态管理模式的一种实现库，主要以插件的形式和 Vue.js 进行配合使用，能够使我们在 Vue.js 中管理复杂的组件事件流。</p>
+<p>通常情况下，每个组件都会拥有自己的状态（自身实例的data对象）。一个组件的状态改变需要在其他组件中表现出来就显得很麻烦。</p>
+<blockquote>
+<p>Vuex提供了一个集中式的事件流通道，统一管理组件的事件流。</p>
+</blockquote>
+<p><img src="./images/vuex_shijianliu.png" alt="vuex事件流"></p>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>每一个Vuex应用的核心就是store（仓库）。“store”基本就是一个容器，它包含者你的应用中大部分的状态（state）。<br>Vuex和单纯的全局对象由以下两点不同：</p>
+<ol>
+<li>Vuex的状态存储是响应式的。当Vue组件从store中读取状态的时候，若store中的状态发生变化，那么相应的组件也会相应地得到高校更新。</li>
+<li>你不能直接改变store中的状态。改变store中的状态的唯一途径就是显示的<strong>提交</strong>（commit）mutation。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我们更好的了解我们的应用。</li>
+</ol>
+<h4 id="Vuex安装"><a href="#Vuex安装" class="headerlink" title="Vuex安装"></a>Vuex安装</h4><p>在目标工程文件中打开git，右键 git bash here<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install vuex --save</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建一个store"><a href="#创建一个store" class="headerlink" title="创建一个store"></a>创建一个store</h4><p>创建过程直截了当 —— 仅需要提供一个初始state对象和一些mutation：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 如果在模块化构建系统中，请确保在开头调用了 Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">const store = new Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    count: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    increment (state) &#123;</span><br><span class="line">      state.count++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>现在，你可以通过 <code>store.state</code> 来获取状态对象，以及通过 <code>store.commit</code> 方法触发状态变更：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">store.commit(<span class="string">'increment'</span>)</span><br><span class="line"></span><br><span class="line">console.log(store.state.count) // -&gt; 1</span><br></pre></td></tr></table></figure></p>
+<p>再次强调，我们通过提交mutation的方式，而非直接改变 <code>store.state.count</code> ，因为我们想要更明确地追踪到状态改变。</p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>Vuex包含核心概念：Store（仓库）– 一个对象<br>Store包含五个基本的对象：</p>
+<ul>
+<li>state：存储状态。也就是变量；</li>
+<li>getter：派生状态。也就是set、get中的get，有两个可选参数：state、getter分别可以获取state中的变量和其他的getters。外部调用方式：store.getters.personInfo()。就和vue的计算属性computed差不多；</li>
+<li>mutation：提交状态修改。也就是set、get中的set，这是cuex中唯一修改state的方式，单不支持异步操作。第一个参数默认是state。外部调用方式：store.commit(‘SET_AGE’, 18)。和vue中的mothods类似；</li>
+<li>actions：和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。外部调用方式：store.dispatch(‘nameAsyn’)；</li>
+<li>modules：store的子模块，内容就相当于是store的一个实例。调用方式和前面介绍的相似，只是要加上当前子模块名，如：store.a.getters.xxx()。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">const store = new Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        name: <span class="string">'weish'</span>,</span><br><span class="line">        age: 22</span><br><span class="line">    &#125;,</span><br><span class="line">    getters: &#123;</span><br><span class="line">        personInfo(state) &#123;</span><br><span class="line">            <span class="built_in">return</span> `My name is <span class="variable">$&#123;state.name&#125;</span>, I am <span class="variable">$&#123;state.age&#125;</span>`;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        SET_AGE(state, age) &#123;</span><br><span class="line">            commit(age, age);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">        nameAsyn(&#123;commit&#125;) &#123;</span><br><span class="line">            setTimeout(() =&gt; &#123;</span><br><span class="line">                commit(<span class="string">'SET_AGE'</span>, 18);</span><br><span class="line">            &#125;, 1000);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    modules: &#123;</span><br><span class="line">        a: modulesA</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="state单一状态树"><a href="#state单一状态树" class="headerlink" title="state单一状态树"></a>state单一状态树</h4><p>Vuex使用单一状态树 —— 用一个对象就包含了全部应用层级状态。至此它便作为一个“唯一数据源”而存在。则每个应用仅仅包含一个store实例。单一状态树让我们能够直接地定位任一特定的状态片段，在调试的过程中也能轻易地取得整个当前状态的快照。</p>
+<h5 id="在Vue组件中获取Vuex状态"><a href="#在Vue组件中获取Vuex状态" class="headerlink" title="在Vue组件中获取Vuex状态"></a>在Vue组件中获取Vuex状态</h5><p>由于Vuex的状态存储是响应式的，从store实例中读取状态最简单的方法就是在计算属性中返回某个状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个 Counter 组件</span><br><span class="line">const Counter = &#123;</span><br><span class="line">  template: `&lt;div&gt;&#123;&#123; count &#125;&#125;&lt;/div&gt;`,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    <span class="function"><span class="title">count</span></span> () &#123;</span><br><span class="line">      <span class="built_in">return</span> store.state.count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>每当 <code>store.state.count</code> 变化的时候，都会重新求取计算属性，并且触发更新相关联的DOM。</p>
+<p>Vuex 通过 store 选项，提供了一种机制将状态从根组件“注入”到每一个子组件中（需调用 Vue.use(Vuex)）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const app = new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件</span><br><span class="line">  store,</span><br><span class="line">  components: &#123; Counter &#125;,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;div class=<span class="string">"app"</span>&gt;</span><br><span class="line">      &lt;counter&gt;&lt;/counter&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  `</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>通过在根实例中注册 store 选项，该 store 实例会注入到根组件下的所有子组件中，且子组件能通过 <code>this.$store</code> 访问到。让我们更新下 Counter 的实现：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const Counter = &#123;</span><br><span class="line">  template: `&lt;div&gt;&#123;&#123; count &#125;&#125;&lt;/div&gt;`,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    <span class="function"><span class="title">count</span></span> () &#123;</span><br><span class="line">      <span class="built_in">return</span> this.<span class="variable">$store</span>.state.count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong><code>mapState</code> 辅助函数</strong><br>当一个组件需要获取多个状态时候，可以使用 <code>mapState</code> 辅助函数帮助我们生成计算属性。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 在单独构建的版本中辅助函数为 Vuex.mapState</span><br><span class="line">import &#123; mapState &#125; from <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  // ...</span><br><span class="line">  computed: mapState(&#123;</span><br><span class="line">    // 箭头函数可使代码更简练</span><br><span class="line">    count: state =&gt; state.count,</span><br><span class="line"></span><br><span class="line">    // 传字符串参数 <span class="string">'count'</span> 等同于 `state =&gt; state.count`</span><br><span class="line">    countAlias: <span class="string">'count'</span>,</span><br><span class="line"></span><br><span class="line">    // 为了能够使用 `this` 获取局部状态，必须使用常规函数</span><br><span class="line">    countPlusLocalState (state) &#123;</span><br><span class="line">      <span class="built_in">return</span> state.count + this.localCount</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 mapState 传一个字符串数组。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">computed: mapState([</span><br><span class="line">  // 映射 this.count 为 store.state.count</span><br><span class="line">  <span class="string">'count'</span></span><br><span class="line">])</span><br></pre></td></tr></table></figure></p>
+<h5 id="对象展开运算符"><a href="#对象展开运算符" class="headerlink" title="对象展开运算符"></a>对象展开运算符</h5><p><code>mapState</code> 函数返回的是一个对象。<br>我们如何将它与局部计算属性混合使用呢？通常，我们需要使用一个工具函数将多个对象合并为一个，以使我们可以将最终对象传给 computed 属性。可以使用对象展开运算符简化写法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  <span class="function"><span class="title">localComputed</span></span> () &#123; /* ... */ &#125;,</span><br><span class="line">  // 使用对象展开运算符将此对象混入到外部对象中</span><br><span class="line">  ...mapState(&#123;</span><br><span class="line">    // ...</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="组件仍然保有局部状态"><a href="#组件仍然保有局部状态" class="headerlink" title="组件仍然保有局部状态"></a>组件仍然保有局部状态</h5><blockquote>
+<p>使用 Vuex 并不意味着你需要将所有的状态放入 Vuex。</p>
+</blockquote>
+<p>虽然将所有的状态放到 Vuex 会使状态变化更显式和易调试，但也会使代码变得冗长和不直观。如果有些状态严格属于单个组件，最好还是作为组件的局部状态。你应该根据你的应用开发需要进行权衡和确定。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue进阶篇/Vue_vue-router/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1559,140 +1718,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue基础篇/Vue_4_计算属性与侦听器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/Vue/Vue基础篇/Vue_4_计算属性与侦听器/" itemprop="url">计算属性和侦听器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="计算属性-computed"><a href="#计算属性-computed" class="headerlink" title="计算属性 computed"></a>计算属性 computed</h3><p>模板内的表达式只用于简单运算，对于复杂逻辑，应当使用<strong>计算属性</strong><br>在一个计算属性里可以完成各种复杂的逻辑，包括运算、函数调用等，只要最终返回一个结果就可以；</p>
-<h4 id="基础例子"><a href="#基础例子" class="headerlink" title="基础例子"></a>基础例子</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"example"</span>&gt;</span><br><span class="line">  &lt;p&gt;Original message: <span class="string">"&#123;&#123; message &#125;&#125;"</span>&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;Computed reversed message: <span class="string">"&#123;&#123; reversedMessage &#125;&#125;"</span>&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#example'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">'Hello'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    // 计算属性的 getter</span><br><span class="line">    reversedMessage: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">      // `this` 指向 vm 实例</span><br><span class="line">      <span class="built_in">return</span> this.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Original message: &quot;Hello&quot;</span><br><span class="line">Computed reversed message: &quot;olleH&quot;</span><br></pre></td></tr></table></figure></p>
-<p>这里声明一个计算属性 <code>reverseMessage</code> 。提供的函数将用作属性 <code>vm.reverseMessage</code> 的getter函数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(vm.reversedMessage) // =&gt; <span class="string">'olleH'</span></span><br><span class="line">vm.message = <span class="string">'Goodbye'</span></span><br><span class="line">console.log(vm.reversedMessage) // =&gt; <span class="string">'eybdooG'</span></span><br></pre></td></tr></table></figure></p>
-<p>vm.reversedMessage 的值始终取决于 vm.message 的值。<br>计算属性的 getter 函数是没有副作用 (side effect) 的，这使它更易于测试和理解。</p>
-<h4 id="复杂用法"><a href="#复杂用法" class="headerlink" title="复杂用法"></a>复杂用法</h4><p>计算属性还可以依赖多个Vue 实例的数据，只要其中任一数据变化，计算属性就会重新执行，视图也会更新。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">        &lt;button @click=<span class="string">"add()"</span>&gt;补充货物1&lt;/button&gt;</span><br><span class="line">        &lt;div&gt;总价为：&#123;&#123;price&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">var app = new Vue(&#123;        </span><br><span class="line">       el: <span class="string">'#app'</span>, </span><br><span class="line">   data: &#123;</span><br><span class="line">       package1: &#123;</span><br><span class="line">           count: 5,</span><br><span class="line">           price: 5</span><br><span class="line">       &#125;,</span><br><span class="line">       package2: &#123;</span><br><span class="line">           count: 10,</span><br><span class="line">           price: 10</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    computed: &#123;</span><br><span class="line">     price: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">         <span class="built_in">return</span> this.package1.count*this.package1.price+this.package2.count*this.package2.price　　//总价随着货物或价格的改变会重新计算</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;   //对象的方法</span><br><span class="line">        add: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">            this.package1.count ++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h4 id="计算属性小技巧"><a href="#计算属性小技巧" class="headerlink" title="计算属性小技巧"></a>计算属性小技巧</h4><p>一是计算属性可以依赖其他计算属性;<br>二是计算属性不仅可以依赖当前 Vue 实例的数据，还可以依赖其他实例的数据。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app1"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;div id=<span class="string">"app2"</span>&gt;&#123;&#123; reverseText&#125;&#125;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">var app1 = new Vue(&#123;</span><br><span class="line">   el: <span class="string">'#app1'</span>,</span><br><span class="line"> data: &#123;</span><br><span class="line">      text: <span class="string">'computed'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var app2 = new Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app2'</span>,</span><br><span class="line">    computed: &#123;</span><br><span class="line">        reverseText: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">            <span class="built_in">return</span> app1.text.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);  //使用app1的数据进行计算</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h4 id="计算属性的-setter-getter"><a href="#计算属性的-setter-getter" class="headerlink" title="计算属性的 setter getter"></a>计算属性的 setter getter</h4><p>每一个计算属性都包含一个 getter 和一个 setter，前面的例子都是默认用法，只利用了 getter 来读取；<br><code>setter</code> 函数：当手动修改计算属性的值就像修改一个普通数据那样时，就会触发setter 函数，执行一些自定义的操作。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">    el: <span class="string">'#demo'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        firstName: <span class="string">'Foo'</span>,</span><br><span class="line">        lastName: <span class="string">'Bar'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    computed: &#123;</span><br><span class="line">        fullName: &#123;</span><br><span class="line">            // getter</span><br><span class="line">            get: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">                <span class="built_in">return</span> this.firstName + <span class="string">' '</span> + this.lastName</span><br><span class="line">            &#125;,</span><br><span class="line">            // setter</span><br><span class="line">            <span class="built_in">set</span>: <span class="keyword">function</span> (newValue) &#123;</span><br><span class="line">                var names = newValue.split(<span class="string">' '</span>);</span><br><span class="line">                this.firstName = names[0];</span><br><span class="line">                this.lastName = names[names.length - 1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//现在再运行 vm.fullName = <span class="string">'John Doe'</span> 时，setter 会被调用，vm.firstName 和 vm.lastName 也会相应地被更新。</span><br></pre></td></tr></table></figure></p>
-<p>setter 很少使用，所以可以使用默认写法，不必将 getter 和 setter 都声明。</p>
-<h4 id="计算属性缓存-VS-方法"><a href="#计算属性缓存-VS-方法" class="headerlink" title="计算属性缓存 VS 方法"></a>计算属性缓存 VS 方法</h4><p>在表达式中调用方法达到同样的效果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;Reversed message: <span class="string">"&#123;&#123; reversedMessage() &#125;&#125;"</span>&lt;/p&gt;</span><br><span class="line">// 在组件中</span><br><span class="line">methods: &#123;</span><br><span class="line">  reversedMessage: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> this.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>两者的最终结果确实完全相同。<br>不同的是：<br>计算属性是基于它们的依赖进行缓存的。计算属性只会在它的相关依赖发生改变时才会重新求值；<br>方法会在每次触发重新渲染时，调用方法将<strong>总会</strong>再次执行函数，</p>
-<h4 id="计算属性的setter"><a href="#计算属性的setter" class="headerlink" title="计算属性的setter"></a>计算属性的setter</h4><p>计算属性默认只有getter，必要时可以提供一个setter：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// ...</span><br><span class="line">computed: &#123;</span><br><span class="line">  fullName: &#123;</span><br><span class="line">    // getter</span><br><span class="line">    get: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">      <span class="built_in">return</span> this.firstName + <span class="string">' '</span> + this.lastName</span><br><span class="line">    &#125;,</span><br><span class="line">    // setter</span><br><span class="line">    <span class="built_in">set</span>: <span class="keyword">function</span> (newValue) &#123;</span><br><span class="line">      var names = newValue.split(<span class="string">' '</span>)</span><br><span class="line">      this.firstName = names[0]</span><br><span class="line">      this.lastName = names[names.length - 1]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// ...</span><br></pre></td></tr></table></figure></p>
-<p>现在再运行 vm.fullName = ‘John Doe’ 时，setter 会被调用，vm.firstName 和 vm.lastName 也会相应地被更新。</p>
-<h3 id="侦听器-watch"><a href="#侦听器-watch" class="headerlink" title="侦听器 watch"></a>侦听器 watch</h3><p>Vue 通过 <code>watch</code> 选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"watch-example"</span>&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Ask a yes/no question:</span><br><span class="line">    &lt;input v-model=<span class="string">"question"</span>&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;p&gt;&#123;&#123; answer &#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 因为 AJAX 库和通用工具的生态已经相当丰富，Vue 核心代码没有重复 --&gt;</span><br><span class="line">&lt;!-- 提供这些功能以保持精简。这也可以让你自由选择自己更熟悉的工具。 --&gt;</span><br><span class="line">&lt;script src=<span class="string">"https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">"https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var watchExampleVM = new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#watch-example'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    question: <span class="string">''</span>,</span><br><span class="line">    answer: <span class="string">'I cannot give you an answer until you ask a question!'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    // 如果 `question` 发生改变，这个函数就会运行</span><br><span class="line">    question: <span class="keyword">function</span> (newQuestion, oldQuestion) &#123;</span><br><span class="line">      this.answer = <span class="string">'Waiting for you to stop typing...'</span></span><br><span class="line">      this.debouncedGetAnswer()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。</span><br><span class="line">    // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率</span><br><span class="line">    // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于</span><br><span class="line">    // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，</span><br><span class="line">    // 请参考：https://lodash.com/docs<span class="comment">#debounce</span></span><br><span class="line">    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getAnswer: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">      <span class="keyword">if</span> (this.question.indexOf(<span class="string">'?'</span>) === -1) &#123;</span><br><span class="line">        this.answer = <span class="string">'Questions usually contain a question mark. ;-)'</span></span><br><span class="line">        <span class="built_in">return</span></span><br><span class="line">      &#125;</span><br><span class="line">      this.answer = <span class="string">'Thinking...'</span></span><br><span class="line">      var vm = this</span><br><span class="line">      axios.get(<span class="string">'https://yesno.wtf/api'</span>)</span><br><span class="line">        .<span class="keyword">then</span>(<span class="keyword">function</span> (response) &#123;</span><br><span class="line">          vm.answer = _.capitalize(response.data.answer)</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(<span class="keyword">function</span> (error) &#123;</span><br><span class="line">          vm.answer = <span class="string">'Error! Could not reach the API. '</span> + error</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p><div id="watch-example"><br>  <p><br>    Ask a yes/no question:<br>    <input v-model="question"><br>  </p><br>  <p></p><br></div><br>在这个示例中，使用 watch 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1743,7 +1768,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

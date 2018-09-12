@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="buffer 是一个类，用于TCP流或文件系统操作等场景中处理二进制数据流。buffer 类的实例类似于整数数组，但 buffer 的大小是固定的、且在V8堆外分配物理内存。buffer的大小在被创建时确定，且无法调整。buffer 类在 Node.js中是一个全局变量，引入无需使用 require(‘buffer’).Buffer Buffer与字符编码Buffer 实例一般用于表示编码字符的序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nodejs_buffer模块">
+<meta property="og:url" content="http://yoursite.com/2018/09/12/NodeJs/Nodejs-buffer/index.html">
+<meta property="og:site_name" content="Full Stuck">
+<meta property="og:description" content="buffer 是一个类，用于TCP流或文件系统操作等场景中处理二进制数据流。buffer 类的实例类似于整数数组，但 buffer 的大小是固定的、且在V8堆外分配物理内存。buffer的大小在被创建时确定，且无法调整。buffer 类在 Node.js中是一个全局变量，引入无需使用 require(‘buffer’).Buffer Buffer与字符编码Buffer 实例一般用于表示编码字符的序">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-12T08:39:44.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nodejs_buffer模块">
+<meta name="twitter:description" content="buffer 是一个类，用于TCP流或文件系统操作等场景中处理二进制数据流。buffer 类的实例类似于整数数组，但 buffer 的大小是固定的、且在V8堆外分配物理内存。buffer的大小在被创建时确定，且无法调整。buffer 类在 Node.js中是一个全局变量，引入无需使用 require(‘buffer’).Buffer Buffer与字符编码Buffer 实例一般用于表示编码字符的序">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/12/NodeJs/Nodejs-buffer/"/>
+
+
+
+
+
+  <title>Nodejs_buffer模块 | Full Stuck</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Full Stuck</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-vue">
+          <a href="/vue/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-vue"></i> <br />
+            
+            vue
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/NodeJs/Nodejs-buffer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Nodejs_buffer模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-12T15:30:10+08:00">
+                2018-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>buffer</code> 是一个类，用于TCP流或文件系统操作等场景中处理二进制数据流。<br><code>buffer</code> 类的实例类似于整数数组，但 <code>buffer</code> 的大小是固定的、且在V8堆外分配物理内存。buffer的大小在被创建时确定，且无法调整。<br><code>buffer</code> 类在 Node.js中是一个全局变量，引入无需使用 require(‘buffer’).Buffer</p>
+<h3 id="Buffer与字符编码"><a href="#Buffer与字符编码" class="headerlink" title="Buffer与字符编码"></a>Buffer与字符编码</h3><p>Buffer 实例一般用于表示编码字符的序列，比如 UTF-8、UCS2、Base64、或十六进制编码的数据。 通过使用显式的字符编码，就可以在 Buffer 实例与普通的 JavaScript 字符串之间进行相互转换。</p>
+<h4 id="第三方库-iconv-lite"><a href="#第三方库-iconv-lite" class="headerlink" title="第三方库 iconv-lite"></a>第三方库 iconv-lite</h4><p>NodeJs自带的tostring()方法不支持gbk，需要加载第三方库：iconv-lite<br>安装：npm install iconv-lite<br>使用：var iconv = require(‘iconv-lite’)<br>编码：iconv.encode(str, ‘gbk’)<br>解码：iconv.decode(str, ‘gbk’).toString()</p>
+<h3 id="创建buffer实例"><a href="#创建buffer实例" class="headerlink" title="创建buffer实例"></a>创建buffer实例</h3><p>三个方法：<code>Buffer.alloc()</code>, <code>Buffer.allocUnsafe()</code>, and <code>Buffer.from()</code></p>
+<h4 id="Buffer-alloc"><a href="#Buffer-alloc" class="headerlink" title="Buffer.alloc()"></a>Buffer.alloc()</h4><p>语法：Buffer.alloc(size[, fill[, encoding]])<br>说明：分配一个大小为 size 字节的新建的 Buffer 。 如果 fill 为 undefined ，则该 Buffer 会用 0 填充。<br>参数：</p>
+<ul>
+<li>size <integer> 新建的 Buffer 期望的长度</integer></li>
+<li>fill <string> | <buffer> | <integer> 用来预填充新建的 Buffer 的值。 默认: 0</integer></buffer></string></li>
+<li>encoding <string> 如果 fill 是字符串，则该值是它的字符编码。 默认: ‘utf8’</string></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.alloc(11, <span class="string">'aGVsbG8gd29ybGQ='</span>, <span class="string">'base64'</span>);</span><br><span class="line"></span><br><span class="line">console.log(buf);</span><br><span class="line">// 输出: &lt;Buffer 68 65 6c 6c 6f 20 77 6f 72 6c 64&gt;</span><br></pre></td></tr></table></figure></p>
+<p>调用 Buffer.alloc() 会明显地比另一个方法 Buffer.allocUnsafe() <code>慢</code>，但是能确保新建的 Buffer 实例的内容 <code>不会包含敏感数据</code>。</p>
+<h4 id="Buffer-allocUnsafe"><a href="#Buffer-allocUnsafe" class="headerlink" title="Buffer.allocUnsafe()"></a>Buffer.allocUnsafe()</h4><p>语法：Buffer.allocUnsafe(size)<br>说明：分配一个大小为 size 字节的新建的 Buffer，不进行填充，但可能包含敏感信息<br>参数：</p>
+<ul>
+<li>size <integer> 新建的 Buffer 期望的长度</integer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.allocUnsafe(10);</span><br><span class="line"></span><br><span class="line">// 输出: (内容可能不同): &lt;Buffer a0 8b 28 3f 01 00 00 00 50 32&gt;</span><br><span class="line">console.log(buf);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Buffer-from"><a href="#Buffer-from" class="headerlink" title="Buffer.from()"></a>Buffer.from()</h4><p>语法：Buffer.from(array)<br>说明：通过一个八位字节的 array 创建一个新的 Buffer<br>参数：</p>
+<ul>
+<li>array <array></array></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个新的包含字符串 <span class="string">'buffer'</span> 的 UTF-8 字节的 Buffer</span><br><span class="line">const buf = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);</span><br></pre></td></tr></table></figure></p>
+<p>语法：Buffer.from(buffer)<br>说明：将传入的 buffer 数据拷贝到一个新建的 Buffer 实例<br>参数：</p>
+<ul>
+<li>buffer <buffer> 一个要拷贝数据的已存在的 Buffer</buffer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'buffer'</span>);</span><br><span class="line">const buf2 = Buffer.from(buf1);</span><br><span class="line"></span><br><span class="line">buf1[0] = 0x61;</span><br><span class="line"></span><br><span class="line">// 输出: auffer</span><br><span class="line">console.log(buf1.toString());</span><br><span class="line"></span><br><span class="line">// 输出: buffer</span><br><span class="line">console.log(buf2.toString());</span><br></pre></td></tr></table></figure></p>
+<p>语法：Buffer.from(string[, encoding])<br>说明：新建一个包含所给的 JavaScript 字符串 string 的 Buffer<br>参数：</p>
+<ul>
+<li>string <string> 要编码的字符串</string></li>
+<li>encoding <string> string 的字符编码。 默认: ‘utf8’</string></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'this is a tést'</span>);</span><br><span class="line"></span><br><span class="line">// 输出: this is a tést</span><br><span class="line">console.log(buf1.toString());</span><br></pre></td></tr></table></figure></p>
+<h4 id="Q-是什么令-Buffer-allocUnsafe-和-Buffer-allocUnsafeSlow-不安全？"><a href="#Q-是什么令-Buffer-allocUnsafe-和-Buffer-allocUnsafeSlow-不安全？" class="headerlink" title="Q:是什么令 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 不安全？"></a>Q:是什么令 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 不安全？</h4><p>当调用 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 时，被分配的 <code>内存段是未初始化的</code>（没有用 0 填充）。 虽然这样的设计使得内存的分配非常快，但已分配的内存段可能包含潜在的敏感旧数据。 使用通过 Buffer.allocUnsafe() 创建的没有被完全重写内存的 Buffer ，在 Buffer 内存可读的情况下，可能泄露它的旧数据。</p>
+<p>虽然使用 Buffer.allocUnsafe() 有明显的性能优势，但必须额外小心，以避免给应用程序引入安全漏洞。</p>
+<h3 id="Buffer类的方法和属性"><a href="#Buffer类的方法和属性" class="headerlink" title="Buffer类的方法和属性"></a>Buffer类的方法和属性</h3><h4 id="Buffer-isBuffer-obj"><a href="#Buffer-isBuffer-obj" class="headerlink" title="Buffer.isBuffer(obj)"></a>Buffer.isBuffer(obj)</h4><p>说明：如果 obj 是一个 Buffer 则返回 true ，否则返回 false<br>参数：</p>
+<ul>
+<li>obj <object></object></li>
+<li>返回: <boolean></boolean></li>
+</ul>
+<h4 id="buf-write-string-offset-length-encoding"><a href="#buf-write-string-offset-length-encoding" class="headerlink" title="buf.write(string[, offset[, length]][, encoding])"></a>buf.write(string[, offset[, length]][, encoding])</h4><p>说明：根据 encoding 的字符编码写入 string 到 buf 中的 offset 位置。length 参数是写入的字节数。 如果 buf 没有足够的空间保存整个字符串，则只会写入 string 的一部分。 只部分解码的字符不会被写入<br>参数：</p>
+<ul>
+<li>string <string> 要写入 buf 的字符串。</string></li>
+<li>offset <integer> 开始写入 string 前要跳过的字节数。默认: 0。</integer></li>
+<li>length <integer> 要写入的字节数。默认: buf.length - offset。</integer></li>
+<li>encoding <string> string 的字符编码。默认: ‘utf8’。</string></li>
+<li>返回: <integer> 写入的字节数。</integer></li>
+</ul>
+<h4 id="buf-toString-encoding-start-end"><a href="#buf-toString-encoding-start-end" class="headerlink" title="buf.toString([encoding[, start[, end]]])"></a>buf.toString([encoding[, start[, end]]])</h4><p>说明：根据 encoding 指定的字符编码解码 buf 成一个字符串。start和end可传入用于只解码buf的一部分<br>参数：</p>
+<ul>
+<li>encoding <string> 解码使用的字符编码。默认: ‘utf8’</string></li>
+<li>start <integer> 开始解码的字节偏移量。默认: 0</integer></li>
+<li>end <integer> 结束解码的字节偏移量（不包含）。 默认: buf.length</integer></li>
+<li>返回: <string></string></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值</span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 输出: abcdefghijklmnopqrstuvwxyz</span><br><span class="line">console.log(buf1.toString(<span class="string">'ascii'</span>));</span><br><span class="line"></span><br><span class="line">// 输出: abcde</span><br><span class="line">console.log(buf1.toString(<span class="string">'ascii'</span>, 0, 5));</span><br></pre></td></tr></table></figure></p>
+<h4 id="buf-toJSON"><a href="#buf-toJSON" class="headerlink" title="buf.toJSON()"></a>buf.toJSON()</h4><p>说明：返回buf的JSON格式。当字符串化一个Buffer实例时，JSON.stringify() 会隐式地调用该函数<br>参数：</p>
+<ul>
+<li>返回: <object></object></li>
+</ul>
+<h4 id="Buffer-concat-list-totalLength"><a href="#Buffer-concat-list-totalLength" class="headerlink" title="Buffer.concat(list[, totalLength])"></a>Buffer.concat(list[, totalLength])</h4><p>说明：返回一个合并了 list 中所有 Buffer 实例的新建的 Buffer。list为数组形式<br>参数：</p>
+<ul>
+<li>list <array> 要合并的 Buffer 或 Uint8Array 实例的数组</array></li>
+<li>totalLength <integer> 合并时 list 中 Buffer 实例的总长度</integer></li>
+<li>返回: <buffer></buffer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.alloc(10);</span><br><span class="line">const buf2 = Buffer.alloc(14);</span><br><span class="line">const buf3 = Buffer.alloc(18);</span><br><span class="line">const totalLength = buf1.length + buf2.length + buf3.length;</span><br><span class="line"></span><br><span class="line">// 输出: 42</span><br><span class="line">console.log(totalLength);</span><br><span class="line"></span><br><span class="line">const bufA = Buffer.concat([buf1, buf2, buf3], totalLength);</span><br><span class="line"></span><br><span class="line">// 输出: &lt;Buffer 00 00 00 00 ...&gt;</span><br><span class="line">console.log(bufA);</span><br><span class="line"></span><br><span class="line">// 输出: 42</span><br><span class="line">console.log(bufA.length);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Buffer-compare-buf1-buf2"><a href="#Buffer-compare-buf1-buf2" class="headerlink" title="Buffer.compare(buf1, buf2)"></a>Buffer.compare(buf1, buf2)</h4><p>说明：比较 buf1 和 buf2 ，通常用于 Buffer 实例数组的排序。 相当于调用 buf1.compare(buf2)<br>参数：</p>
+<ul>
+<li>buf1 <buffer> | <uint8array></uint8array></buffer></li>
+<li>buf2 <buffer> | <uint8array></uint8array></buffer></li>
+<li>Returns: <integer></integer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'1234'</span>);</span><br><span class="line">const buf2 = Buffer.from(<span class="string">'0123'</span>);</span><br><span class="line">const arr = [buf1, buf2];</span><br><span class="line"></span><br><span class="line">// 输出: [ &lt;Buffer 30 31 32 33&gt;, &lt;Buffer 31 32 33 34&gt; ]</span><br><span class="line">// (结果相当于: [buf2, buf1])</span><br><span class="line">console.log(arr.sort(Buffer.compare));</span><br></pre></td></tr></table></figure></p>
+<h4 id="buf-copy-target-targetStart-sourceStart-sourceEnd"><a href="#buf-copy-target-targetStart-sourceStart-sourceEnd" class="headerlink" title="buf.copy(target[, targetStart[, sourceStart[, sourceEnd]]])"></a>buf.copy(target[, targetStart[, sourceStart[, sourceEnd]]])</h4><p>说明：拷贝 buf 的一个区域的数据到 target 的一个区域，即便 target 的内存区域与 buf 的重叠<br>参数：</p>
+<ul>
+<li>target <buffer> | <uint8array> 要拷贝进的 Buffer 或 Uint8Array。</uint8array></buffer></li>
+<li>targetStart <integer> target 中开始拷贝进的偏移量。 默认: 0</integer></li>
+<li>sourceStart <integer> buf 中开始拷贝的偏移量。 默认: 0</integer></li>
+<li>sourceEnd <integer> buf 中结束拷贝的偏移量（不包含）。 默认: buf.length</integer></li>
+<li>返回: <integer> 被拷贝的字节数。</integer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line">const buf2 = Buffer.allocUnsafe(26).fill(<span class="string">'!'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值</span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">buf1.copy(buf2, 8, 16, 20);</span><br><span class="line"></span><br><span class="line">// 输出: !!!!!!!!qrst!!!!!!!!!!!!!</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, 25));</span><br></pre></td></tr></table></figure></p>
+<h4 id="buf-slice-start-end"><a href="#buf-slice-start-end" class="headerlink" title="buf.slice([start[, end]])"></a>buf.slice([start[, end]])</h4><p>说明：返回一个指向相同原始内存的新建的 Buffer，但做了偏移且通过 start 和 end 索引进行裁剪<br>参数：</p>
+<ul>
+<li>start <integer> 新建的 Buffer 开始的位置。 默认: 0</integer></li>
+<li>end <integer> 新建的 Buffer 结束的位置（不包含）。 默认: buf.length</integer></li>
+<li>返回: <buffer></buffer></li>
+</ul>
+<p>注意，修改这个新建的 Buffer 切片，也会同时修改原始的 Buffer 的内存，因为这两个对象所分配的内存是重叠的。</p>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值 </span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const buf2 = buf1.slice(0, 3);</span><br><span class="line"></span><br><span class="line">// 输出: abc</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, buf2.length));</span><br><span class="line"></span><br><span class="line">buf1[0] = 33;</span><br><span class="line"></span><br><span class="line">// 输出: !bc</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, buf2.length));</span><br></pre></td></tr></table></figure></p>
+<h4 id="buf-length"><a href="#buf-length" class="headerlink" title="buf.length"></a>buf.length</h4><p>说明：返回 buf 在字节数上分配的内存量。 注意，这并不一定反映 buf 内可用的数据量<br>参数：</p>
+<ul>
+<li>返回值：<integer></integer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.alloc(1234);</span><br><span class="line"></span><br><span class="line">// 输出: 1234</span><br><span class="line">console.log(buf.length);</span><br><span class="line"></span><br><span class="line">buf.write(<span class="string">'some string'</span>, 0, <span class="string">'ascii'</span>);</span><br><span class="line"></span><br><span class="line">// 输出: 1234</span><br><span class="line">console.log(buf.length);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/04/Vue/Vue精简版/" rel="next" title="Vue-渐进式JavaScript框架">
+                <i class="fa fa-chevron-left"></i> Vue-渐进式JavaScript框架
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/12/NodeJs/Nodejs-fs/" rel="prev" title="Nodejs_fs 文件模块">
+                Nodejs_fs 文件模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kexinzhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer与字符编码"><span class="nav-number">1.</span> <span class="nav-text">Buffer与字符编码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第三方库-iconv-lite"><span class="nav-number">1.1.</span> <span class="nav-text">第三方库 iconv-lite</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建buffer实例"><span class="nav-number">2.</span> <span class="nav-text">创建buffer实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-alloc"><span class="nav-number">2.1.</span> <span class="nav-text">Buffer.alloc()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-allocUnsafe"><span class="nav-number">2.2.</span> <span class="nav-text">Buffer.allocUnsafe()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-from"><span class="nav-number">2.3.</span> <span class="nav-text">Buffer.from()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-是什么令-Buffer-allocUnsafe-和-Buffer-allocUnsafeSlow-不安全？"><span class="nav-number">2.4.</span> <span class="nav-text">Q:是什么令 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 不安全？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer类的方法和属性"><span class="nav-number">3.</span> <span class="nav-text">Buffer类的方法和属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-isBuffer-obj"><span class="nav-number">3.1.</span> <span class="nav-text">Buffer.isBuffer(obj)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#buf-write-string-offset-length-encoding"><span class="nav-number">3.2.</span> <span class="nav-text">buf.write(string[, offset[, length]][, encoding])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#buf-toString-encoding-start-end"><span class="nav-number">3.3.</span> <span class="nav-text">buf.toString([encoding[, start[, end]]])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#buf-toJSON"><span class="nav-number">3.4.</span> <span class="nav-text">buf.toJSON()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-concat-list-totalLength"><span class="nav-number">3.5.</span> <span class="nav-text">Buffer.concat(list[, totalLength])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-compare-buf1-buf2"><span class="nav-number">3.6.</span> <span class="nav-text">Buffer.compare(buf1, buf2)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#buf-copy-target-targetStart-sourceStart-sourceEnd"><span class="nav-number">3.7.</span> <span class="nav-text">buf.copy(target[, targetStart[, sourceStart[, sourceEnd]]])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#buf-slice-start-end"><span class="nav-number">3.8.</span> <span class="nav-text">buf.slice([start[, end]])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#buf-length"><span class="nav-number">3.9.</span> <span class="nav-text">buf.length</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexinzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

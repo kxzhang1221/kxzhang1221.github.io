@@ -259,6 +259,592 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/NodeJs/Nodejs-fs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/12/NodeJs/Nodejs-fs/" itemprop="url">Nodejs_fs 文件模块</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-12T16:39:57+08:00">
+                2018-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。<br>引入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>所有的文件系统操作都有 <code>异步</code> 和 <code>同步</code> 两种形式。</p>
+<ul>
+<li>同步方法都会有返回值</li>
+<li>异步方法最后一个参数都是完成时的回调函数。</li>
+</ul>
+<p>建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞</p>
+<h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>在 POSIX 系统，内核为所有进程维护着一张当前打开着的文件与资源的表格。每个打开的文件都会分配一个名为文件描述符的数值标识。在系统层，所有文件系统操作使用这些文件描述符来识别与追踪每个特定的文件。 Window 系统使用了一个不同但概念类似的机制来追踪资源。为方便用户，Node.js 抽象了不同操作系统间的差异，为所有打开的文件分配了数值的文件描述符</p>
+<p>fs.open() 方法用于分配一个新的文件描述符。 一旦分配了，文件描述符可用于读取数据、写入数据、或查看文件信息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fs.open(<span class="string">'/open/some/file.txt'</span>, <span class="string">'r'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  fs.fstat(fd, (err, <span class="built_in">stat</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) throw err;</span><br><span class="line">    // 各种操作</span><br><span class="line"></span><br><span class="line">    // 必须关闭文件描述符！</span><br><span class="line">    fs.close(fd, (err) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) throw err;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>大多数操作系统会限制打开的文件描述符的数量，所以当操作完成时需关闭描述符。 如果不这样做会导致内存泄漏，最终造成应用奔溃。</p>
+<h3 id="文件系统flag"><a href="#文件系统flag" class="headerlink" title="文件系统flag"></a>文件系统flag</h3><p>以下 flag 用于接受字符串的 flag 选项：</p>
+<ul>
+<li>‘a’ - 打开文件用于追加。如果文件不存在则创建文件</li>
+<li>‘r’ - 打开文件用于读取。如果文件不存在则抛出异常</li>
+<li>‘w’ - 打开文件用于写入。文件会被创建（如果不存在）或截断（如果存在）</li>
+</ul>
+<h3 id="fs方法和属性"><a href="#fs方法和属性" class="headerlink" title="fs方法和属性"></a>fs方法和属性</h3><h4 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h4><p>语法：fs.open(path, flags[, mode], callback)<br>说明：异步地打开文件<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url> 文件的路径</url></buffer></string></li>
+<li>flags <string> | <number> 打开文件的方式</number></string></li>
+<li>mode <integer> 默认值: 0o666</integer></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>fd <integer></integer></li>
+</ul>
+</function></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fs.open(<span class="string">'&lt;directory&gt;'</span>, <span class="string">'a'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  // =&gt; null, &lt;fd&gt;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>语法：fs.openSync(path, flags[, mode])<br>说明：fs.open() 的同步版本。 返回一个表示文件描述符的整数<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>flags <string> | <number></number></string></li>
+<li>mode <integer> Default: 0o666</integer></li>
+</ul>
+<h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><p>语法：fs.read(fd, buffer, offset, length, position, callback)<br>说明：从 fd 指定的文件中读取数据<br>参数：</p>
+<ul>
+<li>fd <integer> 文件描述符（指定文件）</integer></li>
+<li>buffer <buffer> | <uint8array> 数据将被写入到的buffer</uint8array></buffer></li>
+<li>offset <integer> buffer 中开始写入的偏移量</integer></li>
+<li>length <integer> 是一个整数，指定要读取的字节数</integer></li>
+<li>position <integer> 指定从文件fd中开始读取的位置</integer></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>bytesRead <integer></integer></li>
+<li>buffer <buffer></buffer></li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.readSync(fd, buffer, offset, length, position)<br>说明：fs.read() 的同步版本<br>参数：同fs.read()</p>
+<h4 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h4><p>语法：fs.write(fd, buffer[, offset[, length[, position]]], callback)<br>说明：写入 buffer 到 fd 指定的文件<br>参数：</p>
+<ul>
+<li>fd <integer> 文件描述符</integer></li>
+<li>buffer <buffer> | <uint8array> </uint8array></buffer></li>
+<li>offset <integer> 决定buffer中被写入的部分</integer></li>
+<li>length <integer> 指定要写入的字节数</integer></li>
+<li>position <integer> 指向从文件开始写入数据的位置的偏移量</integer></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>bytesWritten <integer></integer></li>
+<li>buffer <buffer> | <uint8array></uint8array></buffer></li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.write(fd, string[, position[, encoding]], callback)<br>说明：写入 string 到 fd 指定的文件。 如果 string 不是一个字符串，则该值将被强制转换为一个字符串<br>参数：</p>
+<ul>
+<li>fd <integer> </integer></li>
+<li>string <string> 要写入的字符串</string></li>
+<li>position <integer> 指向从文件开始写入数据的位置的偏移量</integer></li>
+<li>encoding <string> 是期望的字符串编码</string></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>written <integer></integer></li>
+<li>string <string></string></li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.writeSync(fd, string[, position[, encoding]])<br>说明：fs.write() 的同步版本。返回写入的字节数。<br>参数：同fs.write()</p>
+<h4 id="读取所有文件"><a href="#读取所有文件" class="headerlink" title="读取所有文件"></a>读取所有文件</h4><p>语法：fs.readFile(path[, options], callback)<br>说明：异步地读取一个文件的全部内容<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url> | <integer> 文件名或文件描述符。</integer></url></buffer></string></li>
+<li>options <object> | <string><ul>
+<li>encoding <string> | <null> 默认为 null。</null></string></li>
+<li>flag <string> 详见支持的文件系统flag。默认为 ‘r’。</string></li>
+</ul>
+</string></object></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>data <string> | <buffer></buffer></string></li>
+</ul>
+</function></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'/etc/passwd'</span>, (err, data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>任何指定的文件描述符必须支持读取。</p>
+<p>如果 path 是一个文件描述符，则它不会被自动关闭。</p>
+<p>fs.readFile() 函数会缓存整个文件。 为了最小化内存占用，尽可能优先使用 fs.createReadStream()</p>
+<p>语法：fs.readFileSync(path[, options])<br>说明：fs.readFile() 的同步版本。返回 path 的内容<br>参数：同fs.readFile()</p>
+<h4 id="写入全部文件"><a href="#写入全部文件" class="headerlink" title="写入全部文件"></a>写入全部文件</h4><p>语法：fs.writeFile(file, data[, options], callback)<br>说明：异步地写入数据到文件，如果文件已经存在，则覆盖文件。 data 可以是字符串或 buffer<br>参数：</p>
+<ul>
+<li>file <string> | <buffer> | <url> | <integer> 文件名或文件描述符。</integer></url></buffer></string></li>
+<li>data <string> | <buffer> | <uint8array> 如果data是一个buffer，则encoding选项无效</uint8array></buffer></string></li>
+<li>options <object> | <string><ul>
+<li>encoding <string> | <null> 默认为 ‘utf8’。</null></string></li>
+<li>mode <integer> 默认为 0o666。</integer></li>
+<li>flag <string> 详见支持的文件系统flag。默认为 ‘w’。</string></li>
+</ul>
+</string></object></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.writeFile(<span class="string">'文件名.txt'</span>, <span class="string">'Node.js 中文网'</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(<span class="string">'文件已保存！'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>语法：fs.writeFileSync(file, data[, options])<br>说明：fs.writeFile() 的同步版本。返回 undefined<br>参数：同fs.writeFile()</p>
+<h4 id="创建读取流"><a href="#创建读取流" class="headerlink" title="创建读取流"></a>创建读取流</h4><p>语法：fs.createReadStream(path[, options])<br>说明：<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>options <string> | <object><ul>
+<li>flags <string> 详见支持的文件系统flag。默认为 ‘r’。</string></li>
+<li>encoding <string> 默认为 null。</string></li>
+<li>fd <integer> 默认为 null。</integer></li>
+<li>mode <integer> 默认为 0o666。</integer></li>
+<li>autoClose <boolean> 默认为 true。</boolean></li>
+<li>start <integer></integer></li>
+<li>end <integer> 默认为 Infinity。</integer></li>
+<li>highWaterMark <integer> 默认为 64 * 1024（64kb）。</integer></li>
+</ul>
+</object></string></li>
+<li>返回: 返回一个新建的ReadSteam对象</li>
+</ul>
+<p>如果指定了 fd，则 ReadStream 会忽略 path 参数并且会使用指定的文件描述符。 这意味着不会触发 ‘open’ 事件。</p>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.createReadStream(<span class="string">'sample.txt'</span>, &#123; start: 90, end: 99 &#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建写入流"><a href="#创建写入流" class="headerlink" title="创建写入流"></a>创建写入流</h4><p>语法：fs.createWriteStream(path[, options])<br>说明：<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>options <string> | <object><ul>
+<li>flags <string> 详见支持的文件系统flag。默认为 ‘w’。如果是修改文件而不是覆盖它，则 flags 模式需为 r+ 模式而不是默认的 w 模式</string></li>
+<li>encoding <string> 默认为 ‘utf8’。</string></li>
+<li>fd <integer> 默认为 null。</integer></li>
+<li>mode <integer> 默认为 0o666。</integer></li>
+<li>autoClose <boolean> 默认为 true。</boolean></li>
+<li>start <integer> 用于写入数据到文件指定位置</integer></li>
+</ul>
+</object></string></li>
+<li>返回: &lt;fs.WriteStream&gt; 详见可写流。</li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 复制文件1.txt到2.txt</span><br><span class="line">var rs = fs.createReadSteam(<span class="string">'1.txt'</span>)</span><br><span class="line">var ws = fs.createWriteSteam(<span class="string">'2.txt'</span>)</span><br><span class="line">rs.pipe(ws)</span><br></pre></td></tr></table></figure></p>
+<h4 id="查看文件信息"><a href="#查看文件信息" class="headerlink" title="查看文件信息"></a>查看文件信息</h4><p>语法：fs.stat(path[, options], callback)<br>说明：返回关于文件的信息 – 类似与文件右键属性<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>options <object><ul>
+<li>bigint <boolean> Whether the numeric values in the returned fs.Stats object should be bigint. Default: false.</boolean></li>
+</ul>
+</object></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>stats &lt;fs.Stats&gt;</li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.statSync(path[, options])<br>说明：返回一个fs.Stats实例；传递不存在的文件地址会抛出异常</p>
+<h4 id="判断文件是否存在"><a href="#判断文件是否存在" class="headerlink" title="判断文件是否存在"></a>判断文件是否存在</h4><p>语法：fs.existsSync(path)<br>说明：如果路径存在，则返回 true，否则返回 false<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url> 路径</url></buffer></string></li>
+</ul>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><p>语法：fs.unlinkSync(path)<br>说明：同步删除指定文件<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.unlink(path, callback)<br>说明：异步删除指定文件<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<h4 id="返回文件绝对路径"><a href="#返回文件绝对路径" class="headerlink" title="返回文件绝对路径"></a>返回文件绝对路径</h4><p>语法：fs.realpathSync(path[, options])<br>说明：同步返回解析的路径<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>options <string> | <object><ul>
+<li>encoding <string> 默认 = ‘utf8’</string></li>
+</ul>
+</object></string></li>
+</ul>
+<p>可选的 options 参数用于传入回调的路径，它可以是一个字符串并指定一个字符编码，或是一个对象且由一个 encoding 属性指定使用的字符编码。 如果 encoding 设为 ‘buffer’，则返回的路径会被作为 Buffer 对象传入。</p>
+<p>注意: 如果 path 解析成一个 socket 或者管道，该函数将返回包含系统相关名称的对象。</p>
+<h4 id="创建一个文件"><a href="#创建一个文件" class="headerlink" title="创建一个文件"></a>创建一个文件</h4><p>语法：fs.mkdir(path[, mode], callback)<br>说明：异步地创建目录。 完成回调只有一个可能的异常参数。 mode 默认为 0o777。<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>mode <integer> Default: 0o777</integer></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<h4 id="删除一个文件"><a href="#删除一个文件" class="headerlink" title="删除一个文件"></a>删除一个文件</h4><p>语法：fs.rmdir(path, callback)<br>说明：异步的删除一个文件。 完成回调只有一个可能的异常参数。<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<p>只能删除一个空目录，如果删除的目录不是空目录，则抛出异常</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/NodeJs/Nodejs-buffer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/12/NodeJs/Nodejs-buffer/" itemprop="url">Nodejs_buffer模块</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-12T15:30:10+08:00">
+                2018-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>buffer</code> 是一个类，用于TCP流或文件系统操作等场景中处理二进制数据流。<br><code>buffer</code> 类的实例类似于整数数组，但 <code>buffer</code> 的大小是固定的、且在V8堆外分配物理内存。buffer的大小在被创建时确定，且无法调整。<br><code>buffer</code> 类在 Node.js中是一个全局变量，引入无需使用 require(‘buffer’).Buffer</p>
+<h3 id="Buffer与字符编码"><a href="#Buffer与字符编码" class="headerlink" title="Buffer与字符编码"></a>Buffer与字符编码</h3><p>Buffer 实例一般用于表示编码字符的序列，比如 UTF-8、UCS2、Base64、或十六进制编码的数据。 通过使用显式的字符编码，就可以在 Buffer 实例与普通的 JavaScript 字符串之间进行相互转换。</p>
+<h4 id="第三方库-iconv-lite"><a href="#第三方库-iconv-lite" class="headerlink" title="第三方库 iconv-lite"></a>第三方库 iconv-lite</h4><p>NodeJs自带的tostring()方法不支持gbk，需要加载第三方库：iconv-lite<br>安装：npm install iconv-lite<br>使用：var iconv = require(‘iconv-lite’)<br>编码：iconv.encode(str, ‘gbk’)<br>解码：iconv.decode(str, ‘gbk’).toString()</p>
+<h3 id="创建buffer实例"><a href="#创建buffer实例" class="headerlink" title="创建buffer实例"></a>创建buffer实例</h3><p>三个方法：<code>Buffer.alloc()</code>, <code>Buffer.allocUnsafe()</code>, and <code>Buffer.from()</code></p>
+<h4 id="Buffer-alloc"><a href="#Buffer-alloc" class="headerlink" title="Buffer.alloc()"></a>Buffer.alloc()</h4><p>语法：Buffer.alloc(size[, fill[, encoding]])<br>说明：分配一个大小为 size 字节的新建的 Buffer 。 如果 fill 为 undefined ，则该 Buffer 会用 0 填充。<br>参数：</p>
+<ul>
+<li>size <integer> 新建的 Buffer 期望的长度</integer></li>
+<li>fill <string> | <buffer> | <integer> 用来预填充新建的 Buffer 的值。 默认: 0</integer></buffer></string></li>
+<li>encoding <string> 如果 fill 是字符串，则该值是它的字符编码。 默认: ‘utf8’</string></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.alloc(11, <span class="string">'aGVsbG8gd29ybGQ='</span>, <span class="string">'base64'</span>);</span><br><span class="line"></span><br><span class="line">console.log(buf);</span><br><span class="line">// 输出: &lt;Buffer 68 65 6c 6c 6f 20 77 6f 72 6c 64&gt;</span><br></pre></td></tr></table></figure></p>
+<p>调用 Buffer.alloc() 会明显地比另一个方法 Buffer.allocUnsafe() <code>慢</code>，但是能确保新建的 Buffer 实例的内容 <code>不会包含敏感数据</code>。</p>
+<h4 id="Buffer-allocUnsafe"><a href="#Buffer-allocUnsafe" class="headerlink" title="Buffer.allocUnsafe()"></a>Buffer.allocUnsafe()</h4><p>语法：Buffer.allocUnsafe(size)<br>说明：分配一个大小为 size 字节的新建的 Buffer，不进行填充，但可能包含敏感信息<br>参数：</p>
+<ul>
+<li>size <integer> 新建的 Buffer 期望的长度</integer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.allocUnsafe(10);</span><br><span class="line"></span><br><span class="line">// 输出: (内容可能不同): &lt;Buffer a0 8b 28 3f 01 00 00 00 50 32&gt;</span><br><span class="line">console.log(buf);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Buffer-from"><a href="#Buffer-from" class="headerlink" title="Buffer.from()"></a>Buffer.from()</h4><p>语法：Buffer.from(array)<br>说明：通过一个八位字节的 array 创建一个新的 Buffer<br>参数：</p>
+<ul>
+<li>array <array></array></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个新的包含字符串 <span class="string">'buffer'</span> 的 UTF-8 字节的 Buffer</span><br><span class="line">const buf = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);</span><br></pre></td></tr></table></figure></p>
+<p>语法：Buffer.from(buffer)<br>说明：将传入的 buffer 数据拷贝到一个新建的 Buffer 实例<br>参数：</p>
+<ul>
+<li>buffer <buffer> 一个要拷贝数据的已存在的 Buffer</buffer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'buffer'</span>);</span><br><span class="line">const buf2 = Buffer.from(buf1);</span><br><span class="line"></span><br><span class="line">buf1[0] = 0x61;</span><br><span class="line"></span><br><span class="line">// 输出: auffer</span><br><span class="line">console.log(buf1.toString());</span><br><span class="line"></span><br><span class="line">// 输出: buffer</span><br><span class="line">console.log(buf2.toString());</span><br></pre></td></tr></table></figure></p>
+<p>语法：Buffer.from(string[, encoding])<br>说明：新建一个包含所给的 JavaScript 字符串 string 的 Buffer<br>参数：</p>
+<ul>
+<li>string <string> 要编码的字符串</string></li>
+<li>encoding <string> string 的字符编码。 默认: ‘utf8’</string></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'this is a tést'</span>);</span><br><span class="line"></span><br><span class="line">// 输出: this is a tést</span><br><span class="line">console.log(buf1.toString());</span><br></pre></td></tr></table></figure></p>
+<h4 id="Q-是什么令-Buffer-allocUnsafe-和-Buffer-allocUnsafeSlow-不安全？"><a href="#Q-是什么令-Buffer-allocUnsafe-和-Buffer-allocUnsafeSlow-不安全？" class="headerlink" title="Q:是什么令 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 不安全？"></a>Q:是什么令 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 不安全？</h4><p>当调用 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 时，被分配的 <code>内存段是未初始化的</code>（没有用 0 填充）。 虽然这样的设计使得内存的分配非常快，但已分配的内存段可能包含潜在的敏感旧数据。 使用通过 Buffer.allocUnsafe() 创建的没有被完全重写内存的 Buffer ，在 Buffer 内存可读的情况下，可能泄露它的旧数据。</p>
+<p>虽然使用 Buffer.allocUnsafe() 有明显的性能优势，但必须额外小心，以避免给应用程序引入安全漏洞。</p>
+<h3 id="Buffer类的方法和属性"><a href="#Buffer类的方法和属性" class="headerlink" title="Buffer类的方法和属性"></a>Buffer类的方法和属性</h3><h4 id="Buffer-isBuffer-obj"><a href="#Buffer-isBuffer-obj" class="headerlink" title="Buffer.isBuffer(obj)"></a>Buffer.isBuffer(obj)</h4><p>说明：如果 obj 是一个 Buffer 则返回 true ，否则返回 false<br>参数：</p>
+<ul>
+<li>obj <object></object></li>
+<li>返回: <boolean></boolean></li>
+</ul>
+<h4 id="buf-write-string-offset-length-encoding"><a href="#buf-write-string-offset-length-encoding" class="headerlink" title="buf.write(string[, offset[, length]][, encoding])"></a>buf.write(string[, offset[, length]][, encoding])</h4><p>说明：根据 encoding 的字符编码写入 string 到 buf 中的 offset 位置。length 参数是写入的字节数。 如果 buf 没有足够的空间保存整个字符串，则只会写入 string 的一部分。 只部分解码的字符不会被写入<br>参数：</p>
+<ul>
+<li>string <string> 要写入 buf 的字符串。</string></li>
+<li>offset <integer> 开始写入 string 前要跳过的字节数。默认: 0。</integer></li>
+<li>length <integer> 要写入的字节数。默认: buf.length - offset。</integer></li>
+<li>encoding <string> string 的字符编码。默认: ‘utf8’。</string></li>
+<li>返回: <integer> 写入的字节数。</integer></li>
+</ul>
+<h4 id="buf-toString-encoding-start-end"><a href="#buf-toString-encoding-start-end" class="headerlink" title="buf.toString([encoding[, start[, end]]])"></a>buf.toString([encoding[, start[, end]]])</h4><p>说明：根据 encoding 指定的字符编码解码 buf 成一个字符串。start和end可传入用于只解码buf的一部分<br>参数：</p>
+<ul>
+<li>encoding <string> 解码使用的字符编码。默认: ‘utf8’</string></li>
+<li>start <integer> 开始解码的字节偏移量。默认: 0</integer></li>
+<li>end <integer> 结束解码的字节偏移量（不包含）。 默认: buf.length</integer></li>
+<li>返回: <string></string></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值</span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 输出: abcdefghijklmnopqrstuvwxyz</span><br><span class="line">console.log(buf1.toString(<span class="string">'ascii'</span>));</span><br><span class="line"></span><br><span class="line">// 输出: abcde</span><br><span class="line">console.log(buf1.toString(<span class="string">'ascii'</span>, 0, 5));</span><br></pre></td></tr></table></figure></p>
+<h4 id="buf-toJSON"><a href="#buf-toJSON" class="headerlink" title="buf.toJSON()"></a>buf.toJSON()</h4><p>说明：返回buf的JSON格式。当字符串化一个Buffer实例时，JSON.stringify() 会隐式地调用该函数<br>参数：</p>
+<ul>
+<li>返回: <object></object></li>
+</ul>
+<h4 id="Buffer-concat-list-totalLength"><a href="#Buffer-concat-list-totalLength" class="headerlink" title="Buffer.concat(list[, totalLength])"></a>Buffer.concat(list[, totalLength])</h4><p>说明：返回一个合并了 list 中所有 Buffer 实例的新建的 Buffer。list为数组形式<br>参数：</p>
+<ul>
+<li>list <array> 要合并的 Buffer 或 Uint8Array 实例的数组</array></li>
+<li>totalLength <integer> 合并时 list 中 Buffer 实例的总长度</integer></li>
+<li>返回: <buffer></buffer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.alloc(10);</span><br><span class="line">const buf2 = Buffer.alloc(14);</span><br><span class="line">const buf3 = Buffer.alloc(18);</span><br><span class="line">const totalLength = buf1.length + buf2.length + buf3.length;</span><br><span class="line"></span><br><span class="line">// 输出: 42</span><br><span class="line">console.log(totalLength);</span><br><span class="line"></span><br><span class="line">const bufA = Buffer.concat([buf1, buf2, buf3], totalLength);</span><br><span class="line"></span><br><span class="line">// 输出: &lt;Buffer 00 00 00 00 ...&gt;</span><br><span class="line">console.log(bufA);</span><br><span class="line"></span><br><span class="line">// 输出: 42</span><br><span class="line">console.log(bufA.length);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Buffer-compare-buf1-buf2"><a href="#Buffer-compare-buf1-buf2" class="headerlink" title="Buffer.compare(buf1, buf2)"></a>Buffer.compare(buf1, buf2)</h4><p>说明：比较 buf1 和 buf2 ，通常用于 Buffer 实例数组的排序。 相当于调用 buf1.compare(buf2)<br>参数：</p>
+<ul>
+<li>buf1 <buffer> | <uint8array></uint8array></buffer></li>
+<li>buf2 <buffer> | <uint8array></uint8array></buffer></li>
+<li>Returns: <integer></integer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'1234'</span>);</span><br><span class="line">const buf2 = Buffer.from(<span class="string">'0123'</span>);</span><br><span class="line">const arr = [buf1, buf2];</span><br><span class="line"></span><br><span class="line">// 输出: [ &lt;Buffer 30 31 32 33&gt;, &lt;Buffer 31 32 33 34&gt; ]</span><br><span class="line">// (结果相当于: [buf2, buf1])</span><br><span class="line">console.log(arr.sort(Buffer.compare));</span><br></pre></td></tr></table></figure></p>
+<h4 id="buf-copy-target-targetStart-sourceStart-sourceEnd"><a href="#buf-copy-target-targetStart-sourceStart-sourceEnd" class="headerlink" title="buf.copy(target[, targetStart[, sourceStart[, sourceEnd]]])"></a>buf.copy(target[, targetStart[, sourceStart[, sourceEnd]]])</h4><p>说明：拷贝 buf 的一个区域的数据到 target 的一个区域，即便 target 的内存区域与 buf 的重叠<br>参数：</p>
+<ul>
+<li>target <buffer> | <uint8array> 要拷贝进的 Buffer 或 Uint8Array。</uint8array></buffer></li>
+<li>targetStart <integer> target 中开始拷贝进的偏移量。 默认: 0</integer></li>
+<li>sourceStart <integer> buf 中开始拷贝的偏移量。 默认: 0</integer></li>
+<li>sourceEnd <integer> buf 中结束拷贝的偏移量（不包含）。 默认: buf.length</integer></li>
+<li>返回: <integer> 被拷贝的字节数。</integer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line">const buf2 = Buffer.allocUnsafe(26).fill(<span class="string">'!'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值</span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">buf1.copy(buf2, 8, 16, 20);</span><br><span class="line"></span><br><span class="line">// 输出: !!!!!!!!qrst!!!!!!!!!!!!!</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, 25));</span><br></pre></td></tr></table></figure></p>
+<h4 id="buf-slice-start-end"><a href="#buf-slice-start-end" class="headerlink" title="buf.slice([start[, end]])"></a>buf.slice([start[, end]])</h4><p>说明：返回一个指向相同原始内存的新建的 Buffer，但做了偏移且通过 start 和 end 索引进行裁剪<br>参数：</p>
+<ul>
+<li>start <integer> 新建的 Buffer 开始的位置。 默认: 0</integer></li>
+<li>end <integer> 新建的 Buffer 结束的位置（不包含）。 默认: buf.length</integer></li>
+<li>返回: <buffer></buffer></li>
+</ul>
+<p>注意，修改这个新建的 Buffer 切片，也会同时修改原始的 Buffer 的内存，因为这两个对象所分配的内存是重叠的。</p>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值 </span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const buf2 = buf1.slice(0, 3);</span><br><span class="line"></span><br><span class="line">// 输出: abc</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, buf2.length));</span><br><span class="line"></span><br><span class="line">buf1[0] = 33;</span><br><span class="line"></span><br><span class="line">// 输出: !bc</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, buf2.length));</span><br></pre></td></tr></table></figure></p>
+<h4 id="buf-length"><a href="#buf-length" class="headerlink" title="buf.length"></a>buf.length</h4><p>说明：返回 buf 在字节数上分配的内存量。 注意，这并不一定反映 buf 内可用的数据量<br>参数：</p>
+<ul>
+<li>返回值：<integer></integer></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.alloc(1234);</span><br><span class="line"></span><br><span class="line">// 输出: 1234</span><br><span class="line">console.log(buf.length);</span><br><span class="line"></span><br><span class="line">buf.write(<span class="string">'some string'</span>, 0, <span class="string">'ascii'</span>);</span><br><span class="line"></span><br><span class="line">// 输出: 1234</span><br><span class="line">console.log(buf.length);</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/Vue/Vue精简版/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1855,322 +2441,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue进阶篇/Vue_过渡动画/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/Vue/Vue进阶篇/Vue_过渡动画/" itemprop="url">过渡 & 动画</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。包括以下工具：</p>
-<ul>
-<li>在 CSS 过渡和动画中自动应用 class</li>
-<li>可以配合使用第三方 CSS 动画库，如 Animate.css</li>
-<li>在过渡钩子函数中使用 JavaScript 直接操作 DOM</li>
-<li>可以配合使用第三方 JavaScript 动画库，如 Velocity.js</li>
-</ul>
-<h4 id="单元素-组件的过滤"><a href="#单元素-组件的过滤" class="headerlink" title="单元素/组件的过滤"></a>单元素/组件的过滤</h4><p>Vue 提供了 <code>transition</code> 的封装组件，在下列情形中，可以给任何元素和组件添加进入/离开过渡:</p>
-<ul>
-<li>条件渲染 (使用 v-if)</li>
-<li>条件展示 (使用 v-show)</li>
-<li>动态组件</li>
-<li>组件根节点</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"demo"</span>&gt;</span><br><span class="line">  &lt;button v-on:click=<span class="string">"show = !show"</span>&gt;</span><br><span class="line">    Toggle</span><br><span class="line">  &lt;/button&gt;</span><br><span class="line">  &lt;transition name=<span class="string">"fade"</span>&gt;</span><br><span class="line">    &lt;p v-if=<span class="string">"show"</span>&gt;hello&lt;/p&gt;</span><br><span class="line">  &lt;/transition&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#demo'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    show: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.fade-enter-active, .fade-leave-active &#123;</span><br><span class="line">  transition: opacity .5s;</span><br><span class="line">&#125;</span><br><span class="line">.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ &#123;</span><br><span class="line">  opacity: 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当插入或删除包含在 transition 组件中的元素时，Vue 将会做以下处理：</p>
-<ol>
-<li>自动嗅探目标元素是否应用了 CSS 过渡或动画，如果是，在恰当的时机添加/删除 CSS 类名。</li>
-<li>如果过渡组件提供了 JavaScript 钩子函数，这些钩子函数将在恰当的时机被调用。</li>
-<li>如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。(注意：此指浏览器逐帧动画机制，和 Vue 的 nextTick 概念不同)</li>
-</ol>
-<h5 id="过滤的类名"><a href="#过滤的类名" class="headerlink" title="过滤的类名"></a>过滤的类名</h5><p>在进入/离开的过渡中，会有 6 个 class 切换。</p>
-<ol>
-<li><code>v-enter</code>：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除。</li>
-<li><code>v-enter-active</code>：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。</li>
-<li><code>v-enter-to</code>: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时 v-enter 被移除)，在过渡/动画完成之后移除。</li>
-<li><code>v-leave</code>: 定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。</li>
-<li><code>v-leave-active</code>：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。</li>
-<li><code>v-leave-to</code>: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。</li>
-</ol>
-<p><img src="./images/transition.png" alt="过渡"></p>
-<p>对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 <transition>，则 v- 是这些类名的默认前缀。如果你使用了 <transition name="my-transition">，那么 v-enter 会替换为 my-transition-enter。</transition></transition></p>
-<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue基础篇/Vue_第六章_组件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/Vue/Vue基础篇/Vue_第六章_组件/" itemprop="url">详谈组件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一个页面看作一个大的根组件，里面的元素是不同的子组件，子组件可以在不同的根组件里被调用。<br>组件特点：高内聚、低耦合</p>
-<h3 id="组件注册"><a href="#组件注册" class="headerlink" title="组件注册"></a>组件注册</h3><p>Vue.js提供<code>Vue.extend(options)</code>方法，创建基础Vue构造器的”子类”，参数options和Vue实例对象基本一致；<br>Vue.js创建组件构造器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var MyComponent = Vue.extends(&#123;</span><br><span class="line">    template: <span class="string">"#child"</span>,</span><br><span class="line">    // 不同的是，el、data选项需要通过函数返回值赋值，避免多个组件实例用同一个数据</span><br><span class="line">    data: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">        <span class="built_in">return</span> &#123;</span><br><span class="line">            // ....</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>这样获得了一个<strong>组件构造器</strong>，需要将组件注册到应用中才能使用；Vue提供<code>全局注册</code>、<code>局部注册</code>两种方法。</p>
-<h4 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h4><p>全局注册要确保在根实例初始化之前注册（下面的注册代码写在new Vue({}) ），才能是组件在任意实例中被使用；注册方式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'my-component'</span>,&#123;</span><br><span class="line">    template: <span class="string">'&lt;button&gt;myFirstComponent&lt;/button&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">　 el : <span class="string">'#app'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>注册之后就可以在模块中自定义元素<code>&lt;my-component&gt;</code>使用组件。命名：字母小写且包含一个短横杠<code>-</code>;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">　 &lt;my-component&gt;&lt;/my-component&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">var MyComponent = Vue.extend(&#123;</span><br><span class="line">　 template : <span class="string">'&lt;p&gt;This is a component&lt;/p&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line">Vue.component(<span class="string">'my-component'</span>, MyComponent)</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">　 el : <span class="string">'#app'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h4 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h4><p>局部注册限定组件只能在<strong>被注册的组件</strong>中使用，其他组件无法使用；<br>通过简单的<strong>JavaScript对象</strong>来定义组件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var localComponent = &#123;</span><br><span class="line">    template:<span class="string">'&lt;button&gt;myFirstLocalComponent&lt;/button&gt;'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var app2 = new Vue(&#123;</span><br><span class="line">    el:<span class="string">'#app2'</span> //绑定DOM元素</span><br><span class="line">    //注意↓有s</span><br><span class="line">    components:&#123; </span><br><span class="line">        <span class="string">'my-component-button2'</span>: localComponent</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>组件使用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//第一个全局按钮组件</span><br><span class="line">&lt;div id=<span class="string">"app1"</span>&gt;</span><br><span class="line">    &lt;my-component-button1&gt;&lt;/my-component-button1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">//第一个局部按钮组件，只能让app2用，因为只用app2注册了.</span><br><span class="line">&lt;div id=<span class="string">"app2"</span>&gt;</span><br><span class="line">    &lt;my-component-button2&gt;&lt;/my-component-button2&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>渲染结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app1"</span>&gt;</span><br><span class="line">    &lt;button&gt;myFirstComponent&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div id=<span class="string">"app2"</span>&gt;</span><br><span class="line">    &lt;button&gt;myFirstLocalComponent&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="组件选项"><a href="#组件选项" class="headerlink" title="组件选项"></a>组件选项</h3><p>组件接受的选项大部分与Vue实例一样；有两点不同和组件选项中的props。</p>
-<h4 id="组件选项中与Vue选项的区别"><a href="#组件选项中与Vue选项的区别" class="headerlink" title="组件选项中与Vue选项的区别"></a>组件选项中与Vue选项的区别</h4><p>组件选项中的<code>el</code>和<code>data</code>与Vue构造器选项中的两者不同。<br>Vue构造器中直接赋值：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">   el: <span class="string">"#app"</span>,</span><br><span class="line">   data: &#123;</span><br><span class="line">		name: <span class="string">"Vue"</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>组件中的定义：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var MyComponent = Vue.extend(&#123;</span><br><span class="line">　 data : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　 <span class="built_in">return</span> &#123;</span><br><span class="line">　　　　name : <span class="string">'component'</span></span><br><span class="line">　　 &#125;</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>data部分采用 <code>function</code> 返回对象，这样多次使用&lt;    my-component&gt;不会共享一个data；</p>
-<h4 id="组件Props-–-父组件与子组件的数据联系（父传子）"><a href="#组件Props-–-父组件与子组件的数据联系（父传子）" class="headerlink" title="组件Props – 父组件与子组件的数据联系（父传子）"></a>组件Props – 父组件与子组件的数据联系（父传子）</h4><p>选项props是<strong>父子组件间桥梁</strong>的作用。<br>首先，<code>组件实例的作用域都是孤立的</code>，即子组件的模板和模块是无法直接调用父组件的数据，所以通过props将父组件的数据传递给子组件，子组件在接受数据时需要<code>声明props</code>；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'my-child'</span>, &#123;</span><br><span class="line">　 props : [<span class="string">'parent'</span>], // 接收来自&lt;my-child&gt;中的parent属性</span><br><span class="line">　 template: <span class="string">'&lt;p&gt;&#123;&#123; parent &#125;&#125; is from parent'</span></span><br><span class="line">&#125;)</span><br><span class="line">&lt;my-child parent=<span class="string">"This data"</span>&gt;&lt;/my-child&gt;　</span><br><span class="line">//-&gt; &lt;p&gt;This data is from parent &lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
-<h5 id="1-驼峰命名"><a href="#1-驼峰命名" class="headerlink" title="1.驼峰命名"></a>1.驼峰命名</h5><p>HTML属性不区分大小写，在标签：使用短横杠<code>-</code>隔开，props：使用驼峰式进行声明；<br>即HTML：<code>&lt;my-child my-param=&#39;…&#39;&gt;</code>，props: [‘myParam’]</p>
-<h5 id="2-动态Props"><a href="#2-动态Props" class="headerlink" title="2.动态Props"></a>2.动态Props</h5><p>除传递静态数据的方式外，还可以通过<code>v-bind</code>的方式将<strong>父组件的data数据</strong>传递给子组件；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">　 &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> v-model=<span class="string">"message"</span> /&gt;</span><br><span class="line">　 &lt;my-component v-bind:message=<span class="string">"message"</span>&gt;&lt;/my-component&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">var MyComponent = Vue.extend(&#123;</span><br><span class="line">　 props : [<span class="string">'message'</span>],</span><br><span class="line">　 template : <span class="string">"&lt;p&gt;&#123;&#123; 'From parent : ' + message &#125;&#125;&lt;/p&gt;"</span></span><br><span class="line">&#125;)</span><br><span class="line">Vue.component(<span class="string">'my-component'</span>, MyComponent);</span><br><span class="line"></span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">　 el : <span class="string">'#app'</span>,</span><br><span class="line">　 data : &#123;</span><br><span class="line">　　 message : <span class="string">'default'</span></span><br><span class="line">　 &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>说明：<my-component>通过用v-bind将new Vue中data的message属性传给myComponent组件，myComponent用props接收来自my-component的message值。<br><strong>注意</strong>：如果直接传递一个数值给子组件，就必须借助动态Props。如果通过<my-component :message="1"></my-component> 这种方式传递的话，则在子组件中获取的message 其实是字符串“1”，准确传递数值的方式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-num :num=<span class="string">"num"</span>&gt;&lt;/my-num&gt;</span><br><span class="line">Vue.component(<span class="string">'my-num'</span>, &#123;</span><br><span class="line">　 props : [<span class="string">'num'</span>],</span><br><span class="line">　 template : <span class="string">"&lt;p&gt;&#123;&#123; num + ' is a ' + typeof num &#125;&#125;&lt;/p&gt;"</span>,</span><br><span class="line">&#125;);</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">　 el : <span class="string">'#app'</span>,</span><br><span class="line">　 data : &#123;</span><br><span class="line">　　 num : 1</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;);</span><br><span class="line">// 输出 &lt;p&gt;1 is a number&lt;/p&gt;</span><br></pre></td></tr></table></figure></my-component></p>
-<h5 id="3-绑定类型"><a href="#3-绑定类型" class="headerlink" title="3.绑定类型"></a>3.绑定类型</h5><p>Props绑定默认时<code>单项绑定</code>，即父组件的数据发生改变，子组件数据随之改变，但子组件中修改数据并不影响父组件。<br>修饰符<code>.sync</code>和<code>.once</code>显示的声明绑定为双向或单词绑定。例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">　 &lt;div&gt;</span><br><span class="line">　　　 Parent component: &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> v-model=<span class="string">"msg"</span> /&gt;</span><br><span class="line">　 &lt;/div&gt;</span><br><span class="line">　 &lt;my-bind :msg=<span class="string">"msg"</span>&gt;&lt;/my-bind&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">Vue.component(<span class="string">'my-bind'</span>, &#123;</span><br><span class="line">　　 props : [<span class="string">'msg'</span>],</span><br><span class="line">　　 template : <span class="string">'&lt;div&gt; \</span></span><br><span class="line"><span class="string">　　　　Child component : \</span></span><br><span class="line"><span class="string">　　　　&lt;input type="text" v-model="msg"/&gt; \</span></span><br><span class="line"><span class="string">　　 &lt;/div&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">　 el : <span class="string">'#app'</span>,</span><br><span class="line">　 data : &#123;</span><br><span class="line">　　 msg : <span class="string">''</span></span><br><span class="line">　 &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>此时父子组件中的即是单向绑定，可以通过input修改子组件中的值并不形象父组件中的值。<br><code>.sync</code>：双向绑定；将上述例子中<my-bind :msg="msg"></my-bind> 替换成<my-bind :msg.sync="msg"></my-bind>，则在子组件的input 中修改值即会影响父组件的值（双向绑定）。<br><code>.once</code>：单次绑定；子组件接受一次父组件传递的数据后，单独维护这份数据，既不影响父组件数据也不受其影响而更新。<br>由于Vue.js 处理的方式是引用传递，所以如果prop 传递的是一个对象或数组，那在子组件内进行修改就会影响父组件的状态，即使是单向绑定也一样。</p>
-<h5 id="4-Props验证"><a href="#4-Props验证" class="headerlink" title="4.Props验证"></a>4.Props验证</h5><p>组件可以指定props 验证要求，这对开发第三方组件来说，可以让使用者更加准确地使用组件；<br>使用验证的时候，props 接受的参数为<code>json 对象</code>，而不是上述例子中的数组；props : { a : Number }，即为验证参数a 需为Number 类型，如果调用该组件传入的a 参数为字符串，则会抛出异常。<br>1）基础类型检测：prop: Number， 接受的参数为原生构造器，String、Number、Boolean、Function、Object、Array。也可接受null，意味任意类型均可。<br>2）多种类型<code>Array</code>：prop: [Number, String]， 允许参数为多种类型之一，例如类型可以为数值或字符串。<br>3）参数必需<code>required</code>：prop: { type : Number, required: true}，参数必须有值且为Number类型。<br>4）参数默认<code>default</code>：prop: { type : Number, default : 10 }，参数具有默认值10。需要注意的是，如果默认值设置为数组或对象，需要像组件中data 属性那样，通过<code>函数返回值的形式</code>赋值，如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">prop : &#123;</span><br><span class="line">　 <span class="built_in">type</span> : Object,</span><br><span class="line">　 default : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　 <span class="built_in">return</span> &#123; a : <span class="string">'a'</span> &#125;</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>5）自定义验证函数：prop : { validator : function(value) { return value &gt; 0; } }，验证值必须大于0。</p>
-<h4 id="父组件与子组件的数据联系（子传父）"><a href="#父组件与子组件的数据联系（子传父）" class="headerlink" title="父组件与子组件的数据联系（子传父）"></a>父组件与子组件的数据联系（子传父）</h4><p>父组件中定义的方法可以改变自身的属性，子组件想要传值给父组件，只需要子组件触发父组件中定义的方法即可！</p>
-<h3 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h3><p>Vue.js 在组件间通信这一部分既提供了直接访问组件实例的方法，也提供了 <code>自定义事件机制</code>，通过<strong>广播</strong>、<strong>派发</strong>、<strong>监听</strong>等形式进行<strong>跨组件的函数调用</strong>。</p>
-<h4 id="直接访问"><a href="#直接访问" class="headerlink" title="直接访问"></a>直接访问</h4><p>在组件实例中，Vue.js提供了以下三个属性对其父子组件及根实例进行直接访问。<br>1）$parent: 父组件实例。<br>2）$children: 包含所有子组件实例。<br>3）$root: 组件所在的根实例。<br>这三个属性都挂载在组件的this上，虽然Vue.js提供了直接访问这种方式（不提倡），这样会导致父子组件紧密耦合，且自身状态难以理解，所以<code>尽量使用props在组件间传递数据</code>。</p>
-<h4 id="自定义事件监听（绑定）"><a href="#自定义事件监听（绑定）" class="headerlink" title="自定义事件监听（绑定）"></a>自定义事件监听（绑定）</h4><p>在Vue 实例中，系统提供了一套<strong>自定义事件接口</strong>，用于组件间通信，方便修改组件状态。</p>
-<h5 id="1-events选项"><a href="#1-events选项" class="headerlink" title="1.events选项"></a>1.events选项</h5><p>可以在<strong>初始化实例</strong>或<strong>注册子组件</strong>的时候，直接传给选项 <code>events</code> 一个对象（event对象中的属性函数要用单引号括起来）；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">　 el : <span class="string">'#app'</span>,</span><br><span class="line">　 data : &#123;</span><br><span class="line">　　 todo : []</span><br><span class="line">　 &#125;,</span><br><span class="line">　 events : &#123;</span><br><span class="line">　　 <span class="string">'add'</span> : <span class="keyword">function</span>(msg) &#123;</span><br><span class="line">　　　　this.todo.push(msg);</span><br><span class="line">　　 &#125;</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>更常使用；</p>
-<h5 id="2-on方法"><a href="#2-on方法" class="headerlink" title="2.$on方法"></a>2.$on方法</h5><p>可以在某些特定情况或方法内采用 <code>$on</code> 方法来监听事件；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">　 el : <span class="string">'#app'</span>,</span><br><span class="line">　 data : &#123;</span><br><span class="line">　　 todo : []</span><br><span class="line">　 &#125;,</span><br><span class="line">　 methods : &#123;</span><br><span class="line">　　begin : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　　 this.<span class="variable">$on</span>(<span class="string">'add'</span>, <span class="keyword">function</span>(msg) &#123;</span><br><span class="line">　　　　　this.todo.push(msg);</span><br><span class="line">　　　 &#125;);</span><br><span class="line">　　&#125;</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h4 id="自定义事件触发机制"><a href="#自定义事件触发机制" class="headerlink" title="自定义事件触发机制"></a>自定义事件触发机制</h4><h5 id="emit"><a href="#emit" class="headerlink" title="$emit"></a>$emit</h5><p><strong>在实例本身（当前组件）上触发事件</strong>。例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">//js</span><br><span class="line">Vue.component(<span class="string">'my-button'</span>,&#123;</span><br><span class="line">    template:<span class="string">'&lt;button v-on:click="childCount"&gt;&#123;&#123;counter&#125;&#125;,&lt;/button&gt;'</span></span><br><span class="line">    data: <span class="function"><span class="title">function</span></span>() &#123; //组件的data只能是以函数的形式存在</span><br><span class="line">        <span class="built_in">return</span> &#123;</span><br><span class="line">            counter:0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">        childCount: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">            this.counter = this.counter + 1;</span><br><span class="line">            var value =  this.counter;</span><br><span class="line">            this.<span class="variable">$emit</span>(<span class="string">'shijian'</span>,value); //value就是子要传的数据</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">var app4 = new Vue(&#123;</span><br><span class="line">    el:<span class="string">'#app4'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        total:0</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">        faterCount:<span class="keyword">function</span>(value)&#123; //value就是父组件从子组件拿到的数据</span><br><span class="line">            this.total = this.total+value</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//html</span><br><span class="line">&lt;div id=<span class="string">"app4"</span>&gt;</span><br><span class="line">	&lt;p&gt;&#123;&#123;total&#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;my-button v-on:shijian=<span class="string">"faterCount"</span>&gt;&lt;/my-button&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>过程：<br>子组件 button 被点击了，于是触发了click事件所指向的childCount方法。<br>该方法有两个行为，一个是自增，另一个使用了$emit创建一个自定义事件shijian 并且传了一个参数value，这个事件和参数可以被父组件拿到。<br>于是我们看到了v-on:shijian=”faterCount” 这行代码，其中，faterCount 是Vue的实例app4的方法，他的作用是让一个变量自增。同时，自定义事件shijian 带有一个来自子组件的参数，这个参数可以传给app4的任意方法。<br>我们可以看到，点击了一次<my-button> (实际上是点击了他里面的子组件button), 自定义事件就会被父捕获，从而触发指向的父的方法。<br>根本思路是：子抛出了一个自定义事件，并传参，让父捕获，从而执行自己的带有来自子参数的方法。<br>好处是：子组件和父组件解耦了。子组件只需要抛出一个事件，然后完成自己的逻辑就好，无须关心父组件的行为。</my-button></p>
-<h5 id="dispatch"><a href="#dispatch" class="headerlink" title="$dispatch"></a>$dispatch</h5><p>派发事件，事件沿着父链冒泡，并且在第一次触发回调之后自动停止冒泡，除非触发函数明确返回true，才会继续向上冒泡。<br>父组件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">events : &#123;</span><br><span class="line">　 <span class="string">'add'</span> : <span class="keyword">function</span>(msg) &#123;</span><br><span class="line">　　 this.todo.push(msg);</span><br><span class="line">　　 // <span class="built_in">return</span> <span class="literal">true</span>　明确返回<span class="literal">true</span> 后，事件会继续向上冒泡</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>子组件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">　 toParent : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　 this.<span class="variable">$dispatch</span>(<span class="string">'add'</span>, <span class="string">'message from child'</span>);</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>调用子组件中的toParent() 函数，即可向上冒泡，触发父组件中定义好的add 事件。</p>
-<h5 id="broadcast"><a href="#broadcast" class="headerlink" title="$broadcast"></a>$broadcast</h5><p>广播事件，事件会向下传递给所有的后代。例如：<br>父组件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">　 toChild : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　 this.<span class="variable">$dispatch</span>(<span class="string">'msg'</span>, <span class="string">'message from parent'</span>);</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>子组件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">events : &#123;</span><br><span class="line">　 <span class="string">'msg'</span> : <span class="keyword">function</span>(msg) &#123;</span><br><span class="line">　　 alert(msg);</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>下面，我们可以通过这个完整的例子来验证这三种触发机制：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">// 模板</span><br><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">　 &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> v-model=<span class="string">"content"</span>&gt;</span><br><span class="line">　 &lt;button @click=<span class="string">"addTodo"</span>&gt; 添加&lt;/button&gt;</span><br><span class="line">　 &lt;button @click=<span class="string">"broadcast"</span>&gt; 广播&lt;/button&gt;</span><br><span class="line">　 &lt;child-todo name=<span class="string">"one"</span>&gt;&lt;/child-todo&gt;</span><br><span class="line">　 &lt;child-todo name=<span class="string">"two"</span>&gt;&lt;/child-todo&gt;</span><br><span class="line">　 &lt;ul&gt;</span><br><span class="line">　　 &lt;li v-for=<span class="string">"value in todo"</span>&gt;</span><br><span class="line">　　　　&#123;&#123; value &#125;&#125;</span><br><span class="line">　　 &lt;/li&gt;</span><br><span class="line">　 &lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">// 子组件</span><br><span class="line">Vue.component(<span class="string">'child-todo'</span>, &#123;</span><br><span class="line">　 props : [<span class="string">'name'</span>],</span><br><span class="line">　 data : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　 <span class="built_in">return</span> &#123;</span><br><span class="line">　　　　content : <span class="string">''</span></span><br><span class="line">　　 &#125;</span><br><span class="line">　 &#125;,</span><br><span class="line">　 template : <span class="string">'&lt;div&gt;\</span></span><br><span class="line"><span class="string">　　　　Child &#123;&#123;name&#125;&#125; \</span></span><br><span class="line"><span class="string">　　　　&lt;input type="text" v-model="content"/&gt; \</span></span><br><span class="line"><span class="string">　　　　&lt;button @click="add"&gt; 添加&lt;/button&gt; \</span></span><br><span class="line"><span class="string">　　 &lt;/div&gt;'</span>,</span><br><span class="line">　 methods : &#123;</span><br><span class="line">　　 add : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　　　// 将事件向上派发，这样既修改了父组件中的todo 属性，又不直接访问父组件</span><br><span class="line">　　　　this.<span class="variable">$dispatch</span>(<span class="string">'add'</span>, <span class="string">'Child '</span> + this.name + <span class="string">': '</span> + this.content);</span><br><span class="line">　　　　this.content = <span class="string">''</span>;</span><br><span class="line">　　 &#125;</span><br><span class="line">　 &#125;,</span><br><span class="line">　 events : &#123;</span><br><span class="line">　　 // 用于接收父组件的广播</span><br><span class="line">　　 <span class="string">'to-child'</span> : <span class="keyword">function</span>(msg) &#123;</span><br><span class="line">　　　　this.<span class="variable">$dispatch</span>(<span class="string">'add'</span>, <span class="string">'Child '</span> + this.name + <span class="string">': '</span> + msg);</span><br><span class="line">　　 &#125;</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;);</span><br><span class="line">　// 根实例</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">　 el : <span class="string">'#app'</span>,</span><br><span class="line">　 data : &#123;</span><br><span class="line">　　 todo : [],</span><br><span class="line">　　 content : <span class="string">''</span></span><br><span class="line">　 &#125;,</span><br><span class="line">　 methods : &#123;</span><br><span class="line">　　 addTodo : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　　　// 触发自己实例中的事件</span><br><span class="line">　　　　this.<span class="variable">$emit</span>(<span class="string">'add'</span>, <span class="string">'Parent: '</span> + this.content);</span><br><span class="line">　　　　this.content = <span class="string">''</span>;</span><br><span class="line">　　 &#125;,</span><br><span class="line">　　 broadcast : <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">　　　　// 将事件广播，使两个子组件实例都触发to-child 事件</span><br><span class="line">　　　　this.<span class="variable">$broadcast</span>(<span class="string">'to-child'</span>, this.content);</span><br><span class="line">　　　　this.content = <span class="string">''</span>;</span><br><span class="line">　　 &#125;</span><br><span class="line">　 &#125;,</span><br><span class="line">　 events : &#123;</span><br><span class="line">　　 <span class="string">'add'</span> : <span class="keyword">function</span>(msg) &#123;</span><br><span class="line">　　　　this.todo.push(msg);</span><br><span class="line">　　 &#125;</span><br><span class="line">　 &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>页面结果将展示为：<br><img src="./images/Custom_event_triggering.png" alt="自动事件触发机制结果"><br>在根实例的input 中输入内容“Hello”，点击“添加”， 即会在绑定v-for 指令的li 标签中输出“Parent ：Hello”；或点击“广播”，则会输出“Child one: hello”和“Child two: hello”两条数据，本质就是广播了事件to-child，两个子组件接受后触发了监听函数，将内容和组件name 参数添加到父组件的todo 数组中。</p>
-<h4 id="子组件索引"><a href="#子组件索引" class="headerlink" title="子组件索引"></a>子组件索引</h4><p>虽然不建议组件间直接访问各自的实例，但有时不可避免。Vue.js也提供了直接访问子组件的方式。除之前的this.children外，还可以给子组件绑定一个<code>v-ref</code>指令，指定一个索引ID，如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;child-todo v-ref:first&gt;&lt;/child-todo&gt;</span><br></pre></td></tr></table></figure></p>
-<p>这样，在父组件中就可以通过<code>this.$ref.first</code>的方式获取子组件实例。<br>另外，如果<code>v-ref</code>作用在<code>v-for</code>绑定的元素上，例如：<li v-for="item" v-ref:items=""></li>，父组件获取的this.$refs.items 为一个数组，包含相应的子组件实例。</p>
-<h3 id="内容分发"><a href="#内容分发" class="headerlink" title="内容分发"></a>内容分发</h3><h3 id="动态组件"><a href="#动态组件" class="headerlink" title="动态组件"></a>动态组件</h3><blockquote>
-<p>让多个组件使用同一个挂载点，并动态切换，这就是动态组件；</p>
-</blockquote>
-<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>通过使用保留的 <code>&lt;component&gt;</code> 元素，动态地绑定到它的 <code>is</code> 特性，可以实现动态组件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"example"</span>&gt;</span><br><span class="line">  &lt;button @click=<span class="string">"change"</span>&gt;切换页面&lt;/button&gt;</span><br><span class="line">  &lt;component :is=<span class="string">"currentView"</span>&gt;&lt;/component&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: <span class="string">'#example'</span>,</span><br><span class="line">  data:&#123;</span><br><span class="line">    index:0,</span><br><span class="line">    arr:[</span><br><span class="line">      &#123;template:`&lt;div&gt;我是主页&lt;/div&gt;`&#125;,</span><br><span class="line">      &#123;template:`&lt;div&gt;我是提交页&lt;/div&gt;`&#125;,</span><br><span class="line">      &#123;template:`&lt;div&gt;我是存档页&lt;/div&gt;`&#125;</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  computed:&#123;</span><br><span class="line">    <span class="function"><span class="title">currentView</span></span>()&#123;</span><br><span class="line">        <span class="built_in">return</span> this.arr[this.index];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    <span class="function"><span class="title">change</span></span>()&#123;</span><br><span class="line">      this.index = (++this.index) % 3;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p><code>&lt;keep-alive&gt;</code> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。<br>和 <transition> 相似，<keep-alive> 是一个抽象组件：它自身不会渲染一个 DOM 元素，也不会出现在父组件链中</keep-alive></transition></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2221,12 +2491,21 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
             
 
             

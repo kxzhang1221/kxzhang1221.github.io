@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。引入：1const fs = require(&apos;fs&apos;); 所有的文件系统操作都有 异步 和 同步 两种形式。  同步方法都会有返回值 异步方法最后一个参数都是完成时的回调函数。  建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞 文件描述符在 POSIX 系统，内核为所有进程维护着一张当前打开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nodejs_fs 文件模块">
+<meta property="og:url" content="http://yoursite.com/2018/09/12/NodeJs/Nodejs-fs/index.html">
+<meta property="og:site_name" content="Full Stuck">
+<meta property="og:description" content="fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。引入：1const fs = require(&apos;fs&apos;); 所有的文件系统操作都有 异步 和 同步 两种形式。  同步方法都会有返回值 异步方法最后一个参数都是完成时的回调函数。  建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞 文件描述符在 POSIX 系统，内核为所有进程维护着一张当前打开">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-12T09:54:32.303Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nodejs_fs 文件模块">
+<meta name="twitter:description" content="fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。引入：1const fs = require(&apos;fs&apos;); 所有的文件系统操作都有 异步 和 同步 两种形式。  同步方法都会有返回值 异步方法最后一个参数都是完成时的回调函数。  建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞 文件描述符在 POSIX 系统，内核为所有进程维护着一张当前打开">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/12/NodeJs/Nodejs-fs/"/>
+
+
+
+
+
+  <title>Nodejs_fs 文件模块 | Full Stuck</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Full Stuck</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-vue">
+          <a href="/vue/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-vue"></i> <br />
+            
+            vue
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/NodeJs/Nodejs-fs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Nodejs_fs 文件模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-12T16:39:57+08:00">
+                2018-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。<br>引入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>所有的文件系统操作都有 <code>异步</code> 和 <code>同步</code> 两种形式。</p>
+<ul>
+<li>同步方法都会有返回值</li>
+<li>异步方法最后一个参数都是完成时的回调函数。</li>
+</ul>
+<p>建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞</p>
+<h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>在 POSIX 系统，内核为所有进程维护着一张当前打开着的文件与资源的表格。每个打开的文件都会分配一个名为文件描述符的数值标识。在系统层，所有文件系统操作使用这些文件描述符来识别与追踪每个特定的文件。 Window 系统使用了一个不同但概念类似的机制来追踪资源。为方便用户，Node.js 抽象了不同操作系统间的差异，为所有打开的文件分配了数值的文件描述符</p>
+<p>fs.open() 方法用于分配一个新的文件描述符。 一旦分配了，文件描述符可用于读取数据、写入数据、或查看文件信息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fs.open(<span class="string">'/open/some/file.txt'</span>, <span class="string">'r'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  fs.fstat(fd, (err, <span class="built_in">stat</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) throw err;</span><br><span class="line">    // 各种操作</span><br><span class="line"></span><br><span class="line">    // 必须关闭文件描述符！</span><br><span class="line">    fs.close(fd, (err) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) throw err;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>大多数操作系统会限制打开的文件描述符的数量，所以当操作完成时需关闭描述符。 如果不这样做会导致内存泄漏，最终造成应用奔溃。</p>
+<h3 id="文件系统flag"><a href="#文件系统flag" class="headerlink" title="文件系统flag"></a>文件系统flag</h3><p>以下 flag 用于接受字符串的 flag 选项：</p>
+<ul>
+<li>‘a’ - 打开文件用于追加。如果文件不存在则创建文件</li>
+<li>‘r’ - 打开文件用于读取。如果文件不存在则抛出异常</li>
+<li>‘w’ - 打开文件用于写入。文件会被创建（如果不存在）或截断（如果存在）</li>
+</ul>
+<h3 id="fs方法和属性"><a href="#fs方法和属性" class="headerlink" title="fs方法和属性"></a>fs方法和属性</h3><h4 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h4><p>语法：fs.open(path, flags[, mode], callback)<br>说明：异步地打开文件<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url> 文件的路径</url></buffer></string></li>
+<li>flags <string> | <number> 打开文件的方式</number></string></li>
+<li>mode <integer> 默认值: 0o666</integer></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>fd <integer></integer></li>
+</ul>
+</function></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fs.open(<span class="string">'&lt;directory&gt;'</span>, <span class="string">'a'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  // =&gt; null, &lt;fd&gt;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>语法：fs.openSync(path, flags[, mode])<br>说明：fs.open() 的同步版本。 返回一个表示文件描述符的整数<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>flags <string> | <number></number></string></li>
+<li>mode <integer> Default: 0o666</integer></li>
+</ul>
+<h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><p>语法：fs.read(fd, buffer, offset, length, position, callback)<br>说明：从 fd 指定的文件中读取数据<br>参数：</p>
+<ul>
+<li>fd <integer> 文件描述符（指定文件）</integer></li>
+<li>buffer <buffer> | <uint8array> 数据将被写入到的buffer</uint8array></buffer></li>
+<li>offset <integer> buffer 中开始写入的偏移量</integer></li>
+<li>length <integer> 是一个整数，指定要读取的字节数</integer></li>
+<li>position <integer> 指定从文件fd中开始读取的位置</integer></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>bytesRead <integer></integer></li>
+<li>buffer <buffer></buffer></li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.readSync(fd, buffer, offset, length, position)<br>说明：fs.read() 的同步版本<br>参数：同fs.read()</p>
+<h4 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h4><p>语法：fs.write(fd, buffer[, offset[, length[, position]]], callback)<br>说明：写入 buffer 到 fd 指定的文件<br>参数：</p>
+<ul>
+<li>fd <integer> 文件描述符</integer></li>
+<li>buffer <buffer> | <uint8array> </uint8array></buffer></li>
+<li>offset <integer> 决定buffer中被写入的部分</integer></li>
+<li>length <integer> 指定要写入的字节数</integer></li>
+<li>position <integer> 指向从文件开始写入数据的位置的偏移量</integer></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>bytesWritten <integer></integer></li>
+<li>buffer <buffer> | <uint8array></uint8array></buffer></li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.write(fd, string[, position[, encoding]], callback)<br>说明：写入 string 到 fd 指定的文件。 如果 string 不是一个字符串，则该值将被强制转换为一个字符串<br>参数：</p>
+<ul>
+<li>fd <integer> </integer></li>
+<li>string <string> 要写入的字符串</string></li>
+<li>position <integer> 指向从文件开始写入数据的位置的偏移量</integer></li>
+<li>encoding <string> 是期望的字符串编码</string></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>written <integer></integer></li>
+<li>string <string></string></li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.writeSync(fd, string[, position[, encoding]])<br>说明：fs.write() 的同步版本。返回写入的字节数。<br>参数：同fs.write()</p>
+<h4 id="读取所有文件"><a href="#读取所有文件" class="headerlink" title="读取所有文件"></a>读取所有文件</h4><p>语法：fs.readFile(path[, options], callback)<br>说明：异步地读取一个文件的全部内容<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url> | <integer> 文件名或文件描述符。</integer></url></buffer></string></li>
+<li>options <object> | <string><ul>
+<li>encoding <string> | <null> 默认为 null。</null></string></li>
+<li>flag <string> 详见支持的文件系统flag。默认为 ‘r’。</string></li>
+</ul>
+</string></object></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>data <string> | <buffer></buffer></string></li>
+</ul>
+</function></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'/etc/passwd'</span>, (err, data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>任何指定的文件描述符必须支持读取。</p>
+<p>如果 path 是一个文件描述符，则它不会被自动关闭。</p>
+<p>fs.readFile() 函数会缓存整个文件。 为了最小化内存占用，尽可能优先使用 fs.createReadStream()</p>
+<p>语法：fs.readFileSync(path[, options])<br>说明：fs.readFile() 的同步版本。返回 path 的内容<br>参数：同fs.readFile()</p>
+<h4 id="写入全部文件"><a href="#写入全部文件" class="headerlink" title="写入全部文件"></a>写入全部文件</h4><p>语法：fs.writeFile(file, data[, options], callback)<br>说明：异步地写入数据到文件，如果文件已经存在，则覆盖文件。 data 可以是字符串或 buffer<br>参数：</p>
+<ul>
+<li>file <string> | <buffer> | <url> | <integer> 文件名或文件描述符。</integer></url></buffer></string></li>
+<li>data <string> | <buffer> | <uint8array> 如果data是一个buffer，则encoding选项无效</uint8array></buffer></string></li>
+<li>options <object> | <string><ul>
+<li>encoding <string> | <null> 默认为 ‘utf8’。</null></string></li>
+<li>mode <integer> 默认为 0o666。</integer></li>
+<li>flag <string> 详见支持的文件系统flag。默认为 ‘w’。</string></li>
+</ul>
+</string></object></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.writeFile(<span class="string">'文件名.txt'</span>, <span class="string">'Node.js 中文网'</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(<span class="string">'文件已保存！'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>语法：fs.writeFileSync(file, data[, options])<br>说明：fs.writeFile() 的同步版本。返回 undefined<br>参数：同fs.writeFile()</p>
+<h4 id="创建读取流"><a href="#创建读取流" class="headerlink" title="创建读取流"></a>创建读取流</h4><p>语法：fs.createReadStream(path[, options])<br>说明：<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>options <string> | <object><ul>
+<li>flags <string> 详见支持的文件系统flag。默认为 ‘r’。</string></li>
+<li>encoding <string> 默认为 null。</string></li>
+<li>fd <integer> 默认为 null。</integer></li>
+<li>mode <integer> 默认为 0o666。</integer></li>
+<li>autoClose <boolean> 默认为 true。</boolean></li>
+<li>start <integer></integer></li>
+<li>end <integer> 默认为 Infinity。</integer></li>
+<li>highWaterMark <integer> 默认为 64 * 1024（64kb）。</integer></li>
+</ul>
+</object></string></li>
+<li>返回: 返回一个新建的ReadSteam对象</li>
+</ul>
+<p>如果指定了 fd，则 ReadStream 会忽略 path 参数并且会使用指定的文件描述符。 这意味着不会触发 ‘open’ 事件。</p>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.createReadStream(<span class="string">'sample.txt'</span>, &#123; start: 90, end: 99 &#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建写入流"><a href="#创建写入流" class="headerlink" title="创建写入流"></a>创建写入流</h4><p>语法：fs.createWriteStream(path[, options])<br>说明：<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>options <string> | <object><ul>
+<li>flags <string> 详见支持的文件系统flag。默认为 ‘w’。如果是修改文件而不是覆盖它，则 flags 模式需为 r+ 模式而不是默认的 w 模式</string></li>
+<li>encoding <string> 默认为 ‘utf8’。</string></li>
+<li>fd <integer> 默认为 null。</integer></li>
+<li>mode <integer> 默认为 0o666。</integer></li>
+<li>autoClose <boolean> 默认为 true。</boolean></li>
+<li>start <integer> 用于写入数据到文件指定位置</integer></li>
+</ul>
+</object></string></li>
+<li>返回: &lt;fs.WriteStream&gt; 详见可写流。</li>
+</ul>
+<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 复制文件1.txt到2.txt</span><br><span class="line">var rs = fs.createReadSteam(<span class="string">'1.txt'</span>)</span><br><span class="line">var ws = fs.createWriteSteam(<span class="string">'2.txt'</span>)</span><br><span class="line">rs.pipe(ws)</span><br></pre></td></tr></table></figure></p>
+<h4 id="查看文件信息"><a href="#查看文件信息" class="headerlink" title="查看文件信息"></a>查看文件信息</h4><p>语法：fs.stat(path[, options], callback)<br>说明：返回关于文件的信息 – 类似与文件右键属性<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>options <object><ul>
+<li>bigint <boolean> Whether the numeric values in the returned fs.Stats object should be bigint. Default: false.</boolean></li>
+</ul>
+</object></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+<li>stats &lt;fs.Stats&gt;</li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.statSync(path[, options])<br>说明：返回一个fs.Stats实例；传递不存在的文件地址会抛出异常</p>
+<h4 id="判断文件是否存在"><a href="#判断文件是否存在" class="headerlink" title="判断文件是否存在"></a>判断文件是否存在</h4><p>语法：fs.existsSync(path)<br>说明：如果路径存在，则返回 true，否则返回 false<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url> 路径</url></buffer></string></li>
+</ul>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><p>语法：fs.unlinkSync(path)<br>说明：同步删除指定文件<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<p>语法：fs.unlink(path, callback)<br>说明：异步删除指定文件<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<h4 id="返回文件绝对路径"><a href="#返回文件绝对路径" class="headerlink" title="返回文件绝对路径"></a>返回文件绝对路径</h4><p>语法：fs.realpathSync(path[, options])<br>说明：同步返回解析的路径<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>options <string> | <object><ul>
+<li>encoding <string> 默认 = ‘utf8’</string></li>
+</ul>
+</object></string></li>
+</ul>
+<p>可选的 options 参数用于传入回调的路径，它可以是一个字符串并指定一个字符编码，或是一个对象且由一个 encoding 属性指定使用的字符编码。 如果 encoding 设为 ‘buffer’，则返回的路径会被作为 Buffer 对象传入。</p>
+<p>注意: 如果 path 解析成一个 socket 或者管道，该函数将返回包含系统相关名称的对象。</p>
+<h4 id="创建一个文件"><a href="#创建一个文件" class="headerlink" title="创建一个文件"></a>创建一个文件</h4><p>语法：fs.mkdir(path[, mode], callback)<br>说明：异步地创建目录。 完成回调只有一个可能的异常参数。 mode 默认为 0o777。<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>mode <integer> Default: 0o777</integer></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<h4 id="删除一个文件"><a href="#删除一个文件" class="headerlink" title="删除一个文件"></a>删除一个文件</h4><p>语法：fs.rmdir(path, callback)<br>说明：异步的删除一个文件。 完成回调只有一个可能的异常参数。<br>参数：</p>
+<ul>
+<li>path <string> | <buffer> | <url></url></buffer></string></li>
+<li>callback <function><ul>
+<li>err <error></error></li>
+</ul>
+</function></li>
+</ul>
+<p>只能删除一个空目录，如果删除的目录不是空目录，则抛出异常</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/NodeJs/Nodejs-buffer/" rel="next" title="Nodejs_buffer模块">
+                <i class="fa fa-chevron-left"></i> Nodejs_buffer模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kexinzhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件系统flag"><span class="nav-number">2.</span> <span class="nav-text">文件系统flag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fs方法和属性"><span class="nav-number">3.</span> <span class="nav-text">fs方法和属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打开文件"><span class="nav-number">3.1.</span> <span class="nav-text">打开文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取文件"><span class="nav-number">3.2.</span> <span class="nav-text">读取文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写入文件"><span class="nav-number">3.3.</span> <span class="nav-text">写入文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取所有文件"><span class="nav-number">3.4.</span> <span class="nav-text">读取所有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写入全部文件"><span class="nav-number">3.5.</span> <span class="nav-text">写入全部文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建读取流"><span class="nav-number">3.6.</span> <span class="nav-text">创建读取流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建写入流"><span class="nav-number">3.7.</span> <span class="nav-text">创建写入流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看文件信息"><span class="nav-number">3.8.</span> <span class="nav-text">查看文件信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断文件是否存在"><span class="nav-number">3.9.</span> <span class="nav-text">判断文件是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除文件"><span class="nav-number">3.10.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回文件绝对路径"><span class="nav-number">3.11.</span> <span class="nav-text">返回文件绝对路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个文件"><span class="nav-number">3.12.</span> <span class="nav-text">创建一个文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除一个文件"><span class="nav-number">3.13.</span> <span class="nav-text">删除一个文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexinzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -81,14 +81,14 @@
 
 <meta name="description" content="fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。引入：1const fs = require(&apos;fs&apos;); 所有的文件系统操作都有 异步 和 同步 两种形式。  同步方法都会有返回值 异步方法最后一个参数都是完成时的回调函数。  建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞 文件描述符在 POSIX 系统，内核为所有进程维护着一张当前打开">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fs 文件模块">
+<meta property="og:title" content="fs文件模块">
 <meta property="og:url" content="http://yoursite.com/2018/09/12/NodeJs/Nodejs-fs/index.html">
 <meta property="og:site_name" content="Full Stuck">
 <meta property="og:description" content="fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。引入：1const fs = require(&apos;fs&apos;); 所有的文件系统操作都有 异步 和 同步 两种形式。  同步方法都会有返回值 异步方法最后一个参数都是完成时的回调函数。  建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞 文件描述符在 POSIX 系统，内核为所有进程维护着一张当前打开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-12T09:56:16.187Z">
+<meta property="og:updated_time" content="2018-09-13T01:40:10.520Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="fs 文件模块">
+<meta name="twitter:title" content="fs文件模块">
 <meta name="twitter:description" content="fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。引入：1const fs = require(&apos;fs&apos;); 所有的文件系统操作都有 异步 和 同步 两种形式。  同步方法都会有返回值 异步方法最后一个参数都是完成时的回调函数。  建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞 文件描述符在 POSIX 系统，内核为所有进程维护着一张当前打开">
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>fs 文件模块 | Full Stuck</title>
+  <title>fs文件模块 | Full Stuck</title>
   
 
 
@@ -279,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">fs 文件模块</h1>
+          <h1 class="post-title" itemprop="name headline">fs文件模块</h1>
         
 
         <div class="post-meta">
@@ -358,14 +358,14 @@
 <li>异步方法最后一个参数都是完成时的回调函数。</li>
 </ul>
 <p>建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞</p>
-<h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>在 POSIX 系统，内核为所有进程维护着一张当前打开着的文件与资源的表格。每个打开的文件都会分配一个名为文件描述符的数值标识。在系统层，所有文件系统操作使用这些文件描述符来识别与追踪每个特定的文件。 Window 系统使用了一个不同但概念类似的机制来追踪资源。为方便用户，Node.js 抽象了不同操作系统间的差异，为所有打开的文件分配了数值的文件描述符</p>
+<h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>在 POSIX 系统，内核为所有进程维护着一张当前打开着的文件与资源的表格。每个打开的文件都会分配一个名为文件描述符的数值标识。在系统层，所有文件系统操作使用这些文件描述符（fd）来识别与追踪每个特定的文件。 Window 系统使用了一个不同但概念类似的机制来追踪资源。为方便用户，Node.js 抽象了不同操作系统间的差异，为所有打开的文件分配了数值的文件描述符</p>
 <p>fs.open() 方法用于分配一个新的文件描述符。 一旦分配了，文件描述符可用于读取数据、写入数据、或查看文件信息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fs.open(<span class="string">'/open/some/file.txt'</span>, <span class="string">'r'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  fs.fstat(fd, (err, <span class="built_in">stat</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) throw err;</span><br><span class="line">    // 各种操作</span><br><span class="line"></span><br><span class="line">    // 必须关闭文件描述符！</span><br><span class="line">    fs.close(fd, (err) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) throw err;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>大多数操作系统会限制打开的文件描述符的数量，所以当操作完成时需关闭描述符。 如果不这样做会导致内存泄漏，最终造成应用奔溃。</p>
 <h3 id="文件系统flag"><a href="#文件系统flag" class="headerlink" title="文件系统flag"></a>文件系统flag</h3><p>以下 flag 用于接受字符串的 flag 选项：</p>
 <ul>
-<li>‘a’ - 打开文件用于追加。如果文件不存在则创建文件</li>
-<li>‘r’ - 打开文件用于读取。如果文件不存在则抛出异常</li>
-<li>‘w’ - 打开文件用于写入。文件会被创建（如果不存在）或截断（如果存在）</li>
+<li>a - 打开文件用于追加。如果文件不存在则创建文件</li>
+<li>r - 打开文件用于读取。如果文件不存在则抛出异常</li>
+<li>w - 打开文件用于写入。文件会被创建（如果不存在）或截断（如果存在）</li>
 </ul>
 <h3 id="fs方法和属性"><a href="#fs方法和属性" class="headerlink" title="fs方法和属性"></a>fs方法和属性</h3><h4 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h4><p>语法：fs.open(path, flags[, mode], callback)<br>说明：异步地打开文件<br>参数：</p>
 <ul>
@@ -379,12 +379,7 @@
 </function></li>
 </ul>
 <p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fs.open(<span class="string">'&lt;directory&gt;'</span>, <span class="string">'a'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  // =&gt; null, &lt;fd&gt;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>语法：fs.openSync(path, flags[, mode])<br>说明：fs.open() 的同步版本。 返回一个表示文件描述符的整数<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>flags <string> | <number></number></string></li>
-<li>mode <integer> Default: 0o666</integer></li>
-</ul>
+<p>语法：fs.openSync(path, flags[, mode])<br>说明：fs.open() 的同步版本。 返回一个表示文件描述符的整数</p>
 <h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><p>语法：fs.read(fd, buffer, offset, length, position, callback)<br>说明：从 fd 指定的文件中读取数据<br>参数：</p>
 <ul>
 <li>fd <integer> 文件描述符（指定文件）</integer></li>
@@ -593,6 +588,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/09/13/NodeJs/Nodejs-http/" rel="prev" title="Nodejs_http">
+                Nodejs_http <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -668,7 +667,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -679,7 +678,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

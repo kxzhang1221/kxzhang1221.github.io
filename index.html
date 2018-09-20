@@ -259,6 +259,1254 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/19/NodeJs/Node-mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/19/NodeJs/Node-mysql/" itemprop="url">Node-mysql</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-19T10:45:08+08:00">
+                2018-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>mysql下载：<a href="https://cdn.mysql.com//Downloads/MySQLInstaller/mysql-installer-community-" title="mysql下载" target="_blank" rel="noopener">https://cdn.mysql.com//Downloads/MySQLInstaller/mysql-installer-community-</a></p>
+<h2 id="数据库基础"><a href="#数据库基础" class="headerlink" title="数据库基础"></a>数据库基础</h2><h3 id="数据库基础-1"><a href="#数据库基础-1" class="headerlink" title="数据库基础"></a>数据库基础</h3><h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h4><blockquote>
+<p>数据库（database）：一个以某种有组织的方式存储的数据集合，保存有组织的数据的容器（通常是一个文件或一组文件）</p>
+</blockquote>
+<p>关系型数据库：mysql、sql server、oracle、db2<br>非关系型数据库：mongodb、redis</p>
+<blockquote>
+<p>数据库管理系统（DBMS：database message system）：数据库是通过DBMS创建和操作的容器</p>
+</blockquote>
+<h4 id="表"><a href="#表" class="headerlink" title="表"></a>表</h4><blockquote>
+<p>表（table）：某种<code>特定类型</code>数据的<code>结构化</code>清单（用来存储某种特定类型的数据）</p>
+</blockquote>
+<p>数据库中每个表都有唯一的一个名字，用来标识自己（相同数据库不能出现名字相同的表，但不同数据库可以使用相同的表名）<br>表具有一些特性，其定义了数据在表中如何存储；比如：存储什么类型的数据，数据如何分解，各部分信息如何命名等</p>
+<blockquote>
+<p>模式（schema）：关于数据库和表的布局及特性的信息，一般指给予表的一些定义</p>
+</blockquote>
+<h4 id="列和数据类型"><a href="#列和数据类型" class="headerlink" title="列和数据类型"></a>列和数据类型</h4><blockquote>
+<p>列（column）：表中的一个字段；所有表都有由一个或多个列组成的（列中存储着表中某部分的信息）</p>
+</blockquote>
+<p>分解数据：正确的将数据分解为多个列极为重要：例如省市县应该是独立的列，通过分解，才可能利用特定的列对数据进行排序和过滤，使得检索和访问更加方便（例如找出特定市县的相关数据等）</p>
+<blockquote>
+<p>数据类型（datatype）：所容许的数据的类型。数据库中每个列都有相应的数据类型，其定义列可存储的数据种类（用于限制/容许该列中存储的数据）</p>
+</blockquote>
+<p>作用：</p>
+<ol>
+<li>限制可存储在列中的数据种类（例如防止在数值字段中录入字符值）</li>
+<li>帮助正确的排序数据</li>
+<li>对优化磁盘使用有重要作用</li>
+</ol>
+<h4 id="行"><a href="#行" class="headerlink" title="行"></a>行</h4><blockquote>
+<p>行（row）：表中的一个记录（一条数据）</p>
+</blockquote>
+<p>表中的数据是 <code>按行存储</code> 的，保存的每个记录存储在自己的行内；如果将表想象为网格，网格中垂直的列为表列，水平行为表行</p>
+<h4 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h4><blockquote>
+<p>主键（primary key）：<code>一列或一组列</code>，其值能够唯一区分表中的每一行；唯一标识表中每行的这个列（或这组列）称为主键</p>
+</blockquote>
+<p>主键用来表示一个特定的行；<br>主键并不总是需要，但大多数情况下都应保证每个表具有一个主键，以便于数据操作和管理；</p>
+<p>表中任何列都可以作为主键，只要满足以下2个条件：</p>
+<ol>
+<li>任意两行都不具有相同的主键值（唯一性）；</li>
+<li>每个行都必须具有一个主键值（主键列不允许NULL值）；</li>
+</ol>
+<p>主键值规则：主键通常定义于表的一列上，但也可以一起使用多个列作为主键，这种情况下，上述2个条件必须应用到构成主键的所有列，所有列值的组合必须是唯一的（单个列可以不唯一）</p>
+<p>设置主键的几个好习惯：</p>
+<ol>
+<li>不更新主键列中的值；</li>
+<li>不重用主键列的值（比如删除某条数据，删除了其他数据不要再用这个主键值，以便于知道自己删除过该条数据）；</li>
+<li>不在主键中使用可能会更改的值（例如使用电话号码作为主键以标识某个人，当该人更改电话号码时，必须更改这个键）</li>
+</ol>
+<h3 id="SQL简介"><a href="#SQL简介" class="headerlink" title="SQL简介"></a>SQL简介</h3><blockquote>
+<p>SQL：结构化查询语言（Structured Query Language），一种专门用来与数据库通信（增、删、改、查）的语言</p>
+</blockquote>
+<p>优点如下：</p>
+<ol>
+<li>几乎所有的DBMS都支持SQL</li>
+<li>SQL简单易学，语句由描述性很强的英语单词构成，而且单词的数目并不多</li>
+<li>一门强有力的语言，灵活使用其语言元素，可进行非常复杂和高级的数据库操作</li>
+</ol>
+<h3 id="MySQL简介"><a href="#MySQL简介" class="headerlink" title="MySQL简介"></a>MySQL简介</h3><p>MySQL是一种DBMS，即它是一种数据库软件<br>MySQL优点：</p>
+<ol>
+<li>成本低，MySQL开放源代码，一般都可以免费使用甚至免费修改</li>
+<li>性能好，MySQL执行效率很快</li>
+<li>很多大型公司（包括一些全世界知名的互联网企业）使用MySQL来处理自己的重要数据</li>
+<li>简安装使用非常容易</li>
+</ol>
+<h2 id="数据的检索和过滤"><a href="#数据的检索和过滤" class="headerlink" title="数据的检索和过滤"></a>数据的检索和过滤</h2><h3 id="检索数据"><a href="#检索数据" class="headerlink" title="检索数据"></a>检索数据</h3><blockquote>
+<p>select语句检索数据必须给两个信息：<code>想选择什么</code>、<code>以及从什么地方选择</code></p>
+</blockquote>
+<h4 id="检索单个列"><a href="#检索单个列" class="headerlink" title="检索单个列"></a>检索单个列</h4><blockquote>
+<p>select column from table；</p>
+</blockquote>
+<p>该SQL语句的检索结果将返回表中的所有行，数据没有过滤，也没有排序;</p>
+<ul>
+<li>过滤：过滤将得出结果集的一个子集</li>
+<li>排序：如没有明确排序查询结果，则返回数据的顺序没有特殊意义，只要返回相同数目的行，就是正确的</li>
+</ul>
+<p>MySQL不需要单条SQL语句后加分号，但特定DBMS可能必须在单条SQL语句后加分号；</p>
+<ul>
+<li>如果是多条SQL语句必须加分号（；）</li>
+<li>如果使用的是MySQL命令行(mysql command client)，则必须用分号结束SQL语句</li>
+</ul>
+<p>SQL语句 <code>不区分大小写</code>（默认对所有SQL关键字使用大写，对所有列和表明使用小写）</p>
+<h4 id="检索多个列"><a href="#检索多个列" class="headerlink" title="检索多个列"></a>检索多个列</h4><blockquote>
+<p>select column1，column2，column3 from table (表的别名)；</p>
+</blockquote>
+<p>在检索多个列时，要在列名之间加上逗号（，），最后一个列名不用加<br>SQL语句一般返回原始的、无格式的数据，数据的格式只是一个表示问题，而不是检索问题；因此表示方式一般在显示该数据的应用程序中规定，一般很少使用实际检索出的原始数据（没有应用程序提供的格式）</p>
+<h4 id="检索所有列"><a href="#检索所有列" class="headerlink" title="检索所有列 *"></a>检索所有列 *</h4><blockquote>
+<p>select * from table；</p>
+</blockquote>
+<p>给定通配符 <code>*</code>，则检索数据时返回表中所有列；<br>一般除非确实需要检索表中的每个列，否则最好别使用*通配符；虽然使用通配符可能自己比较省事，但检索不需要的列通常会降低检索和应用程序的性能</p>
+<p>优点在于：由于不明确指定列名，所以可以检索出名字未知的列</p>
+<h4 id="检索不同的行-distinct"><a href="#检索不同的行-distinct" class="headerlink" title="检索不同的行 distinct"></a>检索不同的行 distinct</h4><blockquote>
+<p>select distinct column from table；</p>
+</blockquote>
+<p>distinct告诉MySQL只返回不同的值（去掉该列中的重复项）；它必须直接放在列名的前面（distinct作用于所有列）</p>
+<h4 id="限制结果-limit"><a href="#限制结果-limit" class="headerlink" title="限制结果 limit"></a>限制结果 limit</h4><blockquote>
+<p>select column from table limit N；</p>
+</blockquote>
+<p>limit告诉 MySQL 只返回它指定值的第一行或前几行，N表示行的数量</p>
+<blockquote>
+<p>select column from table limit X，Y；</p>
+</blockquote>
+<p>limit X，Y告诉 MySQL 返回从行X开始的Y行；X为开始位置，Y为要检索的行数</p>
+<p>检索出来的第一行为行0而不是行1，因此，limit 1，将检索出第二行而不是第一行（在行数不够时，MySQL将只返回能返回的最大行数）</p>
+<h4 id="使用完全限定的表名"><a href="#使用完全限定的表名" class="headerlink" title="使用完全限定的表名"></a>使用完全限定的表名</h4><blockquote>
+<p>select table.column from database.table;</p>
+</blockquote>
+<p>该SQL语句中检索的表名以及列名是完全限定的</p>
+<h3 id="排序检索数据"><a href="#排序检索数据" class="headerlink" title="排序检索数据"></a>排序检索数据</h3><blockquote>
+<p>子句（clause）：SQL语句由子句构成，有些子句是必需的，有些是可选的；一个子句通常由一个关键字和所提供的数据组成</p>
+</blockquote>
+<h4 id="排序单个列"><a href="#排序单个列" class="headerlink" title="排序单个列"></a>排序单个列</h4><p>order by子句：取一个或多个列的名字，据此对输出进行排序（order by位于from子句之后；如果使用limit，它必须位于order by 之后）</p>
+<blockquote>
+<p>select column from table order by column2；</p>
+</blockquote>
+<p>该列指示 MySQL 对 column2 进行排列</p>
+<ul>
+<li>desc：作用是使其按照降序排列</li>
+<li>asc：作用是使其按照升序排列，默认</li>
+</ul>
+<p>如果想在多个列上进行降序排序，则必须对 <code>每个列指定desc关键字</code></p>
+<h4 id="按多个列排序"><a href="#按多个列排序" class="headerlink" title="按多个列排序"></a>按多个列排序</h4><blockquote>
+<p>select column1，column2，column3 from table order by column1，column2；</p>
+</blockquote>
+<p>先排序column1，再相同的column1中对column2进行排序；</p>
+<h4 id="检索最高或最低值"><a href="#检索最高或最低值" class="headerlink" title="检索最高或最低值"></a>检索最高或最低值</h4><blockquote>
+<p>select column from table order by column desc limit 1；</p>
+</blockquote>
+<p>column desc告诉MySQL按照降序排列，limit 1告诉MySQL只返回一行的数据</p>
+<h3 id="过滤数据"><a href="#过滤数据" class="headerlink" title="过滤数据"></a>过滤数据</h3><p>数据库包含大量的数据，很少需要检索表中所有行，通常会根据特定操作或报告需要提取表数据的子集；</p>
+<p>只检索所需数据需要指定搜索条件（search criteria），搜索条件也被称为过滤条件（filter condition）</p>
+<h4 id="where子句"><a href="#where子句" class="headerlink" title="where子句"></a>where子句</h4><p>select语句中，数据根据where子句中指定的搜索条件进行过滤，where子句在表名（from子句）之后给出</p>
+<blockquote>
+<p>select column from table where column = N；</p>
+</blockquote>
+<p>该语句的意思为从table表中筛选出column=N的行；</p>
+<p>如果同时使用order by和where子句，order by位于where之后（否则会出错）</p>
+<h4 id="where子句操作符"><a href="#where子句操作符" class="headerlink" title="where子句操作符"></a>where子句操作符</h4><p>=：等于<br>&lt;&gt;：不等于<br>&lt;：小于<br>&lt;=：小于等于 </p>
+<blockquote>
+<p>：大于<br>=：大于等于<br>between：在指定的两个值之间</p>
+</blockquote>
+<h4 id="不匹配检查"><a href="#不匹配检查" class="headerlink" title="不匹配检查"></a>不匹配检查</h4><blockquote>
+<p>select column from table where column &lt;&gt; N；<br>select column from table where column != N；</p>
+</blockquote>
+<p>where子句中，对过滤的值，有的用单引号，有的不用，原因在于：单引号用于限定字符串，如果将值与串类型的列进行比较，则需要；如用来与数值列比较，则不用引号</p>
+<h4 id="范围值检查-between"><a href="#范围值检查-between" class="headerlink" title="范围值检查 between"></a>范围值检查 between</h4><blockquote>
+<p>select column from table where column between X and Y；</p>
+</blockquote>
+<p>使用between操作符需要两个值：范围的开始值和结束值（上面例子中X和Y就是开始和结束值）</p>
+<p>between匹配范围内的所有的值，<code>包括指定的开始值和结束值</code></p>
+<h4 id="空值检查-is-null"><a href="#空值检查-is-null" class="headerlink" title="空值检查 is null"></a>空值检查 is null</h4><blockquote>
+<p>select column from table where column1 is null；</p>
+</blockquote>
+<p>建表时，设计人员可以指定其中的列是否可以不包含值，在一个列不包含值时，称其为包含空值NULL（无值{no value}：它与字段包含0、空字符串或仅仅包含空格不同）</p>
+<p>is null子句就是用来检查表中具有null值的列（在过滤数据选择出不具有特定值的行时，一定要验证返回数据中确实给出了被过滤列具有null的行）</p>
+<h3 id="使用操作符过滤数据"><a href="#使用操作符过滤数据" class="headerlink" title="使用操作符过滤数据"></a>使用操作符过滤数据</h3><blockquote>
+<p>操作符（operator）：用来联结或改变where子句中的子句的关键字。也称为逻辑操作符（logical operator）</p>
+</blockquote>
+<h4 id="and操作符"><a href="#and操作符" class="headerlink" title="and操作符"></a>and操作符</h4><blockquote>
+<p>select column1， column2，column3 from table where column1 = X and column &lt;=Y；</p>
+</blockquote>
+<p>and：用来指示检索满足所有给定条件（多个添加and连接）的行；</p>
+<h4 id="or操作符"><a href="#or操作符" class="headerlink" title="or操作符"></a>or操作符</h4><blockquote>
+<p>select column1， column2 from table where column1 = X or column &lt;=Y；</p>
+</blockquote>
+<p>or：用来表示检索匹配任一给定条件（满足任一个即可）的行；</p>
+<h4 id="计算次序"><a href="#计算次序" class="headerlink" title="计算次序"></a>计算次序</h4><blockquote>
+<p>select column1，column2 from table where column1 =X or column1 = Y and column2 &gt;= N;</p>
+</blockquote>
+<p>该SQL语句的意思是从table表中过滤出column2为N（含）以上且column1=X或Y的的所有行（实际中是先计算column1 = Y and column2 &gt;= N然后计算column1 =X）</p>
+<p><code>and在计算次序中优先级高于or</code></p>
+<p>如果希望and和or之间计算次序不被错误组合，可将or操作符所对应的子句使用圆括号 <code>()</code> 括起来（圆括号具有更高的计算次序）</p>
+<p>PS：任何时候使用具有and和or操作符的where子句，都应该使用圆括号明确的分组操作符！</p>
+<h4 id="in操作符"><a href="#in操作符" class="headerlink" title="in操作符"></a>in操作符</h4><blockquote>
+<p>select column1，column2 from table where column1 in （X,Y） order by column2；</p>
+</blockquote>
+<p>该SQL语句的意思是从table表中检索所有column=X和（或）Y的行，并通过column2进行排序</p>
+<p>in操作符用来指定匹配值的清单的关键字，功能和or相当</p>
+<p>圆括号在where子句中还有另一种用法，in操作符用来指定条件范围，范围中的每个条件都可以进行匹配；in取合法值的由逗号分隔的清单，全都括在圆括号中；</p>
+<p>in操作符优点如下：</p>
+<ol>
+<li>使用长的合法选项清单时，in操作符的语法更清楚且更直观</li>
+<li>使用in操作符，计算的次序更容易管理（使用的操作符更少）</li>
+<li>in操作符一般比or操作符清单执行更快</li>
+<li>in最大的优点是可以包含其他select语句，使得能够更动态的建立where子句</li>
+</ol>
+<h4 id="not操作符"><a href="#not操作符" class="headerlink" title="not操作符"></a>not操作符</h4><blockquote>
+<p>select column1，column2 from table where column1 not in （X,Y）；</p>
+</blockquote>
+<p>该SQL语句的意思是从table表中列出除column1为X,Y之外的所有行（not操作符用来否定后跟条件的关键字）</p>
+<p>not操作符有且只有一个功能，就是 <code>否定它之后所跟的任何条件</code></p>
+<p>MySQL支持使用not对 <code>in</code>、<code>between</code> 和 <code>exists</code> 子句取反，这与其他多数DBMS允许使用not对各种条件取反有很大差别</p>
+<h3 id="使用通配符过滤数据"><a href="#使用通配符过滤数据" class="headerlink" title="使用通配符过滤数据"></a>使用通配符过滤数据</h3><blockquote>
+<p>通配符（wildcard）：用来匹配值的一部分的特殊字符，利用通配符可以创建比较特定数据的搜索模式（实际上是SQL的where子句中带有特殊含义的字符）<br>搜索模式（search pattern）：由字面值、通配符或两者组合构成的搜索条件为在搜索子句中使用通配符，必须使用like操作符；like指示MySQL后跟的搜索模式利用通配符匹配而不是直接相等匹配进行比较</p>
+</blockquote>
+<h4 id="百分号（-）通配符"><a href="#百分号（-）通配符" class="headerlink" title="百分号（%）通配符"></a>百分号（%）通配符</h4><blockquote>
+<p>在搜索串中，%表示任何字符出现任意次数；和like配套使用</p>
+</blockquote>
+<p>通配符可以在搜索模式中任意位置使用，并且可以使用多个通配符</p>
+<blockquote>
+<p>select column1，column2 from table where column1 like ‘test%’</p>
+</blockquote>
+<p>上面的SQL语句表示任意以test起头的词；%告诉MySQL接受test之后的任意字符，不管它有多少字符</p>
+<ul>
+<li>test%：所有以test起头的值</li>
+<li>%test%：匹配任何包含test的值</li>
+<li>te%st：所有以te开头以st结尾的值</li>
+</ul>
+<p>PS：<code>%通配符不可以匹配null</code></p>
+<h4 id="下划线（-）通配符"><a href="#下划线（-）通配符" class="headerlink" title="下划线（_）通配符"></a>下划线（_）通配符</h4><blockquote>
+<p>select column1，column2 from table where column1 like ‘_test ’;</p>
+</blockquote>
+<p>下划线通配符作用和%一样，但下划线通配符只匹配 <code>单个字符</code> 而不是多个字符（与%能匹配0个字符不一样，总是 <code>匹配一个字符</code>）</p>
+<h4 id="使用通配符的技巧"><a href="#使用通配符的技巧" class="headerlink" title="使用通配符的技巧"></a>使用通配符的技巧</h4><ol>
+<li>不要过度使用通配符（如果其他操作符能达到同样目的，应使用其他操作符）</li>
+<li>在确实需要使用通配符时，除非绝对有必要，否则不要把通配符用在搜索模式开始处（这样做是最慢的）</li>
+<li>注意通配符所在的位置</li>
+</ol>
+<h2 id="数据的插入与更新"><a href="#数据的插入与更新" class="headerlink" title="数据的插入与更新"></a>数据的插入与更新</h2><h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><blockquote>
+<p>insert：用来插入（或添加）行到数据库中</p>
+</blockquote>
+<p>常见方式有以下几种：</p>
+<ol>
+<li>插入完整的行；</li>
+<li>插入行的一部分；</li>
+<li>插入多行；</li>
+<li>插入某些查询的结果；</li>
+</ol>
+<h4 id="插入完整的行"><a href="#插入完整的行" class="headerlink" title="插入完整的行"></a>插入完整的行</h4><p>例如：insert into usertable values(null, ‘zhangsan’, ‘25’, ‘19920520’, null, null);</p>
+<p>这条SQL语句插入一条新的个人信息到usertable表，存储在每个表列中的数据在values中给出，对每个列必须提供一个值，如果某个列没有值，应使用null（假定表允许对该项指定空值）；</p>
+<p>缺点在于；高度依赖表中列的定义次序，如果表结构出现变动，难免出现问题。</p>
+<p>更加安全的方法：<br>insert into usertable(user_id,user_name,user_year，user_birthday,user_address,user_email) values(null,’zhangsan’,’25’,’19920520’,null,null);</p>
+<p>这条SQL语句给出了列名，valuse必须以指定的次序匹配指定的列名，不一定按照列出现在表中的实际次序；</p>
+<p>优点是：即使表结构改变，此insert语句仍然正确工作。</p>
+<p>insert使用注意事项：</p>
+<ol>
+<li>无论使用哪种insert语法，都必须给出values的正确数目，如果不提供列名，则必须给每个表列提供一个值；如果提供列名，则必须对每个列出的列给出一个值；</li>
+<li>如果表定义允许，则可以在insert操作中省略某些列，列必须满足这两个条件（1.改列定义为允许null值；2.在表定义中给出默认值【如果不给出值，则使用默认值】）；</li>
+<li>数据库被多个用户访问，一般检索是最重要的，可以通过在insert和into中间添加关键字low priority，指示MySQL降低insert语句的优先级（同样适用于update和delete语句）；</li>
+</ol>
+<h4 id="插入多个行"><a href="#插入多个行" class="headerlink" title="插入多个行"></a>插入多个行</h4><p>例如：insert into usertable(user_id,user_name,user_year，user_birthday,user_address,user_email)  values(null,’zhangsan’,’25’,’19920520’,null,null);</p>
+<p>只要每条insert语句中的列名（和次序）相同，可以只在insert语句后面输入一次列名就可以（单个insert语句由多组值，每组值用一堆圆括号包含，用逗号隔开）</p>
+<p>PS:MYSQL用单条insert语句处理多个插入比使用多个insert语句快。</p>
+<h4 id="插入检索出的数据"><a href="#插入检索出的数据" class="headerlink" title="插入检索出的数据"></a>插入检索出的数据</h4><p>例如：insert into usertable(user_id,user_name,user_year，user_birthday,user_address,user_email)select user_id,user_name,user_year,user_birthday,user_adress,user_email<br>from newtablebase;</p>
+<p>这条SQL语句中，select从newtablebase表中检索出要插入的数据，select列出的每个列对应tablebase表名后所跟的列表中的每个列。</p>
+<p>PS：<code>insert select</code> 语句中，不一定要求列名匹配，实际上select中的第一列将用来填充表列中指定的第一列；insert select语句中select语句可包含where子句过滤插入的数据。</p>
+<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><blockquote>
+<p>update语句：更新（修改）表中的数据</p>
+</blockquote>
+<p>两种方法：</p>
+<ol>
+<li>更新表中特定行；</li>
+<li>更新表中所有行；</li>
+</ol>
+<p>update语句由三部分构成：</p>
+<ol>
+<li>要更新的表；</li>
+<li>列名和它们的新值；</li>
+<li>确定要更新行的过滤条件；</li>
+</ol>
+<p>例如：update usertable<br>set user_email = <a href="mailto:&#39;3033310371@qq.com" target="_blank" rel="noopener">&#39;3033310371@qq.com</a>‘<br>where user_id = ‘10086’;</p>
+<p>这条SQL语句中，要更新的表名为usertable，set命令用来将新值赋给被更新的列user_email；</p>
+<p>PS：update语句总是以要更新的表的名字开始，以where子句结束，它告诉MySQL更新哪一行。</p>
+<h4 id="更新多个列"><a href="#更新多个列" class="headerlink" title="更新多个列"></a>更新多个列</h4><p>例子：update usertable<br>set user_name = ‘zhangsan’, user_email = <a href="mailto:&#39;3033310371@qq.com" target="_blank" rel="noopener">&#39;3033310371@qq.com</a>‘<br>where user_id = ‘10086’;</p>
+<p>更新多个列时，只需要使用单个set命令，每个“列=值”对之间用逗号分隔（最后一列不用逗号）。</p>
+<p>PS:如果用update更新多个行，且更新中一行或多行出现错误，则update操作将被取消（错误发生前执行的动作将被回滚到最初状态。即已更新的被恢复原来的值）；<br>如果希望出错误，更新继续执行，可以使用ignore关键字：update ignore tablebase……</p>
+<p>如果希望删除一个值，可以将它设置为null（如果表定义允许null值），例子如下：<br>update usertable<br>set user_email = null<br>where user_id = ‘10086’;</p>
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><blockquote>
+<p>delete语句：从一个表中删除数据</p>
+</blockquote>
+<p>有以下两种方式：</p>
+<ol>
+<li>从表中删除特定行；</li>
+<li>从表中删除所有行；</li>
+</ol>
+<p>例如：delete from usertable where user_id = ‘10086’;<br>这条SQL语句中，delete from要求指定从中删除数据的表名，where子句过滤要删除的行。</p>
+<p>PS：delete不需要列名或者通配符，<code>delete删除整行而不是整列</code>，为了删除指定的列，可使用update语句（delete从表中删除行甚至表中所有行，但不删除表本身）；</p>
+<p>如果想删除表中所有行，可使用 <code>truncate table</code> 语句，它的执行效率比delete更快（truncate实际上是删除原来表并重新新建一个表，而不是逐行删除表中数据）。</p>
+<p>更新和删除规则：</p>
+<ol>
+<li>除非确实打算更新或删除每一行，否则决不能使用不带where子句的update或delete语句；</li>
+<li>保证每个表都有主键，尽可能像where子句那样使用；</li>
+<li>对update和delete语句使用where子句前，最好先select进行测试，保证过滤的数据是正确的；</li>
+<li>使用强制实施引用完整性的数据库（这样MySQL将不允许删除具有与其他表相关联的数据的行）。</li>
+</ol>
+<h2 id="汇总和分组"><a href="#汇总和分组" class="headerlink" title="汇总和分组"></a>汇总和分组</h2><h3 id="汇总数据"><a href="#汇总数据" class="headerlink" title="汇总数据"></a>汇总数据</h3><p>工作中经常需要汇总数据而不是将它们全部检索出来（实际数据本身：返回实际数据是对时间和处理资源的浪费），这种类型的检索有以下特点：</p>
+<ol>
+<li>确定表中的行数（或者满足某个条件或包含某个特定值的行数）</li>
+<li>获得表中行组的和</li>
+<li>找出表列（或所有行或某些特定的行）的最大值、最小值和平均值</li>
+</ol>
+<blockquote>
+<p>聚集函数（aggregate function）：运行在行组上，计算和返回单个值的函数（MySQL还支持一些列的标准偏差聚集函数）；</p>
+</blockquote>
+<p>SQL聚集函数：</p>
+<ul>
+<li>AVG()：返回某列的平均值</li>
+<li>COUNT()：返回某列的行数</li>
+<li>MAX()：返回某列的最大值</li>
+<li>MIN()：返回某列的最小值</li>
+<li>SUM()：返回某列值之和</li>
+</ul>
+<h4 id="avg-函数"><a href="#avg-函数" class="headerlink" title="avg()函数"></a>avg()函数</h4><blockquote>
+<p>avg()：通过对表中行数计数并计算特定列值之和，求得该列的平均值；</p>
+</blockquote>
+<p>avg()可用来返回所有列平均值，也可用来返回特定列的平均值；</p>
+<blockquote>
+<p>select avg(prod_price) as avg_price from pfoducts;</p>
+</blockquote>
+<p>此select语句返回值avg_price，它包含producs表中所有产品的平均价格，avg_price是一个别名；</p>
+<p>avg()也可以用来确定特定列或行的平均值<br>例子如下：select avg_(prod_price) as avg_price from products where vend_id =1003;<br>这条SQL语句包含了where子语句，仅过滤出vend_id为1003的产品，avg_price中返回该供应商的产品的平均值；</p>
+<p>PS：avg()只能用来确定特定数值列的平均值，而且列名必须作为函数参数给出，为了获得多个列的平均值，必须使用多个avg()函数{avg()函数忽略列值为NULL的行}；</p>
+<h4 id="count-函数"><a href="#count-函数" class="headerlink" title="count()函数"></a>count()函数</h4><blockquote>
+<p>count()函数：进行计数，可利用count()确定表中行的数目或符合特定条件的行的数目；</p>
+</blockquote>
+<p>count（）函数有两种使用方式：</p>
+<ol>
+<li>使用count(*)对表中行的数目进行计数，不管表列中包含的是空值（null）还是非空值；</li>
+<li>使用count（column）对特定列中具有值的行进行计数，忽略null值；</li>
+</ol>
+<blockquote>
+<p>select count（*） as num_cust from customers；</p>
+</blockquote>
+<p>这条SQL语句利用count（*）对customers表中所有行计数，计数值在num_cust中返回；</p>
+<blockquote>
+<p>select count（cust_email） as cum_cust from customers；</p>
+</blockquote>
+<p>这条SQL语句使用count（cust_email）对cust_email列中有值的行进行计数；</p>
+<p>PS：如果指定列名，则指定列的值为空的行被count()函数忽略，但如果count()函数中用的是星号（*），则不忽略；</p>
+<h4 id="max-函数"><a href="#max-函数" class="headerlink" title="max()函数"></a>max()函数</h4><blockquote>
+<p>max()：返回指定列中的最大值，max()要求指定列名</p>
+</blockquote>
+<p>例子如下：select max（prod_price） as max_price from products;<br>这条SQL语句中国返回products表中price列的最大值；</p>
+<p>PS：MySQL允许max（）用来返回任意列中的最大值，包括返回文本列的最大值；但用于文本数据时，如果数据按相应的列排序，则max（）返回最后一行（max（）函数忽略列值为null的行）</p>
+<h4 id="min-函数"><a href="#min-函数" class="headerlink" title="min()函数"></a>min()函数</h4><blockquote>
+<p>min()：返回指定列的最小值，min（）也要求指定列名</p>
+</blockquote>
+<p>例子如下：select min（prod_price） as min_price from products；<br>这条SQL语句中min（）返回products表中price列最小值；</p>
+<p>PS：MySQL允许min（）用来返回任意列中的最小值，包括返回文本列的最小值；但用于文本数据时，如果数据按相应的列排序，则min（）返回最前面的行（min（）函数忽略列值为null的行）</p>
+<h4 id="sum-函数"><a href="#sum-函数" class="headerlink" title="sum()函数"></a>sum()函数</h4><blockquote>
+<p>sum()：函数用来返回指定列值的和（总计）；</p>
+</blockquote>
+<p>例子如下：select sum(quantity) as items_ordered from orderitems where order_num = 20005;<br>函数sum（）返回orderitems中所有quantity列的值之和，where子句保证只统计某个指定列的数值；</p>
+<p>PS：利用标准的算数操作符，所有聚集函数都可用来执行多个列上的计算（sum（）函数忽略列值为null的行）</p>
+<h4 id="distinct与聚集函数"><a href="#distinct与聚集函数" class="headerlink" title="distinct与聚集函数"></a>distinct与聚集函数</h4><p>MySQL5.0.3以及之后的版本，聚集函数和distinct可以搭配使用<br>比如：</p>
+<ol>
+<li>对所有的行执行计算，指定all参数或不给参数（all是默认所有行为，不需要指定，如果不指定distinct，则假定为all）；</li>
+<li>只包含不同的值，指定distinct参数；</li>
+<li>如果指定列名，则distinct只能用于count（）；distinct不能用于count（*），因此不允许使用count（distinct）；distinct必须使用列名，不能用于计算或者表达式；</li>
+</ol>
+<p>select avg(distinct prod_price) as avg_price from products where vend_id = 1003;<br>这条SQL语句中，使用avg（）函数返回vend列中vend_id=1003的对应的price平均价格，因为使用了distinct参数，因此平均值只考虑不同的值（唯一值）</p>
+<h4 id="组合聚集函数"><a href="#组合聚集函数" class="headerlink" title="组合聚集函数"></a>组合聚集函数</h4><p>select语句可以包含多个聚集函数，比如：<br>select count（*） as num_items,<br>min(prod_price) as price_min,<br>max(prod_price) as price_max,<br>avg(prod_price) as price_avg<br>from products;<br>这条SQL语句，使用了单条select语句执行4个聚集计算，返回四个值（products表中items的数目、price的最高、最低以及平均值）</p>
+<p>PS：在指定别名以包含某个聚集函数的结果时，不应该使用表中实际的列名；这样便于使用SQL更加容易和理解，以及排除方便排除错误。</p>
+<h3 id="分组数据"><a href="#分组数据" class="headerlink" title="分组数据"></a>分组数据</h3><h4 id="group-by创建分组"><a href="#group-by创建分组" class="headerlink" title="group by创建分组"></a>group by创建分组</h4><blockquote>
+<p>在MySQL中，分组是在select语句中的group by子句中建立的</p>
+</blockquote>
+<p>比如：select vendid,count(*) as num_prods from products group by vend_id;<br>这条SQL语句指定了2个列，group by指示MySQL按照vend_id排序并且分组（如果使用group by，则不必指定要计算的每个组）</p>
+<p>group by子句指示指示MySQL分组数据，然后都每个组而不是整个结果集进行聚集；</p>
+<p>关于group by使用，请注意以下规则：</p>
+<ol>
+<li>group by子句可以包含任意数目的列（使得对分组进行嵌套，为数据分组提供更细致的控制）；</li>
+<li>如果在group by子句中嵌套分组，数据将在最后规定的分组上进行汇总，即：建立分组时，指定的所有列都一起计算（所以不能从个别列取回数据）；</li>
+<li>group by子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数），如果在select中使用表达式，则必须在group by子句中指定相同的表达式（不能使用别名）；</li>
+<li>除了聚集计算语句外，select中每个列都必须在group by子句中给出；</li>
+<li>如果分组列中具有null值，则null将作为一个分组返回（如果列中有多行null值，他们将分为一组）；</li>
+<li>group by子句必须出现在where子句之后，order by子句之前；</li>
+</ol>
+<p>PS：使用with rollup关键字，可以得到每个分组以及每个分组汇总级别（针对每个分组）的值。</p>
+<h4 id="having过滤分组"><a href="#having过滤分组" class="headerlink" title="having过滤分组"></a>having过滤分组</h4><p>where子句都可以用having代替，区别在于where过滤行，having过滤分组；having支持所有的where操作符</p>
+<p>比如：select cust_id,count(<em>) as orders from orders group by cust_id<br>having count(</em>) &gt;= 2;<br>这条SQL语句中的having子句过滤count（*）&gt;=2（2个以上的分组）的那些分组；</p>
+<h5 id="having和where的区别："><a href="#having和where的区别：" class="headerlink" title="having和where的区别："></a>having和where的区别：</h5><p>where在数据分组前进行过滤，having在数据分组后进行过滤；<br>where排除的行不包括在分组中（这可能会改变计算值，从而影响having子句中基于这些值过滤掉的分组）</p>
+<p>having和where可以同时使用，比如：<br>select vend_id, count(<em>) as num_prods from products where<br>prod_price&gt;=10 group by vend_id having count(</em>)&gt;= 2;<br>这条SQL语句中，where子句过滤掉所有prod_price至少为10的行，然后按照vend_id分组数据；having子句过滤技术为2或2以上的分组；</p>
+<h4 id="分组和排序"><a href="#分组和排序" class="headerlink" title="分组和排序"></a>分组和排序</h4><p>group by和order by的区别：</p>
+<ul>
+<li>order by：排序产生的输出；任意列都可以用（甚至非选择的列也可以使用）；不一定需要</li>
+<li>group by：分组行，但输出可能不是分组的排序；只可能使用选择列或表达式列，而且必须使用每个选择列表示式；如果与聚集函数一起使用列（或表达式），则必须使用</li>
+</ul>
+<p>order by的重要性：一般使用group by子句时，应该也给出order by子句，这是保证数据正确性的唯一方法（千万不要依赖group by排序数据）。</p>
+<h4 id="select子句顺序"><a href="#select子句顺序" class="headerlink" title="select子句顺序"></a>select子句顺序</h4><table>
+<thead>
+<tr>
+<th>子句</th>
+<th>说明</th>
+<th>是否必须使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>select</td>
+<td>要返回的列或表达式</td>
+<td>是</td>
+</tr>
+<tr>
+<td>from</td>
+<td>从中检索数据的表</td>
+<td>仅在从表选择数据时使用</td>
+</tr>
+<tr>
+<td>where</td>
+<td>行级过滤</td>
+<td>否</td>
+</tr>
+<tr>
+<td>group by</td>
+<td>分组说明</td>
+<td>仅在按组计算聚集时使用</td>
+</tr>
+<tr>
+<td>having</td>
+<td>组级过滤</td>
+<td>否</td>
+</tr>
+<tr>
+<td>order by</td>
+<td>输出排序顺序</td>
+<td>否</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>要检索的行数</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<h2 id="表连接"><a href="#表连接" class="headerlink" title="表连接"></a>表连接</h2><h3 id="连接表"><a href="#连接表" class="headerlink" title="连接表"></a>连接表</h3><h4 id="关系表"><a href="#关系表" class="headerlink" title="关系表"></a>关系表</h4><blockquote>
+<p>把信息分解成多个表，一类数据一个表，各表通过某些常用值（即关系设计中的关系（relational））互相关联；</p>
+</blockquote>
+<p>关系型数据库中常用关系为三种：</p>
+<ul>
+<li>一对一 用户 身份证</li>
+<li>一对多（多对一）</li>
+<li>多对多</li>
+</ul>
+<h4 id="外键"><a href="#外键" class="headerlink" title="外键"></a>外键</h4><blockquote>
+<p>外键（foreign key）：外键为某个表中的一列，它包含另一个表的主键值，定义了两个表之间的关系</p>
+</blockquote>
+<h4 id="连接表的优点"><a href="#连接表的优点" class="headerlink" title="连接表的优点"></a>连接表的优点</h4><ol>
+<li>数据信息不重复，从而不浪费时间和空间</li>
+<li>如果某个数据信息变动，可以只更新该表中的某个记录，相关表数据不用变更</li>
+<li>数据无重复，可以更有效的存储和方便的处理，伸缩性强（能够适应不断增加的工作量而不失败，设计良好的数据库或者应用程序称为可伸缩性好（scale well））</li>
+</ol>
+<p>PS：连接是一种机制，用来在一条select语句中关联表，因此称之为连接（连接在运行时关联表中正确的行）</p>
+<h3 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h3><p>例如：select A_name,B_name,B_mobile<br>from A, B<br>where A.A_id = B.B_id<br>order by A_name, B_name;</p>
+<p>该SQL语句中，select语句指定要检索的列（因为是创建关联，所以指定了3个列，区别在于A_name在A表中，B_name和B_mobile在另一个表）；from语句列出了2个表分别是A和B，A和B表使用where子句正确连接；where子句指示MySQL匹配A表中的A_id和B表中的B_id相匹配，要匹配的两列以A.A_id和B.B_id完全限定表名（当引用的列可能存在二义性，必须使用完全限定表名（用一个点分隔的表名和列名））</p>
+<p>PS：where子句的重要性<br>在一条select语句中连接几个表时，相应的关系是在运行中构造的；在连接两个甚至多个表时，实际上是将第一个表中的每一行与第二个表中的每一行配对，where子句作为过滤条件，它只包含匹配的给定条件的行。没有where子句，第一个表中每个行将与第二个表中的每个行匹配，而不管逻辑上是否可以配在一起。</p>
+<h4 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a>笛卡尔积</h4><p>由没有连接条件的表关系返回的结果称为笛卡尔积（检索出的行的数目将是第一个表中的行数乘以第二个表中的行数）；</p>
+<p>例如：select A_name,B_name,B_mobile<br>from A, B<br>order by A_name, B_name;</p>
+<p>PS:应保证所有连接都有where子句，否则MySQL将返回比想要的数据多得多的数据，还应保证where子句的正确性。</p>
+<h4 id="内部连接"><a href="#内部连接" class="headerlink" title="内部连接"></a>内部连接</h4><blockquote>
+<p>等值连接（equijoin）：基于两个表之间的相等测试，也称为内部连接</p>
+</blockquote>
+<p>例如：select A_name,B_name,B_mobile<br>from A inter join B<br>on A_name = B_name;</p>
+<p>这条SQL语句中，select语句与之前的相同，相较于上面的from，这里使用了inter join指定（当使用inter join时，连接条件用on子句而不是where子句，在这里on等同于where）</p>
+<h4 id="连接多个表"><a href="#连接多个表" class="headerlink" title="连接多个表"></a>连接多个表</h4><p>SQL对一条select语句中可以连接的表的数目没有限制，创建规则也基本相同（首先列出所有表，然后定义表之间的关系）</p>
+<p>PS：MySQL在运行时关联指定的每个表以处理连接，这样很耗费资源，因此使用中应注意，不要连接不必要的表。</p>
+<h3 id="创建高级连接"><a href="#创建高级连接" class="headerlink" title="创建高级连接"></a>创建高级连接</h3><h4 id="使用表别名"><a href="#使用表别名" class="headerlink" title="使用表别名"></a>使用表别名</h4><p>别名除了允许用于列名和计算字段外，SQL还允许给表名起列名，好处在于：</p>
+<ol>
+<li>缩短SQL语句；</li>
+<li>允许在单条select语句中多次使用相同的表；</li>
+</ol>
+<p>例如：select a_name, a_mobile<br>from A as a, B as b, C as c<br>where A.a_id = B.b_id<br>and C.c_num = B.b_num<br>and birthday_id = ‘19921026’;</p>
+<p>PS:表别名不仅可用于where子句，还可用于select列表，order by子句以及语句其他部分（表别名只在查询执行中使用，表别名不返回到客户端主机）</p>
+<h4 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h4><blockquote>
+<p>自连接：自连接通常作为外部语句用来替代从相同表中检索数据时使用的子查询语句。</p>
+</blockquote>
+<p>例如：select p1.user_id, p1.user_name<br>from usertable as p1, usertable as p2<br>where p1.user_id = p2.user_id<br>and p2.user_id = ‘10086’;</p>
+<p>这条SQL语句中，usertable表第一次出现为别名p1，第二次为别名p2，在select语句中明确使用p1前缀给出所需列名，否则MySQL将返回错误，因为其无法正确区分想要的具体为哪一列；</p>
+<h4 id="外部连接"><a href="#外部连接" class="headerlink" title="外部连接"></a>外部连接</h4><blockquote>
+<p>用来检索包含了在相关表中没有关联行的行，这种类型的连接称为外部连接。</p>
+</blockquote>
+<p>例如：select A.cust_id, B.mobile_num<br>from A left outer join B<br>on A.cust_id = B.mobile_num;</p>
+<p>这条select语句使用关键字outer join来指定连接的类型（不是在where子句中指定）；在使用outer join语法时，必须使用left或right指定包括其他所有行的表（right指出右边的表，left指出左边的表）</p>
+<p>外部连接的类型：<br>分为左外部连接和右外部连接，唯一差别是关联表的顺序不同，左外部连接可以通过颠倒from或where子句中的表顺序转换为右外部连接，两种类型可以互换使用（聚集函数也可和连接一起使用）。</p>
+<p>PS：连接使用要点</p>
+<ol>
+<li>注意使用的连接类型</li>
+<li>保证使用正确的连接条件，否则将返回不正确的数据</li>
+<li>应该总是提供连接条件，否则会得到笛卡尔积</li>
+<li>同一个连接下可包含多个表，甚至对每个连接采用不同的连接类型</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/18/NodeJs/Nodejs-anzhuang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/18/NodeJs/Nodejs-anzhuang/" itemprop="url">Nodejs-模块化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-18T10:06:51+08:00">
+                2018-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>第一部分：后端的规范与思想<br>第二部分：基础的API<br>第三部分：常用的框架<br>第四部分：Web项目<br>    1.接收Web请求<br>    2.处理业务逻辑<br>    3.文件操作<br>    4.数据库（Mysql关系数据库，MongoDB非关系数据库）<br>    5.反向代理服务器（ip哈希，轮询）<br>第五部分：大项目（vue + node.js）</p>
+<h3 id="后端的规范与思想"><a href="#后端的规范与思想" class="headerlink" title="后端的规范与思想"></a>后端的规范与思想</h3><p>后端的逻辑往往大于前端的逻辑；所以后端就需要分层。</p>
+<h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><ol>
+<li>Web层/controller层（Web层用于接收和发送Http请求，封装）</li>
+<li>业务逻辑层（服务层，XXXServer；）</li>
+<li>BAO层（）<br>DataBase（DB）：存数据<br>业务：对对象进行操作<br>如果要存储：对象 转为 数据<br>如果要读取：数据 转为 对象</li>
+<li>持久层：存在磁盘上<br>文件，数据库</li>
+</ol>
+<p>每层的命名：<br>Web层：LoginController（接收参数，判断是否非法，传给服务层）<br>服务层：LoginServer（获取这个用户的密码，进行比较）<br>BAO层：LoginDAO（从数据库库获取数据，并转换为对象）<br>Domain：User</p>
+<p>设计模式：单一职责原则</p>
+<h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><p>（1）ES6：导入和导出；ES3、ES5缺少模块化概念<br>（2）JS规范缺乏管理机制，Bootstrap，jQuery（Node有NPM）</p>
+<blockquote>
+<p>导入：require(“xxx”);<br>导出：module.exports = xxx;</p>
+</blockquote>
+<h4 id="exports-和-module-exports-的区别？"><a href="#exports-和-module-exports-的区别？" class="headerlink" title="exports 和 module.exports 的区别？"></a>exports 和 module.exports 的区别？</h4><ol>
+<li>module.exports 初始值为一个空对象 {}</li>
+<li>exports 是指向的 module.exports 的引用</li>
+<li>require() 返回的永远是 module.exports 而不是 exports</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var a = 123;</span><br><span class="line">var b = <span class="string">"abc"</span>;</span><br><span class="line">// 开闭原则 -- 对修改关闭，</span><br><span class="line"></span><br><span class="line">// module.exports 就是一个对象</span><br><span class="line">// module.exports = a;</span><br><span class="line">// module.exports = b; // 则第二次赋值会覆盖第一次</span><br><span class="line">// ==&gt;</span><br><span class="line">module.exports.a = a;</span><br><span class="line">module.exports.b = b;</span><br><span class="line">// 简写</span><br><span class="line">// exports.a = a;</span><br><span class="line">// exports.b = b;</span><br><span class="line"></span><br><span class="line">// module.exports 和 exports 有什么区别？</span><br><span class="line">// 情况一</span><br><span class="line">// module.exports 和 exports 指向同一空间地址</span><br><span class="line">// module.exports.a = a;</span><br><span class="line">// exports.b = b;  // <span class="built_in">test</span> = &#123;a = 123, b = <span class="string">"abc"</span>&#125;</span><br><span class="line"></span><br><span class="line">// // 情况二</span><br><span class="line">// module.exports = a;  // module.exports 由 &#123;&#125; 指向a</span><br><span class="line">// exports = b; // exports 由 &#123;&#125; 指向b // <span class="built_in">test</span> = 123</span><br><span class="line">// // 交换顺序</span><br><span class="line">// exports = b;</span><br><span class="line">// module.exports = a; // <span class="built_in">test</span> = 123</span><br><span class="line"></span><br><span class="line">// 当 module.exports 和 exports 指向不同空间，则导出的是module.exports</span><br><span class="line">// 导出的永远是module.exports ==&gt; 所以全部使用 module.exports</span><br></pre></td></tr></table></figure>
+<h4 id="模块的运行环境"><a href="#模块的运行环境" class="headerlink" title="模块的运行环境"></a>模块的运行环境</h4><blockquote>
+<p>NodeJs的模块是运行再一个函数当中的</p>
+</blockquote>
+<p>写一个模块：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">console.log(require)</span><br><span class="line">console.log(module);</span><br><span class="line">console.log(exports);</span><br><span class="line">console.log(__dirname); // C:\Users\Administrator\Desktop\Node\Node</span><br><span class="line">console.log(__filename); // C:\Users\Administrator\Desktop\Node\Node\index.js</span><br><span class="line"></span><br><span class="line">var a = 1;</span><br><span class="line">var b = 2;</span><br><span class="line"></span><br><span class="line">module.exports.a = a;</span><br><span class="line">module.exports.b = b;</span><br><span class="line"></span><br><span class="line">console.log(arguments);</span><br></pre></td></tr></table></figure></p>
+<p>该模块运行在一个函数中，函数形式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> xyz(exports, require, module, __filename, __dirname) &#123;</span><br><span class="line"></span><br><span class="line">    // ---</span><br><span class="line">    // 中间的内容是我们写的JS代码</span><br><span class="line">    console.log(require)</span><br><span class="line">    console.log(module);</span><br><span class="line">    console.log(exports);</span><br><span class="line">    console.log(__dirname);</span><br><span class="line">    console.log(__filename);</span><br><span class="line"></span><br><span class="line">    var a = 1;</span><br><span class="line">    var b = 2;</span><br><span class="line"></span><br><span class="line">    module.exports.a = a;</span><br><span class="line">    module.exports.b = b;</span><br><span class="line">	// ---</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> module.exports;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>exports, require, module, <strong>filename, </strong>dirname 这五个参数都不是全局变量，而是以函数的参数形式传进来的</p>
+</blockquote>
+<h3 id="API-net"><a href="#API-net" class="headerlink" title="API-net"></a>API-net</h3><p>五层网络模型：<br>应用层（http）-&gt; 运输层、传输层（tcp）-&gt; 网络层（ip）-&gt; 数据链路层 -&gt; 物理层</p>
+<p>HTTP协议和TCP/IP协议的关系：</p>
+<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><p>事件：</p>
+<ul>
+<li><code>listening</code></li>
+<li><code>connection</code></li>
+<li>close</li>
+<li>error</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li>listen</li>
+<li>close</li>
+<li>address</li>
+</ul>
+<h4 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h4><p>事件：</p>
+<ul>
+<li>connect</li>
+<li>data</li>
+<li>end</li>
+<li>timeout</li>
+<li>error</li>
+<li>close</li>
+</ul>
+<p>属性：</p>
+<ul>
+<li>remoteAddress</li>
+<li>remotePort</li>
+<li>localAddress</li>
+<li>localPort</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li>setTimeout</li>
+<li>write</li>
+<li>setEncoding</li>
+<li>end</li>
+</ul>
+<p>server.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var net = require(<span class="string">"net"</span>);</span><br><span class="line"></span><br><span class="line">var server = net.createServer();</span><br><span class="line">server.listen(12306, <span class="string">"127.0.0.1"</span>);</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"listening"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(server.address());</span><br><span class="line">    console.log(<span class="string">"服务已启动"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// server.on(<span class="string">"connection"</span>, <span class="keyword">function</span> (socket) &#123;</span><br><span class="line">//     console.log(<span class="string">"有新的链接"</span>);</span><br><span class="line">//     socket.on(<span class="string">"data"</span>, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">//         console.log(data.toString());</span><br><span class="line">//         socket.write(<span class="string">"hello client"</span>);</span><br><span class="line">//     &#125;)</span><br><span class="line">//     socket.on(<span class="string">"close"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">//         console.log(<span class="string">"客户端已关闭"</span>);</span><br><span class="line">//         server.close();</span><br><span class="line">//     &#125;)</span><br><span class="line">// &#125;)</span><br><span class="line"></span><br><span class="line">// server.on(<span class="string">"close"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">//     console.log(<span class="string">"服务器已关闭"</span>)</span><br><span class="line">// &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>client.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var net = require(<span class="string">"net"</span>);</span><br><span class="line"></span><br><span class="line">var socket = net.connect(12306, <span class="string">"127.0.0.1"</span>)</span><br><span class="line">socket.setTimeout(2000);</span><br><span class="line"></span><br><span class="line">socket.on(<span class="string">"timeout"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(<span class="string">"超时了"</span>);</span><br><span class="line">    socket.end();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">socket.on(<span class="string">"connect"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(<span class="string">"已连接到服务器"</span>);</span><br><span class="line">    // console.log(socket.remoteAddress);</span><br><span class="line">    // console.log(socket.remotePort);</span><br><span class="line">    // console.log(socket.localAddress);</span><br><span class="line">    // console.log(socket.localPort);</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// socket.on(<span class="string">"data"</span>, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">//     console.log(data.toString());</span><br><span class="line">//     socket.end();</span><br><span class="line">// &#125;)</span><br><span class="line"></span><br><span class="line">// socket.on(<span class="string">"close"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">//     console.log(<span class="string">"连接已关闭"</span>);</span><br><span class="line">// &#125;)</span><br><span class="line"></span><br><span class="line">// socket.write(<span class="string">"hello server"</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="API-HTTP"><a href="#API-HTTP" class="headerlink" title="API-HTTP"></a>API-HTTP</h3><p>浏览器作为客户端，启动一个服务器：<br>server.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var net = require(<span class="string">"net"</span>);</span><br><span class="line"></span><br><span class="line">var server = net.createServer();</span><br><span class="line">server.listen(12307, <span class="string">"127.0.0.1"</span>);</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"listening"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(<span class="string">"服务已启动"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"connection"</span>, <span class="keyword">function</span> (socket) &#123;</span><br><span class="line">    console.log(<span class="string">"有新的连接"</span>);</span><br><span class="line">    socket.on(<span class="string">"data"</span>, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">        // console.log(data.toString());</span><br><span class="line">        var request = data.toString().split(<span class="string">"\r\n"</span>);</span><br><span class="line">        var url = request[0].split(<span class="string">" "</span>)[1];</span><br><span class="line">        console.log(url);</span><br><span class="line">        socket.write(<span class="string">"HTTP 200OK\r\nConnect-type:text/html\r\nserver:DWS1.1\r\n\r\n&lt;html&gt;&lt;body&gt;hello brower&lt;/body&gt;&lt;/html&gt;"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/NodeJs/Nodejs-http-了不起的Nodejs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/17/NodeJs/Nodejs-http-了不起的Nodejs/" itemprop="url">Nodejs-http-了不起的Nodejs</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T15:27:41+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>HTTP（超文本传输协议）：是一种Web协议，它是属于TCP上层的协议。</p>
+</blockquote>
+<h3 id="HTTP结构"><a href="#HTTP结构" class="headerlink" title="HTTP结构"></a>HTTP结构</h3><p>HTTP协议构建在请求和响应的概念上，对应在Node.js就是 <code>http.ServerRequest</code> 和 <code>http.ServerResponse</code> 这两个构造器构造出来的对象。</p>
+<p>当用户浏览一个网站时，用户代理（浏览器）会创建一个请求，该请求通过TCP发送给Web服务器，随后服务器会给出响应。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/17/NodeJs/如何学习Node-js/" itemprop="url">如何学习Node.js</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T10:12:39+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原文地址：<a href="https://i5ting.github.io/How-to-learn-node-correctly/" title="狼叔：如何正确的学习Node.js" target="_blank" rel="noopener">https://i5ting.github.io/How-to-learn-node-correctly/</a></p>
+<h3 id="Node-js简介"><a href="#Node-js简介" class="headerlink" title="Node.js简介"></a>Node.js简介</h3><h4 id="Node-js简介-1"><a href="#Node-js简介-1" class="headerlink" title="Node.js简介"></a>Node.js简介</h4><p>Node.js 不是一门语言也不是框架，它只是 <code>基于 Google V8 引擎的 JavaScript 运行时环境</code>，同时结合 Libuv 扩展了 JavaScript 功能，使之支持 io、fs 等只有语言才有的特性，使得 JavaScript 能够同时具有 DOM 操作(浏览器)和 I/O、文件读写、操作数据库(服务器端)等能力，是目前最简单的全栈式语言</p>
+<blockquote>
+<p>Atwood定律：任何能够用 JavaScript 实现的应用系统，最终都必将用 JavaScript 实现</p>
+</blockquote>
+<p>Node.js通常被用来开发低延迟的网络应用，也就是那些需要在服务器端环境和前端实时收集和交换数据的应用（API、即时聊天、微服务）。</p>
+<p>Node.js 编写的包管理器 npm 已成为开源包管理了领域最好的生态。</p>
+<h4 id="什么是Node-js"><a href="#什么是Node-js" class="headerlink" title="什么是Node.js"></a>什么是Node.js</h4><blockquote>
+<p>Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js’ package ecosystem, npm, is the largest ecosystem of open source libraries in the world.</p>
+</blockquote>
+<ul>
+<li>Node.js 不是 JavaScript 应用，不是语言（JavaScript 是语言），不是像 Rails(Ruby)、 Laravel(PHP) 或 Django(Python) 一样的框架，也不是像 Nginx 一样的 Web 服务器。<code>Node.js 是 JavaScript 运行时环境</code></li>
+<li>构建在 Chrome’s V8 这个著名的 JavaScript 引擎之上，Chrome V8 引擎以 C/C++ 为主，相当于使用JavaScript 写法，转成 C/C++ 调用，大大的降低了学习成本</li>
+<li><code>事件驱动</code>（event-driven），<code>非阻塞 I/O 模型</code>（non-blocking I/O model），简单点讲就是每个函数都是异步的，最后由 Libuv 这个 C/C++ 编写的事件循环处理库来处理这些 I/O 操作，隐藏了非阻塞 I/O 的具体细节，简化并发编程模型，让你可以轻松的编写高性能的Web应用，所以它是 <code>轻量</code>（lightweight）且 <code>高效</code>（efficient）的</li>
+<li>使用 <code>npm</code> 作为包管理器，目前 npm 是开源库里包管理最大的生态，功能强大，截止到2017年12月，模块数量超过 60 万+</li>
+</ul>
+<h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><p><img src="./images/Nodejsgoujiantu.png" alt="Nodejs架构图"><br>它简要的介绍了 Node.js 是基于 Chrome V8引擎构建的，由 <code>事件循环</code>（Event Loop）分发 I/O 任务，最终工作线程（Work Thread）将任务丢到 <code>线程池</code>（Thread Pool）里去执行，而事件循环只要等待执行结果就可以了</p>
+<h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h5><ul>
+<li>Chrome V8 是 Google 发布的开源 JavaScript 引擎，采用 C/C++ 编写，在 Google 的 Chrome 浏览器中被使用。Chrome V8 引擎可以独立运行，也可以用来嵌入到 C/C++ 应用程序中执行</li>
+<li>Event Loop 事件循环（由 libuv 提供）</li>
+<li>Thread Pool 线程池（由 libuv 提供）</li>
+</ul>
+<h5 id="梳理一下"><a href="#梳理一下" class="headerlink" title="梳理一下"></a>梳理一下</h5><ul>
+<li>Chrome V8 是 JavaScript 引擎</li>
+<li>Node.js 内置 Chrome V8 引擎，所以它使用的 JavaScript 语法</li>
+<li>JavaScript 语言的一大特点就是单线程，也就是说，同一个时间只能做一件事</li>
+<li>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。</li>
+<li>如果排队是因为计算量大，CPU 忙不过来，倒也算了，但是很多时候 CPU 是闲着的，因为 I/O 很慢，不得不等着结果出来，再往下执行</li>
+<li>CPU 完全可以不管 I/O 设备，挂起处于等待中的任务，先运行排在后面的任务</li>
+<li>将等待中的 I/O 任务放到 Event Loop 里</li>
+<li>由 Event Loop 将 I/O 任务放到线程池里</li>
+<li>只要有资源，就尽力执行</li>
+</ul>
+<h5 id="换个维度"><a href="#换个维度" class="headerlink" title="换个维度"></a>换个维度</h5><p><img src="./images/NodejsgoujiantuPlus.png" alt="Nodejs构件图详图"></p>
+<p>核心</p>
+<ul>
+<li>Chrome V8 解释并执行 JavaScript 代码（这就是为什么浏览器能执行 JavaScript 原因）</li>
+<li>libuv 由事件循环和线程池组成，负责所有 I/O 任务的分发与执行</li>
+</ul>
+<p>在解决并发问题上，异步是最好的解决方案，可以拿排队和叫号机来理解</p>
+<ul>
+<li>排队：在排队的时候，你除了等之外什么都干不了</li>
+<li>叫号机：你要做的是先取号码，等轮到你的时候，系统会通知你，这中间，你可以做任何你想做的事儿</li>
+</ul>
+<p>Node.js 其实就是帮我们构建类似的机制。我们在写代码的时候，实际上就是取号的过程，由 Event Loop 来接受处理，而真正执行操作的是具体的线程池里的 I/O 任务。之所以说 Node.js 是单线程，就是因为在 <code>接受任务的时候是单线程的</code>，它无需进程/线程切换上下文的成本，非常高效，但它在 <code>执行具体任务的时候是多线程的</code></p>
+<p>在Node.js Bindings层做的事儿就是将 Chrome V8 等暴露的 C/C++ 接口转成JavaScript Api，并且结合这些 Api 编写了 Node.js 标准库，所有这些 Api 统称为 Node.js SDK，后面模块章节会有更详细的讨论</p>
+<h3 id="学习Node-js的三个境界"><a href="#学习Node-js的三个境界" class="headerlink" title="学习Node.js的三个境界"></a>学习Node.js的三个境界</h3><ul>
+<li>打日志：console.log</li>
+<li>断点调试：node debugger 或 node inspector 或 vscode</li>
+<li>测试驱动开发（tdd | bdd）</li>
+</ul>
+<h3 id="如何学习Node-js"><a href="#如何学习Node-js" class="headerlink" title="如何学习Node.js"></a>如何学习Node.js</h3><p>Node不是语言，不是框架，只是 <code>基于V8运行时环境</code>。结合libuv能够通过js语法获得更好的等价于c/c++的性能。</p>
+<p>它很简单，异步是解决并发的最佳实践。</p>
+<h4 id="基础学习"><a href="#基础学习" class="headerlink" title="基础学习"></a>基础学习</h4><p>1）js语法必须会</p>
+<ul>
+<li>js基本语法，都是c语系的，有其他语言背景学习起来相对更简单</li>
+<li>常见用法，比如正则，比如数据结构，尤其是数组的几种用法。比如bind/call/apply等等</li>
+<li>面向对象写法。js是基于对象的，所以它的oo写起来非常诡异</li>
+</ul>
+<p>2）个人学习和技术选型都要循序渐进</p>
+<ul>
+<li>先能写，采用面向过程写法，简单理解就是定义一堆function，然后调用，非常简单</li>
+<li>然后再追求更好的写法，可以面向对象。对于规模化的编程来说，oo是有它的优势的，一般java、c#，ruby这些语言里都有面向对象，所以后端更习惯，但对于语言经验不那么强的前端来说算高级技巧。</li>
+<li>等oo玩腻了，可以有更好的追求：函数式编程，无论编程思维，还是用法上都对已有的编程思维是个挑战。我很喜欢函数式，但不太会在团队里使用，毕竟oo阶段还没完全掌握，风险会比较大。但如果团队水平都非常高了，团队稳定是可以用的。</li>
+</ul>
+<p>思路：先能写，然后再追求更好的写法，比如面向对象。等团队水平到一定程度了，并且稳定的时候，可以考虑更加极致的函数式写法</p>
+<p>3）各种高级的JavaScript友好语言<br>JavaScript友好语言指的是能够使用其他语法实现，但最终编译成js的语言。自从Node.js出现后，这种黑科技层出不穷。比如比较有名的coffee、typescript、babel（es）等。</p>
+<p>显然TypeScript会越来越好，TypeScript 的强大之处是要用过才知道的。</p>
+<ul>
+<li>规模化编程，像Java那种，静态类型，面向对象，前端只有TypeScript能做到</li>
+<li>亲爹是微软安德斯·海尔斯伯格，不知道此人的请看borland传奇去</li>
+<li>开源，未来很好</li>
+<li>组合拳：TypeScript + VSCode = 神器</li>
+</ul>
+<p>4）再论面向对象</p>
+<ul>
+<li>基于原型的写法，纵观JavaScript高级编程，就是翻来覆去的讲这个，这个很基础，但不是很好用。可以不用，但不可以不会。</li>
+<li>自己写面向对象机制是最好的，但不是每个人都有这个能力的。好在es6规范出了更好一点的面向对象，通过class、extends、super关键字来定义类，已经明显好很多了，虽然还很弱，但起码勉强能用起来了。从面向过程走过来的同学，推荐这种写法，简单易用。但要注意面向对象要有面向对象的写法，要理解抽象，继承，封装，多态4个基本特征。如果想用好，你甚至还需要看一些设计模式相关的书。好在有《JavaScript设计模式》一书。Koa2里已经在用这种写法了。</li>
+<li>js是脚本语言，解释即可执行。所以它的最大缺点是没有类型系统，这在规模化编程里是非常危险的，一个函数，传参就能玩死人。于是现在流行使用flow和typescript来做类型校验。flow只是工具，比较轻量级。而typescript是es6超集，给es6补充了类型系统和更完善的面向对象机制，所以大部分人都会对ts有好感，很有可能是未来的趋势。</li>
+</ul>
+<h4 id="Node-js安装环境"><a href="#Node-js安装环境" class="headerlink" title="Node.js安装环境"></a>Node.js安装环境</h4><p>npm基本命令：</p>
+<ul>
+<li>npm install xxx（npm i xxx）：安装xxx模块，但不记录到package.json里</li>
+<li>npm install –save xxx（npm i -s xxx）：安装xxx模块，并且记录到package.json里，字段对应的dependency，是产品环境必须依赖的模块</li>
+<li>npm install –save-dev xxx（npm i -D xxx）：安装xxx模块，并且记录到package.json里，字段对应的dev-dependency，是开发环境必须依赖的模块，比如测试类的（mocha、chai、sinon、zombie、supertest等）都在</li>
+<li>npm install –global xxx（npm i -g xxx）：全局安装xxx模块，但不记录到package.json里，如果模块里package.json有bin配置，会自动链接，作为cli命令</li>
+</ul>
+<h4 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h4><p>1）oh my zsh是我最习惯的shell，终端下非常好用<br>配合iterm2分屏 + spectacle全屏，几乎无敌</p>
+<p>2）brew是mac装软件非常好的方式，和apt-get、rpm等都非常类似<br>安装4个必备软件：</p>
+<ul>
+<li>brew install git 最流行的SCM源码版本控制软件</li>
+<li>brew install wget 下载、扒站神器</li>
+<li>brew install ack 搜索代码神器</li>
+<li>brew install autojump 终端下多目录跳转神器</li>
+</ul>
+<p>3）vim<br>我虽然不算vim党，但也深爱着。janus是一个非常好用的vim集成开发环境。比如ctrl-p、nerdtree等插件都集成了，对我这种懒人足够了。</p>
+<h4 id="IDE和编辑器"><a href="#IDE和编辑器" class="headerlink" title="IDE和编辑器"></a>IDE和编辑器</h4><p>我虽然不算vim党，但也深爱着。janus是一个非常好用的vim集成开发环境。比如ctrl-p、nerdtree等插件都集成了，对我这种懒人足够了。</p>
+<ul>
+<li>vsc是一个比较潮比较新的编辑器（跨平台Mac OS X、Windows和 Linux ）</li>
+<li>vsc功能和textmate、sublime、notepad++，ultraedit等比较，毫不逊色</li>
+<li>vsc尤其是在nodejs（调试）和typescript、go上支持尤其好</li>
+<li>vsc提供了自定义 Debugger Adapter 和 VSCode Debug Protocol 从而实现自己的调试器</li>
+</ul>
+<p>更多调试方法，参见<a href="https://github.com/i5ting/node-debug-tutorial" target="_blank" rel="noopener">https://github.com/i5ting/node-debug-tutorial</a></p>
+<h4 id="Node-js应用场景"><a href="#Node-js应用场景" class="headerlink" title="Node.js应用场景"></a>Node.js应用场景</h4><p>Node.js 所针对的应用程序有一个专门的简称：DIRT。</p>
+<p>Node.js使用场景四大类：<br><img src="./images/Nodejsyingyongchangjing.png" alt="Node应用场景"></p>
+<p>1）跨平台：覆盖你能想到的面向用户的所有平台，传统的PC Web端，以及PC客户端 nw.js/electron 、移动端 cordova、HTML5、react-native、weex，硬件 ruff.io 等<br>2）Web应用开发：网站、Api、RPC服务等<br>3）前端：三大框架 React \ Vue \ Angular 辅助开发，以及工程化演进过程（使用Gulp /Webpack 构建 Web 开发工具）<br>4）工具：npm上各种工具模块，包括各种前端预编译、构建工具 Grunt / Gulp、脚手架，命令行工具，各种奇技淫巧等</p>
+<h4 id="Node核心：异步流程控制"><a href="#Node核心：异步流程控制" class="headerlink" title="Node核心：异步流程控制"></a>Node核心：异步流程控制</h4><p>Node.js是为异步而生的，它自己把复杂的事儿做了（高并发，低延时），交给用户的只是有点难用的Callback写法。也正是坦诚的将异步回调暴露出来，才有更好的流程控制方面的演进。也正是这些演进，让Node.js从DIRT（数据敏感实时应用）扩展到更多的应用场景。</p>
+<p>直面问题才能有更好的解决方式，Node.js的异步是整个学习Node.js过程中重中之重。</p>
+<ol>
+<li>异步流程控制学习重点</li>
+<li>Api写法：Error-first Callback 和 EventEmitter</li>
+<li>中流砥柱：Promise</li>
+<li>终极解决方案：Async/Await</li>
+</ol>
+<h5 id="1）异步流程控制学习重点"><a href="#1）异步流程控制学习重点" class="headerlink" title="1）异步流程控制学习重点"></a>1）异步流程控制学习重点</h5><p><img src="./images/Nodejsyibuliuchengkongzhi.png" alt="异步流程控制"></p>
+<ul>
+<li>红色代表Promise，是使用最多的，无论async还是generator都可用</li>
+<li>蓝色是Generator，过度货</li>
+<li>绿色是Async函数，趋势</li>
+</ul>
+<p>结论：Promise是必须会的，那你为什么不顺势而为呢？</p>
+<p>推荐：使用Async函数 + Promise组合，如下图所示。</p>
+<p><img src="./images/NodejsyibuliuchengkongzhiSimple.png" alt="简化异步流程控制"></p>
+<p>结论：</p>
+<ul>
+<li>Node.js SDK里callback写法必须会的。</li>
+<li>Node.js学习重点: Async函数与Promise</li>
+<li>中流砥柱：Promise</li>
+<li>终极解决方案：Async/Await</li>
+</ul>
+<h5 id="2）api写法：Error-first-Callback-和-EventEmitter"><a href="#2）api写法：Error-first-Callback-和-EventEmitter" class="headerlink" title="2）api写法：Error-first Callback 和 EventEmitter"></a>2）api写法：Error-first Callback 和 EventEmitter</h5>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/网址导航/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1867,685 +3115,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/Vue/Vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/30/Vue/Vue/" itemprop="url">Vue面试题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T16:37:21+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、vue"><a href="#一、vue" class="headerlink" title="一、vue"></a>一、vue</h2><h3 id="1、scss是什么？在vue-cli中的安装使用步骤是？有哪几大特性？"><a href="#1、scss是什么？在vue-cli中的安装使用步骤是？有哪几大特性？" class="headerlink" title="1、scss是什么？在vue.cli中的安装使用步骤是？有哪几大特性？"></a>1、scss是什么？在vue.cli中的安装使用步骤是？有哪几大特性？</h3><blockquote>
-<p>css的预编译</p>
-</blockquote>
-<p>使用步骤：<br>第一步：用 npm/cnpm 下三个loader（sass-loader、css-loader、node-loader）<br>第二步：在build目录找到webpack.base.config.js，在那个extends属性中加一个拓展.scss<br>第三步：还是在同一个文件，配置一个module属性<br>第四步：然后在组件的style标签加上lang属性 ，例如：lang=”scss”</p>
-<p>有哪几大特性:<br>1、可以用变量，例如（$变量名称=值）；<br>2、可以用混合器，例如（）<br>3、可以嵌套</p>
-<h3 id="2、axios的理解"><a href="#2、axios的理解" class="headerlink" title="2、axios的理解"></a>2、axios的理解</h3><blockquote>
-<p>请求后台资源的模块</p>
-</blockquote>
-<h4 id="axios的特点"><a href="#axios的特点" class="headerlink" title="axios的特点"></a>axios的特点</h4><p>一、Axios 是一个基于 promise 的 HTTP 库，支持promise所有的API<br>二、它可以拦截请求和响应<br>三、它可以转换请求数据和响应数据，并对响应回来的内容自动转换成 JSON类型的数据<br>四、安全性更高，客户端支持防御 XSRF</p>
-<h4 id="axios常用方法"><a href="#axios常用方法" class="headerlink" title="axios常用方法"></a>axios常用方法</h4><blockquote>
-<p>一、axios.get(url[, config])   //get请求用于列表和信息查询<br>二、axios.delete(url[, config])  //删除<br>三、axios.post(url[, data[, config]])  //post请求用于信息的添加<br>四、axios.put(url[, data[, config]])  //更新操作</p>
-</blockquote>
-<h4 id="axios安装使用"><a href="#axios安装使用" class="headerlink" title="axios安装使用"></a>axios安装使用</h4><p>安装：npm install axios –save<br>然后发送的是跨域，需在配置文件中config/index.js进行设置。<br>后台如果是Tp5则定义一个资源路由。<br>js中使用import进来，然后.get或.post。<br>返回在.then函数中如果成功，失败则是在.catch函数中</p>
-<p>可以配合mock使用，详情见sell外卖项目</p>
-<h3 id="3、Vue的双向数据绑定原理"><a href="#3、Vue的双向数据绑定原理" class="headerlink" title="3、Vue的双向数据绑定原理"></a>3、Vue的双向数据绑定原理</h3><p>vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。<br>具体步骤：<br>第一步：需要observe的数据对象进行递归遍历，包括子属性对象的属性，都加上 setter和getter<br>这样的话，给这个对象的某个值赋值，就会触发setter，那么就能监听到了数据变化<br>第二步：compile解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图<br>第三步：Watcher订阅者是Observer和Compile之间通信的桥梁，主要做的事情是:<br>1、在自身实例化时往属性订阅器(dep)里面添加自己<br>2、自身必须有一个update()方法<br>3、待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调，则功成身退。<br>第四步：MVVM作为数据绑定的入口，整合Observer、Compile和Watcher三者，通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，达到数据变化 -&gt; 视图更新；视图交互变化(input) -&gt; 数据model变更的双向绑定效果。</p>
-<h3 id="4、对vue生命周期的理解"><a href="#4、对vue生命周期的理解" class="headerlink" title="4、对vue生命周期的理解"></a>4、对vue生命周期的理解</h3><h4 id="什么是Vue的声明周期"><a href="#什么是Vue的声明周期" class="headerlink" title="什么是Vue的声明周期"></a>什么是Vue的声明周期</h4><blockquote>
-<p>Vue 实例从创建到销毁的过程，就是生命周期。也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期</p>
-</blockquote>
-<h4 id="vue生命周期的作用"><a href="#vue生命周期的作用" class="headerlink" title="vue生命周期的作用"></a>vue生命周期的作用</h4><blockquote>
-<p>它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑。</p>
-</blockquote>
-<h4 id="vue生命周期的8个阶段"><a href="#vue生命周期的8个阶段" class="headerlink" title="vue生命周期的8个阶段"></a>vue生命周期的8个阶段</h4><blockquote>
-<p>总共分为8个阶段创建前/后，载入前/后，更新前/后，销毁前/后。</p>
-</blockquote>
-<p>创建前/后： 在 <code>beforeCreated</code> 阶段，vue实例的挂载元素$el和数据对象data都为undefined，还未初始化。在 <code>created</code> 阶段，vue实例的数据对象data有了，$el还没有。<br>载入前/后：在 <code>beforeMount</code> 阶段，vue实例的$el和data都初始化了，但还是挂载之前为虚拟的dom节点，data.message还未替换。在 <code>mounted</code> 阶段，vue实例挂载完成，data.message成功渲染。<br>更新前/后：当data变化时，会触发 <code>beforeUpdate</code> 和 <code>updated</code> 方法。<br>销毁前/后：在执行 <code>destroy</code> 方法后，对data的改变不会再触发周期函数，说明此时vue实例已经解除了事件监听以及和dom的绑定，但是dom结构依然存在</p>
-<p>第一次页面加载时会触发 beforeCreate, created, beforeMount, mounted 这几个钩子<br>DOM 渲染在 mounted 中就已经完成了。</p>
-<h4 id="每个周期具体使用那些场景"><a href="#每个周期具体使用那些场景" class="headerlink" title="每个周期具体使用那些场景"></a>每个周期具体使用那些场景</h4><p>生命周期钩子的一些使用方法： </p>
-<blockquote>
-<p>beforecreate : 可以在这加个loading事件，在加载实例时触发<br>created : 初始化完成时的事件写在这里，如在这结束loading事件，异步请求也适宜在这里调用<br>mounted : 挂载元素，获取到DOM节点<br>updated : 如果对数据统一处理，在这里写上相应函数<br>beforeDestroy : 可以做一个确认停止事件的确认框<br>nextTick : 更新数据后立即操作dom </p>
-</blockquote>
-<h3 id="5、具体使用vue的理解"><a href="#5、具体使用vue的理解" class="headerlink" title="5、具体使用vue的理解"></a>5、具体使用vue的理解</h3><blockquote>
-<p>1、数据驱动：使用vue不必担心布局更改和类名重复导致的js重写，因为它是靠数据驱动双向绑定，底层是通过Object.defineProperty() 定义的数据 set、get 函数原理实现。<br>2、组件化开发：让项目的可拓展性、移植性更好，代码重用性更高，就好像农民工建房子，拿起自己的工具包就可以开工。项目经理坐等收楼就好。<br>3、单页面应用好：单页应用的体验零距离接触安卓原生应用，局部组件更新界面，让用户体验更快速省时。<br>4、可读性高：js的代码无形的规范，团队合作开发代码可阅读性更高。</p>
-</blockquote>
-<p>适合vue框架的场景：</p>
-<ol>
-<li>数据信息量比较多的，反之类似企业网站就无需此框架了</li>
-<li>手机web和app应用多端共用一套界面的项目，因为使用vue.cli + webpack后的前端目录，非常有利于项目的跨平台部署</li>
-</ol>
-<h3 id="6、怎么理解MVVM模式"><a href="#6、怎么理解MVVM模式" class="headerlink" title="6、怎么理解MVVM模式"></a>6、怎么理解MVVM模式</h3><p>MVVM是Model-View-ViewModel的缩写。MVVM是一种设计思想。Model 层代表数据模型，也可以在Model中定义数据修改和操作的业务逻辑；View 代表UI 组件，它负责将数据模型转化成UI 展现出来，ViewModel 是一个同步View 和 Model的对象。</p>
-<p>在MVVM架构下，View 和 Model 之间并没有直接的联系，而是通过ViewModel进行交互，Model 和 ViewModel 之间的交互是双向的， 因此View 数据的变化会同步到Model中，而Model 数据的变化也会立即反应到View 上。</p>
-<p>ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理</p>
-<h3 id="7、vue的优点"><a href="#7、vue的优点" class="headerlink" title="7、vue的优点"></a>7、vue的优点</h3><blockquote>
-<p>低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。<br>可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。<br>独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计。<br>可测试。界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</p>
-</blockquote>
-<h3 id="8、组件间的传值"><a href="#8、组件间的传值" class="headerlink" title="8、组件间的传值"></a>8、组件间的传值</h3><p>父组件向子组件传值：</p>
-<blockquote>
-<p>1）子组件在props中创建一个属性，用来接收父组件传过来的值；<br>2）在父组件中注册子组件；<br>3）在子组件标签中添加子组件props中创建的属性；<br>4）把需要传给子组件的值赋给该属性</p>
-</blockquote>
-<p>子组件向父组件传值：</p>
-<blockquote>
-<p>子组件中需要以某种方式（如点击事件）的方法来触发一个自定义的事件；<br>2）将需要传的值作为$emit的第二个参数，该值将作为实参传给响应事件的方法；<br>3）在父组件中注册子组件并在子组件标签上绑定自定义事件的监听。</p>
-</blockquote>
-<h2 id="二、vue-cli"><a href="#二、vue-cli" class="headerlink" title="二、vue-cli"></a>二、vue-cli</h2><h3 id="1、vue-cli项目中src目录每个文件夹和文件的用法"><a href="#1、vue-cli项目中src目录每个文件夹和文件的用法" class="headerlink" title="1、vue.cli项目中src目录每个文件夹和文件的用法"></a>1、vue.cli项目中src目录每个文件夹和文件的用法</h3><blockquote>
-<p>assets文件夹是放静态资源；<br>components是放组件；<br>router是定义路由相关的配置;view视图；<br>app.vue是一个应用主组件；<br>main.js是入口文件</p>
-</blockquote>
-<h3 id="2、vue-cli中怎样使用自定义的组件"><a href="#2、vue-cli中怎样使用自定义的组件" class="headerlink" title="2、vue.cli中怎样使用自定义的组件"></a>2、vue.cli中怎样使用自定义的组件</h3><blockquote>
-<p>第一步：在components目录新建你的组件文件（smithButton.vue），script一定要export default { }<br>第二步：在需要用的页面（组件）中导入：import smithButton from ‘../components/smithButton.vue’<br>第三步：注入到vue的子组件的components属性上面,components: {smithButton}<br>第四步：在template视图view中使用，<smith-button>  </smith-button></p>
-</blockquote>
-<h2 id="三、vue-router"><a href="#三、vue-router" class="headerlink" title="三、vue-router"></a>三、vue-router</h2><h3 id="1、Vue-router中？"><a href="#1、Vue-router中？" class="headerlink" title="1、Vue-router中？"></a>1、Vue-router中<router-link>？</router-link></h3><h4 id="lt-router-link-gt"><a href="#lt-router-link-gt" class="headerlink" title="&lt;router-link&gt;"></a><code>&lt;router-link&gt;</code></h4><p>支持用户在具有路由功能的应用中 (点击) 导航;</p>
-<ul>
-<li>通过 <code>to</code> 属性指定目标地址</li>
-<li>默认渲染成带有正确链接的 <code>&lt;a&gt;</code> 标签</li>
-<li>可以通过配置 <code>tag</code> 属性生成别的标签</li>
-</ul>
-<p>router-link的好处：在HTML5 history模式和hash模式中表现一致</p>
-<h4 id="lt-router-link-gt-Props"><a href="#lt-router-link-gt-Props" class="headerlink" title="&lt;router-link&gt; Props"></a><code>&lt;router-link&gt;</code> Props</h4><p>to</p>
-<blockquote>
-<p>类型: string | Location<br>required<br>表示目标路由的链接。当被点击后，内部会立刻把 to 的值传到 router.push()，所以这个值可以是一个字符串或者是描述目标位置的对象。</p>
-</blockquote>
-<p>active-class</p>
-<blockquote>
-<p>类型：string<br>默认值：”router-link-active”<br>设置链接激活时使用的CSS类名，默认值可以通过路由的构造选项 <code>linkActiveClass</code> 来全局配置；</p>
-</blockquote>
-<h3 id="2、vue-router中定义动态路由、嵌套路由，并动态获取参数"><a href="#2、vue-router中定义动态路由、嵌套路由，并动态获取参数" class="headerlink" title="2、vue-router中定义动态路由、嵌套路由，并动态获取参数"></a>2、vue-router中定义动态路由、嵌套路由，并动态获取参数</h3><h4 id="定义路由："><a href="#定义路由：" class="headerlink" title="定义路由："></a>定义路由：</h4><p>在router/index.js中，定义路由：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import Router from <span class="string">'vue-router'</span></span><br><span class="line">import Goods from <span class="string">'@/components/goods'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/'</span>,</span><br><span class="line">      name: <span class="string">'Goods'</span>,</span><br><span class="line">      component: Goods</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h4 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h4><p>嵌套路由主要是通过 children，它同样是一个数组：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/user'</span>,</span><br><span class="line">    component: User,</span><br><span class="line">    children: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="string">'file'</span>,</span><br><span class="line">            component: File</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这时访问，/user/file 会映射到 File 组件</p>
-<h4 id="动态路由并获取动态参数"><a href="#动态路由并获取动态参数" class="headerlink" title="动态路由并获取动态参数"></a>动态路由并获取动态参数</h4><p>动态路由的创建，主要是使用 path 属性过程中，使用动态路径参数，以冒号开头，如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: /user/:id</span><br><span class="line">    component: User</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这会是访问 user 目录下的所有文件，如 /user/a 和 /user/b，都会映射到 User 组件</p>
-<p>当匹配到 /user 下的任意路由时，参数值会被设置到 <code>this.$route.params</code> 下，所以通过这个属性可以获取到动态参数，如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const User = &#123;</span><br><span class="line">    template: <span class="string">'&lt;div&gt;User &#123;&#123; $route.params.id &#125;&#125;&lt;/div&gt;'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="3、vue-router有哪几种导航钩子？"><a href="#3、vue-router有哪几种导航钩子？" class="headerlink" title="3、vue-router有哪几种导航钩子？"></a>3、vue-router有哪几种导航钩子？</h3><p>vue-router 提供的导航钩子主要用来拦截导航，让它完成跳转或取消。<br>主要有三种导航钩子：全局钩子、单个路由独享钩子、组件内的钩子；</p>
-<h4 id="全局钩子"><a href="#全局钩子" class="headerlink" title="全局钩子"></a>全局钩子</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//定义一个路由</span><br><span class="line">const router = new Router(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">// 点击导航前调用</span><br><span class="line">router.beforeEach((to, from, next) =&gt; &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br><span class="line">// 点击导航后调用</span><br><span class="line">router.afterEach(route =&gt; &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>当一个导航触发时，全局的 before 钩子按照创建顺序调用。钩子是异步解析执行，此时导航在所有钩子 resolve 完之前一直处于等待中.</p>
-<p>每个钩子方法接收三个参数：<br>to: Route: 即将要进入的目标 路由对象<br>from: Route: 当前导航正要离开的路由<br>next: Function: 一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。</p>
-<h4 id="单个路由独享钩子"><a href="#单个路由独享钩子" class="headerlink" title="单个路由独享钩子"></a>单个路由独享钩子</h4><p>可以在路由配置上直接定义 beforeEnter 钩子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/foo'</span>,</span><br><span class="line">      component: Foo,</span><br><span class="line">      beforeEnter: (to, from, next) =&gt; &#123;</span><br><span class="line">        // ...</span><br><span class="line">      &#125;,</span><br><span class="line">      beforeEnter: (route) =&gt; &#123;</span><br><span class="line">        // ...</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>这些钩子与全局 before 钩子的方法参数是一样的。</p>
-<h4 id="组件内的钩子"><a href="#组件内的钩子" class="headerlink" title="组件内的钩子"></a>组件内的钩子</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const Foo = &#123;</span><br><span class="line">  template: `...`,</span><br><span class="line">  beforeRouteEnter (to, from, next) &#123;</span><br><span class="line">    // 在渲染该组件的对应路由被 confirm 前调用</span><br><span class="line">    // 不！能！获取组件实例 `this`</span><br><span class="line">    // 因为当钩子执行前，组件实例还没被创建</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeRouteUpdate (to, from, next) &#123;</span><br><span class="line">    // 在当前路由改变，但是该组件被复用时调用</span><br><span class="line">    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，</span><br><span class="line">    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span><br><span class="line">    // 可以访问组件实例 `this`</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeRouteLeave (to, from, next) &#123;</span><br><span class="line">    // 导航离开该组件的对应路由时调用</span><br><span class="line">    // 可以访问组件实例 `this`</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="四、Vuex"><a href="#四、Vuex" class="headerlink" title="四、Vuex"></a>四、Vuex</h2><h3 id="1、vuex是什么？怎么使用？哪种功能场景使用它？"><a href="#1、vuex是什么？怎么使用？哪种功能场景使用它？" class="headerlink" title="1、vuex是什么？怎么使用？哪种功能场景使用它？"></a>1、vuex是什么？怎么使用？哪种功能场景使用它？</h3><blockquote>
-<p>vue框架中状态管理</p>
-</blockquote>
-<p>在main.js引入store，注入。新建一个目录store，….. export 。</p>
-<p>场景有：单页应用中，组件之间的状态。音乐播放、登录状态、加入购物车</p>
-<h3 id="2、vuex有哪几种属性？"><a href="#2、vuex有哪几种属性？" class="headerlink" title="2、vuex有哪几种属性？"></a>2、vuex有哪几种属性？</h3><p>有五种，分别是 State、 Getter、Mutation 、Action、 Module</p>
-<h4 id="vuex的State特性"><a href="#vuex的State特性" class="headerlink" title="vuex的State特性"></a>vuex的State特性</h4><p>A、Vuex就是一个仓库，仓库里面放了很多对象。其中state就是数据源存放地，对应于一般Vue对象里面的data<br>B、state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新<br>C、它通过mapState把全局的 state 和 getters 映射到当前组件的 computed 计算属性中</p>
-<h4 id="vuex的Getter特性"><a href="#vuex的Getter特性" class="headerlink" title="vuex的Getter特性"></a>vuex的Getter特性</h4><p>A、getters 可以对State进行计算操作，它就是Store的计算属性<br>B、 虽然在组件内也可以做计算属性，但是getters 可以在多组件之间复用<br>C、 如果一个状态只在一个组件内使用，是可以不用getters</p>
-<h4 id="vuex的Mutation特性"><a href="#vuex的Mutation特性" class="headerlink" title="vuex的Mutation特性"></a>vuex的Mutation特性</h4><p>Action 类似于 mutation，不同在于：Action 提交的是 mutation，而不是直接变更状态；Action 可以包含任意异步操作。</p>
-<h3 id="3、不用Vuex会带来什么问题？"><a href="#3、不用Vuex会带来什么问题？" class="headerlink" title="3、不用Vuex会带来什么问题？"></a>3、不用Vuex会带来什么问题？</h3><blockquote>
-<p>可维护性会下降，想修改数据要维护三个地方；<br>可读性会下降，因为一个组件里的数据，根本就看不出来是从哪来的；<br>增加耦合，大量的上传派发，会让耦合性大大增加，本来Vue用Component就是为了减少耦合，现在这么用，和组件化的初衷相背。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/Vue/Vue目录版/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/30/Vue/Vue目录版/" itemprop="url">Vue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T14:21:36+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue-js/" itemprop="url" rel="index">
-                    <span itemprop="name">vue.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="数据绑定和Vue应用"><a href="#数据绑定和Vue应用" class="headerlink" title="数据绑定和Vue应用"></a>数据绑定和Vue应用</h2><h3 id="Vue实例与数据绑定"><a href="#Vue实例与数据绑定" class="headerlink" title="Vue实例与数据绑定"></a>Vue实例与数据绑定</h3><h4 id="Vue实例"><a href="#Vue实例" class="headerlink" title="Vue实例"></a>Vue实例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">    // 挂载点</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    // 数据</span><br><span class="line">    data: &#123;</span><br><span class="line">        msg: <span class="string">'Hello Vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 过滤器，配合&#123;&#123;data | filter&#125;&#125;使用</span><br><span class="line">    filters: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 方法</span><br><span class="line">    methods: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 计算属性</span><br><span class="line">    // 完成复杂的逻辑，运算、函数调用，返回一个结果</span><br><span class="line">    computed: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 监听</span><br><span class="line">    watch: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 实例创建完后调用，此阶段完成了数据的观测等，</span><br><span class="line">    // 但是尚未挂载，用于初始化一些数据</span><br><span class="line">    created: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // el挂载到实例上，第一个逻辑业务逻辑会在这里开始</span><br><span class="line">    mounted: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 实例销毁之前调用，主要绑定一些使用addEventListener监听事件</span><br><span class="line">    beforeDestroy: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="插值与表达式"><a href="#插值与表达式" class="headerlink" title="插值与表达式"></a>插值与表达式</h4><p>文本插值：双大括号语法 – 绑定属性值、简单运算、三元运算</p>
-<h4 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h4><p>用于格式化文本，比如字母全大写、货币千位使用逗号分隔等；<br>过滤的规则是自定义的，通过给Vue实例添加选项 <code>filters</code> 来设置，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">	&#123;&#123; data | formatDate &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>指令的主要职责就是当其表达式的值改变时，相应地将某些行为应用到DOM 上；</p>
-<h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>基本用途是动态更新HTML 元素上的属性；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a v-bind:href＝<span class="string">"url"</span>〉链接＜/a&gt;</span><br><span class="line">// 缩写</span><br><span class="line">&lt;a :href＝<span class="string">"url"</span>〉链接＜/a&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="绑定class的几种方法"><a href="#绑定class的几种方法" class="headerlink" title="绑定class的几种方法"></a>绑定class的几种方法</h4><h5 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:class=<span class="string">"&#123;'active': isActive, 'erroe': isError&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>当 <code>:class</code> 的表达式过长或逻辑复杂时，还可以绑定一个计算属性，通过计算属性返回一个对象；</p>
-<h5 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h5><p>给 <code>:class</code> 绑定一个数组，应用一个class列表；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div :class＝<span class="string">"[activeCls, errorCls]"</span>&gt;&lt;/div&gt;</span><br><span class="line">data: &#123;</span><br><span class="line">	active: <span class="string">'active'</span>,</span><br><span class="line">	errorCls: <span class="string">'error'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>同样可以使用data、computed、mothods三种方法。</p>
-<h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><p>用来绑定事件监听器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button v-on:click＝<span class="string">"handleClose"</span>＞点击隐藏＜/button&gt;</span><br><span class="line">// 缩写</span><br><span class="line">&lt;button @click＝<span class="string">"handleClose"</span>＞点击隐藏＜/button&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="v-once"><a href="#v-once" class="headerlink" title="v-once"></a>v-once</h3><p>v-once 是一个不需要表达式的指令，作用是定义它的元素或组件只渲染一次，包括元素或组件的所有子节点。首次渲染后，不再随数据的变化重新渲染，将被视为静态内容。</p>
-<h3 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h3><p>v-if、v-else-if、v-else：表达式的值为真时， 当前元素／组件及所有子节点将被渲染，为假时被移除；</p>
-<h3 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a>v-show</h3><p>v-show 是改变元素的css 属性display属性。<br>当v-show 表达式的值为false时，元素会隐藏，查看DOM结构会看到元素上加载了内联样式display: none;</p>
-<h4 id="v-if-与-v-show选择"><a href="#v-if-与-v-show选择" class="headerlink" title="v-if 与 v-show选择"></a>v-if 与 v-show选择</h4><p>v-if 才是真正的条件渲染，它会根据表达式适当地销毁或重建元素及绑定的事件或子组件。若表达式初始值为false ，则一开始元素／组件并不会渲染，只有当条件第一次变为真时才开始编译。</p>
-<p>v-show 只是简单的css属性切换，无论条件真与否，都会被编译。</p>
-<p>相比之下， v-if 更适合条件不经常改变的场景，因为它切换开销相对较大，而v-show 适用于频繁切换条件。</p>
-<h3 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h3><p>将一个数组遍历或枚举一个对象循环显示。</p>
-<blockquote>
-<p>语法：item in items</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=<span class="string">"(value, key, index) in items"</span>&gt;&lt;/li&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="数组更新"><a href="#数组更新" class="headerlink" title="数组更新"></a>数组更新</h4><p>Vue 包含了一组观察数组变异的方法，使用它们改变数组也会触发视图更新：</p>
-<ul>
-<li>push()</li>
-<li>pop()</li>
-<li>shift()</li>
-<li>unshift（）</li>
-<li>splice()</li>
-<li>sor（）</li>
-<li>reverse()</li>
-</ul>
-<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><blockquote>
-<p>计算属性里可以完成各种复杂的逻辑，包括运算、函数调用等，只要最终返回一个结果就可以</p>
-</blockquote>
-<p>计算属性还可以依赖多个Vue实例的数据，只要其中任一数据变化，计算属性就会重新执行，视图也会更新;</p>
-<p>计算属性两点技巧：<br>一是计算属性可以依赖其他计算属性；<br>二是计算属性不仅可以依赖当前Vue 实例的数据，还可以依赖其他实例的数据。</p>
-<p>计算属性依赖于缓存：一个计算属性所依赖的数据发生变化时，它才会重新取值，所以text只要不改变，计算属性也就不更新。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/Vue/Vue项目篇/sell外卖系统/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/Vue/Vue项目篇/sell外卖系统/" itemprop="url">渡一外卖系统</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-27T15:24:33+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="环境配置及目录解释"><a href="#环境配置及目录解释" class="headerlink" title="环境配置及目录解释"></a>环境配置及目录解释</h3><p>打开网址，即可看见图标字体成功显示</p>
-<h3 id="实现页面"><a href="#实现页面" class="headerlink" title="实现页面"></a>实现页面</h3><p>整体分析：头部区header、tap切换（路由）、内容区content（购物车）</p>
-<h4 id="Tab区"><a href="#Tab区" class="headerlink" title="Tab区"></a>Tab区</h4><h5 id="组件编写"><a href="#组件编写" class="headerlink" title="组件编写"></a>组件编写</h5><p>定义三个组件goods、ratings、sellers<br>在 /src/router 下的index.js中引入三个组件，并定义路由规则<br>编写组件</p>
-<p>安装stylus、stylus-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm install stylus</span><br><span class="line">cnpm install stylus-loader</span><br></pre></td></tr></table></figure></p>
-<p>安装postcss-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install postcss-loader</span><br></pre></td></tr></table></figure></p>
-<p>安装css-loader，解析css<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install css-loader</span><br></pre></td></tr></table></figure></p>
-<p>安装style-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install style-loader</span><br></pre></td></tr></table></figure></p>
-<h5 id="样式编写"><a href="#样式编写" class="headerlink" title="样式编写"></a>样式编写</h5><p>src/assets 引入图片、stylus文件夹（里面有stylus三个基础.styl文件）<br>/static 中引入 reset.css</p>
-<p>在根目录下的index.html中通过 link 标签引入 reset.css<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"static/reset.css"</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="sell项目书写步骤、"><a href="#sell项目书写步骤、" class="headerlink" title="sell项目书写步骤、"></a>sell项目书写步骤、</h3><h4 id="1-将项目分为三块header、tab、content"><a href="#1-将项目分为三块header、tab、content" class="headerlink" title="1.将项目分为三块header、tab、content"></a>1.将项目分为三块header、tab、content</h4><h4 id="2-tab区添加路由"><a href="#2-tab区添加路由" class="headerlink" title="2.tab区添加路由"></a>2.tab区添加路由</h4><h4 id="3-书写header组件"><a href="#3-书写header组件" class="headerlink" title="3.书写header组件"></a>3.书写header组件</h4><ul>
-<li>axios导入数据</li>
-<li>app.vue传递值给header组件（父组件传子组件）</li>
-<li>然后编写样式</li>
-</ul>
-<h4 id="goods区域事件"><a href="#goods区域事件" class="headerlink" title="goods区域事件"></a>goods区域事件</h4><p>点击事件</p>
-<p>滑动事件</p>
-<h3 id="sell项目中遇到的坑"><a href="#sell项目中遇到的坑" class="headerlink" title="sell项目中遇到的坑"></a>sell项目中遇到的坑</h3><h4 id="父组件异步获取数据传递到子组件中"><a href="#父组件异步获取数据传递到子组件中" class="headerlink" title="父组件异步获取数据传递到子组件中"></a>父组件异步获取数据传递到子组件中</h4><p>父组件通过axios异步获取数据，传递给子组件，发现子组件的created先于父组件的created执行，子组件获取不到数据；<br>解决方法：父组件template标签中引入子组件的时候添加一个判断条件，判断要传的数据是否为空，不为空时就渲染子组件，注意此时要传的数据初始值要设为undefined，不能设为空对象{}。</p>
-<h3 id="sell项目遇到的知识点"><a href="#sell项目遇到的知识点" class="headerlink" title="sell项目遇到的知识点"></a>sell项目遇到的知识点</h3><h4 id="mockjs模拟数据"><a href="#mockjs模拟数据" class="headerlink" title="mockjs模拟数据"></a>mockjs模拟数据</h4><p>mock官网：<a href="http://mockjs.com/" target="_blank" rel="noopener">http://mockjs.com/</a></p>
-<p>具体步骤：<br>1、下载两个插件mockjs、axios：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm install mockjs --save-dev</span><br><span class="line"></span><br><span class="line">cnpm install axios --save</span><br></pre></td></tr></table></figure></p>
-<p>2、在根目录下新建mock文件夹，创建 index.js文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 引入 mock 和 data</span><br><span class="line">import Mock from <span class="string">'mockjs'</span></span><br><span class="line">import data from <span class="string">'../data.json'</span></span><br><span class="line"></span><br><span class="line">// Mock.mock(rurl, template) ==&gt; </span><br><span class="line">// 记录数据模板，当拦截到匹配rurl的Ajax请求时，</span><br><span class="line">// 将根据数据模板template生成模拟数据，并作为响应式数据返回 </span><br><span class="line">Mock.mock(<span class="string">'/good/seller'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.seller</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Mock.mock(<span class="string">'/good/goods'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.goods</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Mock.mock(<span class="string">'/good/ratings'</span>, &#123;</span><br><span class="line">  code: 0,</span><br><span class="line">  codeMsg: <span class="string">'成功'</span>,</span><br><span class="line">  data: data.ratings</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>3、在src目录下的的main.js引入mockjs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import <span class="string">'/mock/index'</span></span><br></pre></td></tr></table></figure></p>
-<p>4、在要用mock数据的组件中引入axios（app.vue），并且调用mock数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import axios from <span class="string">'axios'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  name: <span class="string">'HelloWorld'</span>,</span><br><span class="line">  <span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Welcome to Your Vue.js App'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span></span> () &#123;</span><br><span class="line">    // axios发送get请求，请求返回数据为 res</span><br><span class="line">    axios.get(<span class="string">'/good/seller'</span>).<span class="keyword">then</span>(</span><br><span class="line">      res =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.data.code === 0) &#123;</span><br><span class="line">          this.seller = res.data.data</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="图标字体"><a href="#图标字体" class="headerlink" title="图标字体"></a>图标字体</h4><p>官网：<a href="https://icomoon.io/#home" target="_blank" rel="noopener">https://icomoon.io/#home</a></p>
-<p>具体步骤：<br>1、进入官网，点击有上角 IcoMoon App，点击左上角的Import Icons，导入svg格式的文件；</p>
-<p>2、选中需要生成图表文字的icons，点击右下角的 Generate Font，生成图表文字，并点击右下角Download进行下载；</p>
-<p>3、下载的文件将其中的style.css、fonts文件夹复制到根目录下的static文件夹下，；</p>
-<p>4、直接在根目录下的 index.html 中通过 <link rel="stylesheet" href="./static/style.css"> 引入style.css 或者在要用到的页面通过 import 引入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import <span class="string">'../../static/style.css'</span></span><br></pre></td></tr></table></figure></p>
-<p>5、style导入需要的三个依赖、包（了解）：stylus-loader、postcss-loader、css-loader，通过终端下载即可：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm install stylus-loader --save</span><br><span class="line">cnpm install postcss-loader --save</span><br><span class="line">cnpm install css-loader --save-dev</span><br></pre></td></tr></table></figure></p>
-<p>6、在需要图标字体的地方加上style.css中相应图表的类名</p>
-<p>注意一下style.css文件中的fonts路径，需要根据实际的路径关系修改！</p>
-<h4 id="路由管理"><a href="#路由管理" class="headerlink" title="路由管理"></a>路由管理</h4><p>vue-router使用<br>1、app.vue页面中引入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=<span class="string">"xxx"</span>&gt;</span><br><span class="line">&lt;router-view :seller=<span class="string">"seller"</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>2、router路由管理者<br>router文件夹中index.js中，引入需要的组件，调用Vue.use(Router)，导出创建的Router实例。</p>
-<h4 id="stylus语法"><a href="#stylus语法" class="headerlink" title="stylus语法"></a>stylus语法</h4><p>stylus是一个css预加载处理器</p>
-<h4 id="父子组件间的传值"><a href="#父子组件间的传值" class="headerlink" title="父子组件间的传值"></a>父子组件间的传值</h4><p>1、父组件<br>通过v-bind绑定数据，注意使用v-if判断数据是否存在，存在才对子组件进行渲染，此时的seller初始值不能设为空对象{}，应该设为不占位置的undfined；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;v-header v-if=<span class="string">"seller"</span> :seller=<span class="string">"seller"</span>&gt;&lt;/v-header&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">data</span></span> () &#123;</span><br><span class="line">	<span class="built_in">return</span> &#123;</span><br><span class="line">  		seller: undefined</span><br><span class="line">  		// seller: &#123;&#125; ==&gt; 该情况下 seller == <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、子组件<br>子组件通过props接收来自父组件传递的数据，在子组件中可以随意使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    seller: &#123;</span><br><span class="line">      <span class="built_in">type</span>: Object</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="样式切换"><a href="#样式切换" class="headerlink" title="样式切换"></a>样式切换</h4><p>利用一个v-bind绑定class属性，遍历一个classMap数组，根据数组内的计算结果判断采用哪一个class类名：<br>HTML:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class=<span class="string">"icon bg-image"</span> :class=<span class="string">"classMap[seller.supports[0].type]"</span>&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
-<p>JavaScript：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.classMap = [<span class="string">'decrease'</span>, <span class="string">'discount'</span>, <span class="string">'special'</span>, <span class="string">'invoice_1'</span>, <span class="string">'guarantee'</span>]</span><br></pre></td></tr></table></figure></p>
-<p>CSS：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&amp;.decrease</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'decrease_1'</span>)</span><br><span class="line">&amp;.discount</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'discount_1'</span>)</span><br><span class="line">&amp;.guarantee</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'guarantee_1'</span>)</span><br><span class="line">&amp;.invoice</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'invoice_1'</span>)</span><br><span class="line">&amp;.special</span><br><span class="line">	<span class="built_in">bg</span>-image(<span class="string">'special_1'</span>)</span><br></pre></td></tr></table></figure></p>
-<h4 id="better-scroll"><a href="#better-scroll" class="headerlink" title="better-scroll"></a>better-scroll</h4><p>better-scroll 是一款重点解决移动端（现已支持 PC 端）各种滚动场景需求的插件</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/24/Vue/Vue.js实战/Vue实战_数据绑定和第一个Vue应用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Full Stuck">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/24/Vue/Vue.js实战/Vue实战_数据绑定和第一个Vue应用/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T11:21:48+08:00">
-                2018-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2591,7 +3165,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

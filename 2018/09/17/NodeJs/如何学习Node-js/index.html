@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原文地址：https://i5ting.github.io/How-to-learn-node-correctly/ Node.js简介Node.js简介Node.js 不是一门语言也不是框架，它只是 基于 Google V8 引擎的 JavaScript 运行时环境，同时结合 Libuv 扩展了 JavaScript 功能，使之支持 io、fs 等只有语言才有的特性，使得 JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何学习Node.js">
+<meta property="og:url" content="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/index.html">
+<meta property="og:site_name" content="Full Stuck">
+<meta property="og:description" content="原文地址：https://i5ting.github.io/How-to-learn-node-correctly/ Node.js简介Node.js简介Node.js 不是一门语言也不是框架，它只是 基于 Google V8 引擎的 JavaScript 运行时环境，同时结合 Libuv 扩展了 JavaScript 功能，使之支持 io、fs 等只有语言才有的特性，使得 JavaScript">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/images/Nodejsgoujiantu.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/images/NodejsgoujiantuPlus.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/images/Nodejsyingyongchangjing.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/images/Nodejsyibuliuchengkongzhi.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/images/NodejsyibuliuchengkongzhiSimple.png">
+<meta property="og:updated_time" content="2018-09-17T07:26:13.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何学习Node.js">
+<meta name="twitter:description" content="原文地址：https://i5ting.github.io/How-to-learn-node-correctly/ Node.js简介Node.js简介Node.js 不是一门语言也不是框架，它只是 基于 Google V8 引擎的 JavaScript 运行时环境，同时结合 Libuv 扩展了 JavaScript 功能，使之支持 io、fs 等只有语言才有的特性，使得 JavaScript">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/images/Nodejsgoujiantu.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/"/>
+
+
+
+
+
+  <title>如何学习Node.js | Full Stuck</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Full Stuck</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-vue">
+          <a href="/vue/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-vue"></i> <br />
+            
+            vue
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/NodeJs/如何学习Node-js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何学习Node.js</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T10:12:39+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文地址：<a href="https://i5ting.github.io/How-to-learn-node-correctly/" title="狼叔：如何正确的学习Node.js" target="_blank" rel="noopener">https://i5ting.github.io/How-to-learn-node-correctly/</a></p>
+<h3 id="Node-js简介"><a href="#Node-js简介" class="headerlink" title="Node.js简介"></a>Node.js简介</h3><h4 id="Node-js简介-1"><a href="#Node-js简介-1" class="headerlink" title="Node.js简介"></a>Node.js简介</h4><p>Node.js 不是一门语言也不是框架，它只是 <code>基于 Google V8 引擎的 JavaScript 运行时环境</code>，同时结合 Libuv 扩展了 JavaScript 功能，使之支持 io、fs 等只有语言才有的特性，使得 JavaScript 能够同时具有 DOM 操作(浏览器)和 I/O、文件读写、操作数据库(服务器端)等能力，是目前最简单的全栈式语言</p>
+<blockquote>
+<p>Atwood定律：任何能够用 JavaScript 实现的应用系统，最终都必将用 JavaScript 实现</p>
+</blockquote>
+<p>Node.js通常被用来开发低延迟的网络应用，也就是那些需要在服务器端环境和前端实时收集和交换数据的应用（API、即时聊天、微服务）。</p>
+<p>Node.js 编写的包管理器 npm 已成为开源包管理了领域最好的生态。</p>
+<h4 id="什么是Node-js"><a href="#什么是Node-js" class="headerlink" title="什么是Node.js"></a>什么是Node.js</h4><blockquote>
+<p>Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js’ package ecosystem, npm, is the largest ecosystem of open source libraries in the world.</p>
+</blockquote>
+<ul>
+<li>Node.js 不是 JavaScript 应用，不是语言（JavaScript 是语言），不是像 Rails(Ruby)、 Laravel(PHP) 或 Django(Python) 一样的框架，也不是像 Nginx 一样的 Web 服务器。<code>Node.js 是 JavaScript 运行时环境</code></li>
+<li>构建在 Chrome’s V8 这个著名的 JavaScript 引擎之上，Chrome V8 引擎以 C/C++ 为主，相当于使用JavaScript 写法，转成 C/C++ 调用，大大的降低了学习成本</li>
+<li><code>事件驱动</code>（event-driven），<code>非阻塞 I/O 模型</code>（non-blocking I/O model），简单点讲就是每个函数都是异步的，最后由 Libuv 这个 C/C++ 编写的事件循环处理库来处理这些 I/O 操作，隐藏了非阻塞 I/O 的具体细节，简化并发编程模型，让你可以轻松的编写高性能的Web应用，所以它是 <code>轻量</code>（lightweight）且 <code>高效</code>（efficient）的</li>
+<li>使用 <code>npm</code> 作为包管理器，目前 npm 是开源库里包管理最大的生态，功能强大，截止到2017年12月，模块数量超过 60 万+</li>
+</ul>
+<h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><p><img src="./images/Nodejsgoujiantu.png" alt="Nodejs架构图"><br>它简要的介绍了 Node.js 是基于 Chrome V8引擎构建的，由 <code>事件循环</code>（Event Loop）分发 I/O 任务，最终工作线程（Work Thread）将任务丢到 <code>线程池</code>（Thread Pool）里去执行，而事件循环只要等待执行结果就可以了</p>
+<h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h5><ul>
+<li>Chrome V8 是 Google 发布的开源 JavaScript 引擎，采用 C/C++ 编写，在 Google 的 Chrome 浏览器中被使用。Chrome V8 引擎可以独立运行，也可以用来嵌入到 C/C++ 应用程序中执行</li>
+<li>Event Loop 事件循环（由 libuv 提供）</li>
+<li>Thread Pool 线程池（由 libuv 提供）</li>
+</ul>
+<h5 id="梳理一下"><a href="#梳理一下" class="headerlink" title="梳理一下"></a>梳理一下</h5><ul>
+<li>Chrome V8 是 JavaScript 引擎</li>
+<li>Node.js 内置 Chrome V8 引擎，所以它使用的 JavaScript 语法</li>
+<li>JavaScript 语言的一大特点就是单线程，也就是说，同一个时间只能做一件事</li>
+<li>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。</li>
+<li>如果排队是因为计算量大，CPU 忙不过来，倒也算了，但是很多时候 CPU 是闲着的，因为 I/O 很慢，不得不等着结果出来，再往下执行</li>
+<li>CPU 完全可以不管 I/O 设备，挂起处于等待中的任务，先运行排在后面的任务</li>
+<li>将等待中的 I/O 任务放到 Event Loop 里</li>
+<li>由 Event Loop 将 I/O 任务放到线程池里</li>
+<li>只要有资源，就尽力执行</li>
+</ul>
+<h5 id="换个维度"><a href="#换个维度" class="headerlink" title="换个维度"></a>换个维度</h5><p><img src="./images/NodejsgoujiantuPlus.png" alt="Nodejs构件图详图"></p>
+<p>核心</p>
+<ul>
+<li>Chrome V8 解释并执行 JavaScript 代码（这就是为什么浏览器能执行 JavaScript 原因）</li>
+<li>libuv 由事件循环和线程池组成，负责所有 I/O 任务的分发与执行</li>
+</ul>
+<p>在解决并发问题上，异步是最好的解决方案，可以拿排队和叫号机来理解</p>
+<ul>
+<li>排队：在排队的时候，你除了等之外什么都干不了</li>
+<li>叫号机：你要做的是先取号码，等轮到你的时候，系统会通知你，这中间，你可以做任何你想做的事儿</li>
+</ul>
+<p>Node.js 其实就是帮我们构建类似的机制。我们在写代码的时候，实际上就是取号的过程，由 Event Loop 来接受处理，而真正执行操作的是具体的线程池里的 I/O 任务。之所以说 Node.js 是单线程，就是因为在 <code>接受任务的时候是单线程的</code>，它无需进程/线程切换上下文的成本，非常高效，但它在 <code>执行具体任务的时候是多线程的</code></p>
+<p>在Node.js Bindings层做的事儿就是将 Chrome V8 等暴露的 C/C++ 接口转成JavaScript Api，并且结合这些 Api 编写了 Node.js 标准库，所有这些 Api 统称为 Node.js SDK，后面模块章节会有更详细的讨论</p>
+<h3 id="学习Node-js的三个境界"><a href="#学习Node-js的三个境界" class="headerlink" title="学习Node.js的三个境界"></a>学习Node.js的三个境界</h3><ul>
+<li>打日志：console.log</li>
+<li>断点调试：node debugger 或 node inspector 或 vscode</li>
+<li>测试驱动开发（tdd | bdd）</li>
+</ul>
+<h3 id="如何学习Node-js"><a href="#如何学习Node-js" class="headerlink" title="如何学习Node.js"></a>如何学习Node.js</h3><p>Node不是语言，不是框架，只是 <code>基于V8运行时环境</code>。结合libuv能够通过js语法获得更好的等价于c/c++的性能。</p>
+<p>它很简单，异步是解决并发的最佳实践。</p>
+<h4 id="基础学习"><a href="#基础学习" class="headerlink" title="基础学习"></a>基础学习</h4><p>1）js语法必须会</p>
+<ul>
+<li>js基本语法，都是c语系的，有其他语言背景学习起来相对更简单</li>
+<li>常见用法，比如正则，比如数据结构，尤其是数组的几种用法。比如bind/call/apply等等</li>
+<li>面向对象写法。js是基于对象的，所以它的oo写起来非常诡异</li>
+</ul>
+<p>2）个人学习和技术选型都要循序渐进</p>
+<ul>
+<li>先能写，采用面向过程写法，简单理解就是定义一堆function，然后调用，非常简单</li>
+<li>然后再追求更好的写法，可以面向对象。对于规模化的编程来说，oo是有它的优势的，一般java、c#，ruby这些语言里都有面向对象，所以后端更习惯，但对于语言经验不那么强的前端来说算高级技巧。</li>
+<li>等oo玩腻了，可以有更好的追求：函数式编程，无论编程思维，还是用法上都对已有的编程思维是个挑战。我很喜欢函数式，但不太会在团队里使用，毕竟oo阶段还没完全掌握，风险会比较大。但如果团队水平都非常高了，团队稳定是可以用的。</li>
+</ul>
+<p>思路：先能写，然后再追求更好的写法，比如面向对象。等团队水平到一定程度了，并且稳定的时候，可以考虑更加极致的函数式写法</p>
+<p>3）各种高级的JavaScript友好语言<br>JavaScript友好语言指的是能够使用其他语法实现，但最终编译成js的语言。自从Node.js出现后，这种黑科技层出不穷。比如比较有名的coffee、typescript、babel（es）等。</p>
+<p>显然TypeScript会越来越好，TypeScript 的强大之处是要用过才知道的。</p>
+<ul>
+<li>规模化编程，像Java那种，静态类型，面向对象，前端只有TypeScript能做到</li>
+<li>亲爹是微软安德斯·海尔斯伯格，不知道此人的请看borland传奇去</li>
+<li>开源，未来很好</li>
+<li>组合拳：TypeScript + VSCode = 神器</li>
+</ul>
+<p>4）再论面向对象</p>
+<ul>
+<li>基于原型的写法，纵观JavaScript高级编程，就是翻来覆去的讲这个，这个很基础，但不是很好用。可以不用，但不可以不会。</li>
+<li>自己写面向对象机制是最好的，但不是每个人都有这个能力的。好在es6规范出了更好一点的面向对象，通过class、extends、super关键字来定义类，已经明显好很多了，虽然还很弱，但起码勉强能用起来了。从面向过程走过来的同学，推荐这种写法，简单易用。但要注意面向对象要有面向对象的写法，要理解抽象，继承，封装，多态4个基本特征。如果想用好，你甚至还需要看一些设计模式相关的书。好在有《JavaScript设计模式》一书。Koa2里已经在用这种写法了。</li>
+<li>js是脚本语言，解释即可执行。所以它的最大缺点是没有类型系统，这在规模化编程里是非常危险的，一个函数，传参就能玩死人。于是现在流行使用flow和typescript来做类型校验。flow只是工具，比较轻量级。而typescript是es6超集，给es6补充了类型系统和更完善的面向对象机制，所以大部分人都会对ts有好感，很有可能是未来的趋势。</li>
+</ul>
+<h4 id="Node-js安装环境"><a href="#Node-js安装环境" class="headerlink" title="Node.js安装环境"></a>Node.js安装环境</h4><p>npm基本命令：</p>
+<ul>
+<li>npm install xxx（npm i xxx）：安装xxx模块，但不记录到package.json里</li>
+<li>npm install –save xxx（npm i -s xxx）：安装xxx模块，并且记录到package.json里，字段对应的dependency，是产品环境必须依赖的模块</li>
+<li>npm install –save-dev xxx（npm i -D xxx）：安装xxx模块，并且记录到package.json里，字段对应的dev-dependency，是开发环境必须依赖的模块，比如测试类的（mocha、chai、sinon、zombie、supertest等）都在</li>
+<li>npm install –global xxx（npm i -g xxx）：全局安装xxx模块，但不记录到package.json里，如果模块里package.json有bin配置，会自动链接，作为cli命令</li>
+</ul>
+<h4 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h4><p>1）oh my zsh是我最习惯的shell，终端下非常好用<br>配合iterm2分屏 + spectacle全屏，几乎无敌</p>
+<p>2）brew是mac装软件非常好的方式，和apt-get、rpm等都非常类似<br>安装4个必备软件：</p>
+<ul>
+<li>brew install git 最流行的SCM源码版本控制软件</li>
+<li>brew install wget 下载、扒站神器</li>
+<li>brew install ack 搜索代码神器</li>
+<li>brew install autojump 终端下多目录跳转神器</li>
+</ul>
+<p>3）vim<br>我虽然不算vim党，但也深爱着。janus是一个非常好用的vim集成开发环境。比如ctrl-p、nerdtree等插件都集成了，对我这种懒人足够了。</p>
+<h4 id="IDE和编辑器"><a href="#IDE和编辑器" class="headerlink" title="IDE和编辑器"></a>IDE和编辑器</h4><p>我虽然不算vim党，但也深爱着。janus是一个非常好用的vim集成开发环境。比如ctrl-p、nerdtree等插件都集成了，对我这种懒人足够了。</p>
+<ul>
+<li>vsc是一个比较潮比较新的编辑器（跨平台Mac OS X、Windows和 Linux ）</li>
+<li>vsc功能和textmate、sublime、notepad++，ultraedit等比较，毫不逊色</li>
+<li>vsc尤其是在nodejs（调试）和typescript、go上支持尤其好</li>
+<li>vsc提供了自定义 Debugger Adapter 和 VSCode Debug Protocol 从而实现自己的调试器</li>
+</ul>
+<p>更多调试方法，参见<a href="https://github.com/i5ting/node-debug-tutorial" target="_blank" rel="noopener">https://github.com/i5ting/node-debug-tutorial</a></p>
+<h4 id="Node-js应用场景"><a href="#Node-js应用场景" class="headerlink" title="Node.js应用场景"></a>Node.js应用场景</h4><p>Node.js 所针对的应用程序有一个专门的简称：DIRT。</p>
+<p>Node.js使用场景四大类：<br><img src="./images/Nodejsyingyongchangjing.png" alt="Node应用场景"></p>
+<p>1）跨平台：覆盖你能想到的面向用户的所有平台，传统的PC Web端，以及PC客户端 nw.js/electron 、移动端 cordova、HTML5、react-native、weex，硬件 ruff.io 等<br>2）Web应用开发：网站、Api、RPC服务等<br>3）前端：三大框架 React \ Vue \ Angular 辅助开发，以及工程化演进过程（使用Gulp /Webpack 构建 Web 开发工具）<br>4）工具：npm上各种工具模块，包括各种前端预编译、构建工具 Grunt / Gulp、脚手架，命令行工具，各种奇技淫巧等</p>
+<h4 id="Node核心：异步流程控制"><a href="#Node核心：异步流程控制" class="headerlink" title="Node核心：异步流程控制"></a>Node核心：异步流程控制</h4><p>Node.js是为异步而生的，它自己把复杂的事儿做了（高并发，低延时），交给用户的只是有点难用的Callback写法。也正是坦诚的将异步回调暴露出来，才有更好的流程控制方面的演进。也正是这些演进，让Node.js从DIRT（数据敏感实时应用）扩展到更多的应用场景。</p>
+<p>直面问题才能有更好的解决方式，Node.js的异步是整个学习Node.js过程中重中之重。</p>
+<ol>
+<li>异步流程控制学习重点</li>
+<li>Api写法：Error-first Callback 和 EventEmitter</li>
+<li>中流砥柱：Promise</li>
+<li>终极解决方案：Async/Await</li>
+</ol>
+<h5 id="1）异步流程控制学习重点"><a href="#1）异步流程控制学习重点" class="headerlink" title="1）异步流程控制学习重点"></a>1）异步流程控制学习重点</h5><p><img src="./images/Nodejsyibuliuchengkongzhi.png" alt="异步流程控制"></p>
+<ul>
+<li>红色代表Promise，是使用最多的，无论async还是generator都可用</li>
+<li>蓝色是Generator，过度货</li>
+<li>绿色是Async函数，趋势</li>
+</ul>
+<p>结论：Promise是必须会的，那你为什么不顺势而为呢？</p>
+<p>推荐：使用Async函数 + Promise组合，如下图所示。</p>
+<p><img src="./images/NodejsyibuliuchengkongzhiSimple.png" alt="简化异步流程控制"></p>
+<p>结论：</p>
+<ul>
+<li>Node.js SDK里callback写法必须会的。</li>
+<li>Node.js学习重点: Async函数与Promise</li>
+<li>中流砥柱：Promise</li>
+<li>终极解决方案：Async/Await</li>
+</ul>
+<h5 id="2）api写法：Error-first-Callback-和-EventEmitter"><a href="#2）api写法：Error-first-Callback-和-EventEmitter" class="headerlink" title="2）api写法：Error-first Callback 和 EventEmitter"></a>2）api写法：Error-first Callback 和 EventEmitter</h5>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/14/网址导航/" rel="next" title="网址导航">
+                <i class="fa fa-chevron-left"></i> 网址导航
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/17/NodeJs/Nodejs-http-了不起的Nodejs/" rel="prev" title="Nodejs-http-了不起的Nodejs">
+                Nodejs-http-了不起的Nodejs <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kexinzhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js简介"><span class="nav-number">1.</span> <span class="nav-text">Node.js简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-js简介-1"><span class="nav-number">1.1.</span> <span class="nav-text">Node.js简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是Node-js"><span class="nav-number">1.2.</span> <span class="nav-text">什么是Node.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本原理"><span class="nav-number">1.3.</span> <span class="nav-text">基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心概念"><span class="nav-number">1.3.1.</span> <span class="nav-text">核心概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#梳理一下"><span class="nav-number">1.3.2.</span> <span class="nav-text">梳理一下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#换个维度"><span class="nav-number">1.3.3.</span> <span class="nav-text">换个维度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习Node-js的三个境界"><span class="nav-number">2.</span> <span class="nav-text">学习Node.js的三个境界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何学习Node-js"><span class="nav-number">3.</span> <span class="nav-text">如何学习Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础学习"><span class="nav-number">3.1.</span> <span class="nav-text">基础学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-js安装环境"><span class="nav-number">3.2.</span> <span class="nav-text">Node.js安装环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用软件"><span class="nav-number">3.3.</span> <span class="nav-text">常用软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDE和编辑器"><span class="nav-number">3.4.</span> <span class="nav-text">IDE和编辑器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-js应用场景"><span class="nav-number">3.5.</span> <span class="nav-text">Node.js应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node核心：异步流程控制"><span class="nav-number">3.6.</span> <span class="nav-text">Node核心：异步流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）异步流程控制学习重点"><span class="nav-number">3.6.1.</span> <span class="nav-text">1）异步流程控制学习重点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）api写法：Error-first-Callback-和-EventEmitter"><span class="nav-number">3.6.2.</span> <span class="nav-text">2）api写法：Error-first Callback 和 EventEmitter</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexinzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

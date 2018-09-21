@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Full Stuck">
 <meta property="og:description" content="mysql下载：https://cdn.mysql.com//Downloads/MySQLInstaller/mysql-installer-community- 数据库基础数据库基础数据库 数据库（database）：一个以某种有组织的方式存储的数据集合，保存有组织的数据的容器（通常是一个文件或一组文件）  关系型数据库：mysql、sql server、oracle、db2非关系型数据库：m">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-20T09:34:15.638Z">
+<meta property="og:updated_time" content="2018-09-21T02:37:33.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node-mysql">
 <meta name="twitter:description" content="mysql下载：https://cdn.mysql.com//Downloads/MySQLInstaller/mysql-installer-community- 数据库基础数据库基础数据库 数据库（database）：一个以某种有组织的方式存储的数据集合，保存有组织的数据的容器（通常是一个文件或一组文件）  关系型数据库：mysql、sql server、oracle、db2非关系型数据库：m">
@@ -578,11 +578,16 @@
 <li>插入多行；</li>
 <li>插入某些查询的结果；</li>
 </ol>
-<h4 id="插入完整的行"><a href="#插入完整的行" class="headerlink" title="插入完整的行"></a>插入完整的行</h4><p>例如：insert into usertable values(null, ‘zhangsan’, ‘25’, ‘19920520’, null, null);</p>
-<p>这条SQL语句插入一条新的个人信息到usertable表，存储在每个表列中的数据在values中给出，对每个列必须提供一个值，如果某个列没有值，应使用null（假定表允许对该项指定空值）；</p>
+<h4 id="插入完整的行"><a href="#插入完整的行" class="headerlink" title="插入完整的行"></a>插入完整的行</h4><blockquote>
+<p>insert into usertable values(null, ‘zhangsan’, ‘25’, ‘19920520’, null, null);</p>
+</blockquote>
+<p>这条SQL语句插入一条新的个人信息到usertable表，存储在每个表列中的数据在values中给出，对每个列 <code>必须提供一个值</code>，如果某个列没有值，应使用 <code>null</code>（假定表允许对该项指定空值）；</p>
 <p>缺点在于；高度依赖表中列的定义次序，如果表结构出现变动，难免出现问题。</p>
-<p>更加安全的方法：<br>insert into usertable(user_id,user_name,user_year，user_birthday,user_address,user_email) values(null,’zhangsan’,’25’,’19920520’,null,null);</p>
-<p>这条SQL语句给出了列名，valuse必须以指定的次序匹配指定的列名，不一定按照列出现在表中的实际次序；</p>
+<p>更加安全的方法：</p>
+<blockquote>
+<p>insert into usertable(user_id,user_name,user_year,user_birthday,user_address,user_email)<br>values(null,’zhangsan’,’25’,’19920520’,null,null);</p>
+</blockquote>
+<p>这条SQL语句给出了列名，valuse必须以指定的次序匹配指定的列名，不一定按照列在表中的实际次序；</p>
 <p>优点是：即使表结构改变，此insert语句仍然正确工作。</p>
 <p>insert使用注意事项：</p>
 <ol>
@@ -590,7 +595,9 @@
 <li>如果表定义允许，则可以在insert操作中省略某些列，列必须满足这两个条件（1.改列定义为允许null值；2.在表定义中给出默认值【如果不给出值，则使用默认值】）；</li>
 <li>数据库被多个用户访问，一般检索是最重要的，可以通过在insert和into中间添加关键字low priority，指示MySQL降低insert语句的优先级（同样适用于update和delete语句）；</li>
 </ol>
-<h4 id="插入多个行"><a href="#插入多个行" class="headerlink" title="插入多个行"></a>插入多个行</h4><p>例如：insert into usertable(user_id,user_name,user_year，user_birthday,user_address,user_email)  values(null,’zhangsan’,’25’,’19920520’,null,null);</p>
+<h4 id="插入多个行"><a href="#插入多个行" class="headerlink" title="插入多个行"></a>插入多个行</h4><blockquote>
+<p>insert into usertable(user_id,user_name,user_yearuser_birthday,user_address,user_email)<br>values(null,’zhangsan’,’25’,’19920520’,null,null);</p>
+</blockquote>
 <p>只要每条insert语句中的列名（和次序）相同，可以只在insert语句后面输入一次列名就可以（单个insert语句由多组值，每组值用一堆圆括号包含，用逗号隔开）</p>
 <p>PS:MYSQL用单条insert语句处理多个插入比使用多个insert语句快。</p>
 <h4 id="插入检索出的数据"><a href="#插入检索出的数据" class="headerlink" title="插入检索出的数据"></a>插入检索出的数据</h4><p>例如：insert into usertable(user_id,user_name,user_year，user_birthday,user_address,user_email)select user_id,user_name,user_year,user_birthday,user_adress,user_email<br>from newtablebase;</p>
@@ -601,7 +608,7 @@
 </blockquote>
 <p>两种方法：</p>
 <ol>
-<li>更新表中特定行；</li>
+<li>更新表中特定行；（where条件）</li>
 <li>更新表中所有行；</li>
 </ol>
 <p>update语句由三部分构成：</p>
@@ -612,7 +619,7 @@
 </ol>
 <p>例如：update usertable<br>set user_email = <a href="mailto:&#39;3033310371@qq.com" target="_blank" rel="noopener">&#39;3033310371@qq.com</a>‘<br>where user_id = ‘10086’;</p>
 <p>这条SQL语句中，要更新的表名为usertable，set命令用来将新值赋给被更新的列user_email；</p>
-<p>PS：update语句总是以要更新的表的名字开始，以where子句结束，它告诉MySQL更新哪一行。</p>
+<p>PS：update语句总是以要更新的表的名字开始，以where子句结束，它告诉MySQL更新哪一行。不加where，会更新整个表</p>
 <h4 id="更新多个列"><a href="#更新多个列" class="headerlink" title="更新多个列"></a>更新多个列</h4><p>例子：update usertable<br>set user_name = ‘zhangsan’, user_email = <a href="mailto:&#39;3033310371@qq.com" target="_blank" rel="noopener">&#39;3033310371@qq.com</a>‘<br>where user_id = ‘10086’;</p>
 <p>更新多个列时，只需要使用单个set命令，每个“列=值”对之间用逗号分隔（最后一列不用逗号）。</p>
 <p>PS:如果用update更新多个行，且更新中一行或多行出现错误，则update操作将被取消（错误发生前执行的动作将被回滚到最初状态。即已更新的被恢复原来的值）；<br>如果希望出错误，更新继续执行，可以使用ignore关键字：update ignore tablebase……</p>

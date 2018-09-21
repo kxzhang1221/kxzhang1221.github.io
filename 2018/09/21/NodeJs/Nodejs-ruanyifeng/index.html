@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Node.js 概述简介 Node是JavaScript的服务器运行环境  运行环境有两层意思：  首先，JavaScript语言通过Node在服务器运行，在这个意义上，Node有点像JavaScript虚拟机； 其次，Node提供大量工具库，使得JavaScript语言与操作系统互动（比如读写文件、新建子进程），在这个意义上，Node又是JavaScript的工具库。  Node内部采用Goog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nodejs-ruanyifeng">
+<meta property="og:url" content="http://yoursite.com/2018/09/21/NodeJs/Nodejs-ruanyifeng/index.html">
+<meta property="og:site_name" content="Full Stuck">
+<meta property="og:description" content="Node.js 概述简介 Node是JavaScript的服务器运行环境  运行环境有两层意思：  首先，JavaScript语言通过Node在服务器运行，在这个意义上，Node有点像JavaScript虚拟机； 其次，Node提供大量工具库，使得JavaScript语言与操作系统互动（比如读写文件、新建子进程），在这个意义上，Node又是JavaScript的工具库。  Node内部采用Goog">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-21T08:50:19.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nodejs-ruanyifeng">
+<meta name="twitter:description" content="Node.js 概述简介 Node是JavaScript的服务器运行环境  运行环境有两层意思：  首先，JavaScript语言通过Node在服务器运行，在这个意义上，Node有点像JavaScript虚拟机； 其次，Node提供大量工具库，使得JavaScript语言与操作系统互动（比如读写文件、新建子进程），在这个意义上，Node又是JavaScript的工具库。  Node内部采用Goog">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/21/NodeJs/Nodejs-ruanyifeng/"/>
+
+
+
+
+
+  <title>Nodejs-ruanyifeng | Full Stuck</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Full Stuck</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-vue">
+          <a href="/vue/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-vue"></i> <br />
+            
+            vue
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/21/NodeJs/Nodejs-ruanyifeng/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Full Stuck">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Nodejs-ruanyifeng</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-21T14:15:02+08:00">
+                2018-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Node-js-概述"><a href="#Node-js-概述" class="headerlink" title="Node.js 概述"></a>Node.js 概述</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote>
+<p>Node是JavaScript的服务器运行环境</p>
+</blockquote>
+<p>运行环境有两层意思：</p>
+<ul>
+<li>首先，JavaScript语言通过Node在服务器运行，在这个意义上，Node有点像JavaScript虚拟机；</li>
+<li>其次，Node提供大量工具库，使得JavaScript语言与操作系统互动（比如读写文件、新建子进程），在这个意义上，Node又是JavaScript的工具库。</li>
+</ul>
+<p>Node内部采用Google公司的V8引擎，作为JavaScript语言解释器；通过自行开发的libuv库，调用操作系统资源。</p>
+<h4 id="安装与更新"><a href="#安装与更新" class="headerlink" title="安装与更新"></a>安装与更新</h4><h5 id="通过官网安装包安装"><a href="#通过官网安装包安装" class="headerlink" title="通过官网安装包安装"></a>通过官网安装包安装</h5><p>网址：<a href="https://nodejs.org/zh-cn/" title="Node官网" target="_blank" rel="noopener">https://nodejs.org/zh-cn/</a><br>下载推荐版本（LTS），安装</p>
+<h5 id="通过nvm安装"><a href="#通过nvm安装" class="headerlink" title="通过nvm安装"></a>通过nvm安装</h5><p>网址：<a href="https://github.com/coreybutler/nvm-windows/releases" title="github nvm下载" target="_blank" rel="noopener">https://github.com/coreybutler/nvm-windows/releases</a><br>下载nvm-setup.zip，安装</p>
+<p>nvm命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">nvm list available</span><br><span class="line">// 查看官网上所有的node版本</span><br><span class="line"></span><br><span class="line">nvm install 8.11.4（版本号）</span><br><span class="line">// 安装指定版本</span><br><span class="line"></span><br><span class="line">nvm use 8.11.4（版本号）</span><br><span class="line">// 特换到指定的版本</span><br><span class="line"></span><br><span class="line">nvm list</span><br><span class="line">// 查看本机安装的所有node版本</span><br><span class="line"></span><br><span class="line">nvm uninstall 8.11.4（版本号）</span><br><span class="line">// 删除指定版本号</span><br></pre></td></tr></table></figure></p>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>安装完成后，运行node.js程序，就是使用node命令读取JavaScript脚本。</p>
+<p>执行当前目录的demo.js脚本文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node demo</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">$ node demo.js</span><br></pre></td></tr></table></figure></p>
+<p>使用 <code>-e</code> 参数，可以执行代码字符串<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node -e <span class="string">'console.log("Hello World")'</span></span><br><span class="line">Hello World</span><br></pre></td></tr></table></figure></p>
+<h4 id="REPL环境"><a href="#REPL环境" class="headerlink" title="REPL环境"></a>REPL环境</h4><p>在命令行键入 <code>node</code> 命令，后面没有文件名，就进入一个Node.js的REPL环境（Read–eval–print loop，”读取-求值-输出”循环），可以直接运行各种JavaScript命令。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ node</span><br><span class="line">&gt; 1+1</span><br><span class="line">2</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果使用参数 –use_strict，则REPL将在严格模式下运行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node --use_strict</span><br></pre></td></tr></table></figure></p>
+<p>REPL是Node.js与用户互动的 <code>shell</code>，各种基本的shell功能都可以在里面使用，比如使用上下方向键遍历曾经使用过的命令。</p>
+<p>特殊变量下划线（_）表示上一个命令的返回结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; 1 + 1</span><br><span class="line">2</span><br><span class="line">&gt; _ + 1</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+<p>在REPL中，如果运行一个表达式，会直接在命令行返回结果。如果运行一条语句，就不会有任何输出，因为语句没有返回值:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; x = 1</span><br><span class="line">1</span><br><span class="line">&gt; var x = 1</span><br></pre></td></tr></table></figure></p>
+<h4 id="异步操作"><a href="#异步操作" class="headerlink" title="异步操作"></a>异步操作</h4><p>Node采用V8引擎处理JavaScript脚本，最大特点就是单线程运行，一次只能运行一个任务。</p>
+<p>这导致Node大量采用异步操作（asynchronous operation），即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务运行完后再执行。</p>
+<p>由于这种特性，某一个任务的后续操作，往往采用回调函数（callback）的形式进行定义。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var isTrue = <span class="keyword">function</span>(value, callback) &#123;</span><br><span class="line">  <span class="keyword">if</span> (value === <span class="literal">true</span>) &#123;</span><br><span class="line">    callback(null, <span class="string">"Value was true."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    callback(new Error(<span class="string">"Value is not true!"</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码就把进一步的处理，交给回调函数callback。</p>
+<p>Node约定，如果某个函数需要回调函数作为参数，则回调函数是最后一个参数。另外，回调函数本身的第一个参数，约定为上一步传入的错误对象。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var callback = <span class="keyword">function</span> (error, value) &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="built_in">return</span> console.log(error);</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，callback的第一个参数是Error对象，第二个参数才是真正的数据参数。这是因为回调函数主要用于异步操作，当回调函数运行时，前期的操作早结束了，错误的执行栈早就不存在了，传统的错误捕捉机制try…catch对于异步操作行不通，所以只能把错误交给回调函数处理。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  db.User.get(userId, <span class="keyword">function</span>(err, user) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err) &#123;</span><br><span class="line">      throw err</span><br><span class="line">    &#125;</span><br><span class="line">    // ...</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; catch(e) &#123;</span><br><span class="line">  console.log(‘Oh no!’);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，db.User.get方法是一个异步操作，等到抛出错误时，可能它所在的try…catch代码块早就运行结束了，这会导致错误无法被捕捉。所以，Node统一规定，一旦异步操作发生错误，就把错误对象传递到回调函数。</p>
+<p>如果没有发生错误，回调函数的第一个参数就传入null。这种写法有一个很大的好处，就是说只要判断回调函数的第一个参数，就知道有没有出错，如果不是null，就肯定出错了。另外，这样还可以层层传递错误。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(err) &#123;</span><br><span class="line">  // 除了放过No Permission错误意外，其他错误传给下一个回调函数</span><br><span class="line">  <span class="keyword">if</span>(!err.noPermission) &#123;</span><br><span class="line">    <span class="built_in">return</span> next(err);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="全局对象和全局变量"><a href="#全局对象和全局变量" class="headerlink" title="全局对象和全局变量"></a>全局对象和全局变量</h4><p>Node提供以下几个全局对象，它们是所有模块都可以调用的。</p>
+<blockquote>
+<p>global：表示Node所在的全局环境，类似于浏览器的window对象。</p>
+</blockquote>
+<p>需要注意的是，如果在浏览器中声明一个全局变量，实际上是声明了一个全局对象的属性，比如var x = 1等同于设置window.x = 1，但是Node不是这样，至少在模块中不是这样（REPL环境的行为与浏览器一致）。在模块文件中，声明var x = 1，该变量不是global对象的属性，global.x等于undefined。这是因为模块的全局变量都是该模块私有的，其他模块无法取到。</p>
+<blockquote>
+<p>process：该对象表示Node所处的当前进程，允许开发者与该进程互动。</p>
+</blockquote>
+<blockquote>
+<p>console：指向Node内置的console模块，提供命令行环境中的标准输入、标准输出功能。</p>
+</blockquote>
+<p>Node还提供一些全局函数:</p>
+<blockquote>
+<p>setTimeout()：用于在指定毫秒之后，运行回调函数。</p>
+</blockquote>
+<p>实际的调用间隔，还取决于系统因素。间隔的毫秒数在1毫秒到2147483647毫秒（约24.8天）之间。如果超过这个范围，会被自动改为1毫秒。该方法返回一个整数，代表这个新建定时器的编号。</p>
+<blockquote>
+<p>clearTimeout()：用于终止一个setTimeout方法新建的定时器。<br>setInterval()：用于每隔一定毫秒调用回调函数。</p>
+</blockquote>
+<p>由于系统因素，可能无法保证每次调用之间正好间隔指定的毫秒数，但只会多于这个间隔，而不会少于它。指定的毫秒数必须是1到2147483647（大约24.8天）之间的整数，如果超过这个范围，会被自动改为1毫秒。该方法返回一个整数，代表这个新建定时器的编号。</p>
+<blockquote>
+<p>clearInterval()：终止一个用setInterval方法新建的定时器。<br>require()：用于加载模块。<br>Buffer()：用于操作二进制数据。</p>
+</blockquote>
+<p>Node提供两个全局变量，都以两个下划线开头</p>
+<blockquote>
+<p><strong>filename：指向当前运行的脚本文件名。
+</strong>dirname：指向当前运行的脚本所在的目录。</p>
+</blockquote>
+<p>除此之外，还有一些对象实际上是模块内部的局部变量，指向的对象根据模块不同而不同，但是所有模块都适用，可以看作是伪全局变量，主要为 <code>module</code>, <code>module.exports</code>, <code>exports</code>等。</p>
+<h3 id="模块化结构"><a href="#模块化结构" class="headerlink" title="模块化结构"></a>模块化结构</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>Node.js采用模块化结构，按照 <code>CommonJS</code> 规范定义和使用模块。模块与文件是一一对应关系，即加载一个模块，实际上就是加载对应的一个模块文件。</p>
+<p>require命令用于指定加载模块，加载时可以省略脚本文件的后缀名：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var circle = require(<span class="string">'./circle.js'</span>);</span><br><span class="line">// 或者</span><br><span class="line">var circle = require(<span class="string">'./circle'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>require方法的参数是模块文件的名字。</p>
+<p>模块一旦被加载以后，就会被系统缓存。如果第二次还加载该模块，则会返回缓存中的版本，这意味着模块实际上只会执行一次。如果希望模块执行多次，则可以让模块返回一个函数，然后多次调用该函数。</p>
+<h4 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h4><p>Node.js不仅仅是在服务器上运行JavaScript代码，更有用处在于，它本身还提供了一系列功能模块，与操作系统互动。这些核心的功能模块，不用安装就可以使用，下面是它们的清单。</p>
+<ul>
+<li>http：提供HTTP服务器功能。</li>
+<li>url：解析URL。</li>
+<li>fs：与文件系统交互。</li>
+<li>querystring：解析URL的查询字符串。</li>
+<li>child_process：新建子进程。</li>
+<li>util：提供一系列实用小工具。</li>
+<li>path：处理文件路径。</li>
+<li>crypto：提供加密和解密功能，基本上是对OpenSSL的包装。</li>
+</ul>
+<p>上面这些核心模块，源码都在Node的 <code>lib</code> 子目录中。为了提高运行速度，它们安装时都会被编译成二进制文件。</p>
+<p>核心模块总是 <code>最优先加载的</code>。如果你自己写了一个HTTP模块，require(‘http’)加载的还是核心模块。</p>
+<h4 id="自定义模块"><a href="#自定义模块" class="headerlink" title="自定义模块"></a>自定义模块</h4><p>Node模块采用CommonJS规范。只要符合这个规范，就可以自定义模块。</p>
+<p>下面是一个最简单的模块，假定新建一个foo.js文件，写入以下内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// foo.js</span><br><span class="line">module.exports = <span class="keyword">function</span>(x) &#123;</span><br><span class="line">    console.log(x);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码就是一个模块，它通过module.exports变量，对外输出一个方法。<br>这个模块的使用方法如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// index.js</span><br><span class="line">var mm = require(<span class="string">'./foo'</span>);</span><br><span class="line">mm(<span class="string">"这是自定义模块"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码通过require命令加载模块文件foo.js（后缀名省略），将模块的对外接口输出到变量mm，然后调用mm。这时，在命令行下运行index.js，屏幕上就会输出“这是自定义模块”。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node index</span><br><span class="line">这是自定义模块</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>module变量是整个模块文件的顶层变量，它的exports属性就是模块向外输出的接口。</p>
+</blockquote>
+<p>如果直接输出一个函数（就像上面的foo.js），那么调用模块就是调用一个函数。但是，模块也可以输出一个对象。下面对foo.js进行改写。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// foo.js</span><br><span class="line">var out = new Object();</span><br><span class="line"><span class="keyword">function</span> p(string) &#123;</span><br><span class="line">  console.log(string);</span><br><span class="line">&#125;</span><br><span class="line">out.print = p;</span><br><span class="line">module.exports = out;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码表示模块输出out对象，该对象有一个print属性，指向一个函数。下面是这个模块的使用方法。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// index.js</span><br><span class="line">var mm = require(<span class="string">'./foo'</span>);</span><br><span class="line">mm.print(<span class="string">"这是自定义模块"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码表示，由于具体的方法定义在模块的print属性上，所以必须显式调用print属性。</p>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>Node是单线程运行环境，一旦抛出的异常没有被捕获，就会引起整个进程的崩溃。所以，Node的异常处理对于保证系统的稳定运行非常重要。</p>
+<p>一般来说，Node有三种方法，传播一个错误。</p>
+<ul>
+<li>使用throw语句抛出一个错误对象，即抛出异常。</li>
+<li>将错误对象传递给回调函数，由回调函数负责发出错误。</li>
+<li>通过EventEmitter接口，发出一个error事件。</li>
+</ul>
+<h4 id="try…catch结构"><a href="#try…catch结构" class="headerlink" title="try…catch结构"></a>try…catch结构</h4><p>最常用的捕获异常的方式，就是使用try…catch结构。但是，这个结构无法捕获异步运行的代码抛出的异常。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  process.nextTick(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    throw new Error(<span class="string">"error"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125; catch (err) &#123;</span><br><span class="line">  //can not catch it</span><br><span class="line">  console.log(err);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    throw new Error(<span class="string">"error"</span>);</span><br><span class="line">  &#125;,1)</span><br><span class="line">&#125; catch (err) &#123;</span><br><span class="line">  //can not catch it</span><br><span class="line">  console.log(err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码分别用process.nextTick和setTimeout方法，在下一轮事件循环抛出两个异常，代表异步操作抛出的错误。它们都无法被catch代码块捕获，因为catch代码块所在的那部分已经运行结束了.</p>
+<p>一种解决方法是将错误捕获代码，也放到异步执行。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> async(cb, err) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="literal">true</span>)</span><br><span class="line">        throw new Error(<span class="string">"woops!"</span>);</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        cb(<span class="string">"done"</span>);</span><br><span class="line">    &#125; catch(e) &#123;</span><br><span class="line">      err(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, 2000)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async(<span class="keyword">function</span>(res) &#123;</span><br><span class="line">  console.log(<span class="string">"received:"</span>, res);</span><br><span class="line">&#125;, <span class="keyword">function</span>(err) &#123;</span><br><span class="line">  console.log(<span class="string">"Error: async threw an exception:"</span>, err);</span><br><span class="line">&#125;);</span><br><span class="line">// Error: async threw an exception: Error: woops!</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，async函数异步抛出的错误，可以同样部署在异步的catch代码块捕获。</p>
+<p>这两种处理方法都不太理想。一般来说，Node只在很少场合才用try/catch语句，比如使用JSON.parse解析JSON文本。</p>
+<h4 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h4><p>Node采用的方法，是将错误对象作为第一个参数，传入回调函数。这样就避免了捕获代码与发生错误的代码不在同一个时间段的问题。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'/foo.txt'</span>, <span class="keyword">function</span>(err, data) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err !== null) throw err;</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码表示，读取文件foo.txt是一个异步操作，它的回调函数有两个参数，第一个是错误对象，第二个是读取到的文件数据。如果第一个参数不是null，就意味着发生错误，后面代码也就不再执行了。</p>
+<p>下面是一个完整的例子。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> async2(continuation) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      var res = 42;</span><br><span class="line">      <span class="keyword">if</span> (<span class="literal">true</span>)</span><br><span class="line">        throw new Error(<span class="string">"woops!"</span>);</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        continuation(null, res); // pass <span class="string">'null'</span> <span class="keyword">for</span> error</span><br><span class="line">    &#125; catch(e) &#123;</span><br><span class="line">      continuation(e, null);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, 2000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async2(<span class="keyword">function</span>(err, res) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err)</span><br><span class="line">    console.log(<span class="string">"Error: (cps) failed:"</span>, err);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    console.log(<span class="string">"(cps) received:"</span>, res);</span><br><span class="line">&#125;);</span><br><span class="line">// Error: (cps) failed: woops!</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，async2函数的回调函数的第一个参数就是一个错误对象，这是为了处理异步操作抛出的错误。</p>
+<h4 id="EventEmitter接口的error事件"><a href="#EventEmitter接口的error事件" class="headerlink" title="EventEmitter接口的error事件"></a>EventEmitter接口的error事件</h4><p>发生错误的时候，也可以用EventEmitter接口抛出error事件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var EventEmitter = require(<span class="string">'events'</span>).EventEmitter;</span><br><span class="line">var emitter = new EventEmitter();</span><br><span class="line"></span><br><span class="line">emitter.emit(<span class="string">'error'</span>, new Error(<span class="string">'something bad happened'</span>));</span><br></pre></td></tr></table></figure></p>
+<p>使用上面的代码必须小心，因为如果没有对error事件部署监听函数，会导致整个应用程序崩溃。所以，一般总是必须同时部署下面的代码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">emitter.on(<span class="string">'error'</span>, <span class="keyword">function</span>(err) &#123;</span><br><span class="line">  console.error(<span class="string">'出错：'</span> + err.message);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="uncaughtException事件"><a href="#uncaughtException事件" class="headerlink" title="uncaughtException事件"></a>uncaughtException事件</h4><p>当一个异常未被捕获，就会触发uncaughtException事件，可以对这个事件注册回调函数，从而捕获异常。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var logger = require(<span class="string">'tracer'</span>).console();</span><br><span class="line">process.on(<span class="string">'uncaughtException'</span>, <span class="keyword">function</span>(err) &#123;</span><br><span class="line">  console.error(<span class="string">'Error caught in uncaughtException event:'</span>, err);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    throw new Error(<span class="string">"error"</span>);</span><br><span class="line">  &#125;,1);</span><br><span class="line">&#125; catch (err) &#123;</span><br><span class="line">  //can not catch it</span><br><span class="line">  console.log(err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只要给uncaughtException配置了回调，Node进程不会异常退出，但异常发生的上下文已经丢失，无法给出异常发生的详细信息。而且，异常可能导致Node不能正常进行内存回收，出现内存泄露。所以，当uncaughtException触发后，最好记录错误日志，然后结束Node进程。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">process.on(<span class="string">'uncaughtException'</span>, <span class="keyword">function</span>(err) &#123;</span><br><span class="line">  logger.log(err);</span><br><span class="line">  process.exit(1);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="unhandledRejection事件"><a href="#unhandledRejection事件" class="headerlink" title="unhandledRejection事件"></a>unhandledRejection事件</h4><h3 id="命令行脚本"><a href="#命令行脚本" class="headerlink" title="命令行脚本"></a>命令行脚本</h3><p>node脚本可以作为命令行脚本使用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node foo.js</span><br></pre></td></tr></table></figure></p>
+<p>上面代码执行了foo.js脚本文件。</p>
+<p>foo.js文件的第一行，如果加入了解释器的位置，就可以将其作为命令行工具直接调用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># !/usr/bin/env node</span></span><br></pre></td></tr></table></figure></p>
+<p>调用前，需更改文件的执行权限。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ chmod u+x foo.js</span><br><span class="line">$ ./foo.js arg1 arg2 ...</span><br></pre></td></tr></table></figure></p>
+<p>作为命令行脚本时，console.log用于输出内容到标准输出，process.stdin用于读取标准输入，child_process.exec()用于执行一个shell命令。</p>
+<h2 id="Buffer对象"><a href="#Buffer对象" class="headerlink" title="Buffer对象"></a>Buffer对象</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>Buffer对象是Node <code>处理二进制数据</code> 的一个接口。它是Node <code>原生提供的全局对象</code>，可以直接使用，不需要require(‘buffer’)。</p>
+<p>JavaScript比较擅长处理字符串和数字，对于处理二进制数据（比如TCP数据流），就不太擅长。<br>Buffer对象就是为了解决这个问题而设计的。它是一个 <code>构造函数</code>，生成的实例代表了V8引擎分配的一段内存，是一个类似数组的对象，成员都为0到255的整数值，即一个 <code>8位的字节</code>。</p>
+<h3 id="创建Buffer实例"><a href="#创建Buffer实例" class="headerlink" title="创建Buffer实例"></a>创建Buffer实例</h3><h4 id="Buffer-alloc"><a href="#Buffer-alloc" class="headerlink" title="Buffer.alloc"></a>Buffer.alloc</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Buffer.alloc(size[, fill[, encoding]]); </span><br><span class="line">// 返回一个指定大小的Buffer实例，没设置fill，则默认填充0</span><br><span class="line"></span><br><span class="line">Buffer.allocUnsafe(size);</span><br><span class="line">// 返回一个指定大小的Buffer实例，但不会初始化，可能包含敏感数据（内存中的数据），初始化用fill()方法填充，创建速度快</span><br></pre></td></tr></table></figure>
+<h4 id="Buffer-from"><a href="#Buffer-from" class="headerlink" title="Buffer.from"></a>Buffer.from</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Buffer.from(array);</span><br><span class="line">// 返回一个被array的值初始化的新的Buffer实例（传入array的元素只能是数字，不然就会自动被0覆盖）</span><br><span class="line"></span><br><span class="line">Buffer.from(buffer);</span><br><span class="line">// 复制传入的Buffer实例的数据，并返回一个新的Buffer实例</span><br><span class="line"></span><br><span class="line">Buffer.from(string[, encoding]);</span><br><span class="line">// 返回一个被string的值初始化的新的Buffer实例</span><br></pre></td></tr></table></figure>
+<h3 id="类的方法"><a href="#类的方法" class="headerlink" title="类的方法"></a>类的方法</h3><h4 id="Buffer-isEncoding"><a href="#Buffer-isEncoding" class="headerlink" title="Buffer.isEncoding()"></a>Buffer.isEncoding()</h4><p>Buffer.isEncoding方法返回一个布尔值，表示Buffer实例是否为指定编码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Buffer.isEncoding(<span class="string">'utf8'</span>)</span><br><span class="line">// <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Buffer-isBuffer"><a href="#Buffer-isBuffer" class="headerlink" title="Buffer.isBuffer()"></a>Buffer.isBuffer()</h4><p>Buffer.isBuffer方法接受一个对象作为参数，返回一个布尔值，表示该对象是否为Buffer实例。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Buffer.isBuffer(Date) // <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Buffer-byteLength"><a href="#Buffer-byteLength" class="headerlink" title="Buffer.byteLength()"></a>Buffer.byteLength()</h4><p>Buffer.byteLength方法返回字符串实际占据的字节长度，默认编码方式为utf8。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Buffer.byteLength(<span class="string">'Hello'</span>, <span class="string">'utf8'</span>) // 5</span><br></pre></td></tr></table></figure></p>
+<h4 id="Buffer-concat"><a href="#Buffer-concat" class="headerlink" title="Buffer.concat()"></a>Buffer.concat()</h4><p>Buffer.concat方法将一组Buffer对象合并为一个Buffer对象。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var i1 = new Buffer(<span class="string">'Hello'</span>);</span><br><span class="line">var i2 = new Buffer(<span class="string">' '</span>);</span><br><span class="line">var i3 = new Buffer(<span class="string">'World'</span>);</span><br><span class="line">Buffer.concat([i1, i2, i3]).toString()</span><br><span class="line">// <span class="string">'Hello World'</span></span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，如果Buffer.concat的参数数组只有一个成员，就直接返回该成员。如果有多个成员，就返回一个多个成员合并的新Buffer对象。</p>
+<p>Buffer.concat方法还可以接受第二个参数，指定合并后Buffer对象的总长度。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var i1 = new Buffer(<span class="string">'Hello'</span>);</span><br><span class="line">var i2 = new Buffer(<span class="string">' '</span>);</span><br><span class="line">var i3 = new Buffer(<span class="string">'World'</span>);</span><br><span class="line">Buffer.concat([i1, i2, i3], 10).toString()</span><br><span class="line">// <span class="string">'Hello Worl'</span></span><br></pre></td></tr></table></figure></p>
+<p>省略第二个参数时，Node内部会计算出这个值，然后再据此进行合并运算。因此，显式提供这个参数，能提供运行速度。</p>
+<h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><h4 id="length"><a href="#length" class="headerlink" title="length"></a>length</h4><p>length属性返回Buffer对象所占据的内存长度。注意，这个值与Buffer对象的内容无关。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">buf = new Buffer(1234);</span><br><span class="line">buf.length // 1234</span><br><span class="line"></span><br><span class="line">buf.write(<span class="string">"some string"</span>, 0, <span class="string">"ascii"</span>);</span><br><span class="line">buf.length // 1234</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，不管写入什么内容，length属性总是返回Buffer对象的空间长度。如果想知道一个字符串所占据的字节长度，可以将其传入Buffer.byteLength方法。</p>
+<p>length属性是可写的，但是这会导致未定义的行为，不建议使用。如果想修改Buffer对象的长度，建议使用slice方法返回一个新的Buffer对象。</p>
+<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><h4 id="write"><a href="#write" class="headerlink" title="write()"></a>write()</h4><p>语法：buf.write(string[, offset[, length]][, encoding])<br>说明：根据encoding的字符编码（默认为utf8）写入string到buf中的offset位置。如果buf没有足够空间保存整个字符串，则只会写入string的一部分。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var buf = Buffer.alloc(5);</span><br><span class="line">buf.write(<span class="string">'He'</span>);</span><br><span class="line">buf.write(<span class="string">'l'</span>, 2);</span><br><span class="line">buf.write(<span class="string">'lo'</span>, 3);</span><br><span class="line">console.log(buf.toString());</span><br><span class="line">// <span class="string">"Hello"</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="slice"><a href="#slice" class="headerlink" title="slice()"></a>slice()</h4><p>语法：buf.slice([start[, end]])<br>返回值：返回一个新的缓存区（两个指向同一内存空间地址，不同于拷贝）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var buf = Buffer.from(<span class="string">'just some data'</span>);</span><br><span class="line">var chunk = buf.slice(5, 9);</span><br><span class="line">chunk.toString()</span><br><span class="line">// <span class="string">"some"</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString()"></a>toString()</h4><p>语法：buf.toString([encoding[, start[, end]]])<br>返回值：解码缓存区数据并使用指定的编码返回字符串<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var hello = Buffer.from(<span class="string">'Hello'</span>);</span><br><span class="line">hello // &lt;Buffer 48 65 6c 6c 6f&gt;</span><br><span class="line">hello.toString() // <span class="string">"Hello"</span></span><br></pre></td></tr></table></figure></p>
+<p>toString方法可以只返回指定位置内存的内容，它的第二个参数表示起始位置，第三个参数表示终止位置，两者都是从0开始计算。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var buf = Buffer.from(<span class="string">'just some data'</span>);</span><br><span class="line">console.log(buf.toString(<span class="string">'ascii'</span>, 5, 9));</span><br><span class="line">// <span class="string">"some"</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="toJSON"><a href="#toJSON" class="headerlink" title="toJSON()"></a>toJSON()</h4><p>语法：buf.toJSON()<br>说明：将buffer转换为JSON对象。如果JSON.stringify方法调用Buffer实例，默认会先调用toJSON方法。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var buf = new Buffer(<span class="string">'test'</span>);</span><br><span class="line">var json = JSON.stringify(buf);</span><br><span class="line">json // <span class="string">'[116,101,115,116]'</span></span><br><span class="line"></span><br><span class="line">var copy = new Buffer(JSON.parse(json));</span><br><span class="line">copy // &lt;Buffer 74 65 73 74&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="文件fs模块"><a href="#文件fs模块" class="headerlink" title="文件fs模块"></a>文件fs模块</h2><p><code>fs</code> 是filesystem的缩写，该模块 <code>提供本地文件的读写能力</code>，基本上是POSIX文件操作命令的简单包装。但是，这个模块几乎对所有操作提供异步和同步两种操作方式，一般建议 <code>使用异步</code>。</p>
+<h3 id="fs-open-，fs-openSync"><a href="#fs-open-，fs-openSync" class="headerlink" title="fs.open()，fs.openSync()"></a>fs.open()，fs.openSync()</h3><p>flags</p>
+<ul>
+<li>r – 以读取模式打开，如果文件不存在抛出异常；</li>
+<li>w – 以写入模式打开，如果文件不存在则创建；</li>
+<li>a – 以追加模式打开，如果文件不存在则创建；</li>
+</ul>
+<p>fs.open (path, flags[, mode], callback)：异步打开文件<br>fs.openSync(path, flags[, mode])：同步打开文件</p>
+<h3 id="fs-read-，fs-readSync"><a href="#fs-read-，fs-readSync" class="headerlink" title="fs.read()，fs.readSync()"></a>fs.read()，fs.readSync()</h3><p>fs.read(fd, buffer, offset, length, position, callback)<br>异步读取文件</p>
+<p>fs.readSync(fd, buffer, offset, length, position)<br>同步读取文件</p>
+<h3 id="fs-write-，fs-writeSync"><a href="#fs-write-，fs-writeSync" class="headerlink" title="fs.write()，fs.writeSync()"></a>fs.write()，fs.writeSync()</h3><p>fs.write(fd, string[, position[, encoding]], callback)<br>异步写入内容</p>
+<p>fs.writeSync(fd, string[, position[, encoding]])<br>同步写入内容</p>
+<h3 id="readFile-，readFileSync"><a href="#readFile-，readFileSync" class="headerlink" title="readFile()，readFileSync()"></a>readFile()，readFileSync()</h3><p>readFile方法用于异步读取数据。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'./image.png'</span>, <span class="keyword">function</span> (err, buffer) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  process(buffer);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>readFile方法的第一个参数是文件的路径，可以是绝对路径，也可以是相对路径。注意，如果是相对路径，是相对于当前进程所在的路径（process.cwd()），而不是相对于当前脚本所在的路径。</p>
+<p>readFile方法的第二个参数是读取完成后的回调函数。该函数的第一个参数是发生错误时的错误对象，第二个参数是代表文件内容的Buffer实例。</p>
+<p>readFileSync方法用于同步读取文件，返回一个字符串。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var text = fs.readFileSync(fileName, <span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">// 将文件按行拆成数组</span><br><span class="line">text.split(/\r?\n/).forEach(<span class="keyword">function</span> (line) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="writeFile-，writeFileSync"><a href="#writeFile-，writeFileSync" class="headerlink" title="writeFile()，writeFileSync()"></a>writeFile()，writeFileSync()</h3><p>writeFile方法用于异步写入文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.writeFile(<span class="string">'message.txt'</span>, <span class="string">'Hello Node.js'</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(<span class="string">'It\'</span>s saved!<span class="string">');</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，writeFile方法的第一个参数是写入的文件名，第二个参数是写入的字符串，第三个参数是回调函数。<br>回调函数前面，还可以再加一个参数，表示写入字符串的编码（默认是utf8）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.writeFile(<span class="string">'message.txt'</span>, <span class="string">'Hello Node.js'</span>, <span class="string">'utf8'</span>, callback);</span><br></pre></td></tr></table></figure></p>
+<p>writeFileSync方法用于同步写入文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.writeFileSync(fileName, str, <span class="string">'utf8'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>它的第一个参数是文件路径，第二个参数是写入文件的字符串，第三个参数是文件编码，默认为utf8。</p>
+<h3 id="exists-path-callback"><a href="#exists-path-callback" class="headerlink" title="exists(path, callback)"></a>exists(path, callback)</h3><p>exists方法用来判断给定路径是否存在，然后不管结果如何，都会调用回调函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fs.exists(<span class="string">'/path/to/file'</span>, <span class="keyword">function</span> (exists) &#123;</span><br><span class="line">  util.debug(exists ? <span class="string">"it's there"</span> : <span class="string">"no file!"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码表明，回调函数的参数是一个表示文件是否存在的布尔值。</p>
+<p>需要注意的是，不要在open方法之前调用exists方法，open方法本身就能检查文件是否存在。<br>下面的例子是如果给定目录存在，就删除它。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (fs.existsSync(outputFolder)) &#123;</span><br><span class="line">  console.log(<span class="string">'Removing '</span> + outputFolder);</span><br><span class="line">  fs.rmdirSync(outputFolder);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="mkdir-，writeFile-，readFile"><a href="#mkdir-，writeFile-，readFile" class="headerlink" title="mkdir()，writeFile()，readFile()"></a>mkdir()，writeFile()，readFile()</h3><ul>
+<li>mkdir方法用于新建目录。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line">fs.mkdir(<span class="string">'./helloDir'</span>,0777, <span class="keyword">function</span> (err) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>mkdir接受三个参数，第一个是目录名，第二个是权限值，第三个是回调函数。</p>
+<ul>
+<li><p>writeFile方法用于写入文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line">fs.writeFile(<span class="string">'./helloDir/message.txt'</span>, <span class="string">'Hello Node'</span>, <span class="keyword">function</span> (err) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(<span class="string">'文件写入成功'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>readFile方法用于读取文件内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'./helloDir/message.txt'</span>,<span class="string">'UTF-8'</span> ,<span class="keyword">function</span> (err, data) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面代码使用readFile方法读取文件。readFile方法的第一个参数是文件名，第二个参数是文件编码，第三个参数是回调函数。可用的文件编码包括“ascii”、“utf8”和“base64”。如果没有指定文件编码，返回的是原始的缓存二进制数据，这时需要调用buffer对象的toString方法，将其转为字符串。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line">fs.readFile(<span class="string">'example_log.txt'</span>, <span class="keyword">function</span> (err, logData) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  var text = logData.toString();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>readFile方法是异步操作，所以必须小心，不要同时发起多个readFile请求。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(var i = 1; i &lt;= 1000; i++) &#123;</span><br><span class="line">  fs.readFile(<span class="string">'./'</span>+i+<span class="string">'.txt'</span>, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">     // <span class="keyword">do</span> something with the file</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码会同时发起1000个readFile异步请求，很快就会耗尽系统资源。</p>
+<h3 id="mkdirSync-，writeFileSync-，readFileSync"><a href="#mkdirSync-，writeFileSync-，readFileSync" class="headerlink" title="mkdirSync()，writeFileSync()，readFileSync()"></a>mkdirSync()，writeFileSync()，readFileSync()</h3><p>这三个方法是建立目录、写入文件、读取文件的同步版本 – 不建议使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fs.mkdirSync(<span class="string">'./helloDirSync'</span>,0777);</span><br><span class="line">fs.writeFileSync(<span class="string">'./helloDirSync/message.txt'</span>, <span class="string">'Hello Node'</span>);</span><br><span class="line">var data = fs.readFileSync(<span class="string">'./helloDirSync/message.txt'</span>,<span class="string">'UTF-8'</span>);</span><br><span class="line">console.log(<span class="string">'file created with contents:'</span>);</span><br><span class="line">console.log(data);</span><br></pre></td></tr></table></figure></p>
+<h3 id="readdir-，readdirSync"><a href="#readdir-，readdirSync" class="headerlink" title="readdir()，readdirSync()"></a>readdir()，readdirSync()</h3><p>readdir方法用于读取目录，返回一个所包含的文件和子目录的数组。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">fs.readdir(process.cwd(), <span class="keyword">function</span> (err, files) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">    <span class="built_in">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var count = files.length;</span><br><span class="line">  var results = &#123;&#125;;</span><br><span class="line">  files.forEach(<span class="keyword">function</span> (filename) &#123;</span><br><span class="line">    fs.readFile(filename, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">      results[filename] = data;</span><br><span class="line">      count--;</span><br><span class="line">      <span class="keyword">if</span> (count &lt;= 0) &#123;</span><br><span class="line">        // 对所有文件进行处理</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>readdirSync方法是readdir方法的同步版本。下面是同步列出目录内容的代码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var files = fs.readdirSync(dir);</span><br><span class="line">files.forEach(<span class="keyword">function</span> (filename) &#123;</span><br><span class="line">  var fullname = path.join(dir,filename);</span><br><span class="line">  var stats = fs.statSync(fullname);</span><br><span class="line">  <span class="keyword">if</span> (stats.isDirectory()) filename += <span class="string">'/'</span>;</span><br><span class="line">  process.stdout.write(filename + <span class="string">'\t'</span> +</span><br><span class="line">    stats.size + <span class="string">'\t'</span> +</span><br><span class="line">    stats.mtime + <span class="string">'\n'</span></span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="stat"><a href="#stat" class="headerlink" title="stat()"></a>stat()</h3><p>stat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。我们往往通过该方法，判断正在处理的到底是一个文件，还是一个目录。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line">fs.readdir(<span class="string">'/etc/'</span>, <span class="keyword">function</span> (err, files) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line"></span><br><span class="line">  files.forEach( <span class="keyword">function</span> (file) &#123;</span><br><span class="line">    fs.stat(<span class="string">'/etc/'</span> + file, <span class="keyword">function</span> (err, stats) &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) throw err;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (stats.isFile()) &#123;</span><br><span class="line">        console.log(<span class="string">"%s is file"</span>, file);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (stats.isDirectory ()) &#123;</span><br><span class="line">      console.log(<span class="string">"%s is a directory"</span>, file);</span><br><span class="line">      &#125;</span><br><span class="line">    console.log(<span class="string">'stats:  %s'</span>,JSON.stringify(stats));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="watchfile-，unwatchfile"><a href="#watchfile-，unwatchfile" class="headerlink" title="watchfile()，unwatchfile()"></a>watchfile()，unwatchfile()</h3><p>watchfile方法监听一个文件，如果该文件发生变化，就会自动触发回调函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line">fs.watchFile(<span class="string">'./testFile.txt'</span>, <span class="keyword">function</span> (curr, prev) &#123;</span><br><span class="line">  console.log(<span class="string">'the current mtime is: '</span> + curr.mtime);</span><br><span class="line">  console.log(<span class="string">'the previous mtime was: '</span> + prev.mtime);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fs.writeFile(<span class="string">'./testFile.txt'</span>, <span class="string">"changed"</span>, <span class="keyword">function</span> (err) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line"></span><br><span class="line">  console.log(<span class="string">"file write complete"</span>);   </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>unwatchfile方法用于解除对文件的监听。</p>
+<h3 id="createReadStream"><a href="#createReadStream" class="headerlink" title="createReadStream()"></a>createReadStream()</h3><p>createReadStream方法往往用于打开大型的文本文件，创建一个读取操作的数据流。所谓大型文本文件，指的是文本文件的体积很大，读取操作的缓存装不下，只能分成几次发送，每次发送会触发一个data事件，发送结束会触发end事件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> readLines(input, func) &#123;</span><br><span class="line">  var remaining = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  input.on(<span class="string">'data'</span>, <span class="keyword">function</span>(data) &#123;</span><br><span class="line">    remaining += data;</span><br><span class="line">    var index = remaining.indexOf(<span class="string">'\n'</span>);</span><br><span class="line">    var last  = 0;</span><br><span class="line">    <span class="keyword">while</span> (index &gt; -1) &#123;</span><br><span class="line">      var line = remaining.substring(last, index);</span><br><span class="line">      last = index + 1;</span><br><span class="line">      func(line);</span><br><span class="line">      index = remaining.indexOf(<span class="string">'\n'</span>, last);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    remaining = remaining.substring(last);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  input.on(<span class="string">'end'</span>, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> (remaining.length &gt; 0) &#123;</span><br><span class="line">      func(remaining);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> func(data) &#123;</span><br><span class="line">  console.log(<span class="string">'Line: '</span> + data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var input = fs.createReadStream(<span class="string">'lines.txt'</span>);</span><br><span class="line">readLines(input, func);</span><br></pre></td></tr></table></figure></p>
+<h3 id="createWriteStream"><a href="#createWriteStream" class="headerlink" title="createWriteStream()"></a>createWriteStream()</h3><p>createWriteStream方法创建一个写入数据流对象，该对象的write方法用于写入数据，end方法用于结束写入操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var out = fs.createWriteStream(fileName, &#123;</span><br><span class="line">  encoding: <span class="string">'utf8'</span></span><br><span class="line">&#125;);</span><br><span class="line">out.write(str);</span><br><span class="line">out.end();</span><br></pre></td></tr></table></figure>
+<p>createWriteStream方法和createReadStream方法配合，可以实现拷贝大型文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> fileCopy(filename1, filename2, <span class="keyword">done</span>) &#123;</span><br><span class="line">  var input = fs.createReadStream(filename1);</span><br><span class="line">  var output = fs.createWriteStream(filename2);</span><br><span class="line"></span><br><span class="line">  input.on(<span class="string">'data'</span>, <span class="keyword">function</span>(d) &#123; output.write(d); &#125;);</span><br><span class="line">  input.on(<span class="string">'error'</span>, <span class="keyword">function</span>(err) &#123; throw err; &#125;);</span><br><span class="line">  input.on(<span class="string">'end'</span>, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    output.end();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">done</span>) <span class="keyword">done</span>();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Http模块"><a href="#Http模块" class="headerlink" title="Http模块"></a>Http模块</h2><h3 id="http-STATUS-CODES"><a href="#http-STATUS-CODES" class="headerlink" title="http.STATUS_CODES"></a>http.STATUS_CODES</h3><p>http.STATUS_CODES是一个对象，属性名都是状态码，属性值则是该状态码的简短解释。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require(<span class="string">'http'</span>).STATUS_CODES[<span class="string">'301'</span>]</span><br><span class="line">// <span class="string">"Moved Permanently"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="基本用法-1"><a href="#基本用法-1" class="headerlink" title="基本用法"></a>基本用法</h3><h4 id="处理GET请求"><a href="#处理GET请求" class="headerlink" title="处理GET请求"></a>处理GET请求</h4><p>http模块主要用于搭建HTTP服务。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 加载http模块</span><br><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line">// 调用http的createServer方法（接收函数作为参数），创建一个服务器实例</span><br><span class="line">http.createServer(<span class="keyword">function</span> (request, response)&#123;</span><br><span class="line">	// request -对象，表示客户端的HTTP请求</span><br><span class="line">	// response -对象，表示服务端的HTTP回应</span><br><span class="line">  response.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">	// response.writeHead方法用来写入HTTP回应的头信息</span><br><span class="line">  response.write(<span class="string">"Hello World"</span>);</span><br><span class="line">  response.end();</span><br><span class="line">	// response.end方法用来写入HTTP回应的具体内容，以及回应完成后关闭本次对话</span><br><span class="line">&#125;).listen(8080, <span class="string">'127.0.0.1'</span>);</span><br><span class="line">// listen(8080)表示启动服务器实例，监听本机的8080端口</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">'Server running on port 8080.'</span>);</span><br><span class="line"></span><br><span class="line">// 另一种写法</span><br><span class="line"><span class="keyword">function</span> onRequest(request, response) &#123;</span><br><span class="line">  response.writeHead(200, &#123;<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>&#125;);</span><br><span class="line">  response.write(<span class="string">"Hello World"</span>);</span><br><span class="line">  response.end();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http.createServer(onRequest).listen(process.env.PORT);</span><br></pre></td></tr></table></figure></p>
+<p>读取事前写好的网页：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="keyword">function</span> (request, response)&#123;</span><br><span class="line">  fs.readFile(<span class="string">'data.txt'</span>, <span class="keyword">function</span> readData(err, data) &#123;</span><br><span class="line">    response.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">    response.end(data);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  // 或者</span><br><span class="line"></span><br><span class="line">  fs.createReadStream(`<span class="variable">$&#123;__dirname&#125;</span>/index.html`).pipe(response);</span><br><span class="line">&#125;).listen(8080, <span class="string">'127.0.0.1'</span>);</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">'Server running on port 8080.'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>下面的修改则是根据不同网址的请求，显示不同的内容，已经相当于做出一个网站的雏形了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="keyword">function</span>(req, res) &#123;</span><br><span class="line"></span><br><span class="line">  // 主页</span><br><span class="line">  <span class="keyword">if</span> (req.url == <span class="string">"/"</span>) &#123;</span><br><span class="line">    res.writeHead(200, &#123; <span class="string">"Content-Type"</span>: <span class="string">"text/html"</span> &#125;);</span><br><span class="line">    res.end(<span class="string">"Welcome to the homepage!"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // About页面</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (req.url == <span class="string">"/about"</span>) &#123;</span><br><span class="line">    res.writeHead(200, &#123; <span class="string">"Content-Type"</span>: <span class="string">"text/html"</span> &#125;);</span><br><span class="line">    res.end(<span class="string">"Welcome to the about page!"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 404错误</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    res.writeHead(404, &#123; <span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span> &#125;);</span><br><span class="line">    res.end(<span class="string">"404 error! File not found."</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;).listen(8080, <span class="string">"localhost"</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="request-对象"><a href="#request-对象" class="headerlink" title="request 对象"></a>request 对象</h4><p>createServer方法的回调函数的第一个参数是一个request对象，拥有以下属性。</p>
+<ol>
+<li>url：发出请求的网址。</li>
+<li>method：HTTP请求的方法。</li>
+<li>headers：HTTP请求的所有HTTP头信息。</li>
+</ol>
+<p>下面的例子是获取请求的路径名。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var url = require(<span class="string">'url'</span>);</span><br><span class="line">var pathname = url.parse(request.url).pathname;</span><br></pre></td></tr></table></figure></p>
+<p><code>setEncoding()</code> 方法用于设置请求的编码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.setEncoding(<span class="string">"utf8"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>addListener()方法用于为请求添加监听事件的回调函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var querystring = require(<span class="string">'querystring'</span>);</span><br><span class="line">var postData = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">request.addListener(<span class="string">'data'</span>, <span class="keyword">function</span> (postDataChunk) &#123;</span><br><span class="line">  postData += postDataChunk;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">request.addListener(<span class="string">'end'</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">  response.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">  response.write(<span class="string">"You've sent the text: "</span> + querystring.parse(postData).text);</span><br><span class="line">  response.end();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="处理异步操作"><a href="#处理异步操作" class="headerlink" title="处理异步操作"></a>处理异步操作</h4><p>遇到异步操作时，会先处理后面的请求，等到当前请求有了结果以后，再返回结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">exec</span> = require(<span class="string">"child_process"</span>).<span class="built_in">exec</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">exec</span>(<span class="string">'ls -lah'</span>, <span class="keyword">function</span> (error, stdout, stderr) &#123;</span><br><span class="line">  response.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">  response.write(stdout);</span><br><span class="line">  response.end();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="处理POST请求"><a href="#处理POST请求" class="headerlink" title="处理POST请求"></a>处理POST请求</h4><p>当客户端采用POST方法发送数据时，服务器端可以对data和end两个事件，设立监听函数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="keyword">function</span> (req, res) &#123;</span><br><span class="line">  var content = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">  req.on(<span class="string">'data'</span>, <span class="keyword">function</span> (chunk) &#123;</span><br><span class="line">    content += chunk;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  req.on(<span class="string">'end'</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    res.writeHead(200, &#123;<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>&#125;);</span><br><span class="line">    res.write(<span class="string">"You've sent: "</span> + content);</span><br><span class="line">    res.end();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>data事件会在数据接收过程中，每收到一段数据就触发一次，接收到的数据被传入回调函数。end事件则是在所有数据接收完成后触发。</p>
+<p>对上面代码稍加修改，就可以做出文件上传的功能。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"></span><br><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line">var destinationFile, fileSize, uploadedBytes;</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="keyword">function</span> (request, response) &#123;</span><br><span class="line">  response.writeHead(200);</span><br><span class="line">  destinationFile = fs.createWriteStream(<span class="string">"destination.md"</span>);</span><br><span class="line">  request.pipe(destinationFile);</span><br><span class="line">  fileSize = request.headers[<span class="string">'content-length'</span>];</span><br><span class="line">  uploadedBytes = 0;</span><br><span class="line"></span><br><span class="line">  request.on(<span class="string">'data'</span>, <span class="keyword">function</span> (d) &#123;</span><br><span class="line">    uploadedBytes += d.length;</span><br><span class="line">    var p = (uploadedBytes / fileSize) * 100;</span><br><span class="line">    response.write(<span class="string">"Uploading "</span> + parseInt(p, 0) + <span class="string">" %\n"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  request.on(<span class="string">'end'</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    response.end(<span class="string">"File Upload Complete"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;).listen(3030, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">  console.log(<span class="string">"server started"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="发出请求"><a href="#发出请求" class="headerlink" title="发出请求"></a>发出请求</h3><h4 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h4><p>get方法用于发出get请求。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> getTestPersonaLoginCredentials(callback) &#123;</span><br><span class="line">  <span class="built_in">return</span> http.get(&#123;</span><br><span class="line">    host: <span class="string">'personatestuser.org'</span>,</span><br><span class="line">    path: <span class="string">'/email'</span></span><br><span class="line">  &#125;, <span class="keyword">function</span>(response) &#123;</span><br><span class="line">    var body = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">    response.on(<span class="string">'data'</span>, <span class="keyword">function</span>(d) &#123;</span><br><span class="line">      body += d;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    response.on(<span class="string">'end'</span>, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">      var parsed = JSON.parse(body);</span><br><span class="line">      callback(&#123;</span><br><span class="line">        email: parsed.email,</span><br><span class="line">        password: parsed.pass</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<h4 id="request"><a href="#request" class="headerlink" title="request()"></a>request()</h4><p>request方法用于发出HTTP请求，它的使用格式如下。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.request(options[, callback])</span><br></pre></td></tr></table></figure></p>
+<p>request方法的options参数，可以是一个对象，也可以是一个字符串。如果是字符串，就表示这是一个URL，Node内部就会自动调用url.parse()，处理这个参数。</p>
+<p>options对象可以设置如下属性。</p>
+<ul>
+<li>host：HTTP请求所发往的域名或者IP地址，默认是localhost。</li>
+<li>hostname：该属性会被url.parse()解析，优先级高于host。</li>
+<li>port：远程服务器的端口，默认是80。</li>
+<li>localAddress：本地网络接口。</li>
+<li>socketPath：Unix网络套接字，格式为host:port或者socketPath。</li>
+<li>method：指定HTTP请求的方法，格式为字符串，默认为GET。</li>
+<li>path：指定HTTP请求的路径，默认为根路径（/）。可以在这个属性里面，指定查询字符串，比如/index.html?page=12。如果这个属性里面包含非法字符（比如空格），就会抛出一个错误。</li>
+<li>headers：一个对象，包含了HTTP请求的头信息。</li>
+<li>auth：一个代表HTTP基本认证的字符串user:password。</li>
+<li><p>agent：控制缓存行为，如果HTTP请求使用了agent，则HTTP请求默认为Connection: keep-alive，它的可能值如下：</p>
+<ul>
+<li>undefined（默认）：对当前host和port，使用全局Agent。</li>
+<li>Agent：一个对象，会传入agent属性。</li>
+<li>false：不缓存连接，默认HTTP请求为Connection: close。</li>
+</ul>
+</li>
+<li><p>keepAlive：一个布尔值，表示是否保留socket供未来其他请求使用，默认等于false。</p>
+</li>
+<li>keepAliveMsecs：一个整数，当使用KeepAlive的时候，设置多久发送一个TCP KeepAlive包，使得连接不要被关闭。默认等于1000，只有keepAlive设为true的时候，该设置才有意义。</li>
+</ul>
+<p>request方法的callback参数是可选的，在response事件发生时触发，而且只触发一次。</p>
+<p>http.request()返回一个http.ClientRequest类的实例。它是一个可写数据流，如果你想通过POST方法发送一个文件，可以将文件写入这个ClientRequest对象。</p>
+<p>下面是发送POST请求的一个例子。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">var postData = querystring.stringify(&#123;</span><br><span class="line">  <span class="string">'msg'</span> : <span class="string">'Hello World!'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var options = &#123;</span><br><span class="line">  hostname: <span class="string">'www.google.com'</span>,</span><br><span class="line">  port: 80,</span><br><span class="line">  path: <span class="string">'/upload'</span>,</span><br><span class="line">  method: <span class="string">'POST'</span>,</span><br><span class="line">  headers: &#123;</span><br><span class="line">    <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span>,</span><br><span class="line">    <span class="string">'Content-Length'</span>: postData.length</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var req = http.request(options, <span class="keyword">function</span>(res) &#123;</span><br><span class="line">  console.log(<span class="string">'STATUS: '</span> + res.statusCode);</span><br><span class="line">  console.log(<span class="string">'HEADERS: '</span> + JSON.stringify(res.headers));</span><br><span class="line">  res.setEncoding(<span class="string">'utf8'</span>);</span><br><span class="line">  res.on(<span class="string">'data'</span>, <span class="keyword">function</span> (chunk) &#123;</span><br><span class="line">    console.log(<span class="string">'BODY: '</span> + chunk);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">req.on(<span class="string">'error'</span>, <span class="keyword">function</span>(e) &#123;</span><br><span class="line">  console.log(<span class="string">'problem with request: '</span> + e.message);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// write data to request body</span><br><span class="line">req.write(postData);</span><br><span class="line">req.end();</span><br></pre></td></tr></table></figure></p>
+<p>注意，上面代码中，req.end()必须被调用，即使没有在请求体内写入任何数据，也必须调用。因为这表示已经完成HTTP请求。</p>
+<p>发送过程的任何错误（DNS错误、TCP错误、HTTP解析错误），都会在request对象上触发error事件。</p>
+<h3 id="Server"><a href="#Server" class="headerlink" title="Server()"></a>Server()</h3><p>Server方法用于新建一个服务器实例。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line">var server = new http.Server();</span><br><span class="line">server.listen(8000);</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">'request'</span>, <span class="keyword">function</span> (request, response) &#123;</span><br><span class="line">  // 解析请求的URL</span><br><span class="line">  var url = require(<span class="string">'url'</span>).parse(request.url);</span><br><span class="line">  <span class="keyword">if</span> (url.pathname === <span class="string">'/test/1'</span>) &#123;</span><br><span class="line">    response.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain; charset=UTF-8'</span>&#125;);</span><br><span class="line">    response.write(<span class="string">'Hello'</span>);</span><br><span class="line">    response.end();</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (url.pathname === <span class="string">'/test/2'</span>) &#123;</span><br><span class="line">    response.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain; charset=UTF-8'</span>&#125;);</span><br><span class="line">    response.write(request.method + <span class="string">' '</span> + request.url +</span><br><span class="line">      <span class="string">' HTTP/'</span> + request.httpVersion + <span class="string">'\r\n'</span>);</span><br><span class="line">    <span class="keyword">for</span> (var h <span class="keyword">in</span> request.headers) &#123;</span><br><span class="line">      response.write(h + <span class="string">': '</span> + request.headers[h] + <span class="string">'\r\n'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    response.write(<span class="string">'\r\n'</span>);</span><br><span class="line">    request.on(<span class="string">'data'</span>, <span class="keyword">function</span>(chunk) &#123; response.write(chunk); &#125;);</span><br><span class="line">    request.on(<span class="string">'end'</span>, <span class="keyword">function</span>(chunk) &#123; response.end(); &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    var filename = url.pathname.substring(1);</span><br><span class="line">    var <span class="built_in">type</span>;</span><br><span class="line">    switch(filename.substring(filename.lastIndexOf(<span class="string">'.'</span>) + 1))  &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'html'</span>:</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'htm'</span>:      <span class="built_in">type</span> = <span class="string">'text/html; charset=UTF-8'</span>; <span class="built_in">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'js'</span>:       <span class="built_in">type</span> = <span class="string">'application/javascript; charset=UTF-8'</span>; <span class="built_in">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'css'</span>:      <span class="built_in">type</span> = <span class="string">'text/css; charset=UTF-8'</span>; <span class="built_in">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'txt'</span> :     <span class="built_in">type</span> = <span class="string">'text/plain; charset=UTF-8'</span>; <span class="built_in">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'manifest'</span>: <span class="built_in">type</span> = <span class="string">'text/cache-manifest; charset=UTF-8'</span>; <span class="built_in">break</span>;</span><br><span class="line">      default:         <span class="built_in">type</span> = <span class="string">'application/octet-stream'</span>; <span class="built_in">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    fs.readFile(filename, <span class="keyword">function</span> (err, content) &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        response.writeHead(404, &#123;</span><br><span class="line">          <span class="string">'Content-Type'</span>: <span class="string">'text/plain; charset=UTF-8'</span>&#125;);</span><br><span class="line">        response.write(err.message);</span><br><span class="line">        response.end();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        response.writeHead(200, &#123;<span class="string">'Content-Type'</span>: <span class="built_in">type</span>&#125;);</span><br><span class="line">        response.write(content);</span><br><span class="line">        response.end();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>listen方法用于启动服务器，它可以接受多种参数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var server = new http.Server();</span><br><span class="line"></span><br><span class="line">// 端口</span><br><span class="line">server.listen(8000);</span><br><span class="line"></span><br><span class="line">// 端口，主机</span><br><span class="line">server.listen(8000, <span class="string">'localhost'</span>);</span><br><span class="line"></span><br><span class="line">// 对象</span><br><span class="line">server.listen(&#123;</span><br><span class="line">  port: 8000,</span><br><span class="line">  host: <span class="string">'localhost'</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="搭建HTTPs服务器"><a href="#搭建HTTPs服务器" class="headerlink" title="搭建HTTPs服务器"></a>搭建HTTPs服务器</h3><p>搭建HTTPs服务器需要有SSL证书。对于向公众提供服务的网站，SSL证书需要向证书颁发机构购买；对于自用的网站，可以自制。</p>
+<p>自制SSL证书需要OpenSSL，具体命令如下。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ openssl genrsa -out key.pem</span><br><span class="line">$ openssl req -new -key key.pem -out csr.pem</span><br><span class="line">$ openssl x509 -req -days 9999 -<span class="keyword">in</span> csr.pem -signkey key.pem -out cert.pem</span><br><span class="line">$ rm csr.pem</span><br></pre></td></tr></table></figure></p>
+<p>上面的命令生成两个文件：ert.pem（证书文件）和 key.pem（私钥文件）。有了这两个文件，就可以运行HTTPs服务器了。</p>
+<p>Node内置Https支持。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var server = https.createServer(&#123;</span><br><span class="line">  key: privateKey,</span><br><span class="line">  cert: certificate,</span><br><span class="line">  ca: certificateAuthorityCertificate</span><br><span class="line">&#125;, app);</span><br></pre></td></tr></table></figure></p>
+<p>Node.js提供一个https模块，专门用于处理加密访问。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var https = require(<span class="string">'https'</span>);</span><br><span class="line">var fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line">var options = &#123;</span><br><span class="line">  key: fs.readFileSync(<span class="string">'key.pem'</span>),</span><br><span class="line">  cert: fs.readFileSync(<span class="string">'cert.pem'</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var a = https.createServer(options, <span class="keyword">function</span> (req, res) &#123;</span><br><span class="line">  res.writeHead(200);</span><br><span class="line">  res.end(<span class="string">"hello world\n"</span>);</span><br><span class="line">&#125;).listen(8000);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码显示，HTTPs服务器与HTTP服务器的最大区别，就是createServer方法多了一个options参数。运行以后，就可以测试是否能够正常访问。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -k https://localhost:8000</span><br></pre></td></tr></table></figure></p>
+<h3 id="模块属性"><a href="#模块属性" class="headerlink" title="模块属性"></a>模块属性</h3><p>HTTP请求的属性:</p>
+<ul>
+<li>headers：HTTP请求的头信息。</li>
+<li>url：请求的路径。</li>
+</ul>
+<h3 id="模块方法"><a href="#模块方法" class="headerlink" title="模块方法"></a>模块方法</h3><h4 id="http模块的方法"><a href="#http模块的方法" class="headerlink" title="http模块的方法"></a>http模块的方法</h4><blockquote>
+<p>createServer(callback)：创造服务器实例。</p>
+</blockquote>
+<h4 id="服务器实例的方法"><a href="#服务器实例的方法" class="headerlink" title="服务器实例的方法"></a>服务器实例的方法</h4><blockquote>
+<p>listen(port)：启动服务器监听指定端口。</p>
+</blockquote>
+<h4 id="HTTP回应的方法"><a href="#HTTP回应的方法" class="headerlink" title="HTTP回应的方法"></a>HTTP回应的方法</h4><blockquote>
+<p>setHeader(key, value)：指定HTTP头信息。<br>write(str)：指定HTTP回应的内容。<br>end()：发送HTTP回应。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/19/NodeJs/Node-mysql/" rel="next" title="Node-mysql">
+                <i class="fa fa-chevron-left"></i> Node-mysql
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/21/Nodejs-ruanyifeng/" rel="prev" title="Nodejs-ruanyifeng">
+                Nodejs-ruanyifeng <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kexinzhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js-概述"><span class="nav-number">1.</span> <span class="nav-text">Node.js 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装与更新"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装与更新</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#通过官网安装包安装"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">通过官网安装包安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过nvm安装"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">通过nvm安装</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本用法"><span class="nav-number">1.1.2.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#REPL环境"><span class="nav-number">1.1.3.</span> <span class="nav-text">REPL环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步操作"><span class="nav-number">1.1.4.</span> <span class="nav-text">异步操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局对象和全局变量"><span class="nav-number">1.1.5.</span> <span class="nav-text">全局对象和全局变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块化结构"><span class="nav-number">1.2.</span> <span class="nav-text">模块化结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核心模块"><span class="nav-number">1.2.2.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义模块"><span class="nav-number">1.2.3.</span> <span class="nav-text">自定义模块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">1.3.</span> <span class="nav-text">异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#try…catch结构"><span class="nav-number">1.3.1.</span> <span class="nav-text">try…catch结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回调函数"><span class="nav-number">1.3.2.</span> <span class="nav-text">回调函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EventEmitter接口的error事件"><span class="nav-number">1.3.3.</span> <span class="nav-text">EventEmitter接口的error事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#uncaughtException事件"><span class="nav-number">1.3.4.</span> <span class="nav-text">uncaughtException事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unhandledRejection事件"><span class="nav-number">1.3.5.</span> <span class="nav-text">unhandledRejection事件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行脚本"><span class="nav-number">1.4.</span> <span class="nav-text">命令行脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer对象"><span class="nav-number">2.</span> <span class="nav-text">Buffer对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-1"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Buffer实例"><span class="nav-number">2.2.</span> <span class="nav-text">创建Buffer实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-alloc"><span class="nav-number">2.2.1.</span> <span class="nav-text">Buffer.alloc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-from"><span class="nav-number">2.2.2.</span> <span class="nav-text">Buffer.from</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的方法"><span class="nav-number">2.3.</span> <span class="nav-text">类的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-isEncoding"><span class="nav-number">2.3.1.</span> <span class="nav-text">Buffer.isEncoding()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-isBuffer"><span class="nav-number">2.3.2.</span> <span class="nav-text">Buffer.isBuffer()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-byteLength"><span class="nav-number">2.3.3.</span> <span class="nav-text">Buffer.byteLength()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer-concat"><span class="nav-number">2.3.4.</span> <span class="nav-text">Buffer.concat()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例属性"><span class="nav-number">2.4.</span> <span class="nav-text">实例属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#length"><span class="nav-number">2.4.1.</span> <span class="nav-text">length</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例方法"><span class="nav-number">2.5.</span> <span class="nav-text">实例方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#write"><span class="nav-number">2.5.1.</span> <span class="nav-text">write()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slice"><span class="nav-number">2.5.2.</span> <span class="nav-text">slice()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toString-NaN"><span class="nav-number">2.5.3.</span> <span class="nav-text">toString()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toJSON"><span class="nav-number">2.5.4.</span> <span class="nav-text">toJSON()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件fs模块"><span class="nav-number">3.</span> <span class="nav-text">文件fs模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fs-open-，fs-openSync"><span class="nav-number">3.1.</span> <span class="nav-text">fs.open()，fs.openSync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fs-read-，fs-readSync"><span class="nav-number">3.2.</span> <span class="nav-text">fs.read()，fs.readSync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fs-write-，fs-writeSync"><span class="nav-number">3.3.</span> <span class="nav-text">fs.write()，fs.writeSync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#readFile-，readFileSync"><span class="nav-number">3.4.</span> <span class="nav-text">readFile()，readFileSync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#writeFile-，writeFileSync"><span class="nav-number">3.5.</span> <span class="nav-text">writeFile()，writeFileSync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exists-path-callback"><span class="nav-number">3.6.</span> <span class="nav-text">exists(path, callback)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir-，writeFile-，readFile"><span class="nav-number">3.7.</span> <span class="nav-text">mkdir()，writeFile()，readFile()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdirSync-，writeFileSync-，readFileSync"><span class="nav-number">3.8.</span> <span class="nav-text">mkdirSync()，writeFileSync()，readFileSync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#readdir-，readdirSync"><span class="nav-number">3.9.</span> <span class="nav-text">readdir()，readdirSync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stat"><span class="nav-number">3.10.</span> <span class="nav-text">stat()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#watchfile-，unwatchfile"><span class="nav-number">3.11.</span> <span class="nav-text">watchfile()，unwatchfile()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createReadStream"><span class="nav-number">3.12.</span> <span class="nav-text">createReadStream()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createWriteStream"><span class="nav-number">3.13.</span> <span class="nav-text">createWriteStream()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http模块"><span class="nav-number">4.</span> <span class="nav-text">Http模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-STATUS-CODES"><span class="nav-number">4.1.</span> <span class="nav-text">http.STATUS_CODES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法-1"><span class="nav-number">4.2.</span> <span class="nav-text">基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理GET请求"><span class="nav-number">4.2.1.</span> <span class="nav-text">处理GET请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-对象"><span class="nav-number">4.2.2.</span> <span class="nav-text">request 对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理异步操作"><span class="nav-number">4.2.3.</span> <span class="nav-text">处理异步操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理POST请求"><span class="nav-number">4.2.4.</span> <span class="nav-text">处理POST请求</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发出请求"><span class="nav-number">4.3.</span> <span class="nav-text">发出请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get"><span class="nav-number">4.3.1.</span> <span class="nav-text">get()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request"><span class="nav-number">4.3.2.</span> <span class="nav-text">request()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Server"><span class="nav-number">4.4.</span> <span class="nav-text">Server()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建HTTPs服务器"><span class="nav-number">4.5.</span> <span class="nav-text">搭建HTTPs服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块属性"><span class="nav-number">4.6.</span> <span class="nav-text">模块属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块方法"><span class="nav-number">4.7.</span> <span class="nav-text">模块方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#http模块的方法"><span class="nav-number">4.7.1.</span> <span class="nav-text">http模块的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器实例的方法"><span class="nav-number">4.7.2.</span> <span class="nav-text">服务器实例的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP回应的方法"><span class="nav-number">4.7.3.</span> <span class="nav-text">HTTP回应的方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexinzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

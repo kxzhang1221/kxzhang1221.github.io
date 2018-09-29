@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JavaScript特点 操控浏览器的能力：唯一一种通用的浏览器的内置脚本语言； 广泛的使用领域：JavaScript正在向通用的系统语言发展，HTML5、Node.js、NoSQL等； 易学性：学习环境无处不在（浏览器）、简单性、与主流语言的相似性； 强大的性能：灵活的语法，表达力强、支持编译运行、事件驱动和非阻塞式设计； 开放性：统一的国际标准； 社区支持：极大的社区、丰富的资源。  Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS_ruanyifeng">
+<meta property="og:url" content="http://yoursite.com/2018/09/28/JavaScript/JS-ruanyifeng/index.html">
+<meta property="og:site_name" content="🐎">
+<meta property="og:description" content="JavaScript特点 操控浏览器的能力：唯一一种通用的浏览器的内置脚本语言； 广泛的使用领域：JavaScript正在向通用的系统语言发展，HTML5、Node.js、NoSQL等； 易学性：学习环境无处不在（浏览器）、简单性、与主流语言的相似性； 强大的性能：灵活的语法，表达力强、支持编译运行、事件驱动和非阻塞式设计； 开放性：统一的国际标准； 社区支持：极大的社区、丰富的资源。  Java">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-29T06:28:39.050Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS_ruanyifeng">
+<meta name="twitter:description" content="JavaScript特点 操控浏览器的能力：唯一一种通用的浏览器的内置脚本语言； 广泛的使用领域：JavaScript正在向通用的系统语言发展，HTML5、Node.js、NoSQL等； 易学性：学习环境无处不在（浏览器）、简单性、与主流语言的相似性； 强大的性能：灵活的语法，表达力强、支持编译运行、事件驱动和非阻塞式设计； 开放性：统一的国际标准； 社区支持：极大的社区、丰富的资源。  Java">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/28/JavaScript/JS-ruanyifeng/"/>
+
+
+
+
+
+  <title>JS_ruanyifeng | 🐎</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🐎</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-vue">
+          <a href="/vue/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-vue"></i> <br />
+            
+            vue
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/JavaScript/JS-ruanyifeng/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐎">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS_ruanyifeng</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-28T14:14:28+08:00">
+                2018-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JavaScript特点"><a href="#JavaScript特点" class="headerlink" title="JavaScript特点"></a>JavaScript特点</h2><ul>
+<li>操控浏览器的能力：唯一一种通用的浏览器的内置脚本语言；</li>
+<li>广泛的使用领域：JavaScript正在向通用的系统语言发展，HTML5、Node.js、NoSQL等；</li>
+<li>易学性：学习环境无处不在（浏览器）、简单性、与主流语言的相似性；</li>
+<li>强大的性能：灵活的语法，表达力强、支持编译运行、事件驱动和非阻塞式设计；</li>
+<li>开放性：统一的国际标准；</li>
+<li>社区支持：极大的社区、丰富的资源。</li>
+</ul>
+<h2 id="JavaScript的历史"><a href="#JavaScript的历史" class="headerlink" title="JavaScript的历史"></a>JavaScript的历史</h2><p>1992年底，人类历史上第一台浏览器：Mosaic（美国国家超级电脑应用中心 NCSA开发）；</p>
+<p>1995年12月，Netscaoe公司与Sun公司一起发布了JavaScript；</p>
+<p>1997年7月，ECMA组织规定浏览器脚本语言的标准，并将这种语言成为ECMAScript；</p>
+<h3 id="ECMAScript和JavaScript的关系"><a href="#ECMAScript和JavaScript的关系" class="headerlink" title="ECMAScript和JavaScript的关系"></a>ECMAScript和JavaScript的关系</h3><ul>
+<li>ECMAScript式JavaScript的规范；</li>
+<li>JavaScript是ECMAScript的一种实现。</li>
+</ul>
+<h2 id="语法概述"><a href="#语法概述" class="headerlink" title="语法概述"></a>语法概述</h2><h3 id="基本句法和变量"><a href="#基本句法和变量" class="headerlink" title="基本句法和变量"></a>基本句法和变量</h3><h4 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h4><p>JavaScript程序的执行单位为 <code>行（line）</code>，每行叫做一个语句。</p>
+<blockquote>
+<p>语句：是为了完成某种任务而进行的操作。</p>
+</blockquote>
+<p>语句以分号结尾，多条语句可以写在一个行内。</p>
+<blockquote>
+<p>表达式：一个为了得到返回值的计算式。</p>
+</blockquote>
+<p>语句主要为了进行某种操作；表达式则是为了得到返回值。</p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><blockquote>
+<p>变量：是对值得引用。</p>
+</blockquote>
+<p>使用变量等于引用一个值，每一个变量都有一个变量名。</p>
+<p>变量声明使用关键字 <code>var</code>，且var声明的变量不能用detele命令删除。</p>
+<blockquote>
+<p>单一var原则：用一个var声明多个变量；</p>
+</blockquote>
+<p>JavaScript是一种动态类型语言，即变量的类型没有限制，可以赋予各种类型的值。</p>
+<h4 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h4><blockquote>
+<p>JavaScript引擎的工作方式是：先解析代码，获取所有被声明的变量，然后再一行一行地运行。</p>
+</blockquote>
+<p>变量提升：所有的变量的声明语言都会被提升到代码的头部。</p>
+<h4 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h4><blockquote>
+<p>标识符：用来识别具体对象的一个名称（严格区分大小写）。</p>
+</blockquote>
+<p>标识符命名规则：</p>
+<ol>
+<li>第一个字符可以是任意的Unicode字母，以及美元符号（$）和下划线（_）；</li>
+<li>第二个字符和后面的字符，再第一点基础上还可以用数字；</li>
+<li>中文是合法的标识符，可以用作变量名。</li>
+</ol>
+<p>JavaScript保留字：<br>arguments、break、case、catch、class、const、continue、debugger、default、delete、do、else、enum、eval、export、extends、false、finally、for、function、if、implements、import、in、instanceof、interface、let、new、null、package、private、protected、public、return、static、super、switch、this、throw、true、try、typeof、var、void、while、with、yield。</p>
+<p>还有三个词，不是保留字：Infinity、NaN、undefined。</p>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><blockquote>
+<p>注释：源码中被JavaScript引擎忽略的部分，作用是对代码进行解释。</p>
+</blockquote>
+<p>JavaScript提供两种注释：</p>
+<ol>
+<li>单行注释：用 <code>//</code> 起头；</li>
+<li>多行注释：放在 <code>/*</code> 和 <code>*/</code> 之间。</li>
+</ol>
+<h4 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h4><blockquote>
+<p>区块：JavaScript使用大括号，将相关的语句组合在一起。</p>
+</blockquote>
+<p>JavaScript的区块不构成单独的作用域。即区块中的变量就是全局变量。</p>
+<h4 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h4><h5 id="if结构"><a href="#if结构" class="headerlink" title="if结构"></a>if结构</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>/<span class="literal">false</span>) &#123;</span><br><span class="line">  // <span class="keyword">then</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="literal">true</span>/<span class="literal">false</span>) &#123;</span><br><span class="line">  // <span class="keyword">then</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  // <span class="keyword">then</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="switch结构"><a href="#switch结构" class="headerlink" title="switch结构"></a>switch结构</h5><p>switch结构：适用于判断条件存在较多情况的时候。每种case代码块内部的break语句不能少。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">switch (fruit) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"banana"</span>:</span><br><span class="line">    // ...</span><br><span class="line">    <span class="built_in">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"apple"</span>:</span><br><span class="line">    // ...</span><br><span class="line">    <span class="built_in">break</span>;</span><br><span class="line">  default:</span><br><span class="line">    // ...前面的结果都不符合，执行该部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h4><h5 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h5><p>while语句包括一个循环条件，只要该条件为真，就不断循环。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (condition) &#123;</span><br><span class="line">  // some code here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h5><p>for语句分为三步：</p>
+<ol>
+<li>确定初始值；</li>
+<li>检查循环条件，只要为真就进行后续操作；</li>
+<li>后续操作完成，返回上一步，检查循环条件。</li>
+</ol>
+<p>格式如下：<br>for (初值; 循环条件; 下一步)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (var i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  console.log(arr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所有for循环，都可以改写成while循环<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var i = 0;</span><br><span class="line"><span class="keyword">while</span> (i &lt; arr.length) &#123;</span><br><span class="line">  console.log(arr[i]);</span><br><span class="line">  i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="do…while循环"><a href="#do…while循环" class="headerlink" title="do…while循环"></a>do…while循环</h5><p>do…while 循环与while 循环类似，唯一的区别就是先运行一次循环体，然后判断循环条件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125; <span class="keyword">while</span>(condition);</span><br></pre></td></tr></table></figure>
+<h5 id="break语句和continue语句"><a href="#break语句和continue语句" class="headerlink" title="break语句和continue语句"></a>break语句和continue语句</h5><blockquote>
+<p>break语句：用于再循环体中跳出循环；</p>
+</blockquote>
+<blockquote>
+<p>continue语句：用于不在进行本次循环的后续操作，直接进入下一次循环。</p>
+</blockquote>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><h4 id="原始类型和合成类型"><a href="#原始类型和合成类型" class="headerlink" title="原始类型和合成类型"></a>原始类型和合成类型</h4><blockquote>
+<p>JavaScript的值的类型分为两大类：原始类型和引用类型；</p>
+</blockquote>
+<p>原始类型：数值（number）、字符串（string）、布尔值（boolean）<br>引用类型：对象（object）、数组（array）、函数（function）</p>
+<p>对象和数组是两种不同的数据组合方式，函数其实是处理数据的方法。</p>
+<p>JavaScript还定义了一个特殊的数据类型 <code>undefined</code> 和一个特殊的值 <code>null</code>；</p>
+<ul>
+<li>undefined：表示未定义，即还没有确定的数据类型；（变量声明但没被赋值，则它默认为undefined）</li>
+<li>null：表示一个空对象，不是一种单独的数据类型，而是包含在对象类型中的一个特殊值。</li>
+</ul>
+<blockquote>
+<p>JavaScript的所有数据，都可以视为对象。</p>
+</blockquote>
+<p>数据类型分类：</p>
+<ul>
+<li>值类型（基本类型）：<code>数值（number）</code>、<code>字符串（string）</code>、<code>布尔值（boolean）</code>、<code>对空（null）</code>、<code>未定义（undefined）</code>、Symbol（ES6新增）；</li>
+<li>引用数据类型：<code>对象（object）</code>、数组（array）、函数（function）</li>
+</ul>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><blockquote>
+<p>字符串：若干个排在一起的字符，放在单引号或双引号之中。</p>
+</blockquote>
+<p>单引号、双引号交替使用，不然就只能用转移符 <code>\</code> 进行转义。</p>
+<p>如果一个字符串变量需要写成多行，可以在每行的结尾加上反斜杠 <code>\</code>。</p>
+<blockquote>
+<p>JavaScript内部将字符串是为字符串组成的数组，方括号运算符遵循数据运算规则。</p>
+</blockquote>
+<h4 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h4><blockquote>
+<p>布尔值：包含true和false两个值。</p>
+</blockquote>
+<p>返回布尔值的运算符：</p>
+<ul>
+<li>两元逻辑运算符：&amp;&amp;(and)、||(or)</li>
+<li>前置逻辑运算符：!(not)</li>
+<li>相等运算符：===、!==、==、!=</li>
+<li>比较运算符：&gt;、&gt;=、&lt;、&lt;=</li>
+</ul>
+<p>JavaScript预期某个位置应该是布尔值，则会将该位置上现有的值自动转为布尔值。</p>
+<p>转换规则：</p>
+<ul>
+<li>转为false：undefined、null、false、0、””、NaN</li>
+<li>其他都转为 true</li>
+</ul>
+<p>特别注意：空数组、空对象对应的布尔值，都是true</p>
+<h4 id="typeof运算符"><a href="#typeof运算符" class="headerlink" title="typeof运算符"></a>typeof运算符</h4><blockquote>
+<p>typeof运算符：可以返回一个值的数据类型。</p>
+</blockquote>
+<p>typeof运算符的运算结果：</p>
+<ol>
+<li>数值、字符串、布尔值分别返回number、string、boolean。</li>
+<li>函数返回function</li>
+<li>undefined返回undefined（可以用typeof检查一个没有声明的变量，不报错）</li>
+<li>其他的都返回object</li>
+</ol>
+<h3 id="结尾的分号"><a href="#结尾的分号" class="headerlink" title="结尾的分号"></a>结尾的分号</h3><h4 id="不适用分号结尾的语句"><a href="#不适用分号结尾的语句" class="headerlink" title="不适用分号结尾的语句"></a>不适用分号结尾的语句</h4><ol>
+<li>for和while循环</li>
+<li>分支语句：if、switch、try</li>
+<li>函数的声明语句</li>
+</ol>
+<p>以上三种情况，如果使用了分号，并不会报错。解释引擎会把这个分号解释为空语句。</p>
+<h4 id="分号的自动添加"><a href="#分号的自动添加" class="headerlink" title="分号的自动添加"></a>分号的自动添加</h4><p>JavaScript引擎会在该写分号却没写的情况下，自动添加分号。</p>
+<p>一般来说，在没有分号结尾的情况下，如果下一行起首的是 <code>(</code>、<code>[</code> 、<code>+</code>、<code>-</code>、<code>/</code>这五个字符中的一个，分号不会被自动添加。只有下一行的开始与本行的结尾，无法放在一起解释，JavaScript 引擎才会自动添加分号；</p>
+<p>另外，如果一行的起首是“自增”（++）或“自减”（–）运算符，则它们的前面会自动添加分号；</p>
+<p>如果continue、break、return 和throw 这四个语句后面，直接跟换行符，则会自动添加分号。</p>
+<h2 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h2><p>JavaScript 内部，所有数字都是以 <code>64</code> 位浮点数形式储存，即使整数也是如此。由于浮点数不是精确的值，所以涉及小数的比较和运算要特别小心。</p>
+<h3 id="数值的表示法"><a href="#数值的表示法" class="headerlink" title="数值的表示法"></a>数值的表示法</h3><blockquote>
+<p>数值的表示法：字面形式、科学计数法。</p>
+</blockquote>
+<p>以下两种情况自动将数值转为科学计数法：</p>
+<ol>
+<li>小数点前的数字多于21位；</li>
+<li>小数点后的0多于5个。</li>
+</ol>
+<p>除去以上两种，其他的都采用字面形式直接表示。</p>
+<h3 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h3><blockquote>
+<p>NaN：表示非数字（not a number），主要出现在将字符串解析成数字出错的场合。</p>
+</blockquote>
+<p>NaN不是一种独立的数据类型，而是一种特殊数值，它的数据类型依然属于Number。</p>
+<p>NaN不等于任何值，包括它自身。NaN在布尔运算时被当作false。</p>
+<blockquote>
+<p>isNaN：该方法可以用来判断一个值是否为NaN。</p>
+</blockquote>
+<p>但是isNaN只对数值有效，传入其他值都会先被转为数值。</p>
+<p>判断NaN更可靠的方法（原理NaN是JavaScript中唯一不等于自身）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> myIsNaN(value) &#123;</span><br><span class="line">  <span class="built_in">return</span> value !== value;</span><br><span class="line">&#125;</span><br><span class="line">// or</span><br><span class="line"><span class="keyword">function</span> myIsNaN2(value) &#123;</span><br><span class="line">  <span class="built_in">return</span> typeof value === <span class="string">'number'</span> &amp;&amp; isNaN(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h3><blockquote>
+<p>Infinity：表示无穷，有正负之分，</p>
+</blockquote>
+<p>Infinity 减去或除以Infinity，得到NaN。</p>
+<h3 id="parseInt方法"><a href="#parseInt方法" class="headerlink" title="parseInt方法"></a>parseInt方法</h3><blockquote>
+<p>parseInt 方法可以将字符串或小数转化为整数。如果字符串头部有空格，空格会被自动去除。</p>
+</blockquote>
+<p>如果字符串的第一个字符不能转化为数字（正负号除外），返回NaN。</p>
+<p>parseInt 方法还可以接受第二个参数（2 到36 之间），表示被解析的值的进制。</p>
+<h3 id="parseFloat方法"><a href="#parseFloat方法" class="headerlink" title="parseFloat方法"></a>parseFloat方法</h3><blockquote>
+<p>parseFloat 方法用于将一个字符串转为浮点数。</p>
+</blockquote>
+<p>如果第一个字符不能转化为浮点数，则返回NaN。</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><blockquote>
+<p>对象：指的是一种数据结构，由若干个“键值对”（key-value）构成。键名与键值之间用冒号分隔。</p>
+</blockquote>
+<p>但是如果键名不符合标识名的条件（即包含数字、字母、下划线以外的字符，且第一个字符不是数字），则必须加上引号。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h4 id="对象生成方式"><a href="#对象生成方式" class="headerlink" title="对象生成方式"></a>对象生成方式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var o1 = &#123;&#125;;</span><br><span class="line">var o2 = new Object();</span><br><span class="line">var o3 = Object.create(null);</span><br></pre></td></tr></table></figure>
+<h4 id="读取属性"><a href="#读取属性" class="headerlink" title="读取属性"></a>读取属性</h4><blockquote>
+<p>读取一个属性，有两种方法，一种是使用 <code>点运算符</code>，还有一种是使用 <code>方括号运算符</code>。</p>
+</blockquote>
+<p>请注意，如果使用方括号运算符，键名必须放在引号里面，否则会被当作变量处理。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">  p: <span class="string">"Hello World"</span></span><br><span class="line">&#125;;</span><br><span class="line">o[p]   // undefined</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中的o[p] 的值之所以是undefined，是因为p被当作变量，而这个变量是不存在的，所以等同于读取o[undefined]，也就是读取对象中一个没有定义的键。</p>
+<blockquote>
+<p>读取一个不存在的键，会返回undefined。可以用来检测一个变量是否被声明。</p>
+</blockquote>
+<p>点运算符和方括号运算符，不仅可以用来读取值，还可以用来赋值。</p>
+<blockquote>
+<p>查看一个对象本身的所有属性，可以使用Object.keys 方法。</p>
+</blockquote>
+<h4 id="属性的增加与删除"><a href="#属性的增加与删除" class="headerlink" title="属性的增加与删除"></a>属性的增加与删除</h4><blockquote>
+<p>JavaScript 允许属性的<code>后绑定</code>，也就是说，你可以在任意时刻新增属性。</p>
+</blockquote>
+<p>delete 命令可以删除属性，如果删除成功，返回布尔值true。</p>
+<h4 id="对象的引用"><a href="#对象的引用" class="headerlink" title="对象的引用"></a>对象的引用</h4><p>如果不同的变量名指向同一个对象，那么它们都是这个对象的引用，也就是说指向同一个内存地址。修改其中一个变量，会影响到其他所有变量。</p>
+<h4 id="in运算符"><a href="#in运算符" class="headerlink" title="in运算符"></a>in运算符</h4><blockquote>
+<p>in 运算符用于检查对象是否包含某个属性名，如果包含就返回true。</p>
+</blockquote>
+<p>在JavaScript 语言中，所有变量都是它的上层对象的属性（顶层对象除外），因此可以用in 运算符判断一个变量是否存在。</p>
+<h3 id="类似数组的对象"><a href="#类似数组的对象" class="headerlink" title="类似数组的对象"></a>类似数组的对象</h3><blockquote>
+<p>类数组对象：看上去像数组，有length属性，但无法使用一些数组方法。</p>
+</blockquote>
+<p>类数组对象包括：arguments、大多数DOM元素集。</p>
+<h3 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h3><p>格式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with (object) &#123;</span><br><span class="line">  statement</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里需要注意的是，在with 区块内部依然是全局作用域。 — 不建议使用with语句。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><blockquote>
+<p>数组：是按次序排列的一组值，数组的本质也属于对象。</p>
+</blockquote>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>数组和对象的区别</p>
+<ol>
+<li>对象的每个值都有对应的键名；而数组不需要指定键名，键名默认为0，1，2…；</li>
+<li>对象成员引用可以使用点结构和方括号；数组只能使用方括号；</li>
+</ol>
+<p>检查某个键是否存在的运算符 <code>in</code>，适用于对象，也适用于数组。</p>
+<p>数组遍历：</p>
+<ol>
+<li>使用for in循环</li>
+<li>for循环结合length属性。</li>
+</ol>
+<p>数组的创建：</p>
+<ol>
+<li>方括号创建；</li>
+<li>JavaScript内置Array构造函数创建，new Array()；</li>
+</ol>
+<h3 id="length属性"><a href="#length属性" class="headerlink" title="length属性"></a>length属性</h3><blockquote>
+<p>length属性：表示数组的元素个数。</p>
+</blockquote>
+<p>length的特性：</p>
+<ol>
+<li>添加新元素后，length会自动增长；</li>
+<li>length属性是可写的；length变小，数组的元素会自动减少到length个数；</li>
+<li>清空数组的方法，length属性设为0；</li>
+<li>设置length大于当前元素个数，数组会自动增长到该length值，新增位置填入空元素；</li>
+<li>length为不合法（负数或者大于2的32次方）的值，会报错；</li>
+<li>使用delete删除一个值，只会把当前位置置为undefined，不会影响length属性的值；</li>
+<li>为数组添加属性（非数字属性），不影响length属性的值。</li>
+</ol>
+<h3 id="数组的空位"><a href="#数组的空位" class="headerlink" title="数组的空位"></a>数组的空位</h3><blockquote>
+<p>空位：数组的某个位置是空元素（比如两个逗号之间没有任何值、delete命令删除一个值）。</p>
+</blockquote>
+<p>空位会被计入length属性，值为undefined。</p>
+<p>注意：使用length属性遍历，空位不会被跳过；使用数组的forEach方法或for in结构进行遍历，空位就会被跳过。<br>解决方法：在空位显示的填入undefined。</p>
+<h3 id="数组的操作"><a href="#数组的操作" class="headerlink" title="数组的操作"></a>数组的操作</h3><blockquote>
+<p>push(ele)：添加元素到数组末尾；<br>pop()：删除数组末尾的元素；<br>shift()：删除数组最前面（头部）的元素；<br>unshift(ele)：添加元素到数组的头部；<br>splice(index, n)：通过索引删除元素；<br>slice()：复制一个数组。array.slice()</p>
+</blockquote>
+<h3 id="ES5新增的数组方法"><a href="#ES5新增的数组方法" class="headerlink" title="ES5新增的数组方法"></a>ES5新增的数组方法</h3><p>ES5 在数组原型（Array.prototype）上，新增了9 个方法，其中有7个与函数式（functional）操作有关：map、forEach、filter、every、some、reduce、reduceRight。</p>
+<p>这7个方法可以直接在数组上使用，它们的参数是一个函数。这个作为参数的函数本身又接受三个参数，分别是数组的 <code>当前元素elem</code>、<code>该元素的位置index</code> 和 <code>整个数组arr</code>。</p>
+<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><blockquote>
+<p>map：对所有元素依次调用一个函数，根据函数结果返回一个新函数。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3].map(<span class="keyword">function</span> (ele, index, arr) &#123;</span><br><span class="line">  <span class="built_in">return</span> ele * ele</span><br><span class="line">  // 返回： [1, 4, 9]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><blockquote>
+<p>forEach：对所有元素依次遍历，执行一个函数，它与map的区别在于不返回新数组。</p>
+</blockquote>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><blockquote>
+<p>filter：对所有元素调用一个测试函数，操作结果为true 的元素组成一个新数组返回。</p>
+</blockquote>
+<p>filter 方法接受一个 <code>返回布尔值</code> 的测试函数作为参数。该测试函数的第一个参数是当前数组成员的值。除了这个参数以外，其他参数都是可选的，分别是当前数组成员的位置和整个数组。</p>
+<h4 id="some"><a href="#some" class="headerlink" title="some"></a>some</h4><blockquote>
+<p>some：对所有元素调用一个测试函数，只要有一个元素通过该测试，就返回true，否则返回false。</p>
+</blockquote>
+<h4 id="every"><a href="#every" class="headerlink" title="every"></a>every</h4><blockquote>
+<p>every：对所有元素调用一个测试函数，只有所有元素通过该测试，才返回true，否则返回false。</p>
+</blockquote>
+<h4 id="reduce和reduceRight"><a href="#reduce和reduceRight" class="headerlink" title="reduce和reduceRight"></a>reduce和reduceRight</h4><blockquote>
+<p>reduce：从左向右依次处理数组的每个元素，最终累计为一个值。<br>reduceRight：从右向左依次处理数组的每个元素，最终累计为一个值。</p>
+</blockquote>
+<p>reduce 方法的第一个参数是一个处理函数。该函数接受四个参数，分别是：</p>
+<ol>
+<li>用来累计的变量（即当前状态）– 必须，默认为0；</li>
+<li>数组的当前元素 – 必须；</li>
+<li>当前元素在数组中的序号（从0开始）；</li>
+<li>原素组。</li>
+</ol>
+<p>要对累计变量指定初值，可以把它放在reduce方法的第二个参数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4, 5].reduce(<span class="keyword">function</span>(x, y)&#123;</span><br><span class="line">  <span class="built_in">return</span> x+y;</span><br><span class="line">&#125;, 10);</span><br><span class="line">// 25</span><br></pre></td></tr></table></figure></p>
+<p>例子，找出长度最长的数组元素：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> findLongest(entries) &#123;</span><br><span class="line">  <span class="built_in">return</span> entries.reduce(<span class="keyword">function</span> (longest, entry) &#123;</span><br><span class="line">    <span class="built_in">return</span> entry.length &gt; longest.length ? entry : longest;</span><br><span class="line">  &#125;, <span class="string">''</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="indexOf和lastIndexOf"><a href="#indexOf和lastIndexOf" class="headerlink" title="indexOf和lastIndexOf"></a>indexOf和lastIndexOf</h4><blockquote>
+<p>indexOf：返回给定元素在数组中第一次出现的位置（index），如果没有出现则返回-1。<br>lastIndexOf：返回给定元素在数组中最后一次出现的位置，如果没有出现则返回-1。</p>
+</blockquote>
+<h4 id="方法的链式调用"><a href="#方法的链式调用" class="headerlink" title="方法的链式调用"></a>方法的链式调用</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var users = [&#123;name:<span class="string">"tom"</span>, email:<span class="string">"tom@example.com"</span>&#125;,</span><br><span class="line">             &#123;name:<span class="string">"peter"</span>, email:<span class="string">"peter@example.com"</span>&#125;];</span><br><span class="line">users.map(<span class="keyword">function</span> (user)&#123; <span class="built_in">return</span> user.email; &#125;)</span><br><span class="line">     .filter(<span class="keyword">function</span> (email) &#123; <span class="built_in">return</span> /^t/.<span class="built_in">test</span>(email); &#125;)</span><br><span class="line">     .forEach(alert);</span><br><span class="line">// 弹出tom@example.com</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/26/NodeJs/Nodejs-事件发射器/" rel="next" title="Nodejs_事件发射器">
+                <i class="fa fa-chevron-left"></i> Nodejs_事件发射器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/29/JavaScript/JS-ruanyifeng-2/" rel="prev" title="JS_ruanyifeng_2">
+                JS_ruanyifeng_2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kexinzhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript特点"><span class="nav-number">1.</span> <span class="nav-text">JavaScript特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript的历史"><span class="nav-number">2.</span> <span class="nav-text">JavaScript的历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ECMAScript和JavaScript的关系"><span class="nav-number">2.1.</span> <span class="nav-text">ECMAScript和JavaScript的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法概述"><span class="nav-number">3.</span> <span class="nav-text">语法概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本句法和变量"><span class="nav-number">3.1.</span> <span class="nav-text">基本句法和变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语句"><span class="nav-number">3.1.1.</span> <span class="nav-text">语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量"><span class="nav-number">3.1.2.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量提升"><span class="nav-number">3.1.3.</span> <span class="nav-text">变量提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标识符"><span class="nav-number">3.1.4.</span> <span class="nav-text">标识符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">3.1.5.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区块"><span class="nav-number">3.1.6.</span> <span class="nav-text">区块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件语句"><span class="nav-number">3.1.7.</span> <span class="nav-text">条件语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#if结构"><span class="nav-number">3.1.7.1.</span> <span class="nav-text">if结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#switch结构"><span class="nav-number">3.1.7.2.</span> <span class="nav-text">switch结构</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环语句"><span class="nav-number">3.1.8.</span> <span class="nav-text">循环语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#while循环"><span class="nav-number">3.1.8.1.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#for循环"><span class="nav-number">3.1.8.2.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#do…while循环"><span class="nav-number">3.1.8.3.</span> <span class="nav-text">do…while循环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#break语句和continue语句"><span class="nav-number">3.1.8.4.</span> <span class="nav-text">break语句和continue语句</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">3.2.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原始类型和合成类型"><span class="nav-number">3.2.1.</span> <span class="nav-text">原始类型和合成类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串"><span class="nav-number">3.2.2.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布尔值"><span class="nav-number">3.2.3.</span> <span class="nav-text">布尔值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#typeof运算符"><span class="nav-number">3.2.4.</span> <span class="nav-text">typeof运算符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结尾的分号"><span class="nav-number">3.3.</span> <span class="nav-text">结尾的分号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不适用分号结尾的语句"><span class="nav-number">3.3.1.</span> <span class="nav-text">不适用分号结尾的语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分号的自动添加"><span class="nav-number">3.3.2.</span> <span class="nav-text">分号的自动添加</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值"><span class="nav-number">4.</span> <span class="nav-text">数值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数值的表示法"><span class="nav-number">4.1.</span> <span class="nav-text">数值的表示法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NaN"><span class="nav-number">4.2.</span> <span class="nav-text">NaN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Infinity"><span class="nav-number">4.3.</span> <span class="nav-text">Infinity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parseInt方法"><span class="nav-number">4.4.</span> <span class="nav-text">parseInt方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parseFloat方法"><span class="nav-number">4.5.</span> <span class="nav-text">parseFloat方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">5.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">5.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象生成方式"><span class="nav-number">5.1.1.</span> <span class="nav-text">对象生成方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取属性"><span class="nav-number">5.1.2.</span> <span class="nav-text">读取属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性的增加与删除"><span class="nav-number">5.1.3.</span> <span class="nav-text">属性的增加与删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象的引用"><span class="nav-number">5.1.4.</span> <span class="nav-text">对象的引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#in运算符"><span class="nav-number">5.1.5.</span> <span class="nav-text">in运算符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类似数组的对象"><span class="nav-number">5.2.</span> <span class="nav-text">类似数组的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#with语句"><span class="nav-number">5.3.</span> <span class="nav-text">with语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">6.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#length属性"><span class="nav-number">6.2.</span> <span class="nav-text">length属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的空位"><span class="nav-number">6.3.</span> <span class="nav-text">数组的空位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的操作"><span class="nav-number">6.4.</span> <span class="nav-text">数组的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES5新增的数组方法"><span class="nav-number">6.5.</span> <span class="nav-text">ES5新增的数组方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">6.5.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">6.5.2.</span> <span class="nav-text">forEach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter"><span class="nav-number">6.5.3.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#some"><span class="nav-number">6.5.4.</span> <span class="nav-text">some</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#every"><span class="nav-number">6.5.5.</span> <span class="nav-text">every</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduce和reduceRight"><span class="nav-number">6.5.6.</span> <span class="nav-text">reduce和reduceRight</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf和lastIndexOf"><span class="nav-number">6.5.7.</span> <span class="nav-text">indexOf和lastIndexOf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法的链式调用"><span class="nav-number">6.5.8.</span> <span class="nav-text">方法的链式调用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexinzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

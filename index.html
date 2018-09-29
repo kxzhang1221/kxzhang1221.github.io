@@ -259,6 +259,896 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/29/JavaScript/JS-ruanyifeng-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐎">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/29/JavaScript/JS-ruanyifeng-2/" itemprop="url">JS_ruanyifeng_2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-29T14:29:50+08:00">
+                2018-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScrip/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScrip</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><blockquote>
+<p>编程原则：高类聚，弱偶合；（偶合：重复代码）</p>
+</blockquote>
+<p>函数是另一种类型的变量；</p>
+<p>函数名，变量名：<code>小驼峰</code> 命名规则；</p>
+<h3 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h3><h4 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">  //</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="命名函数表达式"><a href="#命名函数表达式" class="headerlink" title="命名函数表达式"></a>命名函数表达式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">test</span> = <span class="keyword">function</span> <span class="function"><span class="title">abc</span></span>()&#123;</span><br><span class="line">  // </span><br><span class="line">&#125;</span><br><span class="line">// test.name = adc</span><br><span class="line">// 打印abc = undefined</span><br><span class="line">// 打印<span class="built_in">test</span> = <span class="keyword">function</span> <span class="function"><span class="title">abc</span></span>()&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>function abc(){} 是一个表达式，<strong>表达式是没有名字的</strong>；</p>
+<h4 id="匿名函数表达式-—-函数表达式-常用"><a href="#匿名函数表达式-—-函数表达式-常用" class="headerlink" title="匿名函数表达式 — 函数表达式(常用)"></a>匿名函数表达式 — 函数表达式(常用)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var demo = <span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">  // </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实参列表arguments"><a href="#实参列表arguments" class="headerlink" title="实参列表arguments"></a>实参列表arguments</h4><blockquote>
+<p>arguments 属性代表传入函数的实参，它是一个类数组对象。</p>
+</blockquote>
+<p>由于JavaScript 允许函数有不定数目的参数，所以我们需要一种机制，可以在函数体内部读取所有参数。这就是arguments 对象的由来。</p>
+<p>arguments中的值和形参关系：对应的值一个变另一个也变(映射关系)，但不是同一个人<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line">// arguments.length  实参个数</span><br><span class="line">// test.length  形参个数</span><br></pre></td></tr></table></figure></p>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>递归思路：先return，再找出口写在return之前；<br>1、找规律(公式) – return 公式;<br>2、找出口(已知条件)</p>
+<blockquote>
+<p>递归：唯一好处就是代码简洁；</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> factorial(num)&#123;</span><br><span class="line">  <span class="keyword">if</span>(num &lt;= 1)&#123;</span><br><span class="line">	<span class="built_in">return</span> 1;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="built_in">return</span> num * arguments.callee(num - 1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br><span class="line">// 递归中函数名用 arguments.callee() 代替 但是es5.0严格模式下不可用</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var factorial = (<span class="keyword">function</span> f(num)&#123;</span><br><span class="line">  <span class="keyword">if</span>(num &lt;= 1)&#123;</span><br><span class="line">	<span class="built_in">return</span> 1;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="built_in">return</span> num * f(num - 1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)  </span><br><span class="line">// 命名函数表达式，赋给factorial，函数名f依然有效，可以被调用。</span><br><span class="line">// 严格和非严格模式都可以执行</span><br></pre></td></tr></table></figure>
+<h3 id="圆括号运算符和return语句"><a href="#圆括号运算符和return语句" class="headerlink" title="圆括号运算符和return语句"></a>圆括号运算符和return语句</h3><blockquote>
+<p>圆括号运算符：调用函数时，要使用圆括号运算符；圆括号之中可以加入函数的参数。<br>return语句：表示返回；JavaScript引擎遇到return语句，直接返回return后面的表达式的值，不再执行后续的任何语句。</p>
+</blockquote>
+<h3 id="第一等公民"><a href="#第一等公民" class="headerlink" title="第一等公民"></a>第一等公民</h3><blockquote>
+<p>JavaScript的函数与其他数据类型处于同等地位，可以使用其他数据类型的地方就能使用函数。</p>
+</blockquote>
+<p>比如，</p>
+<ul>
+<li>可以把函数赋值给变量和对象的属性；</li>
+<li>把函数当成参数传入其他函数；</li>
+<li>把函数作为函数的结果返回（闭包）。</li>
+</ul>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><blockquote>
+<p>作用域：变量（变量作用域又称上下文）和函数生效（能被访问）的区域；</p>
+</blockquote>
+<p>Javascript 只有两种作用域：</p>
+<ul>
+<li>一种是全局作用域，变量在整个程序中一直存在；</li>
+<li>另一种是函数作用域，变量只在函数内部存在。</li>
+</ul>
+<h3 id="js运行三部曲"><a href="#js运行三部曲" class="headerlink" title="js运行三部曲"></a>js运行三部曲</h3><blockquote>
+<p>三步曲：语法分析 -&gt; 预编译 -&gt; 解释执行</p>
+</blockquote>
+<h4 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h4><blockquote>
+<p>语法分析：通篇扫描一边，看是否有低级错误；</p>
+</blockquote>
+<h4 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h4><blockquote>
+<p>预编译：函数声明整体提升，变量只有声明提升（有赋值的话，赋值不提升）</p>
+</blockquote>
+<ul>
+<li>imply global 暗示全局变量</li>
+</ul>
+<p>任何变量，如果变量未经声明就赋值（没有经过var声明），此变量就为全局对象所有；（全局对象：window）</p>
+<ul>
+<li>一切声明的全局变量，全是window的属性;<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">	var a = b = 123;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>等价于<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">	b = 123;         //GO所有,window所有</span><br><span class="line">	var a = b;		  //AO所有，<span class="built_in">test</span>函数所有</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此时：window.b = 123; window.a = undefined</p>
+<h5 id="函数预编译四部曲"><a href="#函数预编译四部曲" class="headerlink" title="函数预编译四部曲"></a>函数预编译四部曲</h5><blockquote>
+<p>预编译发生在函数执行的前一刻</p>
+</blockquote>
+<ol>
+<li>创建AO对象</li>
+<li>找形参和变量声明，将变量和形参名作为AO属性名，值为undefined</li>
+<li>将实参值和形参统一</li>
+<li>在函数体里面找函数声明，值赋予函数体</li>
+</ol>
+<h5 id="实例解析"><a href="#实例解析" class="headerlink" title="实例解析"></a>实例解析</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//执行前函数</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn</span></span>()&#123;</span><br><span class="line">	console.log(a);</span><br><span class="line">	</span><br><span class="line">	var a = 123;   	//变量声明</span><br><span class="line">	</span><br><span class="line">	console.log(a);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">function</span> <span class="function"><span class="title">a</span></span>()&#123;&#125;   	//函数声明</span><br><span class="line">	</span><br><span class="line">	console.log(a);</span><br><span class="line">	</span><br><span class="line">	var b = <span class="function"><span class="title">function</span></span>()&#123;&#125; </span><br><span class="line">//函数表达式</span><br><span class="line">	</span><br><span class="line">	console.log(b);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">function</span> <span class="function"><span class="title">d</span></span>()&#123;&#125;   	//函数声明</span><br><span class="line">&#125;</span><br><span class="line">fn(1);</span><br></pre></td></tr></table></figure>
+<p>1.创建AO对象(Activation Object) (执行期上下文)<br>AO{<br>}<br>2.找形参和变量声明，将变量和形参名作为AO属性名，值为undefined<br>AO{<br>  a: undefined,<br>  b: undefined,<br>}<br>3.将实参值和形参统一<br>AO{<br>  a: 1,<br>  b: undefined,<br>}<br>4.在函数体里面找函数声明，值赋予函数体<br>AO{<br>  a: function a(){},<br>  b: undefined,<br>  d: function d(){},<br>}<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">//执行时</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn</span></span>()&#123;</span><br><span class="line">	console.log(a);</span><br><span class="line">	// <span class="keyword">function</span> <span class="function"><span class="title">a</span></span>()&#123;&#125;</span><br><span class="line">	var a = 123;</span><br><span class="line">	// 执行时就等于a = 123;</span><br><span class="line">	// 此时</span><br><span class="line">	// AO&#123;</span><br><span class="line">	// 	a: 123,</span><br><span class="line">	// 	b: undefined,</span><br><span class="line">	// 	d: <span class="keyword">function</span> <span class="function"><span class="title">d</span></span>()&#123;&#125;,</span><br><span class="line">	// &#125;</span><br><span class="line">	console.log(a);</span><br><span class="line">	// a = 123</span><br><span class="line">	<span class="keyword">function</span> <span class="function"><span class="title">a</span></span>()&#123;&#125;   //函数声明</span><br><span class="line">	// 执行时不看这一句</span><br><span class="line">	console.log(a);</span><br><span class="line">	// a = 123</span><br><span class="line">	var b = <span class="function"><span class="title">function</span></span>()&#123;&#125;  //函数表达式</span><br><span class="line">	// 相当于b = <span class="function"><span class="title">function</span></span>()&#123;&#125;</span><br><span class="line">	// 此时</span><br><span class="line">	// AO&#123;</span><br><span class="line">	// 	a: 123,</span><br><span class="line">	// 	b: <span class="function"><span class="title">function</span></span>()&#123;&#125;,</span><br><span class="line">	// 	d: <span class="keyword">function</span> <span class="function"><span class="title">d</span></span>()&#123;&#125;,</span><br><span class="line">	// &#125;</span><br><span class="line">	console.log(b);</span><br><span class="line">	// b = <span class="function"><span class="title">function</span></span>()&#123;&#125;</span><br><span class="line">	<span class="keyword">function</span> <span class="function"><span class="title">d</span></span>()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">fn(1);</span><br></pre></td></tr></table></figure></p>
+<h5 id="全局预编译"><a href="#全局预编译" class="headerlink" title="全局预编译"></a>全局预编译</h5><ol>
+<li>创建GO对象(Global Object)  GO === window</li>
+<li>找形参和变量声明，将变量和形参名作为AO属性名，值为undefined</li>
+<li>在函数体里面找函数声明，值赋予函数体</li>
+</ol>
+<p>综合例子：视频10：第5-10分钟<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//执行前</span><br><span class="line">a = 100;</span><br><span class="line"><span class="keyword">function</span> demo(e)&#123;</span><br><span class="line">	<span class="keyword">function</span> <span class="function"><span class="title">e</span></span>()&#123;&#125;</span><br><span class="line"></span><br><span class="line">	arguments[0] = 2;</span><br><span class="line"></span><br><span class="line">	console.log(e);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(a)&#123;</span><br><span class="line">		var b = 123;</span><br><span class="line">		<span class="keyword">function</span> <span class="function"><span class="title">c</span></span>()&#123;</span><br><span class="line">			//猪都能做出来</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	var c;</span><br><span class="line">	a = 10;</span><br><span class="line">	var a;</span><br><span class="line">	console.log(b);</span><br><span class="line">	f = 123;</span><br><span class="line">	console.log(c);</span><br><span class="line">	console.log(a);</span><br><span class="line">&#125;</span><br><span class="line">var a;</span><br><span class="line">demo(1);</span><br><span class="line">console.log(a);</span><br><span class="line">console.log(f);	//执行过程</span><br></pre></td></tr></table></figure></p>
+<p>1.全局预编译<br>GO{<br>  a: undefined,<br>  demo: function (){},<br>}<br>2.全局执行<br>a = 100; 执行<br>GO{<br>  a: 100,<br>  demo: function (){},<br>}<br>3.跳过function demo和var a,执行demo(1),(提升了)进行函数预编译<br>3.1-3.2 创建AO,找形参和变量声明<br>AO{<br>  e: undefined,<br>  b: undefined,<br>  c: undefined,<br>  a: undefined,<br>}<br>3.3-3.4 形参和实参对应,找函数声明并赋予函数体<br>AO{<br>  e: 1 -&gt; function e(){},<br>  b: undefined,<br>  c: undefined,function (){},<br>  a: undefined,<br>}<br>4.执行函数demo<br>AO{<br>  e: 2,<br>  b: undefined,<br>  c: undefined,function (){},<br>  a: 10,<br>}<br>GO{<br>  a: 100,<br>  demo: function (){},<br>  f：123<br>}</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//执行时</span><br><span class="line">a = 100;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">demo</span></span>()&#123;</span><br><span class="line">	arguments[0] = 2;</span><br><span class="line">	console.log(e);  //2</span><br><span class="line">	<span class="keyword">if</span>(a)&#123;</span><br><span class="line">		b = 123;</span><br><span class="line">		// <span class="keyword">function</span> <span class="function"><span class="title">c</span></span>()&#123;</span><br><span class="line">		// 	//猪都能做出来</span><br><span class="line">		// &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	// var c;</span><br><span class="line">	a = 10;</span><br><span class="line">	// var a;</span><br><span class="line">	console.log(b); //undifined</span><br><span class="line">	f = 123;</span><br><span class="line">	console.log(c); //undefined</span><br><span class="line">	console.log(a); //10</span><br><span class="line">&#125;</span><br><span class="line">// var a;</span><br><span class="line">demo(1);</span><br><span class="line">console.log(a);	//100</span><br><span class="line">console.log(f); //123</span><br></pre></td></tr></table></figure>
+<p> </p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><blockquote>
+<p>闭包：但凡是内部的函数被保存到外部，一定形成闭包；</p>
+</blockquote>
+<p>危害：闭包会导致作用域链不释放，造成内存空间泄露。<br>内存泄露：内存被占用，可用的资源就变少了，就相等于内存泄漏；</p>
+<h3 id="闭包的作用"><a href="#闭包的作用" class="headerlink" title="闭包的作用"></a>闭包的作用</h3><p>闭包的作用：</p>
+<ul>
+<li>实现共有变量；</li>
+<li>缓存(存储结构)；</li>
+<li>实现封装函数使变量私有化；</li>
+<li>模块化开发；</li>
+</ul>
+<h4 id="实现公有变量"><a href="#实现公有变量" class="headerlink" title="实现公有变量"></a>实现公有变量</h4><p>例子：函数累加器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">add</span></span>()&#123;</span><br><span class="line">	var count = 0;   //公有变量</span><br><span class="line">	<span class="keyword">function</span> <span class="function"><span class="title">demo</span></span>()&#123;</span><br><span class="line">		count ++;</span><br><span class="line">		console.log(count);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> demo;</span><br><span class="line">&#125;	</span><br><span class="line">var counter = add();	</span><br><span class="line">counter();</span><br><span class="line">counter();  // 调用多少次累加多少次</span><br></pre></td></tr></table></figure></p>
+<h4 id="可以做缓存（存储结构）"><a href="#可以做缓存（存储结构）" class="headerlink" title="可以做缓存（存储结构）"></a>可以做缓存（存储结构）</h4><p>例子：eater<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">erter</span></span>()&#123;</span><br><span class="line">	var food = <span class="string">""</span>;        //food 隐式的缓存</span><br><span class="line">	var obj = &#123;</span><br><span class="line">		eat: <span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">			console.log(<span class="string">"i am eating"</span> + food);</span><br><span class="line">			food = <span class="string">""</span>;</span><br><span class="line">		&#125;,</span><br><span class="line">		push: <span class="keyword">function</span> (myFood)&#123;</span><br><span class="line">			food = myFood;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">var eater1 = eater();</span><br><span class="line">eater1.push(<span class="string">'banana'</span>);</span><br><span class="line">eater1.eat();</span><br></pre></td></tr></table></figure></p>
+<h4 id="可以实现封装，属性私有化"><a href="#可以实现封装，属性私有化" class="headerlink" title="可以实现封装，属性私有化"></a>可以实现封装，属性私有化</h4><p>例如：Person<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Deng(name, wife)&#123;</span><br><span class="line">	var perparWife = <span class="string">"xiaozhang"</span>;</span><br><span class="line"></span><br><span class="line">	this.name = name;</span><br><span class="line">	this.wife = wife;</span><br><span class="line">	this.divorce = <span class="keyword">function</span> (target) &#123;</span><br><span class="line">		perparWife = target;</span><br><span class="line">	&#125;</span><br><span class="line">	this.sayPerparWife = <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">		console.log(perparWife);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">var deng = new Deng(<span class="string">'deng'</span>, <span class="string">'xiaoliu'</span>);</span><br><span class="line">//其中，perparWife只有deng这个对象可以访问，让其变成deng的私有化属性；</span><br><span class="line">//通过new形成闭包，使得内部三个函数可以使用perparWife这个变量</span><br></pre></td></tr></table></figure></p>
+<h4 id="模块化开发，防止污染全局变量"><a href="#模块化开发，防止污染全局变量" class="headerlink" title="模块化开发，防止污染全局变量"></a>模块化开发，防止污染全局变量</h4><p>详细见命名空间部分</p>
+<h3 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a>立即执行函数</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><blockquote>
+<p>立即执行函数：只被执行一次的函数 – 初始化功能的函数；<br>立即执行函数：读到就立即执行，执行完立即消除函数；除了多一个执行完就消除函数，其他与普通函数完全相同（有执行期上下文）。</p>
+</blockquote>
+<h4 id="形式"><a href="#形式" class="headerlink" title="形式"></a>形式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span> (形参列表)&#123;</span><br><span class="line">	//代码部分</span><br><span class="line">	<span class="built_in">return</span> ;  //可以有返回函数</span><br><span class="line">&#125;(实参列表))</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="title">function</span></span> ()&#123;&#125;())  //w3c推荐</span><br><span class="line">(<span class="function"><span class="title">function</span></span> ()&#123;&#125;)()</span><br></pre></td></tr></table></figure>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">	console.log(<span class="string">'a'</span>);</span><br><span class="line">&#125;(); //函数声明，报错</span><br><span class="line"></span><br><span class="line">+ <span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">	console.log(<span class="string">'a'</span>);</span><br><span class="line">&#125;(); //正确运行   + /- /! 将函数声明变成表达式</span><br><span class="line"></span><br><span class="line">var <span class="built_in">test</span> = <span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">	console.log(<span class="string">'a'</span>);</span><br><span class="line">&#125;(); //正确运行</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">	console.log(<span class="string">'a'</span>);</span><br><span class="line">&#125;())          最外层()将函数声明变为表达式，然后内层的()执行函数</span><br><span class="line"><span class="keyword">function</span> <span class="built_in">test</span>(a, b, c)&#123;</span><br><span class="line">	console.log(<span class="string">'a'</span>);</span><br><span class="line">&#125;(1, 2, 3);   //不报错，但是也不执行</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="built_in">test</span>(a, b, c)&#123;</span><br><span class="line">	console.log(<span class="string">'a'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(1, 2, 3);</span><br></pre></td></tr></table></figure>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><blockquote>
+<p>只有表达式才能被执行符号（“()”）执行；</p>
+</blockquote>
+<p>被执行符号执行的表达式，它就会自动放弃函数（表达式）的名称，基本上就成了立即执行函数；</p>
+<h3 id="闭包例子"><a href="#闭包例子" class="headerlink" title="闭包例子"></a>闭包例子</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">	var arr = [];</span><br><span class="line">	<span class="keyword">for</span>(var i = 0, i &lt; 10; i ++)&#123;</span><br><span class="line">		arr[i] = <span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">			document.write(i + <span class="string">" "</span>); //<span class="built_in">test</span>函数执行时，此句不执行</span><br><span class="line">//此时，系统只执行arr[i] = 函数，该函数只是一个表达式，并没有调用函数执行，即函数定义的时候不看函数内部的东西</span><br><span class="line">		&#125;&#125;</span><br><span class="line">	<span class="built_in">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line">var myArr = <span class="built_in">test</span>(); //<span class="built_in">test</span>函数执行完成后，才开始执行下面的<span class="keyword">for</span>循环</span><br><span class="line"><span class="keyword">for</span>(var j = 0; j &lt; 10; j ++)&#123;</span><br><span class="line">	myArr[j]();</span><br><span class="line">&#125; // 输出10，10，10，10，10，10，10，10，10，10    十对一的闭包</span><br></pre></td></tr></table></figure>
+<h3 id="闭包的避免"><a href="#闭包的避免" class="headerlink" title="闭包的避免"></a>闭包的避免</h3><blockquote>
+<p>闭包问题解决闭包；</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">	var arr = [];</span><br><span class="line">	<span class="keyword">for</span>(var i = 0, i &lt; 10; i ++)&#123;</span><br><span class="line">		(<span class="keyword">function</span>(j)&#123;  //立即执行函数读到就执行</span><br><span class="line">			arr[j] = <span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">				document.write(j + <span class="string">" "</span>); //<span class="built_in">test</span>执行，此句还是不执行</span><br><span class="line">//每一个立即执行函数的j不改变，一共生成十个不同的立即执行函数，不同//的立即执行函数中间的j都不相同，变为十对十的关系</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;(i))	&#125;</span><br><span class="line">	<span class="built_in">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line">var myArr = <span class="built_in">test</span>();</span><br><span class="line"><span class="keyword">for</span>(var j = 0; j &lt; 10; j ++)&#123;</span><br><span class="line">	myArr[j]();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="闭包精讲"><a href="#闭包精讲" class="headerlink" title="闭包精讲"></a>闭包精讲</h3><p>一个函数能产生一个作用域，并且作用域是函数的[[scope]]属性，在函数中访问变量都会上[[scope]]中去寻找，[[scope]]中存储中这个函数能够访问的所有的数据和变量。</p>
+<blockquote>
+<p>AO预编译产生的对象，每次执行产生独一无二的AO。</p>
+</blockquote>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><h3 id="对象形式"><a href="#对象形式" class="headerlink" title="对象形式"></a>对象形式</h3><p>var obj = {<br>  // 属性: 属性值;<br>  // 方法: 函数;<br>}</p>
+<h3 id="对象的增删改查"><a href="#对象的增删改查" class="headerlink" title="对象的增删改查"></a>对象的增删改查</h3><p>访问对象没有的属性的话，会返回undefined，但是不会报错；</p>
+<h3 id="对象的创建方法"><a href="#对象的创建方法" class="headerlink" title="对象的创建方法"></a>对象的创建方法</h3><ol>
+<li>对象直接量；</li>
+<li>构造函数方法；</li>
+<li>Object.create()；</li>
+</ol>
+<h4 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h4><p>var obj = {}  //对象字面量/对象直接量</p>
+<h4 id="构造函数方法"><a href="#构造函数方法" class="headerlink" title="构造函数方法"></a>构造函数方法</h4><p>系统自带的构造函数 – Object() 工厂创建方法<br>var obj = new Object();       Array()       Number()</p>
+<p>构造函数和函数没区别，只是命名采用大驼峰式命名规则，首字母大写；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Car</span></span>()&#123;</span><br><span class="line">	this.name = <span class="string">"BMW"</span>,</span><br><span class="line">	this.height = <span class="string">"1400"</span>,</span><br><span class="line">	this.lang = <span class="string">"4900"</span>,</span><br><span class="line">	this.health = 100,</span><br><span class="line">	this.run = <span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">		this.health --;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">var car = new Car();</span><br><span class="line">var car1 = new Car();</span><br></pre></td></tr></table></figure></p>
+<h4 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var demo = &#123;</span><br><span class="line">  lastName: <span class="string">"deng"</span>,</span><br><span class="line">&#125;</span><br><span class="line">var obj = Object.create(demo);</span><br><span class="line">// obj的原型是demo</span><br><span class="line">obj = &#123;</span><br><span class="line">	__proto__: demo,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过var操作生成的全局属性，属于window，这种属性叫做不可配置属性，不可配置属性用delete删除不掉，delete只能删除可配置的属性(没有通过var生成的全局属性)</p>
+<h3 id="构造函数内部原理"><a href="#构造函数内部原理" class="headerlink" title="构造函数内部原理"></a>构造函数内部原理</h3><p>有 new 的情况下：发生以下三步</p>
+<ol>
+<li>在函数体的最前面隐式的加上this = {}</li>
+<li>执行this.xxx= xxx;</li>
+<li>隐式的返回this对象</li>
+</ol>
+<p>有new不能返回原始值，只能返回对象，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Student(name, age, sex)&#123;</span><br><span class="line">  //var this = &#123;&#125;</span><br><span class="line">  this.name = name,</span><br><span class="line">  //<span class="built_in">return</span> this;</span><br><span class="line">&#125;</span><br><span class="line">var student = new Student(<span class="string">'zhangsan'</span>, 18, <span class="string">'male'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h3><h4 id="值类型-数据类型"><a href="#值类型-数据类型" class="headerlink" title="值类型(数据类型)"></a>值类型(数据类型)</h4><table>
+<thead>
+<tr>
+<th>值</th>
+<th>包含</th>
+<th>有无属性和方法</th>
+<th>存放位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原始值</td>
+<td>number, string, boolean</td>
+<td>无</td>
+<td>栈内存</td>
+</tr>
+<tr>
+<td>引用值</td>
+<td>object, array, function</td>
+<td>有</td>
+<td>堆内存</td>
+</tr>
+</tbody>
+</table>
+<h4 id="包装类-1"><a href="#包装类-1" class="headerlink" title="包装类"></a>包装类</h4><blockquote>
+<p>原始值不能有属性和方法；原始值通过包装类之后变得有属性和方法；</p>
+</blockquote>
+<p>系统内部调用 <code>new String/Number/Boolean</code> 将原始值变成对象，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var num = new Number(123);</span><br><span class="line">var str = new String(<span class="string">'abcd'</span>);</span><br><span class="line">var bol = new Boolean(<span class="string">'true'</span>);</span><br><span class="line">// undefined null 不能有属性和方法</span><br><span class="line">var num = 4;</span><br><span class="line">num.len = 3;</span><br><span class="line">//new Number(4).len = 3;</span><br><span class="line">//然后delete num对象</span><br><span class="line"></span><br><span class="line">console.log(num.len)</span><br><span class="line">//再一次new Number(4).len ，不同的num对象</span><br><span class="line">原始值添加属性会调用包装类，但是没什么用；</span><br></pre></td></tr></table></figure></p>
+<h3 id="查看属性"><a href="#查看属性" class="headerlink" title="查看属性"></a>查看属性</h3><p>点访问和方括号访问</p>
+<ol>
+<li>obj.prop</li>
+<li>obj[“prop”]</li>
+</ol>
+<p>obj.prop —–&gt; obj[‘prop’]  //系统内部转换</p>
+<h3 id="对象的枚举"><a href="#对象的枚举" class="headerlink" title="对象的枚举"></a>对象的枚举</h3><blockquote>
+<p>数组的遍历/枚举——for循环；<br>对象的遍历/枚举——for in 循环。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(var prop <span class="keyword">in</span> obj)&#123;</span><br><span class="line">	console.log(prop + <span class="string">" "</span> + typeof(prop));</span><br><span class="line">    console.log(obj.prop);  //打印属性值 全是undefined  prop被当成属性</span><br><span class="line">	console.log(obj[prop]);</span><br><span class="line">&#125;   //obj 遍历的对象</span><br><span class="line">//obj.prop --&gt; obj [<span class="string">'prop'</span>] </span><br><span class="line">console.log(obj[prop])             // prop是变量，中间存放的是字符串</span><br></pre></td></tr></table></figure>
+<h3 id="属性判定"><a href="#属性判定" class="headerlink" title="属性判定"></a>属性判定</h3><p>hasOwnProperty;   in;    instanceof</p>
+<h4 id="hasOwnProperty-NaN"><a href="#hasOwnProperty-NaN" class="headerlink" title="hasOwnProperty"></a>hasOwnProperty</h4><blockquote>
+<p>hasOwnProperty()函数：用于指示一个对象自身(不包括原型链)是否具有指定名称的属性。如果有，返回true，否则返回false。<br>object.hasOwnProperty(propertyName)</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">	name：<span class="string">'12'</span>,</span><br><span class="line">	age: 123,</span><br><span class="line">	sex: <span class="string">'male'</span>,</span><br><span class="line">	weight: 60,</span><br><span class="line">	__proto__: &#123;</span><br><span class="line">		lastName: <span class="string">'deng'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(var prop <span class="keyword">in</span> obj)&#123;</span><br><span class="line">	<span class="keyword">if</span>(obj.hasOwnProperty(prop))&#123;</span><br><span class="line">		console.log(obj[prop]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="in"><a href="#in" class="headerlink" title="in"></a>in</h4><blockquote>
+<p>语法：’属性’  in  对象</p>
+</blockquote>
+<p>in操作符用来判断某个属性属于某个对象，可以是对象的直接属性，也可以是通过prototype继承的属性; </p>
+<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><blockquote>
+<p>语法：object instanceof constructor</p>
+</blockquote>
+<p>instanceof 运算符用来检测 constructor.prototype 是否存在于参数 object 的原型链上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">//看A对象的原型链上有没有B的原型</span><br><span class="line">//A instanceof B</span><br></pre></td></tr></table></figure>
+<p> </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/JavaScript/JS-ruanyifeng/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐎">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/28/JavaScript/JS-ruanyifeng/" itemprop="url">JS_ruanyifeng</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-28T14:14:28+08:00">
+                2018-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="JavaScript特点"><a href="#JavaScript特点" class="headerlink" title="JavaScript特点"></a>JavaScript特点</h2><ul>
+<li>操控浏览器的能力：唯一一种通用的浏览器的内置脚本语言；</li>
+<li>广泛的使用领域：JavaScript正在向通用的系统语言发展，HTML5、Node.js、NoSQL等；</li>
+<li>易学性：学习环境无处不在（浏览器）、简单性、与主流语言的相似性；</li>
+<li>强大的性能：灵活的语法，表达力强、支持编译运行、事件驱动和非阻塞式设计；</li>
+<li>开放性：统一的国际标准；</li>
+<li>社区支持：极大的社区、丰富的资源。</li>
+</ul>
+<h2 id="JavaScript的历史"><a href="#JavaScript的历史" class="headerlink" title="JavaScript的历史"></a>JavaScript的历史</h2><p>1992年底，人类历史上第一台浏览器：Mosaic（美国国家超级电脑应用中心 NCSA开发）；</p>
+<p>1995年12月，Netscaoe公司与Sun公司一起发布了JavaScript；</p>
+<p>1997年7月，ECMA组织规定浏览器脚本语言的标准，并将这种语言成为ECMAScript；</p>
+<h3 id="ECMAScript和JavaScript的关系"><a href="#ECMAScript和JavaScript的关系" class="headerlink" title="ECMAScript和JavaScript的关系"></a>ECMAScript和JavaScript的关系</h3><ul>
+<li>ECMAScript式JavaScript的规范；</li>
+<li>JavaScript是ECMAScript的一种实现。</li>
+</ul>
+<h2 id="语法概述"><a href="#语法概述" class="headerlink" title="语法概述"></a>语法概述</h2><h3 id="基本句法和变量"><a href="#基本句法和变量" class="headerlink" title="基本句法和变量"></a>基本句法和变量</h3><h4 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h4><p>JavaScript程序的执行单位为 <code>行（line）</code>，每行叫做一个语句。</p>
+<blockquote>
+<p>语句：是为了完成某种任务而进行的操作。</p>
+</blockquote>
+<p>语句以分号结尾，多条语句可以写在一个行内。</p>
+<blockquote>
+<p>表达式：一个为了得到返回值的计算式。</p>
+</blockquote>
+<p>语句主要为了进行某种操作；表达式则是为了得到返回值。</p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><blockquote>
+<p>变量：是对值得引用。</p>
+</blockquote>
+<p>使用变量等于引用一个值，每一个变量都有一个变量名。</p>
+<p>变量声明使用关键字 <code>var</code>，且var声明的变量不能用detele命令删除。</p>
+<blockquote>
+<p>单一var原则：用一个var声明多个变量；</p>
+</blockquote>
+<p>JavaScript是一种动态类型语言，即变量的类型没有限制，可以赋予各种类型的值。</p>
+<h4 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h4><blockquote>
+<p>JavaScript引擎的工作方式是：先解析代码，获取所有被声明的变量，然后再一行一行地运行。</p>
+</blockquote>
+<p>变量提升：所有的变量的声明语言都会被提升到代码的头部。</p>
+<h4 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h4><blockquote>
+<p>标识符：用来识别具体对象的一个名称（严格区分大小写）。</p>
+</blockquote>
+<p>标识符命名规则：</p>
+<ol>
+<li>第一个字符可以是任意的Unicode字母，以及美元符号（$）和下划线（_）；</li>
+<li>第二个字符和后面的字符，再第一点基础上还可以用数字；</li>
+<li>中文是合法的标识符，可以用作变量名。</li>
+</ol>
+<p>JavaScript保留字：<br>arguments、break、case、catch、class、const、continue、debugger、default、delete、do、else、enum、eval、export、extends、false、finally、for、function、if、implements、import、in、instanceof、interface、let、new、null、package、private、protected、public、return、static、super、switch、this、throw、true、try、typeof、var、void、while、with、yield。</p>
+<p>还有三个词，不是保留字：Infinity、NaN、undefined。</p>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><blockquote>
+<p>注释：源码中被JavaScript引擎忽略的部分，作用是对代码进行解释。</p>
+</blockquote>
+<p>JavaScript提供两种注释：</p>
+<ol>
+<li>单行注释：用 <code>//</code> 起头；</li>
+<li>多行注释：放在 <code>/*</code> 和 <code>*/</code> 之间。</li>
+</ol>
+<h4 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h4><blockquote>
+<p>区块：JavaScript使用大括号，将相关的语句组合在一起。</p>
+</blockquote>
+<p>JavaScript的区块不构成单独的作用域。即区块中的变量就是全局变量。</p>
+<h4 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h4><h5 id="if结构"><a href="#if结构" class="headerlink" title="if结构"></a>if结构</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>/<span class="literal">false</span>) &#123;</span><br><span class="line">  // <span class="keyword">then</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="literal">true</span>/<span class="literal">false</span>) &#123;</span><br><span class="line">  // <span class="keyword">then</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  // <span class="keyword">then</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="switch结构"><a href="#switch结构" class="headerlink" title="switch结构"></a>switch结构</h5><p>switch结构：适用于判断条件存在较多情况的时候。每种case代码块内部的break语句不能少。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">switch (fruit) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"banana"</span>:</span><br><span class="line">    // ...</span><br><span class="line">    <span class="built_in">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">"apple"</span>:</span><br><span class="line">    // ...</span><br><span class="line">    <span class="built_in">break</span>;</span><br><span class="line">  default:</span><br><span class="line">    // ...前面的结果都不符合，执行该部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h4><h5 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h5><p>while语句包括一个循环条件，只要该条件为真，就不断循环。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (condition) &#123;</span><br><span class="line">  // some code here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h5><p>for语句分为三步：</p>
+<ol>
+<li>确定初始值；</li>
+<li>检查循环条件，只要为真就进行后续操作；</li>
+<li>后续操作完成，返回上一步，检查循环条件。</li>
+</ol>
+<p>格式如下：<br>for (初值; 循环条件; 下一步)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (var i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  console.log(arr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所有for循环，都可以改写成while循环<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var i = 0;</span><br><span class="line"><span class="keyword">while</span> (i &lt; arr.length) &#123;</span><br><span class="line">  console.log(arr[i]);</span><br><span class="line">  i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="do…while循环"><a href="#do…while循环" class="headerlink" title="do…while循环"></a>do…while循环</h5><p>do…while 循环与while 循环类似，唯一的区别就是先运行一次循环体，然后判断循环条件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125; <span class="keyword">while</span>(condition);</span><br></pre></td></tr></table></figure>
+<h5 id="break语句和continue语句"><a href="#break语句和continue语句" class="headerlink" title="break语句和continue语句"></a>break语句和continue语句</h5><blockquote>
+<p>break语句：用于再循环体中跳出循环；</p>
+</blockquote>
+<blockquote>
+<p>continue语句：用于不在进行本次循环的后续操作，直接进入下一次循环。</p>
+</blockquote>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><h4 id="原始类型和合成类型"><a href="#原始类型和合成类型" class="headerlink" title="原始类型和合成类型"></a>原始类型和合成类型</h4><blockquote>
+<p>JavaScript的值的类型分为两大类：原始类型和引用类型；</p>
+</blockquote>
+<p>原始类型：数值（number）、字符串（string）、布尔值（boolean）<br>引用类型：对象（object）、数组（array）、函数（function）</p>
+<p>对象和数组是两种不同的数据组合方式，函数其实是处理数据的方法。</p>
+<p>JavaScript还定义了一个特殊的数据类型 <code>undefined</code> 和一个特殊的值 <code>null</code>；</p>
+<ul>
+<li>undefined：表示未定义，即还没有确定的数据类型；（变量声明但没被赋值，则它默认为undefined）</li>
+<li>null：表示一个空对象，不是一种单独的数据类型，而是包含在对象类型中的一个特殊值。</li>
+</ul>
+<blockquote>
+<p>JavaScript的所有数据，都可以视为对象。</p>
+</blockquote>
+<p>数据类型分类：</p>
+<ul>
+<li>值类型（基本类型）：<code>数值（number）</code>、<code>字符串（string）</code>、<code>布尔值（boolean）</code>、<code>对空（null）</code>、<code>未定义（undefined）</code>、Symbol（ES6新增）；</li>
+<li>引用数据类型：<code>对象（object）</code>、数组（array）、函数（function）</li>
+</ul>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><blockquote>
+<p>字符串：若干个排在一起的字符，放在单引号或双引号之中。</p>
+</blockquote>
+<p>单引号、双引号交替使用，不然就只能用转移符 <code>\</code> 进行转义。</p>
+<p>如果一个字符串变量需要写成多行，可以在每行的结尾加上反斜杠 <code>\</code>。</p>
+<blockquote>
+<p>JavaScript内部将字符串是为字符串组成的数组，方括号运算符遵循数据运算规则。</p>
+</blockquote>
+<h4 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h4><blockquote>
+<p>布尔值：包含true和false两个值。</p>
+</blockquote>
+<p>返回布尔值的运算符：</p>
+<ul>
+<li>两元逻辑运算符：&amp;&amp;(and)、||(or)</li>
+<li>前置逻辑运算符：!(not)</li>
+<li>相等运算符：===、!==、==、!=</li>
+<li>比较运算符：&gt;、&gt;=、&lt;、&lt;=</li>
+</ul>
+<p>JavaScript预期某个位置应该是布尔值，则会将该位置上现有的值自动转为布尔值。</p>
+<p>转换规则：</p>
+<ul>
+<li>转为false：undefined、null、false、0、””、NaN</li>
+<li>其他都转为 true</li>
+</ul>
+<p>特别注意：空数组、空对象对应的布尔值，都是true</p>
+<h4 id="typeof运算符"><a href="#typeof运算符" class="headerlink" title="typeof运算符"></a>typeof运算符</h4><blockquote>
+<p>typeof运算符：可以返回一个值的数据类型。</p>
+</blockquote>
+<p>typeof运算符的运算结果：</p>
+<ol>
+<li>数值、字符串、布尔值分别返回number、string、boolean。</li>
+<li>函数返回function</li>
+<li>undefined返回undefined（可以用typeof检查一个没有声明的变量，不报错）</li>
+<li>其他的都返回object</li>
+</ol>
+<h3 id="结尾的分号"><a href="#结尾的分号" class="headerlink" title="结尾的分号"></a>结尾的分号</h3><h4 id="不适用分号结尾的语句"><a href="#不适用分号结尾的语句" class="headerlink" title="不适用分号结尾的语句"></a>不适用分号结尾的语句</h4><ol>
+<li>for和while循环</li>
+<li>分支语句：if、switch、try</li>
+<li>函数的声明语句</li>
+</ol>
+<p>以上三种情况，如果使用了分号，并不会报错。解释引擎会把这个分号解释为空语句。</p>
+<h4 id="分号的自动添加"><a href="#分号的自动添加" class="headerlink" title="分号的自动添加"></a>分号的自动添加</h4><p>JavaScript引擎会在该写分号却没写的情况下，自动添加分号。</p>
+<p>一般来说，在没有分号结尾的情况下，如果下一行起首的是 <code>(</code>、<code>[</code> 、<code>+</code>、<code>-</code>、<code>/</code>这五个字符中的一个，分号不会被自动添加。只有下一行的开始与本行的结尾，无法放在一起解释，JavaScript 引擎才会自动添加分号；</p>
+<p>另外，如果一行的起首是“自增”（++）或“自减”（–）运算符，则它们的前面会自动添加分号；</p>
+<p>如果continue、break、return 和throw 这四个语句后面，直接跟换行符，则会自动添加分号。</p>
+<h2 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h2><p>JavaScript 内部，所有数字都是以 <code>64</code> 位浮点数形式储存，即使整数也是如此。由于浮点数不是精确的值，所以涉及小数的比较和运算要特别小心。</p>
+<h3 id="数值的表示法"><a href="#数值的表示法" class="headerlink" title="数值的表示法"></a>数值的表示法</h3><blockquote>
+<p>数值的表示法：字面形式、科学计数法。</p>
+</blockquote>
+<p>以下两种情况自动将数值转为科学计数法：</p>
+<ol>
+<li>小数点前的数字多于21位；</li>
+<li>小数点后的0多于5个。</li>
+</ol>
+<p>除去以上两种，其他的都采用字面形式直接表示。</p>
+<h3 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h3><blockquote>
+<p>NaN：表示非数字（not a number），主要出现在将字符串解析成数字出错的场合。</p>
+</blockquote>
+<p>NaN不是一种独立的数据类型，而是一种特殊数值，它的数据类型依然属于Number。</p>
+<p>NaN不等于任何值，包括它自身。NaN在布尔运算时被当作false。</p>
+<blockquote>
+<p>isNaN：该方法可以用来判断一个值是否为NaN。</p>
+</blockquote>
+<p>但是isNaN只对数值有效，传入其他值都会先被转为数值。</p>
+<p>判断NaN更可靠的方法（原理NaN是JavaScript中唯一不等于自身）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> myIsNaN(value) &#123;</span><br><span class="line">  <span class="built_in">return</span> value !== value;</span><br><span class="line">&#125;</span><br><span class="line">// or</span><br><span class="line"><span class="keyword">function</span> myIsNaN2(value) &#123;</span><br><span class="line">  <span class="built_in">return</span> typeof value === <span class="string">'number'</span> &amp;&amp; isNaN(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h3><blockquote>
+<p>Infinity：表示无穷，有正负之分，</p>
+</blockquote>
+<p>Infinity 减去或除以Infinity，得到NaN。</p>
+<h3 id="parseInt方法"><a href="#parseInt方法" class="headerlink" title="parseInt方法"></a>parseInt方法</h3><blockquote>
+<p>parseInt 方法可以将字符串或小数转化为整数。如果字符串头部有空格，空格会被自动去除。</p>
+</blockquote>
+<p>如果字符串的第一个字符不能转化为数字（正负号除外），返回NaN。</p>
+<p>parseInt 方法还可以接受第二个参数（2 到36 之间），表示被解析的值的进制。</p>
+<h3 id="parseFloat方法"><a href="#parseFloat方法" class="headerlink" title="parseFloat方法"></a>parseFloat方法</h3><blockquote>
+<p>parseFloat 方法用于将一个字符串转为浮点数。</p>
+</blockquote>
+<p>如果第一个字符不能转化为浮点数，则返回NaN。</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><blockquote>
+<p>对象：指的是一种数据结构，由若干个“键值对”（key-value）构成。键名与键值之间用冒号分隔。</p>
+</blockquote>
+<p>但是如果键名不符合标识名的条件（即包含数字、字母、下划线以外的字符，且第一个字符不是数字），则必须加上引号。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h4 id="对象生成方式"><a href="#对象生成方式" class="headerlink" title="对象生成方式"></a>对象生成方式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var o1 = &#123;&#125;;</span><br><span class="line">var o2 = new Object();</span><br><span class="line">var o3 = Object.create(null);</span><br></pre></td></tr></table></figure>
+<h4 id="读取属性"><a href="#读取属性" class="headerlink" title="读取属性"></a>读取属性</h4><blockquote>
+<p>读取一个属性，有两种方法，一种是使用 <code>点运算符</code>，还有一种是使用 <code>方括号运算符</code>。</p>
+</blockquote>
+<p>请注意，如果使用方括号运算符，键名必须放在引号里面，否则会被当作变量处理。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">  p: <span class="string">"Hello World"</span></span><br><span class="line">&#125;;</span><br><span class="line">o[p]   // undefined</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中的o[p] 的值之所以是undefined，是因为p被当作变量，而这个变量是不存在的，所以等同于读取o[undefined]，也就是读取对象中一个没有定义的键。</p>
+<blockquote>
+<p>读取一个不存在的键，会返回undefined。可以用来检测一个变量是否被声明。</p>
+</blockquote>
+<p>点运算符和方括号运算符，不仅可以用来读取值，还可以用来赋值。</p>
+<blockquote>
+<p>查看一个对象本身的所有属性，可以使用Object.keys 方法。</p>
+</blockquote>
+<h4 id="属性的增加与删除"><a href="#属性的增加与删除" class="headerlink" title="属性的增加与删除"></a>属性的增加与删除</h4><blockquote>
+<p>JavaScript 允许属性的<code>后绑定</code>，也就是说，你可以在任意时刻新增属性。</p>
+</blockquote>
+<p>delete 命令可以删除属性，如果删除成功，返回布尔值true。</p>
+<h4 id="对象的引用"><a href="#对象的引用" class="headerlink" title="对象的引用"></a>对象的引用</h4><p>如果不同的变量名指向同一个对象，那么它们都是这个对象的引用，也就是说指向同一个内存地址。修改其中一个变量，会影响到其他所有变量。</p>
+<h4 id="in运算符"><a href="#in运算符" class="headerlink" title="in运算符"></a>in运算符</h4><blockquote>
+<p>in 运算符用于检查对象是否包含某个属性名，如果包含就返回true。</p>
+</blockquote>
+<p>在JavaScript 语言中，所有变量都是它的上层对象的属性（顶层对象除外），因此可以用in 运算符判断一个变量是否存在。</p>
+<h3 id="类似数组的对象"><a href="#类似数组的对象" class="headerlink" title="类似数组的对象"></a>类似数组的对象</h3><blockquote>
+<p>类数组对象：看上去像数组，有length属性，但无法使用一些数组方法。</p>
+</blockquote>
+<p>类数组对象包括：arguments、大多数DOM元素集。</p>
+<h3 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h3><p>格式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with (object) &#123;</span><br><span class="line">  statement</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里需要注意的是，在with 区块内部依然是全局作用域。 — 不建议使用with语句。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><blockquote>
+<p>数组：是按次序排列的一组值，数组的本质也属于对象。</p>
+</blockquote>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>数组和对象的区别</p>
+<ol>
+<li>对象的每个值都有对应的键名；而数组不需要指定键名，键名默认为0，1，2…；</li>
+<li>对象成员引用可以使用点结构和方括号；数组只能使用方括号；</li>
+</ol>
+<p>检查某个键是否存在的运算符 <code>in</code>，适用于对象，也适用于数组。</p>
+<p>数组遍历：</p>
+<ol>
+<li>使用for in循环</li>
+<li>for循环结合length属性。</li>
+</ol>
+<p>数组的创建：</p>
+<ol>
+<li>方括号创建；</li>
+<li>JavaScript内置Array构造函数创建，new Array()；</li>
+</ol>
+<h3 id="length属性"><a href="#length属性" class="headerlink" title="length属性"></a>length属性</h3><blockquote>
+<p>length属性：表示数组的元素个数。</p>
+</blockquote>
+<p>length的特性：</p>
+<ol>
+<li>添加新元素后，length会自动增长；</li>
+<li>length属性是可写的；length变小，数组的元素会自动减少到length个数；</li>
+<li>清空数组的方法，length属性设为0；</li>
+<li>设置length大于当前元素个数，数组会自动增长到该length值，新增位置填入空元素；</li>
+<li>length为不合法（负数或者大于2的32次方）的值，会报错；</li>
+<li>使用delete删除一个值，只会把当前位置置为undefined，不会影响length属性的值；</li>
+<li>为数组添加属性（非数字属性），不影响length属性的值。</li>
+</ol>
+<h3 id="数组的空位"><a href="#数组的空位" class="headerlink" title="数组的空位"></a>数组的空位</h3><blockquote>
+<p>空位：数组的某个位置是空元素（比如两个逗号之间没有任何值、delete命令删除一个值）。</p>
+</blockquote>
+<p>空位会被计入length属性，值为undefined。</p>
+<p>注意：使用length属性遍历，空位不会被跳过；使用数组的forEach方法或for in结构进行遍历，空位就会被跳过。<br>解决方法：在空位显示的填入undefined。</p>
+<h3 id="数组的操作"><a href="#数组的操作" class="headerlink" title="数组的操作"></a>数组的操作</h3><blockquote>
+<p>push(ele)：添加元素到数组末尾；<br>pop()：删除数组末尾的元素；<br>shift()：删除数组最前面（头部）的元素；<br>unshift(ele)：添加元素到数组的头部；<br>splice(index, n)：通过索引删除元素；<br>slice()：复制一个数组。array.slice()</p>
+</blockquote>
+<h3 id="ES5新增的数组方法"><a href="#ES5新增的数组方法" class="headerlink" title="ES5新增的数组方法"></a>ES5新增的数组方法</h3><p>ES5 在数组原型（Array.prototype）上，新增了9 个方法，其中有7个与函数式（functional）操作有关：map、forEach、filter、every、some、reduce、reduceRight。</p>
+<p>这7个方法可以直接在数组上使用，它们的参数是一个函数。这个作为参数的函数本身又接受三个参数，分别是数组的 <code>当前元素elem</code>、<code>该元素的位置index</code> 和 <code>整个数组arr</code>。</p>
+<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><blockquote>
+<p>map：对所有元素依次调用一个函数，根据函数结果返回一个新函数。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3].map(<span class="keyword">function</span> (ele, index, arr) &#123;</span><br><span class="line">  <span class="built_in">return</span> ele * ele</span><br><span class="line">  // 返回： [1, 4, 9]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><blockquote>
+<p>forEach：对所有元素依次遍历，执行一个函数，它与map的区别在于不返回新数组。</p>
+</blockquote>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><blockquote>
+<p>filter：对所有元素调用一个测试函数，操作结果为true 的元素组成一个新数组返回。</p>
+</blockquote>
+<p>filter 方法接受一个 <code>返回布尔值</code> 的测试函数作为参数。该测试函数的第一个参数是当前数组成员的值。除了这个参数以外，其他参数都是可选的，分别是当前数组成员的位置和整个数组。</p>
+<h4 id="some"><a href="#some" class="headerlink" title="some"></a>some</h4><blockquote>
+<p>some：对所有元素调用一个测试函数，只要有一个元素通过该测试，就返回true，否则返回false。</p>
+</blockquote>
+<h4 id="every"><a href="#every" class="headerlink" title="every"></a>every</h4><blockquote>
+<p>every：对所有元素调用一个测试函数，只有所有元素通过该测试，才返回true，否则返回false。</p>
+</blockquote>
+<h4 id="reduce和reduceRight"><a href="#reduce和reduceRight" class="headerlink" title="reduce和reduceRight"></a>reduce和reduceRight</h4><blockquote>
+<p>reduce：从左向右依次处理数组的每个元素，最终累计为一个值。<br>reduceRight：从右向左依次处理数组的每个元素，最终累计为一个值。</p>
+</blockquote>
+<p>reduce 方法的第一个参数是一个处理函数。该函数接受四个参数，分别是：</p>
+<ol>
+<li>用来累计的变量（即当前状态）– 必须，默认为0；</li>
+<li>数组的当前元素 – 必须；</li>
+<li>当前元素在数组中的序号（从0开始）；</li>
+<li>原素组。</li>
+</ol>
+<p>要对累计变量指定初值，可以把它放在reduce方法的第二个参数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4, 5].reduce(<span class="keyword">function</span>(x, y)&#123;</span><br><span class="line">  <span class="built_in">return</span> x+y;</span><br><span class="line">&#125;, 10);</span><br><span class="line">// 25</span><br></pre></td></tr></table></figure></p>
+<p>例子，找出长度最长的数组元素：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> findLongest(entries) &#123;</span><br><span class="line">  <span class="built_in">return</span> entries.reduce(<span class="keyword">function</span> (longest, entry) &#123;</span><br><span class="line">    <span class="built_in">return</span> entry.length &gt; longest.length ? entry : longest;</span><br><span class="line">  &#125;, <span class="string">''</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="indexOf和lastIndexOf"><a href="#indexOf和lastIndexOf" class="headerlink" title="indexOf和lastIndexOf"></a>indexOf和lastIndexOf</h4><blockquote>
+<p>indexOf：返回给定元素在数组中第一次出现的位置（index），如果没有出现则返回-1。<br>lastIndexOf：返回给定元素在数组中最后一次出现的位置，如果没有出现则返回-1。</p>
+</blockquote>
+<h4 id="方法的链式调用"><a href="#方法的链式调用" class="headerlink" title="方法的链式调用"></a>方法的链式调用</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var users = [&#123;name:<span class="string">"tom"</span>, email:<span class="string">"tom@example.com"</span>&#125;,</span><br><span class="line">             &#123;name:<span class="string">"peter"</span>, email:<span class="string">"peter@example.com"</span>&#125;];</span><br><span class="line">users.map(<span class="keyword">function</span> (user)&#123; <span class="built_in">return</span> user.email; &#125;)</span><br><span class="line">     .filter(<span class="keyword">function</span> (email) &#123; <span class="built_in">return</span> /^t/.<span class="built_in">test</span>(email); &#125;)</span><br><span class="line">     .forEach(alert);</span><br><span class="line">// 弹出tom@example.com</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/NodeJs/Nodejs-事件发射器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐎">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/26/NodeJs/Nodejs-事件发射器/" itemprop="url">Nodejs_事件发射器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-26T16:35:34+08:00">
+                2018-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/NodeJs/Nodejs-mongodb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2181,791 +3071,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/NodeJs/Nodejs-http/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="🐎">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/13/NodeJs/Nodejs-http/" itemprop="url">Nodejs_http</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-13T11:32:59+08:00">
-                2018-09-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Node-js/" itemprop="url" rel="index">
-                    <span itemprop="name">Node.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>HTTP协议是用于从万维网服务器传输超文本到本地浏览器的传送协议。<br>HTTP是一个基于TCP/IP通信协议来传递数据（HTML文件、图片文件、查询结果等）</p>
-<p>要使用 HTTP 服务器与客户端，需要 require(‘http’)<br>为了支持各种可能的 HTTP 应用，Node.js 的 HTTP API 是非常底层的。 它只涉及流处理与消息解析。 它把一个消息解析成消息头和消息主体，但不解析具体的消息头或消息主体。</p>
-<h3 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h3><h4 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h4><p>作用：浏览器可以接受的媒体类型<br>例子：Accept：text/html 代表浏览器可以接受服务器回发的类型为text/html（即常说的html文档）<br>如果服务器无法返回text/html类型的数据，服务器应该返回一个406错误（non acceptable）；<br>通配符 <em> 代表任意类型<br>例如：Accept </em>/*代表浏览器可以处理所有类型（一般浏览器发送服务器都发这个）</p>
-<h4 id="Accept-Encoding"><a href="#Accept-Encoding" class="headerlink" title="Accept-Encoding"></a>Accept-Encoding</h4><p>作用：浏览器申明自己接收的编码方式；通常指定压缩方法，是否支持压缩，支持什么压缩（gzip，deflate）<br>例如：Accept-Encoding：zh-CN，zh；q=0.8</p>
-<h4 id="Accept-Language"><a href="#Accept-Language" class="headerlink" title="Accept-Language"></a>Accept-Language</h4><p>作用：浏览器申明自己接收的语言<br>语言跟字符集的区别：中文是语言，中文有多种字符集，比如big5，gb2312，gbk等<br>例如：Accept-Language：en-us</p>
-<h4 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h4><p>Connection: keep-alive<br>当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接</p>
-<p>Connection: close<br>代表一个Request完成后，客户端和服务器之间用于传输HTTP数据的TCP连接会关闭，当客户端再次发送Request，需要重新建立TCP连接</p>
-<h4 id="Host"><a href="#Host" class="headerlink" title="Host"></a>Host</h4><p>发送请求时，改报头域是必需的</p>
-<p>作用：请求报头域主要用于指定被请求资源的Internet主机和端口号，它通常从HTTP URL中提取出来的<br>例如：浏览器中输入：<a href="http://www.hzau.edu.cn；浏览器发送的请求消息中，就会包含Host请求报头域，如下：www.hzau.edu.cn；此处使用缺省端口号80，若指定了端口号，则变成：Host" target="_blank" rel="noopener">http://www.hzau.edu.cn；浏览器发送的请求消息中，就会包含Host请求报头域，如下：www.hzau.edu.cn；此处使用缺省端口号80，若指定了端口号，则变成：Host</a>: 指定端口号</p>
-<h4 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h4><p>作用：当浏览器向Web服务器发送请求的时候，一般会带上Referer，告诉服务器我们是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。<br>比如：从我的主页上链接到一个朋友哪里，他的服务器就能够从HTTP Referer中统计出每天有多少用户点击我的主页上的链接访问他的网站。</p>
-<h4 id="User-agent"><a href="#User-agent" class="headerlink" title="User-agent"></a>User-agent</h4><p>作用：告诉HTTP服务器，客户端使用的操作系统和浏览器的名称和版本<br>比如：我们上网登陆论坛的时候，往往会看到一些欢迎信息，其中列出了你的操作系统和浏览器的名称和版本，这些信息都是从User-Agent这个请求报头域获取的。<br>例子：User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; CIBA; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0C; InfoPath.2; .NET4.0E)</p>
-<h4 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h4><h5 id="可缓存性"><a href="#可缓存性" class="headerlink" title="可缓存性"></a>可缓存性</h5><ul>
-<li>public：表明响应可以被任何对象（包括：发送请求的客户端，代理理服务器器，等等）缓存</li>
-<li>private：表明响应只能被单个⽤用户缓存，不不能作为共享缓存（即代理理服务器器不不能缓存它）</li>
-<li>no-cache：强制所有缓存了了该响应的缓存⽤用户，在使⽤用已存储的缓存数据前，发送带验证器器的请求到原始服务器器</li>
-<li>only-if-cached：表明如果缓存存在，只使⽤用缓存，⽆无论原始服务器器数据是否有更更新</li>
-</ul>
-<h5 id="到期"><a href="#到期" class="headerlink" title="到期"></a>到期</h5><ul>
-<li>max-age=<seconds>：设置缓存存储的最⼤大周期，超过这个时间缓存被认为过期(单位秒)</seconds></li>
-<li>Expires：相反，时间是相对于请求的时间</li>
-<li>s-maxage=<seconds>：覆盖max-age 或者 Expires 头，但是仅适⽤用于共享缓存(比如各个代理理)，并且私有缓存中它被忽略</seconds></li>
-<li>max-stale[=<seconds>]：表明客户端愿意接收⼀一个已经过期的资源。 可选的设置⼀一个时间(单位秒)，表示响应不不能超过的过时时间</seconds></li>
-<li>min-fresh=<seconds>：表示客户端希望在指定的时间内获取最新的响应</seconds></li>
-</ul>
-<h4 id="重新验证和重新加载"><a href="#重新验证和重新加载" class="headerlink" title="重新验证和重新加载"></a>重新验证和重新加载</h4><ul>
-<li>must-revalidate：缓存必须在使⽤用之前验证旧资源的状态，并且不不可使⽤用过期资源</li>
-<li>proxy-revalidate：与must-revalidate作用相同，但它仅适⽤用于共享缓存（例例如代理），并被私有缓存忽略</li>
-<li>immutable：表示响应正文不会随时间⽽而改变。资源（如果未过期）在服务器器上不发生改变，因此客户端不不应发送重新验证请求头（例如If-None-Match或If-Modified-Since）来检查更新，即使用户显示地刷新页面。在Firefox中，immutable只能被用在<a href="https://transactions" target="_blank" rel="noopener">https://transactions</a></li>
-</ul>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
-<li>no-store：缓存不不应存储有关客户端请求或服务器器响应的任何内容</li>
-<li>no-transform：不不得对资源进⾏行行转换或转变。Content-Encoding, Content-Range, Content-Type等HTTP头不能由代理理修改。例如，非透明代理理可以对图像格式进行转<br>换，以便节省缓存空间或者减少缓慢链路上的流量。no-transform指令不允许这样做</li>
-</ul>
-<h3 id="HTTP网络请求模块"><a href="#HTTP网络请求模块" class="headerlink" title="HTTP网络请求模块"></a>HTTP网络请求模块</h3><h4 id="http服务器"><a href="#http服务器" class="headerlink" title="http服务器"></a>http服务器</h4><p>在本机的3000端口创建一个http服务器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// http_demo.js</span><br><span class="line">var http=require(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line">// 用http.createServer函数创建一个服务器对象</span><br><span class="line">http.createServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">	// 该方法的第一个参数表示HTTP响应状态（200）表示一切正常；第二个参数<span class="string">"Content-Type"</span>表示我响应给客户端的内容</span><br><span class="line">    res.writeHead(200,&#123;</span><br><span class="line">        <span class="string">"content-type"</span>:<span class="string">"text/plain"</span></span><br><span class="line">    &#125;);</span><br><span class="line">	// 写入我们需要传递给客户端的内容</span><br><span class="line">    res.write(<span class="string">"hello world"</span>);</span><br><span class="line">	// 此次请求已处理完成</span><br><span class="line">    res.end();</span><br><span class="line">&#125;).listen(3000);</span><br><span class="line">// 此函数有两个参数，第一个参数表示需要监听的端口；第二个是回调函数（其实是listening事件），当监听开启后立刻触发</span><br><span class="line"></span><br><span class="line">$~ node http_demo.js</span><br></pre></td></tr></table></figure></p>
-<p>http服务器代码改写：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var http=require(<span class="string">"http"</span>);</span><br><span class="line">// 直接创建一个http.Server对象</span><br><span class="line">var server=new http.Server();</span><br><span class="line"></span><br><span class="line">// 然后为其添加request事件监听</span><br><span class="line">server.on(<span class="string">"request"</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    res.writeHead(200,&#123;</span><br><span class="line">        <span class="string">"content-type"</span>:<span class="string">"text/plain"</span></span><br><span class="line">    &#125;);</span><br><span class="line">    res.write(<span class="string">"hello nodejs"</span>);</span><br><span class="line">    res.end();</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(3000);</span><br></pre></td></tr></table></figure></p>
-<p>其实也就说createServer方法其实本质上也是为http.Server对象添加了一个request事件监听</p>
-<p>createServer方法中的参数函数中的两个参数 <code>req</code> 和 <code>res</code> 则是分别代表了请求对象和响应对象。其中req是http.IncomingMessage的实例，res是http.ServerResponse的实例。</p>
-<h5 id="http-IncomingMessage"><a href="#http-IncomingMessage" class="headerlink" title="http.IncomingMessage"></a>http.IncomingMessage</h5><p>http.IncomingMessage是HTTP请求的信息，是后端开发者最关注的内容，一般由http.Server的request事件发送，并作为第一个参数传递，包含三个事件:</p>
-<ul>
-<li>data：当请求体数据到来时，该事件被触发，该事件提供一个参数 <code>chunk</code>，表示接受的数据，如果该事件没有被监听，则请求体会被抛弃，该事件可能会被调用多次（这与nodejs是异步的有关系）</li>
-<li>end：当请求体数据传输完毕时，该事件会被触发，此后不会再有数据</li>
-<li>close：用户当前请求结束时，该事件被触发，不同于end，如果用户强制终止了传输，也是用close</li>
-</ul>
-<h5 id="http-ServerResponse"><a href="#http-ServerResponse" class="headerlink" title="http.ServerResponse"></a>http.ServerResponse</h5><p>http.ServerResponse是返回给客户端的信息，决定了用户最终看到的内容，一般也由http.Server的request事件发送，并作为第二个参数传递，它有三个重要的成员函数，用于返回响应头、响应内容以及结束请求:</p>
-<ul>
-<li>res.writeHead(statusCode,[heasers])：向请求的客户端发送响应头，该函数在一个请求中最多调用一次，如果不调用，则会自动生成一个响应头</li>
-<li>res.write(data,[encoding])：想请求的客户端发送相应内容，data是一个buffer或者字符串，如果data是字符串，则需要制定编码方式，默认为utf-8，在res.end调用之前可以多次调用</li>
-<li>res.end([data],[encoding])：结束响应，告知客户端所有发送已经结束，当所有要返回的内容发送完毕时，该函数必需被调用一次，两个可选参数与res.write()相同。如果不调用这个函数，客户端将用于处于等待状态</li>
-</ul>
-<h4 id="http-client"><a href="#http-client" class="headerlink" title="http client"></a>http client</h4><p>http模块提供了两个函数 <code>http.request</code> 和 <code>http.get</code>，功能是作为客户端向http服务器发起请求</p>
-<h5 id="http-request-options-callback"><a href="#http-request-options-callback" class="headerlink" title="http.request(options, callback)"></a>http.request(options, callback)</h5><p>options是一个类似关联数组的对象，表示请求的参数，callback作为回调函数，需要传递一个参数，为http.ClientResponse的实例，http.request返回一个http.ClientRequest的实例。</p>
-<p>options常用的参数有<code>host</code>、<code>port</code>（默认为80）、<code>method</code>（默认为GET）、<code>path</code>（请求的相对于根的路径，默认是“/”，其中querystring应该包含在其中，例如/search?query=byvoid）、headers（请求头内容）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">"http"</span>);</span><br><span class="line">var options=&#123;</span><br><span class="line">  hostname:<span class="string">"cn.bing.com"</span>,</span><br><span class="line">  port:8080</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var req = http.request(options,<span class="keyword">function</span>(res)&#123;</span><br><span class="line">  res.setEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">  res.on(<span class="string">"data"</span>,<span class="keyword">function</span>(chunk)&#123;</span><br><span class="line">      console.log(chunk.toString())</span><br><span class="line">  &#125;);</span><br><span class="line">  console.log(res.statusCode);</span><br><span class="line">&#125;);</span><br><span class="line">req.on(<span class="string">"error"</span>,<span class="keyword">function</span>(err)&#123;</span><br><span class="line">  console.log(err.message);</span><br><span class="line">&#125;);</span><br><span class="line">req.end();</span><br></pre></td></tr></table></figure>
-<p>发送POST请求（模拟了向慕课网发起评论的功能，headers请使用开发者工具从请求中获取,基本上是参考scott老师的代码）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">var http=require(<span class="string">"http"</span>);</span><br><span class="line">var querystring=require(<span class="string">"querystring"</span>);</span><br><span class="line"></span><br><span class="line">var postData=querystring.stringify(&#123;</span><br><span class="line">  <span class="string">"content"</span>:<span class="string">"just a test"</span>,</span><br><span class="line">  <span class="string">"mid"</span>:8837</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var options=&#123;</span><br><span class="line">  hostname:<span class="string">"www.imooc.com"</span>,</span><br><span class="line">  port:80,</span><br><span class="line">  path:<span class="string">"/course/document"</span>,</span><br><span class="line">  method:<span class="string">"POST"</span>,</span><br><span class="line">  headers:&#123;</span><br><span class="line">      <span class="string">"Accept"</span>:<span class="string">"application/json, text/javascript, */*; q=0.01"</span>,</span><br><span class="line">      <span class="string">"Accept-Encoding"</span>:<span class="string">"gzip, deflate"</span>,</span><br><span class="line">      <span class="string">"Accept-Language"</span>:<span class="string">"zh-CN,zh;q=0.8"</span>,</span><br><span class="line">      <span class="string">"Connection"</span>:<span class="string">"keep-alive"</span>,</span><br><span class="line">      <span class="string">"Content-Length"</span>:postData.length,</span><br><span class="line">      <span class="string">"Content-Type"</span>:<span class="string">"application/x-www-form-urlencoded; charset=UTF-8"</span>,</span><br><span class="line">      <span class="string">"Cookie"</span>:<span class="string">"imooc_uuid=6cc9e8d5-424a-4861-9f7d-9cbcfbe4c6ae; imooc_isnew_ct=1460873157; loginstate=1; apsid=IzZDJiMGU0OTMyNTE0ZGFhZDAzZDNhZTAyZDg2ZmQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjkyOTk0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGNmNmFhMmVhMTYwNzRmMjczNjdmZWUyNDg1ZTZkMGM1BwhXVwcIV1c%3DMD; PHPSESSID=thh4bfrl1t7qre9tr56m32tbv0; Hm_lvt_f0cfcccd7b1393990c78efdeebff3968=1467635471,1467653719,1467654690,1467654957; Hm_lpvt_f0cfcccd7b1393990c78efdeebff3968=1467655022; imooc_isnew=2; cvde=577a9e57ce250-34"</span>,</span><br><span class="line">      <span class="string">"Host"</span>:<span class="string">"www.imooc.com"</span>,</span><br><span class="line">      <span class="string">"Origin"</span>:<span class="string">"http://www.imooc.com"</span>,</span><br><span class="line">      <span class="string">"Referer"</span>:<span class="string">"http://www.imooc.com/video/8837"</span>,</span><br><span class="line">      <span class="string">"User-Agent"</span>:<span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2763.0 Safari/537.36"</span>,</span><br><span class="line">      <span class="string">"X-Requested-With"</span>:<span class="string">"XMLHttpRequest"</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var req=http.request(options,<span class="keyword">function</span>(res)&#123;</span><br><span class="line">  res.on(<span class="string">"data"</span>,<span class="keyword">function</span>(chunk)&#123;</span><br><span class="line">      console.log(chunk);</span><br><span class="line">  &#125;);</span><br><span class="line">  res.on(<span class="string">"end"</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      console.log(<span class="string">"### end ##"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  console.log(res.statusCode);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">req.on(<span class="string">"error"</span>,<span class="keyword">function</span>(err)&#123;</span><br><span class="line">  console.log(err.message);</span><br><span class="line">&#125;)</span><br><span class="line">req.write(postData);</span><br><span class="line">req.end();</span><br></pre></td></tr></table></figure></p>
-<h5 id="http-get-options-callback"><a href="#http-get-options-callback" class="headerlink" title="http.get(options,callback)"></a>http.get(options,callback)</h5><p>这个方法是http.request方法的简化版，唯一的区别是http.get自动将请求方法设为了<code>GET</code>请求，同时不需要手动调用req.end()，但是需要记住的是，如果我们使用http.request方法时没有调用end方法，服务器将不会收到信息</p>
-<h4 id="request"><a href="#request" class="headerlink" title="request"></a>request</h4><p>可以将requset模块想象成一个简化版的第三方类http模块，同时支持https 和重定向;</p>
-<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install request --save</span><br><span class="line">// 引入</span><br><span class="line">var request = require(<span class="string">'request'</span>);</span><br></pre></td></tr></table></figure>
-<h5 id="API"><a href="#API" class="headerlink" title="API"></a>API</h5><p>GET：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">request(url,<span class="keyword">function</span>(error,response,body)&#123;</span><br><span class="line">  <span class="keyword">if</span>(!error &amp;&amp; response.statusCode == 200)&#123;</span><br><span class="line">      //输出返回的内容</span><br><span class="line">      console.log(body);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>POST：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var options = &#123; </span><br><span class="line">    uri: <span class="string">'https://www.googleapis.com/urlshortener/v1/url'</span>, </span><br><span class="line">    method: <span class="string">'POST'</span>, </span><br><span class="line">    json: &#123; <span class="string">"longUrl"</span>: <span class="string">"http://www.google.com/"</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">request(&#123;</span><br><span class="line">	url: <span class="string">'http://xxx.xxx.com'</span>,</span><br><span class="line">	method: <span class="string">'POST'</span>,</span><br><span class="line">	body: formData</span><br><span class="line">&#125;, <span class="keyword">function</span>(error, response, body) &#123;</span><br><span class="line">	<span class="keyword">if</span> (!error &amp;&amp; response.statusCode == 200) &#123;</span><br><span class="line">		//输出返回的内容</span><br><span class="line">		console.log(body);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h5 id="流"><a href="#流" class="headerlink" title="流"></a>流</h5><p>任何响应都可以输出到文件流。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request(<span class="string">'http://google.com/doodle.png'</span>).pipe(fs.createWriteStream(<span class="string">'doodle.png'</span>))</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-<p>反过来，也可以将文件传给PUT或POST请求。未提供header的情况下，会检测文件后缀名，在PUT请求中设置相应的content-type</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.createReadStream(<span class="string">'file.json'</span>).pipe(request.put(<span class="string">'http://mysite.com/obj.json'</span>))</span><br></pre></td></tr></table></figure>
-<h3 id="http-server"><a href="#http-server" class="headerlink" title="http.server"></a>http.server</h3><h3 id="http-request"><a href="#http-request" class="headerlink" title="http.request"></a>http.request</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/NodeJs/Nodejs-fs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="🐎">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/12/NodeJs/Nodejs-fs/" itemprop="url">fs文件模块</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-12T16:39:57+08:00">
-                2018-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Node-js/" itemprop="url" rel="index">
-                    <span itemprop="name">Node.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>fs 模块提供了一些 API，用于以一种类似标准 POSIX 函数的方式与文件系统进行交互。<br>引入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>所有的文件系统操作都有 <code>异步</code> 和 <code>同步</code> 两种形式。</p>
-<ul>
-<li>同步方法都会有返回值</li>
-<li>异步方法最后一个参数都是完成时的回调函数。</li>
-</ul>
-<p>建议使用异步方法：比起同步，性能更高、速度更快、而且没有阻塞</p>
-<h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>在 POSIX 系统，内核为所有进程维护着一张当前打开着的文件与资源的表格。每个打开的文件都会分配一个名为文件描述符的数值标识。在系统层，所有文件系统操作使用这些文件描述符（fd）来识别与追踪每个特定的文件。 Window 系统使用了一个不同但概念类似的机制来追踪资源。为方便用户，Node.js 抽象了不同操作系统间的差异，为所有打开的文件分配了数值的文件描述符</p>
-<p>fs.open() 方法用于分配一个新的文件描述符。 一旦分配了，文件描述符可用于读取数据、写入数据、或查看文件信息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fs.open(<span class="string">'/open/some/file.txt'</span>, <span class="string">'r'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  fs.fstat(fd, (err, <span class="built_in">stat</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) throw err;</span><br><span class="line">    // 各种操作</span><br><span class="line"></span><br><span class="line">    // 必须关闭文件描述符！</span><br><span class="line">    fs.close(fd, (err) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) throw err;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>大多数操作系统会限制打开的文件描述符的数量，所以当操作完成时需关闭描述符。 如果不这样做会导致内存泄漏，最终造成应用奔溃。</p>
-<h3 id="文件系统flag"><a href="#文件系统flag" class="headerlink" title="文件系统flag"></a>文件系统flag</h3><p>以下 flag 用于接受字符串的 flag 选项：</p>
-<ul>
-<li>a - 打开文件用于追加。如果文件不存在则创建文件</li>
-<li>r - 打开文件用于读取。如果文件不存在则抛出异常</li>
-<li>w - 打开文件用于写入。文件会被创建（如果不存在）或截断（如果存在）</li>
-</ul>
-<h3 id="fs方法和属性"><a href="#fs方法和属性" class="headerlink" title="fs方法和属性"></a>fs方法和属性</h3><h4 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h4><p>语法：fs.open(path, flags[, mode], callback)<br>说明：异步地打开文件<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url> 文件的路径</url></buffer></string></li>
-<li>flags <string> | <number> 打开文件的方式</number></string></li>
-<li>mode <integer> 默认值: 0o666</integer></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-<li>fd <integer></integer></li>
-</ul>
-</function></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fs.open(<span class="string">'&lt;directory&gt;'</span>, <span class="string">'a'</span>, (err, fd) =&gt; &#123;</span><br><span class="line">  // =&gt; null, &lt;fd&gt;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>语法：fs.openSync(path, flags[, mode])<br>说明：fs.open() 的同步版本。 返回一个表示文件描述符的整数</p>
-<h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><p>语法：fs.read(fd, buffer, offset, length, position, callback)<br>说明：从 fd 指定的文件中读取数据<br>参数：</p>
-<ul>
-<li>fd <integer> 文件描述符（指定文件）</integer></li>
-<li>buffer <buffer> | <uint8array> 数据将被写入到的buffer</uint8array></buffer></li>
-<li>offset <integer> buffer 中开始写入的偏移量</integer></li>
-<li>length <integer> 是一个整数，指定要读取的字节数</integer></li>
-<li>position <integer> 指定从文件fd中开始读取的位置</integer></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-<li>bytesRead <integer></integer></li>
-<li>buffer <buffer></buffer></li>
-</ul>
-</function></li>
-</ul>
-<p>语法：fs.readSync(fd, buffer, offset, length, position)<br>说明：fs.read() 的同步版本<br>参数：同fs.read()</p>
-<h4 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h4><p>语法：fs.write(fd, buffer[, offset[, length[, position]]], callback)<br>说明：写入 buffer 到 fd 指定的文件<br>参数：</p>
-<ul>
-<li>fd <integer> 文件描述符</integer></li>
-<li>buffer <buffer> | <uint8array> </uint8array></buffer></li>
-<li>offset <integer> 决定buffer中被写入的部分</integer></li>
-<li>length <integer> 指定要写入的字节数</integer></li>
-<li>position <integer> 指向从文件开始写入数据的位置的偏移量</integer></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-<li>bytesWritten <integer></integer></li>
-<li>buffer <buffer> | <uint8array></uint8array></buffer></li>
-</ul>
-</function></li>
-</ul>
-<p>语法：fs.write(fd, string[, position[, encoding]], callback)<br>说明：写入 string 到 fd 指定的文件。 如果 string 不是一个字符串，则该值将被强制转换为一个字符串<br>参数：</p>
-<ul>
-<li>fd <integer> </integer></li>
-<li>string <string> 要写入的字符串</string></li>
-<li>position <integer> 指向从文件开始写入数据的位置的偏移量</integer></li>
-<li>encoding <string> 是期望的字符串编码</string></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-<li>written <integer></integer></li>
-<li>string <string></string></li>
-</ul>
-</function></li>
-</ul>
-<p>语法：fs.writeSync(fd, string[, position[, encoding]])<br>说明：fs.write() 的同步版本。返回写入的字节数。<br>参数：同fs.write()</p>
-<h4 id="读取所有文件"><a href="#读取所有文件" class="headerlink" title="读取所有文件"></a>读取所有文件</h4><p>语法：fs.readFile(path[, options], callback)<br>说明：异步地读取一个文件的全部内容<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url> | <integer> 文件名或文件描述符。</integer></url></buffer></string></li>
-<li>options <object> | <string><ul>
-<li>encoding <string> | <null> 默认为 null。</null></string></li>
-<li>flag <string> 详见支持的文件系统flag。默认为 ‘r’。</string></li>
-</ul>
-</string></object></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-<li>data <string> | <buffer></buffer></string></li>
-</ul>
-</function></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'/etc/passwd'</span>, (err, data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>任何指定的文件描述符必须支持读取。</p>
-<p>如果 path 是一个文件描述符，则它不会被自动关闭。</p>
-<p>fs.readFile() 函数会缓存整个文件。 为了最小化内存占用，尽可能优先使用 fs.createReadStream()</p>
-<p>语法：fs.readFileSync(path[, options])<br>说明：fs.readFile() 的同步版本。返回 path 的内容<br>参数：同fs.readFile()</p>
-<h4 id="写入全部文件"><a href="#写入全部文件" class="headerlink" title="写入全部文件"></a>写入全部文件</h4><p>语法：fs.writeFile(file, data[, options], callback)<br>说明：异步地写入数据到文件，如果文件已经存在，则覆盖文件。 data 可以是字符串或 buffer<br>参数：</p>
-<ul>
-<li>file <string> | <buffer> | <url> | <integer> 文件名或文件描述符。</integer></url></buffer></string></li>
-<li>data <string> | <buffer> | <uint8array> 如果data是一个buffer，则encoding选项无效</uint8array></buffer></string></li>
-<li>options <object> | <string><ul>
-<li>encoding <string> | <null> 默认为 ‘utf8’。</null></string></li>
-<li>mode <integer> 默认为 0o666。</integer></li>
-<li>flag <string> 详见支持的文件系统flag。默认为 ‘w’。</string></li>
-</ul>
-</string></object></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-</ul>
-</function></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.writeFile(<span class="string">'文件名.txt'</span>, <span class="string">'Node.js 中文网'</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  console.log(<span class="string">'文件已保存！'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>语法：fs.writeFileSync(file, data[, options])<br>说明：fs.writeFile() 的同步版本。返回 undefined<br>参数：同fs.writeFile()</p>
-<h4 id="创建读取流"><a href="#创建读取流" class="headerlink" title="创建读取流"></a>创建读取流</h4><p>语法：fs.createReadStream(path[, options])<br>说明：<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>options <string> | <object><ul>
-<li>flags <string> 详见支持的文件系统flag。默认为 ‘r’。</string></li>
-<li>encoding <string> 默认为 null。</string></li>
-<li>fd <integer> 默认为 null。</integer></li>
-<li>mode <integer> 默认为 0o666。</integer></li>
-<li>autoClose <boolean> 默认为 true。</boolean></li>
-<li>start <integer></integer></li>
-<li>end <integer> 默认为 Infinity。</integer></li>
-<li>highWaterMark <integer> 默认为 64 * 1024（64kb）。</integer></li>
-</ul>
-</object></string></li>
-<li>返回: 返回一个新建的ReadSteam对象</li>
-</ul>
-<p>如果指定了 fd，则 ReadStream 会忽略 path 参数并且会使用指定的文件描述符。 这意味着不会触发 ‘open’ 事件。</p>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.createReadStream(<span class="string">'sample.txt'</span>, &#123; start: 90, end: 99 &#125;);</span><br></pre></td></tr></table></figure></p>
-<h4 id="创建写入流"><a href="#创建写入流" class="headerlink" title="创建写入流"></a>创建写入流</h4><p>语法：fs.createWriteStream(path[, options])<br>说明：<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>options <string> | <object><ul>
-<li>flags <string> 详见支持的文件系统flag。默认为 ‘w’。如果是修改文件而不是覆盖它，则 flags 模式需为 r+ 模式而不是默认的 w 模式</string></li>
-<li>encoding <string> 默认为 ‘utf8’。</string></li>
-<li>fd <integer> 默认为 null。</integer></li>
-<li>mode <integer> 默认为 0o666。</integer></li>
-<li>autoClose <boolean> 默认为 true。</boolean></li>
-<li>start <integer> 用于写入数据到文件指定位置</integer></li>
-</ul>
-</object></string></li>
-<li>返回: &lt;fs.WriteStream&gt; 详见可写流。</li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 复制文件1.txt到2.txt</span><br><span class="line">var rs = fs.createReadSteam(<span class="string">'1.txt'</span>)</span><br><span class="line">var ws = fs.createWriteSteam(<span class="string">'2.txt'</span>)</span><br><span class="line">rs.pipe(ws)</span><br></pre></td></tr></table></figure></p>
-<h4 id="查看文件信息"><a href="#查看文件信息" class="headerlink" title="查看文件信息"></a>查看文件信息</h4><p>语法：fs.stat(path[, options], callback)<br>说明：返回关于文件的信息 – 类似与文件右键属性<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>options <object><ul>
-<li>bigint <boolean> Whether the numeric values in the returned fs.Stats object should be bigint. Default: false.</boolean></li>
-</ul>
-</object></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-<li>stats &lt;fs.Stats&gt;</li>
-</ul>
-</function></li>
-</ul>
-<p>语法：fs.statSync(path[, options])<br>说明：返回一个fs.Stats实例；传递不存在的文件地址会抛出异常</p>
-<h4 id="判断文件是否存在"><a href="#判断文件是否存在" class="headerlink" title="判断文件是否存在"></a>判断文件是否存在</h4><p>语法：fs.existsSync(path)<br>说明：如果路径存在，则返回 true，否则返回 false<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url> 路径</url></buffer></string></li>
-</ul>
-<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><p>语法：fs.unlinkSync(path)<br>说明：同步删除指定文件<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-</ul>
-</function></li>
-</ul>
-<p>语法：fs.unlink(path, callback)<br>说明：异步删除指定文件<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-</ul>
-</function></li>
-</ul>
-<h4 id="返回文件绝对路径"><a href="#返回文件绝对路径" class="headerlink" title="返回文件绝对路径"></a>返回文件绝对路径</h4><p>语法：fs.realpathSync(path[, options])<br>说明：同步返回解析的路径<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>options <string> | <object><ul>
-<li>encoding <string> 默认 = ‘utf8’</string></li>
-</ul>
-</object></string></li>
-</ul>
-<p>可选的 options 参数用于传入回调的路径，它可以是一个字符串并指定一个字符编码，或是一个对象且由一个 encoding 属性指定使用的字符编码。 如果 encoding 设为 ‘buffer’，则返回的路径会被作为 Buffer 对象传入。</p>
-<p>注意: 如果 path 解析成一个 socket 或者管道，该函数将返回包含系统相关名称的对象。</p>
-<h4 id="创建一个文件"><a href="#创建一个文件" class="headerlink" title="创建一个文件"></a>创建一个文件</h4><p>语法：fs.mkdir(path[, mode], callback)<br>说明：异步地创建目录。 完成回调只有一个可能的异常参数。 mode 默认为 0o777。<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>mode <integer> Default: 0o777</integer></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-</ul>
-</function></li>
-</ul>
-<h4 id="删除一个文件"><a href="#删除一个文件" class="headerlink" title="删除一个文件"></a>删除一个文件</h4><p>语法：fs.rmdir(path, callback)<br>说明：异步的删除一个文件。 完成回调只有一个可能的异常参数。<br>参数：</p>
-<ul>
-<li>path <string> | <buffer> | <url></url></buffer></string></li>
-<li>callback <function><ul>
-<li>err <error></error></li>
-</ul>
-</function></li>
-</ul>
-<p>只能删除一个空目录，如果删除的目录不是空目录，则抛出异常</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/12/NodeJs/Nodejs-buffer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="🐎">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/12/NodeJs/Nodejs-buffer/" itemprop="url">buffer模块</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-12T15:30:10+08:00">
-                2018-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Node-js/" itemprop="url" rel="index">
-                    <span itemprop="name">Node.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>buffer</code> 是一个类，用于TCP流或文件系统操作等场景中处理二进制数据流。<br><code>buffer</code> 类的实例类似于整数数组，但 <code>buffer</code> 的大小是固定的、且在V8堆外分配物理内存。buffer的大小在被创建时确定，且无法调整。<br><code>buffer</code> 类在 Node.js中是一个全局变量，引入无需使用 require(‘buffer’).Buffer</p>
-<h3 id="Buffer与字符编码"><a href="#Buffer与字符编码" class="headerlink" title="Buffer与字符编码"></a>Buffer与字符编码</h3><p>Buffer 实例一般用于表示编码字符的序列，比如 UTF-8、UCS2、Base64、或十六进制编码的数据。 通过使用显式的字符编码，就可以在 Buffer 实例与普通的 JavaScript 字符串之间进行相互转换。</p>
-<h4 id="第三方库-iconv-lite"><a href="#第三方库-iconv-lite" class="headerlink" title="第三方库 iconv-lite"></a>第三方库 iconv-lite</h4><p>NodeJs自带的tostring()方法不支持gbk，需要加载第三方库：iconv-lite<br>安装：npm install iconv-lite<br>使用：var iconv = require(‘iconv-lite’)<br>编码：iconv.encode(str, ‘gbk’)<br>解码：iconv.decode(str, ‘gbk’).toString()</p>
-<h3 id="创建buffer实例"><a href="#创建buffer实例" class="headerlink" title="创建buffer实例"></a>创建buffer实例</h3><p>三个方法：<code>Buffer.alloc()</code>, <code>Buffer.allocUnsafe()</code>, and <code>Buffer.from()</code></p>
-<h4 id="Buffer-alloc"><a href="#Buffer-alloc" class="headerlink" title="Buffer.alloc()"></a>Buffer.alloc()</h4><p>语法：Buffer.alloc(size[, fill[, encoding]])<br>说明：分配一个大小为 size 字节的新建的 Buffer 。 如果 fill 为 undefined ，则该 Buffer 会用 0 填充。<br>参数：</p>
-<ul>
-<li>size <integer> 新建的 Buffer 期望的长度</integer></li>
-<li>fill <string> | <buffer> | <integer> 用来预填充新建的 Buffer 的值。 默认: 0</integer></buffer></string></li>
-<li>encoding <string> 如果 fill 是字符串，则该值是它的字符编码。 默认: ‘utf8’</string></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.alloc(11, <span class="string">'aGVsbG8gd29ybGQ='</span>, <span class="string">'base64'</span>);</span><br><span class="line"></span><br><span class="line">console.log(buf);</span><br><span class="line">// 输出: &lt;Buffer 68 65 6c 6c 6f 20 77 6f 72 6c 64&gt;</span><br></pre></td></tr></table></figure></p>
-<p>调用 Buffer.alloc() 会明显地比另一个方法 Buffer.allocUnsafe() <code>慢</code>，但是能确保新建的 Buffer 实例的内容 <code>不会包含敏感数据</code>。</p>
-<h4 id="Buffer-allocUnsafe"><a href="#Buffer-allocUnsafe" class="headerlink" title="Buffer.allocUnsafe()"></a>Buffer.allocUnsafe()</h4><p>语法：Buffer.allocUnsafe(size)<br>说明：分配一个大小为 size 字节的新建的 Buffer，不进行填充，但可能包含敏感信息<br>参数：</p>
-<ul>
-<li>size <integer> 新建的 Buffer 期望的长度</integer></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.allocUnsafe(10);</span><br><span class="line"></span><br><span class="line">// 输出: (内容可能不同): &lt;Buffer a0 8b 28 3f 01 00 00 00 50 32&gt;</span><br><span class="line">console.log(buf);</span><br></pre></td></tr></table></figure></p>
-<h4 id="Buffer-from"><a href="#Buffer-from" class="headerlink" title="Buffer.from()"></a>Buffer.from()</h4><p>语法：Buffer.from(array)<br>说明：通过一个八位字节的 array 创建一个新的 Buffer<br>参数：</p>
-<ul>
-<li>array <array></array></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个新的包含字符串 <span class="string">'buffer'</span> 的 UTF-8 字节的 Buffer</span><br><span class="line">const buf = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);</span><br></pre></td></tr></table></figure></p>
-<p>语法：Buffer.from(buffer)<br>说明：将传入的 buffer 数据拷贝到一个新建的 Buffer 实例<br>参数：</p>
-<ul>
-<li>buffer <buffer> 一个要拷贝数据的已存在的 Buffer</buffer></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'buffer'</span>);</span><br><span class="line">const buf2 = Buffer.from(buf1);</span><br><span class="line"></span><br><span class="line">buf1[0] = 0x61;</span><br><span class="line"></span><br><span class="line">// 输出: auffer</span><br><span class="line">console.log(buf1.toString());</span><br><span class="line"></span><br><span class="line">// 输出: buffer</span><br><span class="line">console.log(buf2.toString());</span><br></pre></td></tr></table></figure></p>
-<p>语法：Buffer.from(string[, encoding])<br>说明：新建一个包含所给的 JavaScript 字符串 string 的 Buffer<br>参数：</p>
-<ul>
-<li>string <string> 要编码的字符串</string></li>
-<li>encoding <string> string 的字符编码。 默认: ‘utf8’</string></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'this is a tést'</span>);</span><br><span class="line"></span><br><span class="line">// 输出: this is a tést</span><br><span class="line">console.log(buf1.toString());</span><br></pre></td></tr></table></figure></p>
-<h4 id="Q：是什么令-Buffer-allocUnsafe-和-Buffer-allocUnsafeSlow-不安全？"><a href="#Q：是什么令-Buffer-allocUnsafe-和-Buffer-allocUnsafeSlow-不安全？" class="headerlink" title="Q：是什么令 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 不安全？"></a>Q：是什么令 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 不安全？</h4><p>当调用 Buffer.allocUnsafe() 和 Buffer.allocUnsafeSlow() 时，被分配的 <code>内存段是未初始化的</code>（没有用 0 填充）。 虽然这样的设计使得内存的分配非常快，但已分配的内存段可能包含潜在的敏感旧数据。 使用通过 Buffer.allocUnsafe() 创建的没有被完全重写内存的 Buffer ，在 Buffer 内存可读的情况下，可能泄露它的旧数据。</p>
-<p>虽然使用 Buffer.allocUnsafe() 有明显的性能优势，但必须额外小心，以避免给应用程序引入安全漏洞。</p>
-<h3 id="Buffer类的方法和属性"><a href="#Buffer类的方法和属性" class="headerlink" title="Buffer类的方法和属性"></a>Buffer类的方法和属性</h3><h4 id="Buffer判断"><a href="#Buffer判断" class="headerlink" title="Buffer判断"></a>Buffer判断</h4><p>语法：Buffer.isBuffer(obj)<br>说明：如果 obj 是一个 Buffer 则返回 true ，否则返回 false<br>参数：</p>
-<ul>
-<li>obj <object></object></li>
-<li>返回: <boolean></boolean></li>
-</ul>
-<h4 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h4><p>语法：buf.write(string[, offset[, length]][, encoding])<br>说明：根据 encoding 的字符编码写入 string 到 buf 中的 offset 位置。length 参数是写入的字节数。 如果 buf 没有足够的空间保存整个字符串，则只会写入 string 的一部分。 只部分解码的字符不会被写入<br>参数：</p>
-<ul>
-<li>string <string> 要写入 buf 的字符串。</string></li>
-<li>offset <integer> 开始写入 string 前要跳过的字节数。默认: 0。</integer></li>
-<li>length <integer> 要写入的字节数。默认: buf.length - offset。</integer></li>
-<li>encoding <string> string 的字符编码。默认: ‘utf8’。</string></li>
-<li>返回: <integer> 写入的字节数。</integer></li>
-</ul>
-<h4 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h4><p>语法：buf.toString([encoding[, start[, end]]])<br>说明：根据 encoding 指定的字符编码解码 buf 成一个字符串。start和end可传入用于只解码buf的一部分<br>参数：</p>
-<ul>
-<li>encoding <string> 解码使用的字符编码。默认: ‘utf8’</string></li>
-<li>start <integer> 开始解码的字节偏移量。默认: 0</integer></li>
-<li>end <integer> 结束解码的字节偏移量（不包含）。 默认: buf.length</integer></li>
-<li>返回: <string></string></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值</span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 输出: abcdefghijklmnopqrstuvwxyz</span><br><span class="line">console.log(buf1.toString(<span class="string">'ascii'</span>));</span><br><span class="line"></span><br><span class="line">// 输出: abcde</span><br><span class="line">console.log(buf1.toString(<span class="string">'ascii'</span>, 0, 5));</span><br></pre></td></tr></table></figure></p>
-<h4 id="JSON格式"><a href="#JSON格式" class="headerlink" title="JSON格式"></a>JSON格式</h4><p>语法：buf.toJSON()<br>说明：返回buf的JSON格式。当字符串化一个Buffer实例时，JSON.stringify()会隐式地调用该函数<br>参数：</p>
-<ul>
-<li>返回: Object形式</li>
-</ul>
-<h4 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h4><p>语法：Buffer.concat(list[, totalLength])<br>说明：返回一个合并了 list 中所有 Buffer 实例的新建的 Buffer。list为数组形式<br>参数：</p>
-<ul>
-<li>list <array> 要合并的 Buffer 或 Uint8Array 实例的数组</array></li>
-<li>totalLength <integer> 合并时 list 中 Buffer 实例的总长度</integer></li>
-<li>返回: Buffer</li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.alloc(10);</span><br><span class="line">const buf2 = Buffer.alloc(14);</span><br><span class="line">const buf3 = Buffer.alloc(18);</span><br><span class="line">const totalLength = buf1.length + buf2.length + buf3.length;</span><br><span class="line"></span><br><span class="line">// 输出: 42</span><br><span class="line">console.log(totalLength);</span><br><span class="line"></span><br><span class="line">const bufA = Buffer.concat([buf1, buf2, buf3], totalLength);</span><br><span class="line"></span><br><span class="line">// 输出: &lt;Buffer 00 00 00 00 ...&gt;</span><br><span class="line">console.log(bufA);</span><br><span class="line"></span><br><span class="line">// 输出: 42</span><br><span class="line">console.log(bufA.length);</span><br></pre></td></tr></table></figure></p>
-<h4 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h4><p>语法：Buffer.compare(buf1, buf2)<br>说明：比较 buf1 和 buf2 ，通常用于 Buffer 实例数组的排序。 相当于调用 buf1.compare(buf2)<br>参数：</p>
-<ul>
-<li>buf1 <buffer> | <uint8array></uint8array></buffer></li>
-<li>buf2 <buffer> | <uint8array></uint8array></buffer></li>
-<li>Returns: <integer></integer></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.from(<span class="string">'1234'</span>);</span><br><span class="line">const buf2 = Buffer.from(<span class="string">'0123'</span>);</span><br><span class="line">const arr = [buf1, buf2];</span><br><span class="line"></span><br><span class="line">// 输出: [ &lt;Buffer 30 31 32 33&gt;, &lt;Buffer 31 32 33 34&gt; ]</span><br><span class="line">// (结果相当于: [buf2, buf1])</span><br><span class="line">console.log(arr.sort(Buffer.compare));</span><br></pre></td></tr></table></figure></p>
-<h4 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h4><p>语法：buf.copy(target[, targetStart[, sourceStart[, sourceEnd]]])<br>说明：拷贝 buf 的一个区域的数据到 target 的一个区域，即便 target 的内存区域与 buf 的重叠<br>参数：</p>
-<ul>
-<li>target <buffer> | <uint8array> 要拷贝进的 Buffer 或 Uint8Array。</uint8array></buffer></li>
-<li>targetStart <integer> target 中开始拷贝进的偏移量。 默认: 0</integer></li>
-<li>sourceStart <integer> buf 中开始拷贝的偏移量。 默认: 0</integer></li>
-<li>sourceEnd <integer> buf 中结束拷贝的偏移量（不包含）。 默认: buf.length</integer></li>
-<li>返回: <integer> 被拷贝的字节数。</integer></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line">const buf2 = Buffer.allocUnsafe(26).fill(<span class="string">'!'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值</span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">buf1.copy(buf2, 8, 16, 20);</span><br><span class="line"></span><br><span class="line">// 输出: !!!!!!!!qrst!!!!!!!!!!!!!</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, 25));</span><br></pre></td></tr></table></figure></p>
-<h4 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h4><p>语法：buf.slice([start[, end]])<br>说明：返回一个指向相同原始内存的新建的 Buffer，但做了偏移且通过 start 和 end 索引进行裁剪<br>参数：</p>
-<ul>
-<li>start <integer> 新建的 Buffer 开始的位置。 默认: 0</integer></li>
-<li>end <integer> 新建的 Buffer 结束的位置（不包含）。 默认: buf.length</integer></li>
-<li>返回: <buffer></buffer></li>
-</ul>
-<p>注意，修改这个新建的 Buffer 切片，也会同时修改原始的 Buffer 的内存，因为这两个对象所分配的内存是重叠的。</p>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const buf1 = Buffer.allocUnsafe(26);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 26; i++) &#123;</span><br><span class="line">  // 97 是 <span class="string">'a'</span> 的十进制 ASCII 值 </span><br><span class="line">  buf1[i] = i + 97;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const buf2 = buf1.slice(0, 3);</span><br><span class="line"></span><br><span class="line">// 输出: abc</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, buf2.length));</span><br><span class="line"></span><br><span class="line">buf1[0] = 33;</span><br><span class="line"></span><br><span class="line">// 输出: !bc</span><br><span class="line">console.log(buf2.toString(<span class="string">'ascii'</span>, 0, buf2.length));</span><br></pre></td></tr></table></figure></p>
-<h4 id="长度"><a href="#长度" class="headerlink" title="长度"></a>长度</h4><p>语法：buf.length<br>说明：返回 buf 在字节数上分配的内存量。 注意，这并不一定反映 buf 内可用的数据量<br>参数：</p>
-<ul>
-<li>返回值：<integer></integer></li>
-</ul>
-<p>例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const buf = Buffer.alloc(1234);</span><br><span class="line"></span><br><span class="line">// 输出: 1234</span><br><span class="line">console.log(buf.length);</span><br><span class="line"></span><br><span class="line">buf.write(<span class="string">'some string'</span>, 0, <span class="string">'ascii'</span>);</span><br><span class="line"></span><br><span class="line">// 输出: 1234</span><br><span class="line">console.log(buf.length);</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3016,7 +3121,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3027,7 +3132,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

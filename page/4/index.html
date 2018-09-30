@@ -259,6 +259,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue基础篇/Vue_9_组件基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐎">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/Vue/Vue基础篇/Vue_9_组件基础/" itemprop="url">组件基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="基础示例"><a href="#基础示例" class="headerlink" title="基础示例"></a>基础示例</h3><p>Vue组件示例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 定义一个名为 button-counter 的新组件</span><br><span class="line">Vue.component(<span class="string">'button-counter'</span>, &#123;</span><br><span class="line">  data: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      count: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">'&lt;button v-on:click="count++"&gt;You clicked me &#123;&#123; count &#125;&#125; times.&lt;/button&gt;'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>组件是<strong>可复用的Vue实例</strong>，且只有一个名字：该例是    <code>&lt;button-counter&gt;</code>。<br>可以在一个通过<code>new Vue</code>创建的Vue根实例中，把这个组件作为自定义元素来使用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"components-demo"</span>&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;/button-counter&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">new Vue(&#123; el: <span class="string">'#components-demo'</span> &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>组件是可复用的Vue实例，与<code>new Vue</code>接受相同的选项，例如：<code>data</code>，<code>computed</code>，<code>watch</code>，<code>methods</code>以及生命周期钩子等。仅有的例外是向<code>el</code>这样根实例特有的选项。</p>
+<h3 id="组件的复用"><a href="#组件的复用" class="headerlink" title="组件的复用"></a>组件的复用</h3><p>组件可以任意次的复用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"components-demo"</span>&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;/button-counter&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;/button-counter&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;/button-counter&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意当点击按钮时，每个组件都会各自独立维护它的 count。因为你每用一次组件，就会有一个它的新实例被创建。</p>
+<h4 id="data必须是一个函数"><a href="#data必须是一个函数" class="headerlink" title="data必须是一个函数"></a><code>data</code>必须是一个函数</h4><p>定义一个组件的 data 选项必须是一个<strong>函数</strong>，因此每个实例可以维护一份被返回对象的独立的拷贝：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">  <span class="built_in">return</span> &#123;</span><br><span class="line">    count: 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果 Vue 没有这条规则，点击一个按钮就可能会影响到其它所有实例；</p>
+<h3 id="组件的组织"><a href="#组件的组织" class="headerlink" title="组件的组织"></a>组件的组织</h3><p>通常一个应用会以一棵嵌套的组件树的形式来组织：<br><img src="./images/components.png" alt="组件树"><br>可能会有页头、侧边栏、内容区等组件，每个组件又包含了其它的像导航链接、博文之类的组件；</p>
+<p>为了能在模板中使用，这些组件必须<strong>先注册</strong>以便 Vue 能够识别。<br>这里有两种组件的注册类型：<strong>全局注册</strong>和<strong>局部注册</strong>。</p>
+<p><a href="https://kxzhang1221.github.io/2018/07/25/Vue/Vue_%E7%AC%AC%E5%85%AD%E7%AB%A0_%E7%BB%84%E4%BB%B6/" title="深入了解组件" target="_blank" rel="noopener">https://kxzhang1221.github.io/2018/07/25/Vue/Vue_%E7%AC%AC%E5%85%AD%E7%AB%A0_%E7%BB%84%E4%BB%B6/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue基础篇/Vue_8_表单输入绑定/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1527,7 +1656,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

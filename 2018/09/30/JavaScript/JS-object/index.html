@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对象对象形式var obj = {  // 属性: 属性值,  // 方法: 函数,} 对象的增删改查访问对象没有的属性的话，会返回undefined，但是不会报错； 对象的创建方法 对象直接量； 构造函数方法； Object.create()；  对象直接量var obj = {}  //对象字面量/对象直接量 构造函数方法系统自带的构造函数 – Object() 工厂创建方法var obj =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS_object">
+<meta property="og:url" content="http://yoursite.com/2018/09/30/JavaScript/JS-object/index.html">
+<meta property="og:site_name" content="🐎">
+<meta property="og:description" content="对象对象形式var obj = {  // 属性: 属性值,  // 方法: 函数,} 对象的增删改查访问对象没有的属性的话，会返回undefined，但是不会报错； 对象的创建方法 对象直接量； 构造函数方法； Object.create()；  对象直接量var obj = {}  //对象字面量/对象直接量 构造函数方法系统自带的构造函数 – Object() 工厂创建方法var obj =">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-30T02:58:20.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS_object">
+<meta name="twitter:description" content="对象对象形式var obj = {  // 属性: 属性值,  // 方法: 函数,} 对象的增删改查访问对象没有的属性的话，会返回undefined，但是不会报错； 对象的创建方法 对象直接量； 构造函数方法； Object.create()；  对象直接量var obj = {}  //对象字面量/对象直接量 构造函数方法系统自带的构造函数 – Object() 工厂创建方法var obj =">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/30/JavaScript/JS-object/"/>
+
+
+
+
+
+  <title>JS_object | 🐎</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🐎</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-vue">
+          <a href="/vue/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-vue"></i> <br />
+            
+            vue
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/30/JavaScript/JS-object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐎">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS_object</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-30T09:45:52+08:00">
+                2018-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><h3 id="对象形式"><a href="#对象形式" class="headerlink" title="对象形式"></a>对象形式</h3><p>var obj = {<br>  // 属性: 属性值,<br>  // 方法: 函数,<br>}</p>
+<h3 id="对象的增删改查"><a href="#对象的增删改查" class="headerlink" title="对象的增删改查"></a>对象的增删改查</h3><p>访问对象没有的属性的话，会返回undefined，但是不会报错；</p>
+<h3 id="对象的创建方法"><a href="#对象的创建方法" class="headerlink" title="对象的创建方法"></a>对象的创建方法</h3><ol>
+<li>对象直接量；</li>
+<li>构造函数方法；</li>
+<li>Object.create()；</li>
+</ol>
+<h4 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h4><p>var obj = {}  //对象字面量/对象直接量</p>
+<h4 id="构造函数方法"><a href="#构造函数方法" class="headerlink" title="构造函数方法"></a>构造函数方法</h4><p>系统自带的构造函数 – Object() 工厂创建方法<br>var obj = new Object();       Array()       Number()</p>
+<p>构造函数和函数没区别，只是命名采用大驼峰式命名规则，首字母大写；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Car</span></span>()&#123;</span><br><span class="line">  this.name = <span class="string">"BMW"</span>,</span><br><span class="line">  this.height = <span class="string">"1400"</span>,</span><br><span class="line">  this.lang = <span class="string">"4900"</span>,</span><br><span class="line">  this.health = 100,</span><br><span class="line">  this.run = <span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">    this.health --;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var car = new Car();</span><br><span class="line">var car1 = new Car();</span><br></pre></td></tr></table></figure></p>
+<h4 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var demo = &#123;</span><br><span class="line">  lastName: <span class="string">"deng"</span>,</span><br><span class="line">&#125;</span><br><span class="line">var obj = Object.create(demo);</span><br><span class="line">// obj的原型是demo</span><br><span class="line">obj = &#123;</span><br><span class="line">  __proto__: demo,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过var操作生成的全局属性，属于window，这种属性叫做不可配置属性，不可配置属性用delete删除不掉，delete只能删除可配置的属性(没有通过var生成的全局属性)</p>
+<h3 id="构造函数内部原理"><a href="#构造函数内部原理" class="headerlink" title="构造函数内部原理"></a>构造函数内部原理</h3><p>有 new 的情况下：发生以下三步</p>
+<ol>
+<li>在函数体的最前面隐式的加上this = {}</li>
+<li>执行this.xxx= xxx;</li>
+<li>隐式的返回this对象</li>
+</ol>
+<p>有new不能返回原始值，只能返回对象，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Student(name, age, sex)&#123;</span><br><span class="line">  //var this = &#123;&#125;</span><br><span class="line">  this.name = name,</span><br><span class="line">  //<span class="built_in">return</span> this;</span><br><span class="line">&#125;</span><br><span class="line">var student = new Student(<span class="string">'zhangsan'</span>, 18, <span class="string">'male'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h3><h4 id="值类型-数据类型"><a href="#值类型-数据类型" class="headerlink" title="值类型(数据类型)"></a>值类型(数据类型)</h4><table>
+<thead>
+<tr>
+<th>值</th>
+<th>包含</th>
+<th>有无属性和方法</th>
+<th>存放位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原始值</td>
+<td>number, string, boolean</td>
+<td>无</td>
+<td>栈内存</td>
+</tr>
+<tr>
+<td>引用值</td>
+<td>object, array, function</td>
+<td>有</td>
+<td>堆内存</td>
+</tr>
+</tbody>
+</table>
+<h4 id="包装类-1"><a href="#包装类-1" class="headerlink" title="包装类"></a>包装类</h4><blockquote>
+<p>原始值不能有属性和方法；原始值通过包装类之后变得有属性和方法；</p>
+</blockquote>
+<p>系统内部调用 <code>new String/Number/Boolean</code> 将原始值变成对象，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var num = new Number(123);</span><br><span class="line">var str = new String(<span class="string">'abcd'</span>);</span><br><span class="line">var bol = new Boolean(<span class="string">'true'</span>);</span><br><span class="line">// undefined null 不能有属性和方法</span><br><span class="line">var num = 4;</span><br><span class="line">num.len = 3;</span><br><span class="line">//new Number(4).len = 3;</span><br><span class="line">//然后delete num对象</span><br><span class="line"></span><br><span class="line">console.log(num.len)</span><br><span class="line">//再一次new Number(4).len ，不同的num对象</span><br><span class="line">原始值添加属性会调用包装类，但是没什么用；</span><br></pre></td></tr></table></figure></p>
+<h3 id="查看属性"><a href="#查看属性" class="headerlink" title="查看属性"></a>查看属性</h3><p>点访问和方括号访问</p>
+<ol>
+<li>obj.prop</li>
+<li>obj[“prop”]</li>
+</ol>
+<p>obj.prop —–&gt; obj[‘prop’]  //系统内部转换</p>
+<h3 id="对象的枚举"><a href="#对象的枚举" class="headerlink" title="对象的枚举"></a>对象的枚举</h3><blockquote>
+<p>数组的遍历/枚举——for循环；<br>对象的遍历/枚举——for in 循环。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(var prop <span class="keyword">in</span> obj)&#123;</span><br><span class="line">  console.log(prop + <span class="string">" "</span> + typeof(prop));</span><br><span class="line">  console.log(obj.prop);  //打印属性值 全是undefined  prop被当成属性</span><br><span class="line">  console.log(obj[prop]);</span><br><span class="line">&#125;   </span><br><span class="line">//obj 遍历的对象</span><br><span class="line">//obj.prop --&gt; obj [<span class="string">'prop'</span>] </span><br><span class="line">console.log(obj[prop])             // prop是变量，中间存放的是字符串</span><br></pre></td></tr></table></figure>
+<h3 id="属性判定"><a href="#属性判定" class="headerlink" title="属性判定"></a>属性判定</h3><p>hasOwnProperty;   in;    instanceof</p>
+<h4 id="hasOwnProperty-NaN"><a href="#hasOwnProperty-NaN" class="headerlink" title="hasOwnProperty"></a>hasOwnProperty</h4><blockquote>
+<p>hasOwnProperty()函数：用于指示一个对象自身(不包括原型链)是否具有指定名称的属性。如果有，返回true，否则返回false。<br>object.hasOwnProperty(propertyName)</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">  name：<span class="string">'12'</span>,</span><br><span class="line">  age: 123,</span><br><span class="line">  sex: <span class="string">'male'</span>,</span><br><span class="line">  weight: 60,</span><br><span class="line">  __proto__: &#123;</span><br><span class="line">    lastName: <span class="string">'deng'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(var prop <span class="keyword">in</span> obj)&#123;</span><br><span class="line">  <span class="keyword">if</span>(obj.hasOwnProperty(prop))&#123;</span><br><span class="line">    console.log(obj[prop]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="in"><a href="#in" class="headerlink" title="in"></a>in</h4><blockquote>
+<p>语法：’属性’  in  对象</p>
+</blockquote>
+<p>in操作符用来判断某个属性属于某个对象，可以是对象的直接属性，也可以是通过prototype继承的属性; </p>
+<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><blockquote>
+<p>语法：object instanceof constructor</p>
+</blockquote>
+<p>instanceof 运算符用来检测 constructor.prototype 是否存在于参数 object 的原型链上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">//看A对象的原型链上有没有B的原型</span><br><span class="line">//A instanceof B</span><br></pre></td></tr></table></figure>
+<p> </p>
+<h2 id="Object对象"><a href="#Object对象" class="headerlink" title="Object对象"></a>Object对象</h2><blockquote>
+<p>Object对象：JavaScript原生对象，本身是一个构造函数，可以直接new Object()生成新对象。</p>
+</blockquote>
+<p>Object对象相关的方法：</p>
+<ol>
+<li>Object对象本身的方法，比如在Object对象上定义一个print方法；</li>
+<li>Object对象实例的方法，该方法定义在构造函数里或者定义在Object的原型上面。</li>
+</ol>
+<blockquote>
+<p>所有其他的对象都是从Object衍生出来的。所有其他对象都可以直接调用Object的实例方法。</p>
+</blockquote>
+<h3 id="Object实例对象方法"><a href="#Object实例对象方法" class="headerlink" title="Object实例对象方法"></a>Object实例对象方法</h3><p>Object实例对象提供最主要的方法是 <code>valueOf()</code> 和 <code>toString()</code>。</p>
+<ul>
+<li>valueOf()：将一个对象转化为原始类型的值；</li>
+<li>toString()：将一个对象转化为字符串。</li>
+</ul>
+<p>利用toString()方法编写 toType 函数，返回各种对象的类型：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var toType = <span class="keyword">function</span>(obj) &#123;</span><br><span class="line"> <span class="built_in">return</span> (&#123;&#125;).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">toType(&#123;a: 4&#125;) // <span class="string">"object"</span></span><br><span class="line">toType([1, 2, 3]) // <span class="string">"array"</span></span><br><span class="line">(<span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> toType(arguments) &#125;()) // <span class="string">"arguments"</span></span><br><span class="line">toType(new ReferenceError()) // <span class="string">"error"</span></span><br><span class="line">toType(new Date()) // <span class="string">"date"</span></span><br><span class="line">toType(/a-z/) // <span class="string">"regexp"</span></span><br><span class="line">toType(Math) // <span class="string">"math"</span></span><br><span class="line">toType(JSON) // <span class="string">"json"</span></span><br><span class="line">toType(new Number(4)) // <span class="string">"number"</span></span><br><span class="line">toType(new String(<span class="string">"abc"</span>)) // <span class="string">"string"</span></span><br><span class="line">toType(new Boolean(<span class="literal">true</span>)) // <span class="string">"boolean"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="对象的属性模型"><a href="#对象的属性模型" class="headerlink" title="对象的属性模型"></a>对象的属性模型</h3><h4 id="存取函数accessor"><a href="#存取函数accessor" class="headerlink" title="存取函数accessor"></a>存取函数accessor</h4><blockquote>
+<p>除了直接定义意外，属性还可以用存取函数定义。</p>
+</blockquote>
+<p>存值函数成为setter，使用set关键字；取值函数成为getter，使用get关键字。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">  get <span class="function"><span class="title">p</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">"getter"</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">set</span> p(value) &#123;</span><br><span class="line">    console.log(<span class="string">"setter: "</span>+value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>定义存取函数后，引用该属性时，取值函数会自动调用；赋值该属性时，存值函数会自动调用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">o.p</span><br><span class="line">// getter</span><br><span class="line"></span><br><span class="line">o.p = 123;</span><br><span class="line">// setter: 123</span><br></pre></td></tr></table></figure></p>
+<h4 id="属性的attributes对象"><a href="#属性的attributes对象" class="headerlink" title="属性的attributes对象"></a>属性的attributes对象</h4><p>在JavaScript内部，每个属性都有一个对应的attributes对象，保存该属性的一些元信息。包括：</p>
+<ul>
+<li>value：表示该属性的值，默认为undefined；</li>
+<li>writeable：表示该属性的值（value）是否可以改变，默认为true；</li>
+<li>enumerable：表示该属性是否可枚举，默认true，也就是该属性会出现在for in和Object.keys()等操作中；</li>
+<li>configurable：该属性是否可配置，默认true，也就是可以删除该属性，可改变该属性的各种性质（比如writeable和enumerable），即configurable控制该属性“元信息”的读写状态；</li>
+<li>get：表示该属性的取值函数（getter），默认undefined；</li>
+<li>set：表示该属性的存值函数（setter），默认undefined。</li>
+</ul>
+<h4 id="Object-defineProperty方法"><a href="#Object-defineProperty方法" class="headerlink" title="Object.defineProperty方法"></a>Object.defineProperty方法</h4><blockquote>
+<p>defineProperty 方法允许通过定义attributes 对象，来定义或修改一个属性，然后返回修改后的对象。</p>
+</blockquote>
+<p>格式：Object.defineProperty(object, propertyName, attributesObject)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var o = Object.defineProperty(&#123;&#125;, <span class="string">"p"</span>, &#123;</span><br><span class="line">  value: 123,</span><br><span class="line">  writable: <span class="literal">false</span>,</span><br><span class="line">  enumerable: <span class="literal">true</span>,</span><br><span class="line">  configurable: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">o.p</span><br><span class="line">// 123</span><br><span class="line">o.p = 246;</span><br><span class="line">o.p</span><br><span class="line">// 123</span><br><span class="line">// 因为writable 为<span class="literal">false</span>，所以无法改变该属性的值</span><br></pre></td></tr></table></figure>
+<h4 id="Object-defineProperties-方法"><a href="#Object-defineProperties-方法" class="headerlink" title="Object.defineProperties 方法"></a>Object.defineProperties 方法</h4><blockquote>
+<p>Object.defineProperties：一次性定义或修改多个属性。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var o = Object.defineProperties(&#123;&#125;, &#123;</span><br><span class="line">  p1: &#123; value: 123, enumerable: <span class="literal">true</span> &#125;,</span><br><span class="line">  p2: &#123; value: <span class="string">"abc"</span>, enumerable: <span class="literal">true</span> &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">o.p1</span><br><span class="line">// 123</span><br><span class="line">o.p2</span><br><span class="line">// <span class="string">"abc"</span></span><br></pre></td></tr></table></figure>
+<h4 id="Object-getOwnPropertyDescriptor-方法"><a href="#Object-getOwnPropertyDescriptor-方法" class="headerlink" title="Object.getOwnPropertyDescriptor 方法"></a>Object.getOwnPropertyDescriptor 方法</h4><blockquote>
+<p>Object.getOwnPropertyDescriptor 方法可以读取attributes 对象。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123; p: <span class="string">'a'</span> &#125;;</span><br><span class="line">Object.getOwnPropertyDescriptor(o, <span class="string">'p'</span>)</span><br><span class="line">// Object &#123;value: <span class="string">"a"</span>, writable: <span class="literal">true</span>, enumerable: <span class="literal">true</span>, configurable: <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="可枚举性enumerable"><a href="#可枚举性enumerable" class="headerlink" title="可枚举性enumerable"></a>可枚举性enumerable</h4><h5 id="for…in-和Object-keys"><a href="#for…in-和Object-keys" class="headerlink" title="for…in 和Object.keys"></a>for…in 和Object.keys</h5><p>可枚举性（enumerable）与两个操作有关：for…in 和Object.keys。如果某个属性的可枚举性为true，则这两个操作的循环过程都包括该属性；如果为false，就不包括。</p>
+<p>除了上面两个操作，其他操作都不受可枚举性的影响。</p>
+<p>需要注意的是，Object.keys 只会列出对象自身的可枚举属性，不包括对象继承的可枚举属性；for…in 循环则会列出所有的可枚举属性，包括对象继承的可枚举属性。</p>
+<h5 id="Object-getOwnPropertyNames-方法"><a href="#Object-getOwnPropertyNames-方法" class="headerlink" title="Object.getOwnPropertyNames 方法"></a>Object.getOwnPropertyNames 方法</h5><blockquote>
+<p>该方法返回直接定义在某个对象上面的全部属性的名称，而不管该属性是否可枚举。</p>
+</blockquote>
+<p>一般来说，系统原生的属性（即非用户自定义的属性）都是不可枚举的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Object.keys([])</span><br><span class="line">// []</span><br><span class="line"></span><br><span class="line">Object.getOwnPropertyNames([])</span><br><span class="line">// [ <span class="string">'length'</span> ]</span><br><span class="line"></span><br><span class="line">Object.keys(Object.prototype)</span><br><span class="line">// []</span><br><span class="line"></span><br><span class="line">Object.getOwnPropertyNames(Object.prototype)</span><br><span class="line">// [<span class="string">'hasOwnProperty'</span>,</span><br><span class="line">// <span class="string">'valueOf'</span>,</span><br><span class="line">// <span class="string">'constructor'</span>,</span><br><span class="line">// <span class="string">'toLocaleString'</span>,</span><br><span class="line">// <span class="string">'isPrototypeOf'</span>,</span><br><span class="line">// <span class="string">'propertyIsEnumerable'</span>,</span><br><span class="line">// <span class="string">'toString'</span>]</span><br></pre></td></tr></table></figure></p>
+<h5 id="propertyIsEnumerable-方法"><a href="#propertyIsEnumerable-方法" class="headerlink" title="propertyIsEnumerable 方法"></a>propertyIsEnumerable 方法</h5><blockquote>
+<p>propertyIsEnumerable：该方法用来判断一个属性是否可枚举。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.propertyIsEnumerable(<span class="string">"toString"</span>)</span><br><span class="line">// <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h4 id="可配置性configurable"><a href="#可配置性configurable" class="headerlink" title="可配置性configurable"></a>可配置性configurable</h4><blockquote>
+<p>可配置性（configurable）决定了是否可以删除（delete）某个属性，以及是否可以更改该属性attributes 对象中除了value 以外的性质。</p>
+</blockquote>
+<p>需要注意的是，当使用var 命令声明变量时（实际上是声明当前作用域的属性），变量的可配置性为false，就无法用delete删除。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var o = Object.defineProperties(&#123;&#125;, &#123;</span><br><span class="line">  p1: &#123; value: 1, configurable: <span class="literal">true</span> &#125;,</span><br><span class="line">  p2: &#123; value: 2, configurable: <span class="literal">false</span> &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">delete o.p1 // <span class="literal">true</span></span><br><span class="line">delete o.p2 // <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">o.p1 // undefined</span><br><span class="line">o.p2 // 2</span><br></pre></td></tr></table></figure>
+<h4 id="可写性writable"><a href="#可写性writable" class="headerlink" title="可写性writable"></a>可写性writable</h4><blockquote>
+<p>可写性（writable）决定了属性的值（value）是否可以被改变。</p>
+</blockquote>
+<p>这里需要注意的是，当对a 属性重新赋值的时候，并不会抛出错误，只是静静地失败。但是，如果在严格模式下，这里就会抛出一个错误，即使是对a 属性重新赋予一个同样的值。</p>
+<h4 id="控制对象状态"><a href="#控制对象状态" class="headerlink" title="控制对象状态"></a>控制对象状态</h4><ul>
+<li>Object.preventExtensions(o) 方法：可以使得一个对象无法再添加新的属性；</li>
+<li>Object.seal(o) 方法：可以使得一个对象既无法添加新属性，也无法删除旧属性；</li>
+<li>Object.freeze(o)：可以使得一个对象无法添加新属性、无法删除旧属性、也无法改变属性的值，使得这个对象实际上变成了常量。</li>
+</ul>
+<h2 id="Array对象"><a href="#Array对象" class="headerlink" title="Array对象"></a>Array对象</h2><blockquote>
+<p>Array 是JavaScript 的内置对象，同时也是一个构造函数，可以用它生成新的数组。</p>
+</blockquote>
+<p>参数不同，返回结果不同：</p>
+<ul>
+<li>无参数时，返回一个空数组；</li>
+<li>如果使用一个正整数作为参数，则这个正整数表示新数组的长度；</li>
+<li>如果使用非数值（字符串、布尔值、对象等）作为参数，则该值是新数组的成员；</li>
+<li>如果参数在一个以上，则这些参数都是新数组的成员。</li>
+</ul>
+<blockquote>
+<p>生成新数组最好采用数组的字面量方法，不采用new Array()方法。</p>
+</blockquote>
+<h3 id="Array对象的静态方法"><a href="#Array对象的静态方法" class="headerlink" title="Array对象的静态方法"></a>Array对象的静态方法</h3><h4 id="isArray方法"><a href="#isArray方法" class="headerlink" title="isArray方法"></a>isArray方法</h4><blockquote>
+<p>Array.isArray 方法用来判断一个值是否为数组。它可以弥补typeof 运算符的不足。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = [1,2,3];</span><br><span class="line"></span><br><span class="line">typeof a // <span class="string">"object"</span></span><br><span class="line">Array.isArray(a) // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array对象实例方法"><a href="#Array对象实例方法" class="headerlink" title="Array对象实例方法"></a>Array对象实例方法</h3><blockquote>
+<p>Array对象实例方法只能Array实例可用，单纯调用方法则写成Array.prototype.method.call(调用对象，参数) 的形式。</p>
+</blockquote>
+<h4 id="valueOf-方法和toString-方法"><a href="#valueOf-方法和toString-方法" class="headerlink" title="valueOf 方法和toString 方法"></a>valueOf 方法和toString 方法</h4><blockquote>
+<p>valueOf 方法返回数组本身。<br>toString 方法返回数组的字符串形式。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = [1,2,3];</span><br><span class="line">a.valueOf()</span><br><span class="line">// [1,2,3]</span><br><span class="line"></span><br><span class="line">var a = [1,2,3,[4,5,6]];</span><br><span class="line">a.toString()</span><br><span class="line">// <span class="string">"1,2,3,4,5,6"</span></span><br></pre></td></tr></table></figure>
+<h4 id="concat-方法"><a href="#concat-方法" class="headerlink" title="concat 方法"></a>concat 方法</h4><blockquote>
+<p>concat 方法：该方法用于连接多个数组，返回连接后的数组。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"hello"</span>].concat([<span class="string">"world"</span>])</span><br><span class="line">// [<span class="string">"hello"</span>, <span class="string">"world"</span>]</span><br><span class="line"></span><br><span class="line">[].concat.call(&#123; a: 1 &#125;, [2])</span><br><span class="line">// [&#123;a:1&#125;, 2]</span><br></pre></td></tr></table></figure>
+<h4 id="indexOf-方法"><a href="#indexOf-方法" class="headerlink" title="indexOf 方法"></a>indexOf 方法</h4><blockquote>
+<p>indexOf 方法：返回某个元素在数组中的位置（从0 开始），如果找不到该元素，就返回-1。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>];</span><br><span class="line">a.indexOf(<span class="string">'b'</span>)</span><br><span class="line">// 1</span><br><span class="line">a.indexOf(<span class="string">'y'</span>)</span><br><span class="line">// -1</span><br></pre></td></tr></table></figure>
+<h4 id="push-方法和-pop-方法"><a href="#push-方法和-pop-方法" class="headerlink" title="push 方法和 pop 方法"></a>push 方法和 pop 方法</h4><blockquote>
+<p>push 方法用于在数组的末端添加一个或多个元素，并返回添加后的数组的长度；</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var a = new Array();</span><br><span class="line">a.push(1);</span><br><span class="line">// 1</span><br><span class="line">a.push(<span class="string">"a"</span>);</span><br><span class="line">// 2</span><br><span class="line">a</span><br><span class="line">// [1,<span class="string">"a"</span>]</span><br><span class="line"></span><br><span class="line">var a = [1,2,3];</span><br><span class="line">var b = [4,5,6];</span><br><span class="line">// 合并两个数组</span><br><span class="line">Array.prototype.push.apply(a, b);</span><br><span class="line">a</span><br><span class="line">// [1, 2, 3, 4, 5, 6]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>pop 方法用于删除数组的最后一个元素，并返回该元素。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = [ <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span> ];</span><br><span class="line">a.pop(); // <span class="string">'c'</span></span><br><span class="line">a</span><br><span class="line">// [ <span class="string">'a'</span>, <span class="string">'b'</span> ]</span><br></pre></td></tr></table></figure>
+<h4 id="join-方法"><a href="#join-方法" class="headerlink" title="join 方法"></a>join 方法</h4><blockquote>
+<p>join 方法：该方法将所有数组元素组成一个字符串返回，默认用逗号分隔。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = [1,2,3,4];</span><br><span class="line">a.join() // <span class="string">"1,2,3,4"</span></span><br><span class="line">a.join(<span class="string">''</span>) // <span class="string">'1234'</span></span><br><span class="line">a.join(<span class="string">"|"</span>) // <span class="string">"1|2|3|4"</span></span><br></pre></td></tr></table></figure>
+<h4 id="shift-方法和unshift-方法"><a href="#shift-方法和unshift-方法" class="headerlink" title="shift 方法和unshift 方法"></a>shift 方法和unshift 方法</h4><blockquote>
+<p>shift 方法用于删除数组的第一个元素，并返回该元素。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = [ <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span> ];</span><br><span class="line">a.shift(); // <span class="string">'a'</span></span><br><span class="line">a</span><br><span class="line">// [ <span class="string">'b'</span>, <span class="string">'c'</span> ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>unshift 方法用于在数组的第一个位置添加元素，并返回添加新元素后的数组长度。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = [ <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span> ];</span><br><span class="line">a.unshift(<span class="string">'x'</span>); // 3</span><br><span class="line">a</span><br><span class="line">// [ <span class="string">'x'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span> ]</span><br></pre></td></tr></table></figure>
+<h4 id="reverse-方法"><a href="#reverse-方法" class="headerlink" title="reverse 方法"></a>reverse 方法</h4><blockquote>
+<p>reverse 方法：用于颠倒数组中元素的顺序。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = [ <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span> ];</span><br><span class="line">a.reverse()</span><br><span class="line">// [ <span class="string">'c'</span>, <span class="string">'b'</span>, <span class="string">'a'</span> ]</span><br></pre></td></tr></table></figure>
+<h4 id="slice-方法"><a href="#slice-方法" class="headerlink" title="slice 方法"></a>slice 方法</h4><blockquote>
+<p>slice 方法：用于从数组中返回指定位置的元素组成的数组，原数组不变。</p>
+</blockquote>
+<p>它的第一个参数为起始位置（从0 开始），第二个参数为终止位置。如果省略第二个参数，则一直返回到原数组的最后一个元素。</p>
+<p>该方法可以将类似数组的对象，转为真正的数组。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.slice.call(document.querySelectorAll(<span class="string">"div"</span>));</span><br><span class="line">Array.prototype.slice.call(arguments);</span><br></pre></td></tr></table></figure></p>
+<h4 id="splice-方法"><a href="#splice-方法" class="headerlink" title="splice 方法"></a>splice 方法</h4><blockquote>
+<p>splice 方法：用于删除元素，并可以在被删除的位置添加入新的数组元素。它的返回值是被删除的元素。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = [<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>,<span class="string">"d"</span>,<span class="string">"e"</span>,<span class="string">"f"</span>,<span class="string">"g"</span>,<span class="string">"h"</span>,<span class="string">"i"</span>];</span><br><span class="line">a.splice(5,2,1,2)</span><br><span class="line">// [<span class="string">"f"</span>, <span class="string">"g"</span>]</span><br><span class="line">a</span><br><span class="line">// [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, 1, 2, <span class="string">"h"</span>, <span class="string">"i"</span>]</span><br></pre></td></tr></table></figure>
+<p>如果是单纯地插入元素，splice 方法的第二个参数可以设为0。</p>
+<h4 id="sort-方法"><a href="#sort-方法" class="headerlink" title="sort 方法"></a>sort 方法</h4><blockquote>
+<p>sort 方法：该方法对数组元素进行排序，默认是按照字典顺序排序。排序后，原数组将被改变。</p>
+</blockquote>
+<p>sort 方法可以接受一个参数，表示按照自定义方法进行排序。该参数是一个函数，本身又接受两个参数，表示进行比较的两个元素。如果返回值大于0，表示第一个元素排在第二个元素后面；其他情况下，都是第一个元素排在第二个元素前面。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = [10111,1101,111];</span><br><span class="line">a.sort()</span><br><span class="line">// [10111, 1101, 111]</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> f(a,b)&#123;</span><br><span class="line">  <span class="built_in">return</span> a-b;</span><br><span class="line">&#125;</span><br><span class="line">a.sort(f)</span><br><span class="line">// [111, 1101, 10111]</span><br></pre></td></tr></table></figure>
+<h2 id="Boolean-对象"><a href="#Boolean-对象" class="headerlink" title="Boolean 对象"></a>Boolean 对象</h2><blockquote>
+<p>Boolean 用于生成布尔值的包装对象实例。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var b1 = new Boolean(<span class="literal">false</span>);</span><br><span class="line">var b2 = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">b1 &amp;&amp; b2</span><br><span class="line">// <span class="literal">true</span> b1是一个对象，自动转为<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="Number-对象"><a href="#Number-对象" class="headerlink" title="Number 对象"></a>Number 对象</h2><h3 id="Number属性"><a href="#Number属性" class="headerlink" title="Number属性"></a>Number属性</h3><ul>
+<li>Number.POSITIVE_INFINITY 表示正的无限，指向关键字Infinity。</li>
+<li>Number.NEGATIVE_INFINITY 表示负的无限，指向-Infinity。</li>
+<li>Number.NaN 表示非数值，指向NaN。</li>
+<li>Number.MAX_VALUE 表示最大的正数。最大的负数为-Number.MAX_VALUE</li>
+<li>Number.MIN_VALUE 表示最小的正数（即最接近0 的正数）。最接近 0 的负数为-Number.MIN_VALUE。</li>
+</ul>
+<h3 id="Number-实例对象的方法"><a href="#Number-实例对象的方法" class="headerlink" title="Number 实例对象的方法"></a>Number 实例对象的方法</h3><h4 id="toString-方法"><a href="#toString-方法" class="headerlink" title="toString 方法"></a>toString 方法</h4><blockquote>
+<p>Number 对象部署了单独的toString 方法，可以接受一个参数，表示将一个数字转化成某个进制的字符串。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(10).toString() // <span class="string">"10"</span></span><br><span class="line">(10).toString(2) // <span class="string">"1010"</span></span><br><span class="line">(10).toString(8) // <span class="string">"12"</span></span><br><span class="line">(10).toString(16) // <span class="string">"a"</span></span><br><span class="line"></span><br><span class="line">10.toString(2)</span><br><span class="line">// SyntaxError: Unexpected token ILLEGAL</span><br><span class="line">10..toString(2)</span><br><span class="line">// <span class="string">"1010"</span></span><br></pre></td></tr></table></figure>
+<h4 id="toFixed-方法"><a href="#toFixed-方法" class="headerlink" title="toFixed 方法"></a>toFixed 方法</h4><blockquote>
+<p>toFixed 方法：用于将一个数转为指定位数的小数。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(10).toFixed(2)</span><br><span class="line">// <span class="string">"10.00"</span></span><br><span class="line">// 10 必须放在括号里，否则后面的点运算符会被处理小数点，而不是表示调用对象的方法。</span><br><span class="line">(10.005).toFixed(2)</span><br><span class="line">// <span class="string">"10.01"</span></span><br></pre></td></tr></table></figure>
+<h4 id="toExponential-方法"><a href="#toExponential-方法" class="headerlink" title="toExponential 方法"></a>toExponential 方法</h4><blockquote>
+<p>toExponential 方法用于将一个数转为科学计数法形式。<br>toExponential 方法的参数表示小数点后有效数字的位数。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(10).toExponential(1)</span><br><span class="line">// <span class="string">"1.0e+1"</span></span><br><span class="line">(1234).toExponential(1)</span><br><span class="line">// <span class="string">"1.2e+3"</span></span><br></pre></td></tr></table></figure>
+<h4 id="toPrecision-方法"><a href="#toPrecision-方法" class="headerlink" title="toPrecision 方法"></a>toPrecision 方法</h4><blockquote>
+<p>toPrecision 方法用于将一个数转为指定位数的有效数字。</p>
+</blockquote>
+<h2 id="String对象"><a href="#String对象" class="headerlink" title="String对象"></a>String对象</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/29/JavaScript/JS-ruanyifeng-2/" rel="next" title="JS_ruanyifeng_2">
+                <i class="fa fa-chevron-left"></i> JS_ruanyifeng_2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kexinzhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象形式"><span class="nav-number">1.1.</span> <span class="nav-text">对象形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的增删改查"><span class="nav-number">1.2.</span> <span class="nav-text">对象的增删改查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的创建方法"><span class="nav-number">1.3.</span> <span class="nav-text">对象的创建方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象直接量"><span class="nav-number">1.3.1.</span> <span class="nav-text">对象直接量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数方法"><span class="nav-number">1.3.2.</span> <span class="nav-text">构造函数方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-create"><span class="nav-number">1.3.3.</span> <span class="nav-text">Object.create()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数内部原理"><span class="nav-number">1.4.</span> <span class="nav-text">构造函数内部原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包装类"><span class="nav-number">1.5.</span> <span class="nav-text">包装类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#值类型-数据类型"><span class="nav-number">1.5.1.</span> <span class="nav-text">值类型(数据类型)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#包装类-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">包装类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看属性"><span class="nav-number">1.6.</span> <span class="nav-text">查看属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的枚举"><span class="nav-number">1.7.</span> <span class="nav-text">对象的枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性判定"><span class="nav-number">1.8.</span> <span class="nav-text">属性判定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hasOwnProperty-NaN"><span class="nav-number">1.8.1.</span> <span class="nav-text">hasOwnProperty</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#in"><span class="nav-number">1.8.2.</span> <span class="nav-text">in</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#instanceof"><span class="nav-number">1.8.3.</span> <span class="nav-text">instanceof</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object对象"><span class="nav-number">2.</span> <span class="nav-text">Object对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object实例对象方法"><span class="nav-number">2.1.</span> <span class="nav-text">Object实例对象方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的属性模型"><span class="nav-number">2.2.</span> <span class="nav-text">对象的属性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#存取函数accessor"><span class="nav-number">2.2.1.</span> <span class="nav-text">存取函数accessor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性的attributes对象"><span class="nav-number">2.2.2.</span> <span class="nav-text">属性的attributes对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-defineProperty方法"><span class="nav-number">2.2.3.</span> <span class="nav-text">Object.defineProperty方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-defineProperties-方法"><span class="nav-number">2.2.4.</span> <span class="nav-text">Object.defineProperties 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-getOwnPropertyDescriptor-方法"><span class="nav-number">2.2.5.</span> <span class="nav-text">Object.getOwnPropertyDescriptor 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可枚举性enumerable"><span class="nav-number">2.2.6.</span> <span class="nav-text">可枚举性enumerable</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#for…in-和Object-keys"><span class="nav-number">2.2.6.1.</span> <span class="nav-text">for…in 和Object.keys</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Object-getOwnPropertyNames-方法"><span class="nav-number">2.2.6.2.</span> <span class="nav-text">Object.getOwnPropertyNames 方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#propertyIsEnumerable-方法"><span class="nav-number">2.2.6.3.</span> <span class="nav-text">propertyIsEnumerable 方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可配置性configurable"><span class="nav-number">2.2.7.</span> <span class="nav-text">可配置性configurable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可写性writable"><span class="nav-number">2.2.8.</span> <span class="nav-text">可写性writable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制对象状态"><span class="nav-number">2.2.9.</span> <span class="nav-text">控制对象状态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array对象"><span class="nav-number">3.</span> <span class="nav-text">Array对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Array对象的静态方法"><span class="nav-number">3.1.</span> <span class="nav-text">Array对象的静态方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#isArray方法"><span class="nav-number">3.1.1.</span> <span class="nav-text">isArray方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array对象实例方法"><span class="nav-number">3.2.</span> <span class="nav-text">Array对象实例方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#valueOf-方法和toString-方法"><span class="nav-number">3.2.1.</span> <span class="nav-text">valueOf 方法和toString 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concat-方法"><span class="nav-number">3.2.2.</span> <span class="nav-text">concat 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf-方法"><span class="nav-number">3.2.3.</span> <span class="nav-text">indexOf 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#push-方法和-pop-方法"><span class="nav-number">3.2.4.</span> <span class="nav-text">push 方法和 pop 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join-方法"><span class="nav-number">3.2.5.</span> <span class="nav-text">join 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shift-方法和unshift-方法"><span class="nav-number">3.2.6.</span> <span class="nav-text">shift 方法和unshift 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reverse-方法"><span class="nav-number">3.2.7.</span> <span class="nav-text">reverse 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slice-方法"><span class="nav-number">3.2.8.</span> <span class="nav-text">slice 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice-方法"><span class="nav-number">3.2.9.</span> <span class="nav-text">splice 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort-方法"><span class="nav-number">3.2.10.</span> <span class="nav-text">sort 方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boolean-对象"><span class="nav-number">4.</span> <span class="nav-text">Boolean 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number-对象"><span class="nav-number">5.</span> <span class="nav-text">Number 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Number属性"><span class="nav-number">5.1.</span> <span class="nav-text">Number属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-实例对象的方法"><span class="nav-number">5.2.</span> <span class="nav-text">Number 实例对象的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#toString-方法"><span class="nav-number">5.2.1.</span> <span class="nav-text">toString 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toFixed-方法"><span class="nav-number">5.2.2.</span> <span class="nav-text">toFixed 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toExponential-方法"><span class="nav-number">5.2.3.</span> <span class="nav-text">toExponential 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toPrecision-方法"><span class="nav-number">5.2.4.</span> <span class="nav-text">toPrecision 方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String对象"><span class="nav-number">6.</span> <span class="nav-text">String对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexinzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

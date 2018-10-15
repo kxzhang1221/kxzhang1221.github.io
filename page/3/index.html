@@ -259,186 +259,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/Vue/Vue目录版/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="🐎">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/30/Vue/Vue目录版/" itemprop="url">Vue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T14:21:36+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue-js/" itemprop="url" rel="index">
-                    <span itemprop="name">vue.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="数据绑定和Vue应用"><a href="#数据绑定和Vue应用" class="headerlink" title="数据绑定和Vue应用"></a>数据绑定和Vue应用</h2><h3 id="Vue实例与数据绑定"><a href="#Vue实例与数据绑定" class="headerlink" title="Vue实例与数据绑定"></a>Vue实例与数据绑定</h3><h4 id="Vue实例"><a href="#Vue实例" class="headerlink" title="Vue实例"></a>Vue实例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">    // 挂载点</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    // 数据</span><br><span class="line">    data: &#123;</span><br><span class="line">        msg: <span class="string">'Hello Vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 过滤器，配合&#123;&#123;data | filter&#125;&#125;使用</span><br><span class="line">    filters: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 方法</span><br><span class="line">    methods: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 计算属性</span><br><span class="line">    // 完成复杂的逻辑，运算、函数调用，返回一个结果</span><br><span class="line">    computed: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 监听</span><br><span class="line">    watch: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 实例创建完后调用，此阶段完成了数据的观测等，</span><br><span class="line">    // 但是尚未挂载，用于初始化一些数据</span><br><span class="line">    created: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // el挂载到实例上，第一个逻辑业务逻辑会在这里开始</span><br><span class="line">    mounted: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 实例销毁之前调用，主要绑定一些使用addEventListener监听事件</span><br><span class="line">    beforeDestroy: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="插值与表达式"><a href="#插值与表达式" class="headerlink" title="插值与表达式"></a>插值与表达式</h4><p>文本插值：双大括号语法 – 绑定属性值、简单运算、三元运算</p>
-<h4 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h4><p>用于格式化文本，比如字母全大写、货币千位使用逗号分隔等；<br>过滤的规则是自定义的，通过给Vue实例添加选项 <code>filters</code> 来设置，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">	&#123;&#123; data | formatDate &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>指令的主要职责就是当其表达式的值改变时，相应地将某些行为应用到DOM 上；</p>
-<h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>基本用途是动态更新HTML 元素上的属性；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a v-bind:href＝<span class="string">"url"</span>〉链接＜/a&gt;</span><br><span class="line">// 缩写</span><br><span class="line">&lt;a :href＝<span class="string">"url"</span>〉链接＜/a&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="绑定class的几种方法"><a href="#绑定class的几种方法" class="headerlink" title="绑定class的几种方法"></a>绑定class的几种方法</h4><h5 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:class=<span class="string">"&#123;'active': isActive, 'erroe': isError&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>当 <code>:class</code> 的表达式过长或逻辑复杂时，还可以绑定一个计算属性，通过计算属性返回一个对象；</p>
-<h5 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h5><p>给 <code>:class</code> 绑定一个数组，应用一个class列表；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div :class＝<span class="string">"[activeCls, errorCls]"</span>&gt;&lt;/div&gt;</span><br><span class="line">data: &#123;</span><br><span class="line">	active: <span class="string">'active'</span>,</span><br><span class="line">	errorCls: <span class="string">'error'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>同样可以使用data、computed、mothods三种方法。</p>
-<h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><p>用来绑定事件监听器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button v-on:click＝<span class="string">"handleClose"</span>＞点击隐藏＜/button&gt;</span><br><span class="line">// 缩写</span><br><span class="line">&lt;button @click＝<span class="string">"handleClose"</span>＞点击隐藏＜/button&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="v-once"><a href="#v-once" class="headerlink" title="v-once"></a>v-once</h3><p>v-once 是一个不需要表达式的指令，作用是定义它的元素或组件只渲染一次，包括元素或组件的所有子节点。首次渲染后，不再随数据的变化重新渲染，将被视为静态内容。</p>
-<h3 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h3><p>v-if、v-else-if、v-else：表达式的值为真时， 当前元素／组件及所有子节点将被渲染，为假时被移除；</p>
-<h3 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a>v-show</h3><p>v-show 是改变元素的css 属性display属性。<br>当v-show 表达式的值为false时，元素会隐藏，查看DOM结构会看到元素上加载了内联样式display: none;</p>
-<h4 id="v-if-与-v-show选择"><a href="#v-if-与-v-show选择" class="headerlink" title="v-if 与 v-show选择"></a>v-if 与 v-show选择</h4><p>v-if 才是真正的条件渲染，它会根据表达式适当地销毁或重建元素及绑定的事件或子组件。若表达式初始值为false ，则一开始元素／组件并不会渲染，只有当条件第一次变为真时才开始编译。</p>
-<p>v-show 只是简单的css属性切换，无论条件真与否，都会被编译。</p>
-<p>相比之下， v-if 更适合条件不经常改变的场景，因为它切换开销相对较大，而v-show 适用于频繁切换条件。</p>
-<h3 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h3><p>将一个数组遍历或枚举一个对象循环显示。</p>
-<blockquote>
-<p>语法：item in items</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=<span class="string">"(value, key, index) in items"</span>&gt;&lt;/li&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="数组更新"><a href="#数组更新" class="headerlink" title="数组更新"></a>数组更新</h4><p>Vue 包含了一组观察数组变异的方法，使用它们改变数组也会触发视图更新：</p>
-<ul>
-<li>push()</li>
-<li>pop()</li>
-<li>shift()</li>
-<li>unshift（）</li>
-<li>splice()</li>
-<li>sor（）</li>
-<li>reverse()</li>
-</ul>
-<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><blockquote>
-<p>计算属性里可以完成各种复杂的逻辑，包括运算、函数调用等，只要最终返回一个结果就可以</p>
-</blockquote>
-<p>计算属性还可以依赖多个Vue实例的数据，只要其中任一数据变化，计算属性就会重新执行，视图也会更新;</p>
-<p>计算属性两点技巧：<br>一是计算属性可以依赖其他计算属性；<br>二是计算属性不仅可以依赖当前Vue 实例的数据，还可以依赖其他实例的数据。</p>
-<p>计算属性依赖于缓存：一个计算属性所依赖的数据发生变化时，它才会重新取值，所以text只要不改变，计算属性也就不更新。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/Vue/Vue项目篇/sell外卖系统/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1726,6 +1546,137 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/Vue/Vue进阶篇/Vue_vue-cli自动构建vue项目/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐎">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/Vue/Vue进阶篇/Vue_vue-cli自动构建vue项目/" itemprop="url">vue-cli自动构建vue项目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T11:28:37+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装前所需要的环境：Node.js、npm、Git<br>node、git去相应的官网下载；<br>淘宝镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
+<p>安装好淘宝镜像，后续就可以使用 <code>cnpm</code> 指令。</p>
+<p>git配置用户名和邮箱<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name xxx</span><br><span class="line">git config --global user.email xxx</span><br></pre></td></tr></table></figure></p>
+<p>打开cmd，全局安装<code>vue-cli</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g vue-cli</span><br></pre></td></tr></table></figure></p>
+<p>查看安装状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vue --version</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">vue -V</span><br></pre></td></tr></table></figure></p>
+<p>显示版本号即为安装成功。</p>
+<p>vue创建项目的方式（6种）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue list</span><br></pre></td></tr></table></figure></p>
+<p>快速生成一个vue项目，需要跳转到需要创建vue项目的文件夹中：</p>
+<h3 id="官方模板"><a href="#官方模板" class="headerlink" title="官方模板"></a>官方模板</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vue init &lt;template-name&gt;(6个) &lt;project-name&gt;</span></span><br><span class="line">vue init webpack vue-lesson</span><br></pre></td></tr></table></figure>
+<p>生成一个vue-lesson的文件夹，里面的文件同webpack。</p>
+<p>进入项目文件夹，安装依赖：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> vue-lesson</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
+<p>开启一个测试服务器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1776,7 +1727,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

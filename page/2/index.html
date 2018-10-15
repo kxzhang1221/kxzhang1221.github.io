@@ -259,216 +259,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/18/NodeJs/Nodejs-anzhuang/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kexinzhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="🐎">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/18/NodeJs/Nodejs-anzhuang/" itemprop="url">Nodejs-模块化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-18T10:06:51+08:00">
-                2018-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Node-js/" itemprop="url" rel="index">
-                    <span itemprop="name">Node.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>第一部分：后端的规范与思想<br>第二部分：基础的API<br>第三部分：常用的框架<br>第四部分：Web项目<br>    1.接收Web请求<br>    2.处理业务逻辑<br>    3.文件操作<br>    4.数据库（Mysql关系数据库，MongoDB非关系数据库）<br>    5.反向代理服务器（ip哈希，轮询）<br>第五部分：大项目（vue + node.js）</p>
-<h3 id="后端的规范与思想"><a href="#后端的规范与思想" class="headerlink" title="后端的规范与思想"></a>后端的规范与思想</h3><p>后端的逻辑往往大于前端的逻辑；所以后端就需要分层。</p>
-<h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><ol>
-<li>Web层/controller层（Web层用于接收和发送Http请求，封装）</li>
-<li>业务逻辑层（服务层，XXXServer；）</li>
-<li>BAO层（）<br>DataBase（DB）：存数据<br>业务：对对象进行操作<br>如果要存储：对象 转为 数据<br>如果要读取：数据 转为 对象</li>
-<li>持久层：存在磁盘上<br>文件，数据库</li>
-</ol>
-<p>每层的命名：<br>Web层：LoginController（接收参数，判断是否非法，传给服务层）<br>服务层：LoginServer（获取这个用户的密码，进行比较）<br>BAO层：LoginDAO（从数据库库获取数据，并转换为对象）<br>Domain：User</p>
-<p>设计模式：单一职责原则</p>
-<h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><p>（1）ES6：导入和导出；ES3、ES5缺少模块化概念<br>（2）JS规范缺乏管理机制，Bootstrap，jQuery（Node有NPM）</p>
-<blockquote>
-<p>导入：require(“xxx”);<br>导出：module.exports = xxx;</p>
-</blockquote>
-<h4 id="exports-和-module-exports-的区别？"><a href="#exports-和-module-exports-的区别？" class="headerlink" title="exports 和 module.exports 的区别？"></a>exports 和 module.exports 的区别？</h4><ol>
-<li>module.exports 初始值为一个空对象 {}</li>
-<li>exports 是指向的 module.exports 的引用</li>
-<li>require() 返回的永远是 module.exports 而不是 exports</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var a = 123;</span><br><span class="line">var b = <span class="string">"abc"</span>;</span><br><span class="line">// 开闭原则 -- 对修改关闭，</span><br><span class="line"></span><br><span class="line">// module.exports 就是一个对象</span><br><span class="line">// module.exports = a;</span><br><span class="line">// module.exports = b; // 则第二次赋值会覆盖第一次</span><br><span class="line">// ==&gt;</span><br><span class="line">module.exports.a = a;</span><br><span class="line">module.exports.b = b;</span><br><span class="line">// 简写</span><br><span class="line">// exports.a = a;</span><br><span class="line">// exports.b = b;</span><br><span class="line"></span><br><span class="line">// module.exports 和 exports 有什么区别？</span><br><span class="line">// 情况一</span><br><span class="line">// module.exports 和 exports 指向同一空间地址</span><br><span class="line">// module.exports.a = a;</span><br><span class="line">// exports.b = b;  // <span class="built_in">test</span> = &#123;a = 123, b = <span class="string">"abc"</span>&#125;</span><br><span class="line"></span><br><span class="line">// // 情况二</span><br><span class="line">// module.exports = a;  // module.exports 由 &#123;&#125; 指向a</span><br><span class="line">// exports = b; // exports 由 &#123;&#125; 指向b // <span class="built_in">test</span> = 123</span><br><span class="line">// // 交换顺序</span><br><span class="line">// exports = b;</span><br><span class="line">// module.exports = a; // <span class="built_in">test</span> = 123</span><br><span class="line"></span><br><span class="line">// 当 module.exports 和 exports 指向不同空间，则导出的是module.exports</span><br><span class="line">// 导出的永远是module.exports ==&gt; 所以全部使用 module.exports</span><br></pre></td></tr></table></figure>
-<h4 id="模块的运行环境"><a href="#模块的运行环境" class="headerlink" title="模块的运行环境"></a>模块的运行环境</h4><blockquote>
-<p>NodeJs的模块是运行再一个函数当中的</p>
-</blockquote>
-<p>写一个模块：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">console.log(require)</span><br><span class="line">console.log(module);</span><br><span class="line">console.log(exports);</span><br><span class="line">console.log(__dirname); // C:\Users\Administrator\Desktop\Node\Node</span><br><span class="line">console.log(__filename); // C:\Users\Administrator\Desktop\Node\Node\index.js</span><br><span class="line"></span><br><span class="line">var a = 1;</span><br><span class="line">var b = 2;</span><br><span class="line"></span><br><span class="line">module.exports.a = a;</span><br><span class="line">module.exports.b = b;</span><br><span class="line"></span><br><span class="line">console.log(arguments);</span><br></pre></td></tr></table></figure></p>
-<p>该模块运行在一个函数中，函数形式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> xyz(exports, require, module, __filename, __dirname) &#123;</span><br><span class="line"></span><br><span class="line">    // ---</span><br><span class="line">    // 中间的内容是我们写的JS代码</span><br><span class="line">    console.log(require)</span><br><span class="line">    console.log(module);</span><br><span class="line">    console.log(exports);</span><br><span class="line">    console.log(__dirname);</span><br><span class="line">    console.log(__filename);</span><br><span class="line"></span><br><span class="line">    var a = 1;</span><br><span class="line">    var b = 2;</span><br><span class="line"></span><br><span class="line">    module.exports.a = a;</span><br><span class="line">    module.exports.b = b;</span><br><span class="line">	// ---</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> module.exports;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>exports, require, module, <strong>filename, </strong>dirname 这五个参数都不是全局变量，而是以函数的参数形式传进来的</p>
-</blockquote>
-<h3 id="API-net"><a href="#API-net" class="headerlink" title="API-net"></a>API-net</h3><p>五层网络模型：<br>应用层（http）-&gt; 运输层、传输层（tcp）-&gt; 网络层（ip）-&gt; 数据链路层 -&gt; 物理层</p>
-<p>HTTP协议和TCP/IP协议的关系：</p>
-<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><p>事件：</p>
-<ul>
-<li><code>listening</code></li>
-<li><code>connection</code></li>
-<li>close</li>
-<li>error</li>
-</ul>
-<p>方法：</p>
-<ul>
-<li>listen</li>
-<li>close</li>
-<li>address</li>
-</ul>
-<h4 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h4><p>事件：</p>
-<ul>
-<li>connect</li>
-<li>data</li>
-<li>end</li>
-<li>timeout</li>
-<li>error</li>
-<li>close</li>
-</ul>
-<p>属性：</p>
-<ul>
-<li>remoteAddress</li>
-<li>remotePort</li>
-<li>localAddress</li>
-<li>localPort</li>
-</ul>
-<p>方法：</p>
-<ul>
-<li>setTimeout</li>
-<li>write</li>
-<li>setEncoding</li>
-<li>end</li>
-</ul>
-<p>server.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var net = require(<span class="string">"net"</span>);</span><br><span class="line"></span><br><span class="line">var server = net.createServer();</span><br><span class="line">server.listen(12306, <span class="string">"127.0.0.1"</span>);</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"listening"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(server.address());</span><br><span class="line">    console.log(<span class="string">"服务已启动"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// server.on(<span class="string">"connection"</span>, <span class="keyword">function</span> (socket) &#123;</span><br><span class="line">//     console.log(<span class="string">"有新的链接"</span>);</span><br><span class="line">//     socket.on(<span class="string">"data"</span>, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">//         console.log(data.toString());</span><br><span class="line">//         socket.write(<span class="string">"hello client"</span>);</span><br><span class="line">//     &#125;)</span><br><span class="line">//     socket.on(<span class="string">"close"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">//         console.log(<span class="string">"客户端已关闭"</span>);</span><br><span class="line">//         server.close();</span><br><span class="line">//     &#125;)</span><br><span class="line">// &#125;)</span><br><span class="line"></span><br><span class="line">// server.on(<span class="string">"close"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">//     console.log(<span class="string">"服务器已关闭"</span>)</span><br><span class="line">// &#125;)</span><br></pre></td></tr></table></figure></p>
-<p>client.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var net = require(<span class="string">"net"</span>);</span><br><span class="line"></span><br><span class="line">var socket = net.connect(12306, <span class="string">"127.0.0.1"</span>)</span><br><span class="line">socket.setTimeout(2000);</span><br><span class="line"></span><br><span class="line">socket.on(<span class="string">"timeout"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(<span class="string">"超时了"</span>);</span><br><span class="line">    socket.end();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">socket.on(<span class="string">"connect"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(<span class="string">"已连接到服务器"</span>);</span><br><span class="line">    // console.log(socket.remoteAddress);</span><br><span class="line">    // console.log(socket.remotePort);</span><br><span class="line">    // console.log(socket.localAddress);</span><br><span class="line">    // console.log(socket.localPort);</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// socket.on(<span class="string">"data"</span>, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">//     console.log(data.toString());</span><br><span class="line">//     socket.end();</span><br><span class="line">// &#125;)</span><br><span class="line"></span><br><span class="line">// socket.on(<span class="string">"close"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">//     console.log(<span class="string">"连接已关闭"</span>);</span><br><span class="line">// &#125;)</span><br><span class="line"></span><br><span class="line">// socket.write(<span class="string">"hello server"</span>)</span><br></pre></td></tr></table></figure></p>
-<h3 id="API-HTTP"><a href="#API-HTTP" class="headerlink" title="API-HTTP"></a>API-HTTP</h3><p>浏览器作为客户端，启动一个服务器：<br>server.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var net = require(<span class="string">"net"</span>);</span><br><span class="line"></span><br><span class="line">var server = net.createServer();</span><br><span class="line">server.listen(12307, <span class="string">"127.0.0.1"</span>);</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"listening"</span>, <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    console.log(<span class="string">"服务已启动"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.on(<span class="string">"connection"</span>, <span class="keyword">function</span> (socket) &#123;</span><br><span class="line">    console.log(<span class="string">"有新的连接"</span>);</span><br><span class="line">    socket.on(<span class="string">"data"</span>, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">        // console.log(data.toString());</span><br><span class="line">        var request = data.toString().split(<span class="string">"\r\n"</span>);</span><br><span class="line">        var url = request[0].split(<span class="string">" "</span>)[1];</span><br><span class="line">        console.log(url);</span><br><span class="line">        socket.write(<span class="string">"HTTP 200OK\r\nConnect-type:text/html\r\nserver:DWS1.1\r\n\r\n&lt;html&gt;&lt;body&gt;hello brower&lt;/body&gt;&lt;/html&gt;"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/NodeJs/Nodejs-http-了不起的Nodejs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2712,6 +2502,186 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/Vue/Vue目录版/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kexinzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🐎">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/30/Vue/Vue目录版/" itemprop="url">Vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T14:21:36+08:00">
+                2018-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue-js/" itemprop="url" rel="index">
+                    <span itemprop="name">vue.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="数据绑定和Vue应用"><a href="#数据绑定和Vue应用" class="headerlink" title="数据绑定和Vue应用"></a>数据绑定和Vue应用</h2><h3 id="Vue实例与数据绑定"><a href="#Vue实例与数据绑定" class="headerlink" title="Vue实例与数据绑定"></a>Vue实例与数据绑定</h3><h4 id="Vue实例"><a href="#Vue实例" class="headerlink" title="Vue实例"></a>Vue实例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">    // 挂载点</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    // 数据</span><br><span class="line">    data: &#123;</span><br><span class="line">        msg: <span class="string">'Hello Vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // 过滤器，配合&#123;&#123;data | filter&#125;&#125;使用</span><br><span class="line">    filters: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 方法</span><br><span class="line">    methods: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 计算属性</span><br><span class="line">    // 完成复杂的逻辑，运算、函数调用，返回一个结果</span><br><span class="line">    computed: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 监听</span><br><span class="line">    watch: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 实例创建完后调用，此阶段完成了数据的观测等，</span><br><span class="line">    // 但是尚未挂载，用于初始化一些数据</span><br><span class="line">    created: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // el挂载到实例上，第一个逻辑业务逻辑会在这里开始</span><br><span class="line">    mounted: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // 实例销毁之前调用，主要绑定一些使用addEventListener监听事件</span><br><span class="line">    beforeDestroy: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="插值与表达式"><a href="#插值与表达式" class="headerlink" title="插值与表达式"></a>插值与表达式</h4><p>文本插值：双大括号语法 – 绑定属性值、简单运算、三元运算</p>
+<h4 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h4><p>用于格式化文本，比如字母全大写、货币千位使用逗号分隔等；<br>过滤的规则是自定义的，通过给Vue实例添加选项 <code>filters</code> 来设置，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">	&#123;&#123; data | formatDate &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>指令的主要职责就是当其表达式的值改变时，相应地将某些行为应用到DOM 上；</p>
+<h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>基本用途是动态更新HTML 元素上的属性；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a v-bind:href＝<span class="string">"url"</span>〉链接＜/a&gt;</span><br><span class="line">// 缩写</span><br><span class="line">&lt;a :href＝<span class="string">"url"</span>〉链接＜/a&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="绑定class的几种方法"><a href="#绑定class的几种方法" class="headerlink" title="绑定class的几种方法"></a>绑定class的几种方法</h4><h5 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:class=<span class="string">"&#123;'active': isActive, 'erroe': isError&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>当 <code>:class</code> 的表达式过长或逻辑复杂时，还可以绑定一个计算属性，通过计算属性返回一个对象；</p>
+<h5 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h5><p>给 <code>:class</code> 绑定一个数组，应用一个class列表；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div :class＝<span class="string">"[activeCls, errorCls]"</span>&gt;&lt;/div&gt;</span><br><span class="line">data: &#123;</span><br><span class="line">	active: <span class="string">'active'</span>,</span><br><span class="line">	errorCls: <span class="string">'error'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同样可以使用data、computed、mothods三种方法。</p>
+<h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><p>用来绑定事件监听器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button v-on:click＝<span class="string">"handleClose"</span>＞点击隐藏＜/button&gt;</span><br><span class="line">// 缩写</span><br><span class="line">&lt;button @click＝<span class="string">"handleClose"</span>＞点击隐藏＜/button&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="v-once"><a href="#v-once" class="headerlink" title="v-once"></a>v-once</h3><p>v-once 是一个不需要表达式的指令，作用是定义它的元素或组件只渲染一次，包括元素或组件的所有子节点。首次渲染后，不再随数据的变化重新渲染，将被视为静态内容。</p>
+<h3 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h3><p>v-if、v-else-if、v-else：表达式的值为真时， 当前元素／组件及所有子节点将被渲染，为假时被移除；</p>
+<h3 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a>v-show</h3><p>v-show 是改变元素的css 属性display属性。<br>当v-show 表达式的值为false时，元素会隐藏，查看DOM结构会看到元素上加载了内联样式display: none;</p>
+<h4 id="v-if-与-v-show选择"><a href="#v-if-与-v-show选择" class="headerlink" title="v-if 与 v-show选择"></a>v-if 与 v-show选择</h4><p>v-if 才是真正的条件渲染，它会根据表达式适当地销毁或重建元素及绑定的事件或子组件。若表达式初始值为false ，则一开始元素／组件并不会渲染，只有当条件第一次变为真时才开始编译。</p>
+<p>v-show 只是简单的css属性切换，无论条件真与否，都会被编译。</p>
+<p>相比之下， v-if 更适合条件不经常改变的场景，因为它切换开销相对较大，而v-show 适用于频繁切换条件。</p>
+<h3 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h3><p>将一个数组遍历或枚举一个对象循环显示。</p>
+<blockquote>
+<p>语法：item in items</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-for=<span class="string">"(value, key, index) in items"</span>&gt;&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="数组更新"><a href="#数组更新" class="headerlink" title="数组更新"></a>数组更新</h4><p>Vue 包含了一组观察数组变异的方法，使用它们改变数组也会触发视图更新：</p>
+<ul>
+<li>push()</li>
+<li>pop()</li>
+<li>shift()</li>
+<li>unshift（）</li>
+<li>splice()</li>
+<li>sor（）</li>
+<li>reverse()</li>
+</ul>
+<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><blockquote>
+<p>计算属性里可以完成各种复杂的逻辑，包括运算、函数调用等，只要最终返回一个结果就可以</p>
+</blockquote>
+<p>计算属性还可以依赖多个Vue实例的数据，只要其中任一数据变化，计算属性就会重新执行，视图也会更新;</p>
+<p>计算属性两点技巧：<br>一是计算属性可以依赖其他计算属性；<br>二是计算属性不仅可以依赖当前Vue 实例的数据，还可以依赖其他实例的数据。</p>
+<p>计算属性依赖于缓存：一个计算属性所依赖的数据发生变化时，它才会重新取值，所以text只要不改变，计算属性也就不更新。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2762,7 +2732,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
